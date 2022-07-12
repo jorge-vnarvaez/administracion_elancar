@@ -1,6 +1,6 @@
 <template>
   <div>
-    Elancar NET 1
+    Elancar NET 1222
   </div>
 </template>
 
