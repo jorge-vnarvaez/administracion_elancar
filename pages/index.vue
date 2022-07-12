@@ -1,6 +1,6 @@
 <template>
   <div>
-    Hola mundo 1asdasd
+    Elancar NET
   </div>
 </template>
 
