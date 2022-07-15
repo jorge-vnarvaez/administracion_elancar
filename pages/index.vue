@@ -58,6 +58,7 @@
 <script>
 export default {
   name: "IndexPage",
+  layout: 'login',
   data() {
     return {
       validado: false,
