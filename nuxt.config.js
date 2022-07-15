@@ -1,4 +1,14 @@
+const appEnv = process.env.NODE_ENV || 'development';
+
 export default {
+
+  publicRuntimeConfig: {
+    apiUrl: 'https://core.domhhv.cl'
+    // appEnv === 'development'
+    //  ? 'http://localhost:1338'
+    //  : 'https://core.domhhv.cl/'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'administracion_elancar',
@@ -29,13 +39,19 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    "@nuxtjs/vuetify",
+    '@nuxtjs/tailwindcss'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    'cookie-universal-nuxt'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  devServerHandlers: []
 }
