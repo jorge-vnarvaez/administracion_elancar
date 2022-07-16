@@ -1,3 +1,5 @@
+import colors from 'vuetify/es5/util/colors'
+
 const appEnv = process.env.NODE_ENV || 'development';
 
 export default {
@@ -28,6 +30,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/assets/vuetify_blocks.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -48,6 +51,24 @@ export default {
     '@nuxtjs/axios',
     'cookie-universal-nuxt'
   ],
+
+  vuetify: {
+    customVariables: ['~/assets/variables.scss', '~/assets/theme_fonts.scss'],
+    theme: {
+      dark: false,
+      themes: {
+        dark: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        }
+      }
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

@@ -5,10 +5,9 @@
     </div>
 
     <div class="col-span-6 flex flex-col justify-center items-center">
-
-      <div v-if="error.value" class="bg-red-400 p-4 mb-4">
-      <v-icon>mdi-information</v-icon>
-        <span>{{ error.errorMsg }}</span>
+      <div v-if="error.value" class="bg-red-500 px-6 py-2 mb-6">
+        <v-icon color="white" class="mr-1">mdi-information</v-icon>
+        <span class="text-white">{{ error.errorMsg }}</span>
       </div>
 
       <v-form
@@ -58,7 +57,7 @@
 <script>
 export default {
   name: "IndexPage",
-  layout: 'login',
+  layout: "login",
   data() {
     return {
       validado: false,
@@ -77,23 +76,21 @@ export default {
         const credenciales = {
           username: this.nombreUsuario,
           password: this.password,
-        }
+        };
 
-        const params = this.$route.query.redirect || '/home';
+        const params = this.$route.query.redirect || "/home";
 
         this.$store.dispatch("session/login", {
           credenciales: credenciales,
           params: params,
         });
-      } catch(e) {
-
-      }
+      } catch (e) {}
     },
   },
   computed: {
     error() {
-      return this.$store.getters['session/getError'];
-    }
-  }
+      return this.$store.getters["session/getError"];
+    },
+  },
 };
 </script>

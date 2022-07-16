@@ -6,7 +6,7 @@
 
     </div>
 
-    <BarraLateral v-if="barra" />
+    <BarraLateral v-if="barra" class="absolute"/>
   </div>
 </template>
 
