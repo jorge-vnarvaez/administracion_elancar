@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app class="app">
       <BarraApp />
       <Nuxt />
     </v-app>
@@ -16,5 +16,11 @@ export default {
 </script>
 
 <style>
+  .v-application {  
+    font-family: 'Poppins', sans-serif;
+  }
 
+  .text-5xl {
+    font-family: 'Montserrat', sans-serif;
+  }
 </style>
