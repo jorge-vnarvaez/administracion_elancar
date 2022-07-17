@@ -50,7 +50,8 @@ export default {
   modules: [
     '@nuxtjs/google-fonts',
     '@nuxtjs/axios',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    "jsdom-global"
   ],
 
   vuetify: {

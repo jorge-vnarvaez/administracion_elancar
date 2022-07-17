@@ -19,7 +19,6 @@ export default {
   .v-application {  
     font-family: 'Poppins', sans-serif;
   }
-
   .text-5xl {
     font-family: 'Montserrat', sans-serif;
   }

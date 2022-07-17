@@ -8,7 +8,7 @@
 
 <script>
 
-import MacroCategorias from '../components/MacroCategorias.vue';
+import MacroCategorias from '../components/categorias/MacroCategorias.vue';
 
 export default {
     middleware: "auth",
