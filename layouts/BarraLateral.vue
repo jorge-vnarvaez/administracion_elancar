@@ -1,7 +1,7 @@
 <template>
   <div v-if="user" class="grid grid-cols-12 z-10">
     <div
-      class="col-span-3 bg-yellow-400 px-8 py-8 h-[80vh] flex flex-col justify-between h-full"
+      class="col-span-3 bg-yellow-400 px-8 py-8 flex flex-col justify-between h-screen w-full"
     >
       <div>
         <div>
