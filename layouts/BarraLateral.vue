@@ -12,21 +12,14 @@
           >
         </div>
 
-              <div class="flex space-x-8">
-        <div class="flex align-center">
-          <v-icon class="mr-1">mdi-account-circle-outline</v-icon>
-          <button @click="desconectar">
-            <span class="font-bold">Editar perfil</span>
-          </button>
+        <div class="flex space-x-8">
+          <div class="flex align-center mt-4 justify-end">
+            <v-icon class="mr-1">mdi-logout</v-icon>
+            <button @click="desconectar">
+              <span class="font-bold">Cerrar sesión</span>
+            </button>
+          </div>
         </div>
-
-        <div class="flex align-center">
-          <v-icon class="mr-2">mdi-logout</v-icon>
-          <button @click="desconectar">
-            <span class="font-bold">Cerrar sesión</span>
-          </button>
-        </div>
-      </div>
 
         <div class="mt-10">
           <!--[VENTAS]-->
@@ -125,5 +118,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
