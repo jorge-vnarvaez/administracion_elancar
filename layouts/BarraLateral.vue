@@ -1,7 +1,7 @@
 <template>
-  <div v-if="user" class="grid grid-cols-12">
+  <div v-if="user" class="grid grid-cols-12 z-10">
     <div
-      class="col-span-3 bg-yellow-400 px-8 py-8 h-[80vh] flex flex-col justify-between"
+      class="col-span-3 bg-yellow-400 px-8 py-8 h-[80vh] flex flex-col justify-between h-full"
     >
       <div>
         <div>
@@ -11,6 +11,22 @@
             {{ user.apellido_paterno }} {{ user.apellido_materno }}</span
           >
         </div>
+
+              <div class="flex space-x-8">
+        <div class="flex align-center">
+          <v-icon class="mr-1">mdi-account-circle-outline</v-icon>
+          <button @click="desconectar">
+            <span class="font-bold">Editar perfil</span>
+          </button>
+        </div>
+
+        <div class="flex align-center">
+          <v-icon class="mr-2">mdi-logout</v-icon>
+          <button @click="desconectar">
+            <span class="font-bold">Cerrar sesión</span>
+          </button>
+        </div>
+      </div>
 
         <div class="mt-10">
           <!--[VENTAS]-->
@@ -79,22 +95,6 @@
             </div>
           </div>
           <!--[GESTION]-->
-        </div>
-      </div>
-
-      <div class="flex space-x-8">
-        <div class="flex align-center">
-          <v-icon class="mr-2">mdi-account-circle-outline</v-icon>
-          <button @click="desconectar">
-            <span class="font-bold">Editar perfil</span>
-          </button>
-        </div>
-
-        <div class="flex align-center">
-          <v-icon class="mr-2">mdi-logout</v-icon>
-          <button @click="desconectar">
-            <span class="font-bold">Cerrar sesión</span>
-          </button>
         </div>
       </div>
     </div>
