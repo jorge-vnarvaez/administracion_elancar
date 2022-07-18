@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-12 w-full h-screen">
     <div class="col-span-6">
-      <v-img src="/ferreteria-home.jpg" height="100%"></v-img>
+      <v-img src="/ferreteria-hero.jpeg" height="100%"></v-img>
     </div>
 
     <div class="col-span-6 flex flex-col justify-center items-center">

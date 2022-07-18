@@ -3,7 +3,6 @@
     <div class="bg-yellow-400 px-8 py-2">
       <v-icon v-if="!barra" @click="toggleBarra()">mdi-menu</v-icon>
       <v-icon v-if="barra" @click="toggleBarra()">mdi-close</v-icon>
-
     </div>
 
     <BarraLateral v-if="barra" class="absolute"/>
