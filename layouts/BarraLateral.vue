@@ -1,15 +1,15 @@
 <template>
-  <div v-if="user" class="grid grid-cols-12 z-10">
+  <div v-if="barra" class="grid grid-cols-12 z-10">
     <div
       class="col-span-3 bg-yellow-400 px-8 py-8 flex flex-col justify-between h-screen w-full"
     >
       <div>
         <div>
           <span class="block font-bold text-2xl">Bienvenid@</span>
-          <span class="block"
+          <!-- <span class="block"
             >{{ user.primer_nombre }} {{ user.segundo_nombre }}
             {{ user.apellido_paterno }} {{ user.apellido_materno }}</span
-          >
+          > -->
         </div>
 
         <div class="flex space-x-8">
@@ -49,7 +49,8 @@
           <div class="mt-8">
             <span class="block mb-2 font-bold text-xl">Compras</span>
             <div class="flex flex-col space-y-2">
-              <nuxt-link :to="{ name: 'cotizaciones-clientes' }"
+              <nuxt-link :to="{ name: 'solicitudes-solicitud_de_cotizacion' }"
+                @click="cerrarBarra()"
                 ><span class="text-neutral-900"
                   >Emitir solicitud de cotización</span
                 ></nuxt-link
@@ -102,6 +103,9 @@ export default {
     };
   },
   methods: {
+    cerrarBarra() {
+      this.$store.dispatch("ui/cerrarBarra");
+    },
     desconectar() {
       this.$store.dispatch("session/desconectar");
     },
@@ -114,6 +118,11 @@ export default {
         )}?populate=*`
       ).then((res) => res.json());
     }
+  },
+  computed: {
+    barra() {
+      return this.$store.getters["ui/getStatusBarra"];
+    },
   },
 };
 </script>

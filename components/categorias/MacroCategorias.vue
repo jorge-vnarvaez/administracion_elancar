@@ -3,10 +3,14 @@
     class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
     v-if="macro_categorias"
   >
-    <div
+    <nuxt-link
       v-for="macro_categoria in macro_categorias"
       :key="macro_categoria.id"
-      :class="`${macro_categoria.id == 1 ? 'row-span-2' : 'row-span-1'}` + ' col-span-4 rounded-md cursor-pointer'"
+      :to="`/macro_categorias/${macro_categoria.id}`"
+      :class="
+        `${macro_categoria.id == 1 ? 'row-span-2' : 'row-span-1'}` +
+        ' col-span-4 rounded-md cursor-pointer'
+      "
     >
       <v-img
         v-if="macro_categoria.attributes.imagen.data"
@@ -22,7 +26,7 @@
           macro_categoria.attributes.nombre
         }}</span>
       </v-img>
-    </div>
+    </nuxt-link>
   </div>
 </template>
 
@@ -45,5 +49,4 @@ export default {
 </script>
 
 <style>
-
 </style>
