@@ -156,8 +156,10 @@ export default {
     getMarcas() {
       this.marcas = [];
       this.productos.forEach((producto) => {
-        if (this.marcas.indexOf(producto.marca.nombre) === -1) {
-          this.marcas.push(producto.marca.nombre);
+        if (producto.marca) {
+          if (this.marcas.indexOf(producto.marca.nombre) === -1) {
+            this.marcas.push(producto.marca.nombre);
+          }
         }
       });
     },
@@ -198,7 +200,7 @@ export default {
     },
     filterProductos() {
       if (this.filtro_marca.length > 0) {
-        // filter by all marcas selected 
+        // filter by all marcas selected
         this.productos = this.productos.filter((producto) => {
           return this.filtro_marca.indexOf(producto.marca.nombre) !== -1;
         });
