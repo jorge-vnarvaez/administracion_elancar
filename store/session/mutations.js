@@ -1,10 +1,8 @@
 export default {
     setSession(state, data) {
-        this.$cookies.set('jwt', data.session.jwt);
-
-        const user = data.session.user;
-
-        this.$cookies.set('userId', user.id);
+        console.log(data);
+        this.$cookies.set('access_token', data.session.data.access_token);
+        this.$cookies.set('refresh_token', data.session.data.refresh_token);
 
         state.error = false;
 
@@ -13,8 +11,7 @@ export default {
         this.$router.push(data.params);
     },
     removeSession(state) {
-        this.$cookies.remove("userId");
-        this.$cookies.remove("jwt");
+        this.$cookies.remove("access_token");
 
         state.is_logged = false;
 

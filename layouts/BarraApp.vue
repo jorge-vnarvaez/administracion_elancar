@@ -1,18 +1,25 @@
 <template>
   <div>
-    <div class="bg-yellow-400 px-8 py-2 flex justify-between">
+    <div class="bg-yellow-400 px-8 py-2 flex justify-between align-center">
       <div>
         <v-icon v-if="!barra" @click="toggleBarra()">mdi-menu</v-icon>
         <v-icon v-if="barra" @click="toggleBarra()">mdi-close</v-icon>
       </div>
 
-      <div>
-        <v-icon>mdi-cart</v-icon>
-        <span>{{ numeroProductos }}</span>
-      </div>
-  </div>
+      <nuxt-link :to="{ name: 'carro_de_compras'}">
+        <div class="flex align-center justify-end">
+          <v-icon large color="black">mdi-cart</v-icon>
+          <span
+            class="block bg-neutral-900 h-6 w-6 rounded-full p-2 text-white font-bold text-center"
+            ><div class="h-full flex align-center justify-center">
+              {{ numeroProductos }}
+            </div></span
+          >
+        </div>
+      </nuxt-link>
+    </div>
 
-    <BarraLateral v-if="barra" class="absolute" />
+    <BarraLateral v-if="barra" :barra="barra" class="absolute" />
   </div>
 </template>
 
@@ -30,14 +37,11 @@ export default {
     barra() {
       return this.$store.getters["ui/getStatusBarra"];
     },
-    // use this computed property to get the number of products in the cart
-    // and display it in the header
     numeroProductos() {
-      return this.$store.getters["carro_compras/getNumeroDeProductos"];
+      return this.$store.getters["carro_compras/lengthCarro"];
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

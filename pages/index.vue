@@ -18,10 +18,10 @@
       >
         <div>
           <span class="block font-bold text-md uppercase mb-3"
-            >Nombre usuario</span
+            >Email</span
           >
           <v-text-field
-            v-model="nombreUsuario"
+            v-model="email"
             :rules="reglaNotNull"
             solo
             flat
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       validado: false,
-      nombreUsuario: null,
+      email: null,
       password: null,
       reglaNotNull: [(v) => !!v || "Este campo es obligatorio"],
     };
@@ -74,7 +74,7 @@ export default {
         this.$refs.formulario.validate();
 
         const credenciales = {
-          username: this.nombreUsuario,
+          email: this.email,
           password: this.password,
         };
 

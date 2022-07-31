@@ -12,20 +12,10 @@
         ' col-span-4 rounded-md cursor-pointer'
       "
     >
-      <v-img
-        v-if="macro_categoria.attributes.imagen.data"
-        width="300"
-        height="100%"
-        :src="
-          $config.apiUrl + macro_categoria.attributes.imagen.data.attributes.url
-        "
-        class="flex align-center items-center justify-center w-full rounded-md"
-        gradient="to top right, rgba(38, 42, 42, .33), rgba(25,32,72,.7)"
-      >
-        <span class="block w-full font-bold text-2xl text-center text-white">{{
-          macro_categoria.attributes.nombre
-        }}</span>
-      </v-img>
+
+      <span class="block w-full font-bold text-2xl text-center">{{
+        macro_categoria.nombre
+      }}</span>
     </nuxt-link>
   </div>
 </template>
@@ -40,7 +30,7 @@ export default {
   },
   async fetch() {
     const res = await fetch(
-      `${this.$config.apiUrl}/api/macro-categorias?populate=*`
+      `${this.$config.apiUrl}/items/macro_categorias`
     ).then((res) => res.json());
 
     this.macro_categorias = res.data;
@@ -48,5 +38,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

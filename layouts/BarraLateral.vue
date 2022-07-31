@@ -1,15 +1,12 @@
 <template>
-  <div v-if="barra" class="grid grid-cols-12 z-10">
+  <div v-if="user" class="grid grid-cols-12 z-10">
     <div
       class="col-span-3 bg-yellow-400 px-8 py-8 flex flex-col justify-between h-screen w-full"
     >
       <div>
         <div>
           <span class="block font-bold text-2xl">Bienvenid@</span>
-          <!-- <span class="block"
-            >{{ user.primer_nombre }} {{ user.segundo_nombre }}
-            {{ user.apellido_paterno }} {{ user.apellido_materno }}</span
-          > -->
+          <span class="block">{{ user.first_name }} {{ user.last_name }}</span>
         </div>
 
         <div class="flex space-x-8">
@@ -19,6 +16,12 @@
               <span class="font-bold">Cerrar sesión</span>
             </button>
           </div>
+        </div>
+
+        <div class="mt-10">
+          <nuxt-link :to="{ name: 'home' }" class="text-decoration-none"
+            ><span class="text-neutral-900" @click="toggleBarra()">Inicio</span></nuxt-link
+          >
         </div>
 
         <div class="mt-10">
@@ -38,8 +41,10 @@
                   >Ver notas de pedido</span
                 ></nuxt-link
               >
-              <nuxt-link :to="{ name: 'cotizaciones-clientes' }"
-                ><span class="text-neutral-900">Productos</span></nuxt-link
+              <nuxt-link :to="{ name: 'productos' }"
+                ><span class="text-neutral-900" @click="toggleBarra()"
+                  >Productos</span
+                ></nuxt-link
               >
             </div>
           </div>
@@ -50,8 +55,7 @@
             <span class="block mb-2 font-bold text-xl">Compras</span>
             <div class="flex flex-col space-y-2">
               <nuxt-link :to="{ name: 'solicitudes-solicitud_de_cotizacion' }"
-                @click="cerrarBarra()"
-                ><span class="text-neutral-900"
+                ><span class="text-neutral-900" @click="toggleBarra()"
                   >Emitir solicitud de cotización</span
                 ></nuxt-link
               >
@@ -60,8 +64,8 @@
                   >Ver solicitudes de cotización</span
                 ></nuxt-link
               >
-              <nuxt-link :to="{ name: 'cotizaciones-clientes' }"
-                ><span class="text-neutral-900"
+              <nuxt-link :to="'/ordenes/emitir/orden_de_compra'"
+                ><span class="text-neutral-900" @click="toggleBarra()"
                   >Emitir orden de compra</span
                 ></nuxt-link
               >
@@ -103,20 +107,22 @@ export default {
     };
   },
   methods: {
-    cerrarBarra() {
-      this.$store.dispatch("ui/cerrarBarra");
+    toggleBarra() {
+      this.$store.dispatch("ui/toggleBarra");
     },
     desconectar() {
       this.$store.dispatch("session/desconectar");
     },
   },
   async mounted() {
-    if (this.$cookies.get("userId")) {
-      this.user = await fetch(
-        `${this.$config.apiUrl}/api/users/${this.$cookies.get(
-          "userId"
-        )}?populate=*`
-      ).then((res) => res.json());
+    if (this.$cookies.get("access_token")) {
+      this.user = await this.$axios
+        .$get(`${this.$config.apiUrl}/users/me`, {
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get("access_token")}`,
+          },
+        })
+        .then((res) => res.data);
     }
   },
   computed: {

@@ -5,7 +5,7 @@ const appEnv = process.env.NODE_ENV || 'development';
 export default {
 
   publicRuntimeConfig: {
-    apiUrl: 'https://core.domhhv.cl'
+    apiUrl: 'https://corev2.domhhv.cl'
     // appEnv === 'development'
     //  ? 'http://localhost:1338'
     //  : 'https://core.domhhv.cl/'

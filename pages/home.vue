@@ -11,7 +11,7 @@
 import MacroCategorias from '../components/categorias/MacroCategorias.vue';
 
 export default {
-    middleware: "auth",
+    middleware: ["auth"],
     components: { MacroCategorias },
     methods: {
         desconectar() {

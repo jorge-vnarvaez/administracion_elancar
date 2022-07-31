@@ -1,13 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Categorias Components -> MacroCategorias should be render 1`] = `
+exports[`Categorias Components -> MacroCategorias deberia renderizar 1`] = `
 VueComponent {
   "$attrs": Object {},
   "$children": Array [],
   "$createElement": [Function],
-  "$el": <div
-    class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-  />,
+  "$el": <div />,
   "$emit": [Function],
   "$listeners": Object {},
   "$options": Object {
@@ -31,9 +29,7 @@ VueComponent {
           [Circular],
         ],
         "$createElement": [Function],
-        "$el": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "$el": <div />,
         "$emit": [Function],
         "$listeners": Object {},
         "$options": Object {
@@ -356,9 +352,7 @@ VueComponent {
             [Circular],
           ],
           "$createElement": [Function],
-          "$el": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "$el": <div />,
           "$emit": [Function],
           "$listeners": Object {},
           "$options": Object {
@@ -870,9 +864,7 @@ VueComponent {
           "_normalized": Object {},
         },
       },
-      "elm": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "elm": <div />,
       "fnContext": undefined,
       "fnOptions": undefined,
       "fnScopeId": undefined,
@@ -896,9 +888,7 @@ VueComponent {
         [Circular],
       ],
       "$createElement": [Function],
-      "$el": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "$el": <div />,
       "$emit": [Function],
       "$listeners": Object {},
       "$options": Object {
@@ -1221,9 +1211,7 @@ VueComponent {
           [Circular],
         ],
         "$createElement": [Function],
-        "$el": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "$el": <div />,
         "$emit": [Function],
         "$listeners": Object {},
         "$options": Object {
@@ -1616,9 +1604,7 @@ VueComponent {
               "_normalized": Object {},
             },
           },
-          "elm": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "elm": <div />,
           "fnContext": undefined,
           "fnOptions": undefined,
           "fnScopeId": undefined,
@@ -1751,9 +1737,7 @@ VueComponent {
             "_normalized": Object {},
           },
         },
-        "elm": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "elm": <div />,
         "fnContext": undefined,
         "fnOptions": undefined,
         "fnScopeId": undefined,
@@ -1819,9 +1803,7 @@ VueComponent {
       [Circular],
     ],
     "$createElement": [Function],
-    "$el": <div
-      class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-    />,
+    "$el": <div />,
     "$emit": [Function],
     "$listeners": Object {},
     "$options": Object {
@@ -2144,9 +2126,7 @@ VueComponent {
         [Circular],
       ],
       "$createElement": [Function],
-      "$el": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "$el": <div />,
       "$emit": [Function],
       "$listeners": Object {},
       "$options": Object {
@@ -2539,9 +2519,7 @@ VueComponent {
             "_normalized": Object {},
           },
         },
-        "elm": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "elm": <div />,
         "fnContext": undefined,
         "fnOptions": undefined,
         "fnScopeId": undefined,
@@ -2674,9 +2652,7 @@ VueComponent {
           "_normalized": Object {},
         },
       },
-      "elm": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "elm": <div />,
       "fnContext": undefined,
       "fnOptions": undefined,
       "fnScopeId": undefined,
@@ -2741,9 +2717,7 @@ VueComponent {
       [Circular],
     ],
     "$createElement": [Function],
-    "$el": <div
-      class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-    />,
+    "$el": <div />,
     "$emit": [Function],
     "$listeners": Object {},
     "$options": Object {
@@ -3066,9 +3040,7 @@ VueComponent {
         [Circular],
       ],
       "$createElement": [Function],
-      "$el": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "$el": <div />,
       "$emit": [Function],
       "$listeners": Object {},
       "$options": Object {
@@ -3461,9 +3433,7 @@ VueComponent {
             "_normalized": Object {},
           },
         },
-        "elm": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "elm": <div />,
         "fnContext": undefined,
         "fnOptions": undefined,
         "fnScopeId": undefined,
@@ -3596,9 +3566,7 @@ VueComponent {
           "_normalized": Object {},
         },
       },
-      "elm": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "elm": <div />,
       "fnContext": undefined,
       "fnOptions": undefined,
       "fnScopeId": undefined,
@@ -3676,9 +3644,7 @@ VueComponent {
         [Circular],
       ],
       "$createElement": [Function],
-      "$el": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "$el": <div />,
       "$emit": [Function],
       "$listeners": Object {},
       "$options": Object {
@@ -4001,9 +3967,7 @@ VueComponent {
           [Circular],
         ],
         "$createElement": [Function],
-        "$el": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "$el": <div />,
         "$emit": [Function],
         "$listeners": Object {},
         "$options": Object {
@@ -4515,9 +4479,7 @@ VueComponent {
         "_normalized": Object {},
       },
     },
-    "elm": <div
-      class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-    />,
+    "elm": <div />,
     "fnContext": undefined,
     "fnOptions": undefined,
     "fnScopeId": undefined,
@@ -4554,9 +4516,7 @@ VueComponent {
     "$attrs": Object {},
     "$children": Array [],
     "$createElement": [Function],
-    "$el": <div
-      class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-    />,
+    "$el": <div />,
     "$emit": [Function],
     "$listeners": Object {},
     "$options": Object {
@@ -4580,9 +4540,7 @@ VueComponent {
             [Circular],
           ],
           "$createElement": [Function],
-          "$el": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "$el": <div />,
           "$emit": [Function],
           "$listeners": Object {},
           "$options": Object {
@@ -4905,9 +4863,7 @@ VueComponent {
               [Circular],
             ],
             "$createElement": [Function],
-            "$el": <div
-              class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-            />,
+            "$el": <div />,
             "$emit": [Function],
             "$listeners": Object {},
             "$options": Object {
@@ -5419,9 +5375,7 @@ VueComponent {
             "_normalized": Object {},
           },
         },
-        "elm": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "elm": <div />,
         "fnContext": undefined,
         "fnOptions": undefined,
         "fnScopeId": undefined,
@@ -5445,9 +5399,7 @@ VueComponent {
           [Circular],
         ],
         "$createElement": [Function],
-        "$el": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "$el": <div />,
         "$emit": [Function],
         "$listeners": Object {},
         "$options": Object {
@@ -5770,9 +5722,7 @@ VueComponent {
             [Circular],
           ],
           "$createElement": [Function],
-          "$el": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "$el": <div />,
           "$emit": [Function],
           "$listeners": Object {},
           "$options": Object {
@@ -6165,9 +6115,7 @@ VueComponent {
                 "_normalized": Object {},
               },
             },
-            "elm": <div
-              class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-            />,
+            "elm": <div />,
             "fnContext": undefined,
             "fnOptions": undefined,
             "fnScopeId": undefined,
@@ -6300,9 +6248,7 @@ VueComponent {
               "_normalized": Object {},
             },
           },
-          "elm": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "elm": <div />,
           "fnContext": undefined,
           "fnOptions": undefined,
           "fnScopeId": undefined,
@@ -6368,9 +6314,7 @@ VueComponent {
         [Circular],
       ],
       "$createElement": [Function],
-      "$el": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "$el": <div />,
       "$emit": [Function],
       "$listeners": Object {},
       "$options": Object {
@@ -6693,9 +6637,7 @@ VueComponent {
           [Circular],
         ],
         "$createElement": [Function],
-        "$el": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "$el": <div />,
         "$emit": [Function],
         "$listeners": Object {},
         "$options": Object {
@@ -7088,9 +7030,7 @@ VueComponent {
               "_normalized": Object {},
             },
           },
-          "elm": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "elm": <div />,
           "fnContext": undefined,
           "fnOptions": undefined,
           "fnScopeId": undefined,
@@ -7223,9 +7163,7 @@ VueComponent {
             "_normalized": Object {},
           },
         },
-        "elm": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "elm": <div />,
         "fnContext": undefined,
         "fnOptions": undefined,
         "fnScopeId": undefined,
@@ -7290,9 +7228,7 @@ VueComponent {
         [Circular],
       ],
       "$createElement": [Function],
-      "$el": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "$el": <div />,
       "$emit": [Function],
       "$listeners": Object {},
       "$options": Object {
@@ -7615,9 +7551,7 @@ VueComponent {
           [Circular],
         ],
         "$createElement": [Function],
-        "$el": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "$el": <div />,
         "$emit": [Function],
         "$listeners": Object {},
         "$options": Object {
@@ -8010,9 +7944,7 @@ VueComponent {
               "_normalized": Object {},
             },
           },
-          "elm": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "elm": <div />,
           "fnContext": undefined,
           "fnOptions": undefined,
           "fnScopeId": undefined,
@@ -8145,9 +8077,7 @@ VueComponent {
             "_normalized": Object {},
           },
         },
-        "elm": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "elm": <div />,
         "fnContext": undefined,
         "fnOptions": undefined,
         "fnScopeId": undefined,
@@ -8225,9 +8155,7 @@ VueComponent {
           [Circular],
         ],
         "$createElement": [Function],
-        "$el": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "$el": <div />,
         "$emit": [Function],
         "$listeners": Object {},
         "$options": Object {
@@ -8550,9 +8478,7 @@ VueComponent {
             [Circular],
           ],
           "$createElement": [Function],
-          "$el": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "$el": <div />,
           "$emit": [Function],
           "$listeners": Object {},
           "$options": Object {
@@ -9064,9 +8990,7 @@ VueComponent {
           "_normalized": Object {},
         },
       },
-      "elm": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "elm": <div />,
       "fnContext": undefined,
       "fnOptions": undefined,
       "fnScopeId": undefined,
@@ -9109,24 +9033,8 @@ VueComponent {
           "before": [Function],
           "cb": [Function],
           "deep": false,
-          "depIds": Set {
-            8,
-            9,
-          },
-          "deps": Array [
-            Dep {
-              "id": 8,
-              "subs": Array [
-                [Circular],
-              ],
-            },
-            Dep {
-              "id": 9,
-              "subs": Array [
-                [Circular],
-              ],
-            },
-          ],
+          "depIds": Set {},
+          "deps": Array [],
           "dirty": false,
           "expression": "() => {
             vm._update(vm._render(), hydrating);
@@ -9151,16 +9059,12 @@ VueComponent {
     "_vnode": VNode {
       "asyncFactory": undefined,
       "asyncMeta": undefined,
-      "children": Array [],
+      "children": undefined,
       "componentInstance": undefined,
       "componentOptions": undefined,
       "context": [Circular],
-      "data": Object {
-        "staticClass": "mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96",
-      },
-      "elm": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "data": undefined,
+      "elm": <div />,
       "fnContext": undefined,
       "fnOptions": undefined,
       "fnScopeId": undefined,
@@ -9190,9 +9094,7 @@ VueComponent {
             [Circular],
           ],
           "$createElement": [Function],
-          "$el": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "$el": <div />,
           "$emit": [Function],
           "$listeners": Object {},
           "$options": Object {
@@ -9515,9 +9417,7 @@ VueComponent {
               [Circular],
             ],
             "$createElement": [Function],
-            "$el": <div
-              class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-            />,
+            "$el": <div />,
             "$emit": [Function],
             "$listeners": Object {},
             "$options": Object {
@@ -10029,9 +9929,7 @@ VueComponent {
             "_normalized": Object {},
           },
         },
-        "elm": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "elm": <div />,
         "fnContext": undefined,
         "fnOptions": undefined,
         "fnScopeId": undefined,
@@ -10057,24 +9955,8 @@ VueComponent {
       "before": [Function],
       "cb": [Function],
       "deep": false,
-      "depIds": Set {
-        8,
-        9,
-      },
-      "deps": Array [
-        Dep {
-          "id": 8,
-          "subs": Array [
-            [Circular],
-          ],
-        },
-        Dep {
-          "id": 9,
-          "subs": Array [
-            [Circular],
-          ],
-        },
-      ],
+      "depIds": Set {},
+      "deps": Array [],
       "dirty": false,
       "expression": "() => {
             vm._update(vm._render(), hydrating);
@@ -10102,24 +9984,8 @@ VueComponent {
         "before": [Function],
         "cb": [Function],
         "deep": false,
-        "depIds": Set {
-          8,
-          9,
-        },
-        "deps": Array [
-          Dep {
-            "id": 8,
-            "subs": Array [
-              [Circular],
-            ],
-          },
-          Dep {
-            "id": 9,
-            "subs": Array [
-              [Circular],
-            ],
-          },
-        ],
+        "depIds": Set {},
+        "deps": Array [],
         "dirty": false,
         "expression": "() => {
             vm._update(vm._render(), hydrating);
@@ -10144,16 +10010,12 @@ VueComponent {
   "_vnode": VNode {
     "asyncFactory": undefined,
     "asyncMeta": undefined,
-    "children": Array [],
+    "children": undefined,
     "componentInstance": undefined,
     "componentOptions": undefined,
     "context": [Circular],
-    "data": Object {
-      "staticClass": "mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96",
-    },
-    "elm": <div
-      class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-    />,
+    "data": undefined,
+    "elm": <div />,
     "fnContext": undefined,
     "fnOptions": undefined,
     "fnScopeId": undefined,
@@ -10183,9 +10045,7 @@ VueComponent {
           [Circular],
         ],
         "$createElement": [Function],
-        "$el": <div
-          class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-        />,
+        "$el": <div />,
         "$emit": [Function],
         "$listeners": Object {},
         "$options": Object {
@@ -10508,9 +10368,7 @@ VueComponent {
             [Circular],
           ],
           "$createElement": [Function],
-          "$el": <div
-            class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-          />,
+          "$el": <div />,
           "$emit": [Function],
           "$listeners": Object {},
           "$options": Object {
@@ -11022,9 +10880,7 @@ VueComponent {
           "_normalized": Object {},
         },
       },
-      "elm": <div
-        class="mt-8 grid grid-cols-12 grid-rows-2 gap-x-4 gap-y-4 h-96"
-      />,
+      "elm": <div />,
       "fnContext": undefined,
       "fnOptions": undefined,
       "fnScopeId": undefined,
@@ -11050,24 +10906,8 @@ VueComponent {
     "before": [Function],
     "cb": [Function],
     "deep": false,
-    "depIds": Set {
-      8,
-      9,
-    },
-    "deps": Array [
-      Dep {
-        "id": 8,
-        "subs": Array [
-          [Circular],
-        ],
-      },
-      Dep {
-        "id": 9,
-        "subs": Array [
-          [Circular],
-        ],
-      },
-    ],
+    "depIds": Set {},
+    "deps": Array [],
     "dirty": false,
     "expression": "() => {
             vm._update(vm._render(), hydrating);
