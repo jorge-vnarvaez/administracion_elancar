@@ -2,8 +2,8 @@
   <div
     class="cursor-pointer"
   >
-    <font-awesome-icon v-if="opciones == false" @click="opciones = true" icon="fa-solid fa-store" size="2xl" />
-    <font-awesome-icon v-if="opciones != false" @click="opciones = false" icon="fa-solid fa-xmark" size="2xl" />
+    <!-- <font-awesome-icon v-if="opciones == false" @click="opciones = true" icon="fa-solid fa-store" size="2xl" />
+    <font-awesome-icon v-if="opciones != false" @click="opciones = false" icon="fa-solid fa-xmark" size="2xl" /> -->
     <div
       v-if="opciones"
       class="bg-yellow-200 w-60 h-54 absolute left-16 z-10 rounded-lg shadow-lg"

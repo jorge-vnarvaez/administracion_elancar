@@ -1,7 +1,7 @@
 <template>
     <div class="bg-white rounded-lg shadow-md p-8 flex space-x-4 align-center">
         <div class="shadow-md p-4">
-            <font-awesome-icon :icon="icon" size="lg"></font-awesome-icon>
+            <!-- <font-awesome-icon :icon="icon" size="lg"></font-awesome-icon> -->
         </div>
         <div>
             <span class="block font-semibold">{{ label }}</span>

@@ -65,7 +65,7 @@
         class="uppercase bg-neutral-900 text-white font-bold px-4 py-2"
         @click="agregarAlCarrito(producto, cantidad)"
       >
-        <font-awesome-icon icon="fa-solid fa-cart-plus" color="white" />
+        <!-- <font-awesome-icon icon="fa-solid fa-cart-plus" color="white" /> -->
       </button>
     </div>
     <!-- AGREGAR -->

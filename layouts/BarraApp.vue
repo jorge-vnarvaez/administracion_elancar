@@ -4,11 +4,11 @@
   >
     <!-- HOME -->
     <nuxt-link to="home">
-      <font-awesome-icon
+      <!-- <font-awesome-icon
         icon="fa-solid fa-house"
         size="2xl"
         class="text-black"
-      />
+      /> -->
     </nuxt-link>
     <!-- HOME -->
 
@@ -22,7 +22,7 @@
 
     <!-- CARRO COMPRAS -->
     <nuxt-link to="carro_de_compras">
-      <font-awesome-icon icon="fa-solid fa-cart-shopping" size="2xl" color="black" />
+      <!-- <font-awesome-icon icon="fa-solid fa-cart-shopping" size="2xl" color="black" /> -->
     </nuxt-link>
     <!-- CARRO COMPRAS -->
 
