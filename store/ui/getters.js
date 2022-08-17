@@ -1,5 +1,5 @@
 export default {
-    getStatusBarra(state) {
-        return state.mostrarBarra;
+    getStatusOpciones(state) {
+        return state.mostrarOpciones
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="py-12 flex justify-center">
+  <div class="p-24">
     <div class="w-8/12">
       <span class="font-bold text-4xl">Listado de productos</span>
       <!--[BUSCADOR]-->
@@ -11,7 +11,6 @@
           append-icon="mdi-magnify"
           solo
           flat
-          outlined
           clearable
         ></v-text-field>
       </div>
@@ -19,7 +18,7 @@
 
       <!--[TABLE HEADERS]-->
       <div class="grid grid-cols-12 mb-4 px-4">
-        <div class="col-span-3">
+        <div class="col-span-4">
           <span class="font-bold">Nombre</span>
         </div>
 
@@ -28,15 +27,21 @@
         </div>
 
         <div class="col-span-2">
+          <span class="font-bold">Stock</span>
+        </div>
+
+        <div class="col-span-2">
           <span class="font-bold">Cantidad</span>
         </div>
 
-        <div class="col-span-3"></div>
+        
+
+        <div class="col-span-2"></div>
       </div>
       <!--[TABLE HEADERS]-->
 
       <!--[TABLE CONTENT]-->
-      <div v-for="(producto, index) in productos" :key="producto.id">
+      <div v-for="(producto, index) in productos.slice((itemsPerPage * page) - itemsPerPage, itemsPerPage * page)" :key="producto.id">
         <producto-table-item
           :producto="producto"
           :index="index"
@@ -44,6 +49,10 @@
         />
       </div>
       <!--[TABLE CONTENT]-->
+
+      <!--[PAGINATION]-->
+      <v-pagination v-model="page" :length="productos.length / itemsPerPage"></v-pagination>
+      <!--[PAGINATION]-->
     </div>
   </div>
 </template>
@@ -59,6 +68,8 @@ export default {
     return {
       buscador: "",
       cantidad: 0,
+      page: 1,
+      itemsPerPage: 10,
     };
   },
   methods: {
@@ -86,7 +97,7 @@ export default {
       this.productos = await this.$axios
         .$get(
           `${this.$config.apiUrl}/items/productos${
-            queryBuscador == '' ? "" : `?${query}`
+            queryBuscador == "" ? "" : `?${query}`
           }`
         )
         .then((res) => res.data);
@@ -94,7 +105,7 @@ export default {
   },
   watch: {
     buscador: function (val) {
-      val = val != null ? val : '';
+      val = val != null ? val : "";
       this.filterProductos(val);
     },
   },

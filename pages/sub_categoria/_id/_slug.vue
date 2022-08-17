@@ -198,6 +198,7 @@ export default {
         this.$nuxt.refresh();
       }
     },
+    
     filterProductos() {
       if (this.filtro_marca.length > 0) {
         // filter by all marcas selected

@@ -11,6 +11,21 @@ export default {
             commit('hasLoginError');
         }
     },
+    async current({ commit }) {
+        try {
+            const { data } = await this.$axios.get(`${this.$config.apiUrl}/users/me`, {
+                headers: {
+                    Authorization: `Bearer ${this.$cookies.get('access_token')}`,
+                },
+            });
+
+            commit('setCurrentUser', { data });
+
+        } catch(e) {
+
+        }
+    
+    },
     desconectar({ commit }) {
         commit('removeSession');
     }

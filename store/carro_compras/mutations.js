@@ -4,12 +4,20 @@ export default {
     },
     // Add product to cart
     addProductToCart(state, { producto, cantidad }) {
-        if (!state.carroCompras.find((item) => item.producto.id == producto.id)) {
-            state.carroCompras.push({ producto, cantidad })
+
+        state.carroCompras = state.carroCompras || [];
+
+        if (state.carroCompras.length > 0) {
+            if (!state.carroCompras.find((item) => item.producto.id == producto.id)) {
+                state.carroCompras.push({ producto, cantidad })
+            } else {
+                state.carroCompras.find((item) => item.producto.id == producto.id).cantidad = cantidad
+                state.carroCompras.find((item) => item.producto.id == producto.id).producto = producto
+            }
         } else {
-            state.carroCompras.find((item) => item.producto.id == producto.id).cantidad = cantidad
-            state.carroCompras.find((item) => item.producto.id == producto.id).producto = producto
+            state.carroCompras.push({ producto, cantidad })
         }
+
         this.$cookies.set('carroCompras', state.carroCompras);
     },
     // Remove product from cart

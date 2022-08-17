@@ -4,5 +4,8 @@ export default {
             value: state.error,
             errorMsg: state.errorMsg,
         }
+    },
+    getUser(state) {
+        return state.user;
     }
 }

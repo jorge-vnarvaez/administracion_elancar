@@ -1,8 +1,5 @@
 export default {
-    toggleBarra({ commit }) {
-        commit('toggleBarra');
-    },
-    cerrarBarra({ commit }) {
-        commit('cerrarBarra');
+    toggleOpciones({ commit }) {
+        commit('toggleOpciones')
     }
 }

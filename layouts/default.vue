@@ -1,7 +1,7 @@
 <template>
-  <v-app class="app">
-    <BarraApp />
-    <Nuxt class="bg-neutral-100" />
+  <v-app class="app relative">
+    <BarraApp class="absolute" />
+    <Nuxt class="bg-neutral-100 absolute left-14" />
   </v-app>
 </template>
 

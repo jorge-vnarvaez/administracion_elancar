@@ -1,45 +1,42 @@
 <template>
-  <div>
-    <div class="bg-yellow-400 px-8 py-2 flex justify-between align-center">
-      <div>
-        <v-icon v-if="!barra" @click="toggleBarra()">mdi-menu</v-icon>
-        <v-icon v-if="barra" @click="toggleBarra()">mdi-close</v-icon>
-      </div>
+  <div
+    class="bg-yellow-400 h-screen w-14 flex flex-col align-center space-y-4 relative"
+  >
+    <!-- HOME -->
+    <nuxt-link to="home">
+      <font-awesome-icon
+        icon="fa-solid fa-house"
+        size="2xl"
+        class="text-black"
+      />
+    </nuxt-link>
+    <!-- HOME -->
 
-      <nuxt-link :to="{ name: 'carro_de_compras'}">
-        <div class="flex align-center justify-end">
-          <v-icon large color="black">mdi-cart</v-icon>
-          <span
-            class="block bg-neutral-900 h-6 w-6 rounded-full p-2 text-white font-bold text-center"
-            ><div class="h-full flex align-center justify-center">
-              {{ numeroProductos }}
-            </div></span
-          >
-        </div>
-      </nuxt-link>
-    </div>
+    <!-- MENU VENTAS -->
+    <menu-ventas />
+    <!-- MENU VENTAS -->
 
-    <BarraLateral v-if="barra" :barra="barra" class="absolute" />
+    <!-- MENU COMPRAS -->
+    <!-- <menu-compras /> -->
+    <!-- MENU COMPRAS -->
+
+    <!-- CARRO COMPRAS -->
+    <nuxt-link to="carro_de_compras">
+      <font-awesome-icon icon="fa-solid fa-cart-shopping" size="2xl" color="black" />
+    </nuxt-link>
+    <!-- CARRO COMPRAS -->
+
   </div>
 </template>
 
 <script>
-import BarraLateral from "./BarraLateral.vue";
+import MenuCompras from "@/components/menus/MenuCompras.vue";
+import MenuVentas from "@/components/menus/MenuVentas.vue";
 
 export default {
-  components: { BarraLateral },
-  methods: {
-    toggleBarra() {
-      this.$store.dispatch("ui/toggleBarra");
-    },
-  },
-  computed: {
-    barra() {
-      return this.$store.getters["ui/getStatusBarra"];
-    },
-    numeroProductos() {
-      return this.$store.getters["carro_compras/lengthCarro"];
-    },
+  components: {
+    MenuCompras,
+    MenuVentas,
   },
 };
 </script>

@@ -1,6 +1,5 @@
 export default {
     setSession(state, data) {
-        console.log(data);
         this.$cookies.set('access_token', data.session.data.access_token);
         this.$cookies.set('refresh_token', data.session.data.refresh_token);
 
@@ -9,6 +8,9 @@ export default {
         state.is_logged = true;
 
         this.$router.push(data.params);
+    },
+    setCurrentUser(state, { data }) {
+        state.user = data.data;
     },
     removeSession(state) {
         this.$cookies.remove("access_token");

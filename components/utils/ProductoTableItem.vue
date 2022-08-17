@@ -1,14 +1,17 @@
 <template>
   <div class="grid grid-cols-12">
+    <!-- NOMBRE -->
     <div
       :class="
         `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
-        ' col-span-3 py-4 px-4'
+        ' col-span-4 py-4 px-4'
       "
     >
       {{ producto.nombre }}
     </div>
+    <!-- NOMBRE -->
 
+    <!-- PRECIO NETO -->
     <div
       :class="
         `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
@@ -17,6 +20,20 @@
     >
       $ {{ producto.precio_actual }}
     </div>
+    <!-- PRECIO NETO -->
+
+    <!-- STOCK -->
+    <div
+      :class="
+        `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
+        ' col-span-2 py-4 px-4'
+      "
+    >
+      {{ producto.stock || 0}}
+    </div>
+    <!-- STOCK -->
+
+    <!-- CANTIDAD -->
     <div
       :class="
         `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
@@ -35,20 +52,24 @@
         <v-icon @click="aumentarCantidad()">mdi-plus</v-icon>
       </div>
     </div>
+    <!-- CANTIDAD -->
 
+    <!-- AGREGAR -->
     <div
       :class="
         `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
-        ' col-span-3 py-4 px-4'
+        ' col-span-2 py-4 px-4'
       "
     >
       <button
         class="uppercase bg-neutral-900 text-white font-bold px-4 py-2"
         @click="agregarAlCarrito(producto, cantidad)"
       >
-        Agregar al carrito
+        <font-awesome-icon icon="fa-solid fa-cart-plus" color="white" />
       </button>
     </div>
+    <!-- AGREGAR -->
+
   </div>
 </template>
 
@@ -70,7 +91,7 @@ export default {
     agregarAlCarrito(producto, cantidad) {
       this.$store.dispatch("carro_compras/addProductToCart", {
         producto: producto,
-        cantidad: cantidad,
+        cantidad: parseInt(cantidad),
       });
     },
   },
