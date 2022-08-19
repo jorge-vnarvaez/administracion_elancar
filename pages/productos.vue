@@ -1,20 +1,22 @@
 <template>
-  <div class="p-24">
+  <div class="p-24 h-full" v-if="productos.length > 0">
     <div class="w-8/12">
-      <span class="font-bold text-4xl">Listado de productos</span>
-      <!--[BUSCADOR]-->
-      <div>
-        <v-text-field
-          class="w-[440px] mt-6"
-          v-model="buscador"
-          placeholder="Buscar producto por nombre, código o descripción"
-          append-icon="mdi-magnify"
-          solo
-          flat
-          clearable
-        ></v-text-field>
+      <div class="flex justify-between">
+        <span class="font-bold text-4xl">Listado de productos</span>
+        <!--[BUSCADOR]-->
+        <div>
+          <v-text-field
+            class="w-[440px]"
+            v-model="buscador"
+            placeholder="Buscar producto por nombre, código o descripción"
+            append-icon="mdi-magnify"
+            solo
+            flat
+            clearable
+          ></v-text-field>
+        </div>
+        <!--[BUSCADOR]-->
       </div>
-      <!--[BUSCADOR]-->
 
       <!--[TABLE HEADERS]-->
       <div class="grid grid-cols-12 mb-4 px-4">
@@ -34,14 +36,18 @@
           <span class="font-bold">Cantidad</span>
         </div>
 
-        
-
         <div class="col-span-2"></div>
       </div>
       <!--[TABLE HEADERS]-->
 
       <!--[TABLE CONTENT]-->
-      <div v-for="(producto, index) in productos.slice((itemsPerPage * page) - itemsPerPage, itemsPerPage * page)" :key="producto.id">
+      <div
+        v-for="(producto, index) in productos.slice(
+          itemsPerPage * page - itemsPerPage,
+          itemsPerPage * page
+        )"
+        :key="producto.id"
+      >
         <producto-table-item
           :producto="producto"
           :index="index"
@@ -51,7 +57,7 @@
       <!--[TABLE CONTENT]-->
 
       <!--[PAGINATION]-->
-      <v-pagination v-model="page" :length="productos.length / itemsPerPage"></v-pagination>
+      <!-- <v-pagination v-model="page" :length="productos.length / itemsPerPage"></v-pagination> -->
       <!--[PAGINATION]-->
     </div>
   </div>
@@ -123,3 +129,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.behind {
+  position: relative;
+  top: 120px;
+  z-index: -1;
+}
+</style>

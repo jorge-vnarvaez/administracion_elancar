@@ -1,5 +1,5 @@
 <template>
-  <div class="py-12 flex justify-center">
+  <div class="p-24">
     <div class="w-8/12">
       <span class="font-bold text-4xl">Emitir solicitud de cotización</span>
       <div class="grid grid-cols-12 mt-12 gap-x-8">
@@ -104,9 +104,9 @@
 </template>
 
 <script>
-import Sucursales from "../../components/elancar/Sucursales.vue";
-import FormasDePago from "../../components/elancar/FormasDePago.vue";
-import CondicionesDeVenta from "../../components/elancar/CondicionesDeVenta.vue";
+import Sucursales from "../../../components/elancar/Sucursales.vue";
+import FormasDePago from "../../../components/elancar/FormasDePago.vue";
+import CondicionesDeVenta from "../../../components/elancar/CondicionesDeVenta.vue";
 export default {
   middleware: ["auth"],
   components: { Sucursales, FormasDePago, CondicionesDeVenta },

@@ -7,7 +7,7 @@
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="icon icon-tabler icon-tabler-report-money"
+      class="icon icon-tabler icon-tabler-device-analytics"
       width="40"
       height="40"
       viewBox="0 0 24 24"
@@ -18,24 +18,23 @@
       stroke-linejoin="round"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path
-        d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"
-      />
-      <rect x="9" y="3" width="6" height="4" rx="2" />
-      <path d="M14 11h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" />
-      <path d="M12 17v1m0 -8v1" />
+      <rect x="3" y="4" width="18" height="12" rx="1" />
+      <line x1="7" y1="20" x2="17" y2="20" />
+      <line x1="9" y1="16" x2="9" y2="20" />
+      <line x1="15" y1="16" x2="15" y2="20" />
+      <path d="M8 12l3 -3l2 2l3 -3" />
     </svg>
 
     <div
       @mouseleave="opciones = false"
       @mouseover="opciones = true"
-      class="absolute z-50 left-10 top-8 transition ease-in-out px-2"
+      class="absolute z-50 left-10 top-40 transition ease-in-out px-2"
       v-bind:class="{ hidden: !opciones, flex: opciones }"
     >
       <div class="bg-yellow-300 rounded-lg mt-4 shadow-lg">
         <span
           class="block font-bold text-xl px-6 text-neutral-900 py-2 bg-yellow-400"
-          >Ventas</span
+          >Gestión</span
         >
         <v-list-item-title
           v-for="pagina in paginas"
@@ -65,18 +64,13 @@ export default {
       paginas: [
         {
           id: 1,
-          route_name: "notas_pedido",
-          label: "Ver notas de pedido",
+          route_name: "proveedores",
+          label: "Proveedores",
         },
         {
           id: 2,
-          route_name: "cotizaciones",
-          label: "Ver cotizaciones de clientes",
-        },
-        {
-          id: 3,
-          route_name: "productos",
-          label: "Productos",
+          route_name: "precio_materiales",
+          label: "Precio materiales",
         },
       ],
     };
