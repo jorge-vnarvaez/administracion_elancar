@@ -1,5 +1,5 @@
 <template>
-  <div class="p-24">
+  <div class="tw-p-24">
     <span>Visualizar ordenes de compra</span>
   </div>
 </template>

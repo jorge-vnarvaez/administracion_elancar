@@ -1,28 +1,29 @@
 <template>
   <div
-    v-if="$vuetify.breakpoint.mobile ? false : true"
     @mouseover="opciones = true"
     @mouseleave="opciones = false"
-    class="text-gray-500 cursor-pointer z-50"
+    class="tw-text-gray-500 tw-cursor-pointer"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-store" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <line x1="3" y1="21" x2="21" y2="21" />
-      <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />
-      <line x1="5" y1="21" x2="5" y2="10.85" />
-      <line x1="19" y1="21" x2="19" y2="10.85" />
-      <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
-    </svg>
+    <div class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-store" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <line x1="3" y1="21" x2="21" y2="21" />
+        <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />
+        <line x1="5" y1="21" x2="5" y2="10.85" />
+        <line x1="19" y1="21" x2="19" y2="10.85" />
+        <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+      </svg>
+    </div>
 
     <div
       @mouseleave="opciones = false"
       @mouseover="opciones = true"
-      class="absolute z-50 left-10 top-24 transition ease-in-out px-2"
-      v-bind:class="{ hidden: !opciones, flex: opciones }"
+      class="tw-absolute tw-left-14 tw-top-32 tw-transition tw-ease-in-out tw-px-2"
+      v-if="opciones"
     >
-      <div class="bg-yellow-300 rounded-lg mt-4 shadow-lg">
+      <div class="tw-bg-yellow-300 tw-rounded-lg tw-mt-4 tw-shadow-lg">
         <span
-          class="block font-bold text-xl px-6 text-neutral-900 py-2 bg-yellow-400"
+          class="tw-block tw-font-bold tw-text-xl tw-px-6 tw-text-neutral-900 tw-py-2 tw-bg-yellow-400"
           >Compras</span
         >
         <v-list-item-title
@@ -34,7 +35,7 @@
             :to="{ name: `${pagina.route_name}` }"
             ><p
               @click="opciones = false"
-              class="text-neutral-900 px-6 py-2 my-0 hover:bg-neutral-800 hover:text-white"
+              class="tw-text-neutral-900 tw-px-6 tw-py-2 tw-my-0 hover:tw-bg-neutral-800 hover:tw-text-white"
             >
               {{ pagina.label }}
             </p></nuxt-link

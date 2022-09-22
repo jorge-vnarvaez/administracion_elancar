@@ -1,7 +1,7 @@
 <template>
-    <div class="grid grid-cols-12 w-full p-24 gap-x-32 h-full">
+    <div class="grid grid-cols-12 w-full tw-p-24 gap-x-32 h-full">
         <!-- BIENVENIDO -->
-        <div class="col-span-8 bg-white p-10 shadow-md rounded-lg h-32 flex justify-between" v-if="usuario">
+        <!-- <div class="col-span-8 bg-white p-10 shadow-md rounded-lg h-32 flex justify-between" v-if="usuario">
             <div>
                 <span class="block font-semibold">Bienvenido/a</span>
                 <span>{{ usuario.first_name }} {{ usuario.last_name }}</span>
@@ -10,11 +10,11 @@
                 <span class="block">{{ fecha_actual }}</span>
                 <span class="flex justify-end">{{ hora_actual }}</span>
             </div>
-        </div>
+        </div> -->
         <!-- BIENVENIDO -->
 
         <!-- ACCESOS DIRECTOS -->
-        <div class="col-span-12 mt-14">
+        <!-- <div class="col-span-12 mt-14">
             <p class="text-3xl">Accesos directos</p>
         </div>
 
@@ -32,7 +32,7 @@
 
         <div class="col-span-4 mt-12">
             <card-direct-access label="Notas de pedido" text="Revisa las notas de pedido realizadas" icon="file" route_name="notas_pedido" />
-        </div>
+        </div> -->
         <!-- ACCESOS DIRECTOS -->
     </div>
 </template>

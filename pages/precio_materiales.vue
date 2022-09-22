@@ -1,5 +1,5 @@
 <template>
-  <div class="p-24">
+  <div class="tw-p-24">
     Precio materiales
   </div>
 </template>

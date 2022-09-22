@@ -1,10 +1,10 @@
 <template>
-  <div class="grid grid-cols-12">
+  <div class="tw-grid tw-grid-cols-12">
     <!-- NOMBRE -->
     <div
       :class="
-        `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
-        ' col-span-4 py-4 px-4'
+        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+        ' tw-col-span-6 lg:tw-col-span-5 tw-py-4 tw-px-4'
       "
     >
       {{ producto.nombre }}
@@ -14,8 +14,8 @@
     <!-- PRECIO NETO -->
     <div
       :class="
-        `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
-        ' col-span-2 py-4 px-4'
+        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+        ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4'
       "
     >
       $ {{ producto.precio_actual }}
@@ -25,8 +25,8 @@
     <!-- STOCK -->
     <div
       :class="
-        `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
-        ' col-span-2 py-4 px-4'
+        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+        ' tw-col-span-3 lg:tw-col-span-1 tw-py-4 tw-px-4'
       "
     >
       {{ producto.stock || 0}}
@@ -36,20 +36,21 @@
     <!-- CANTIDAD -->
     <div
       :class="
-        `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
-        ' col-span-2 py-4 px-4'
+        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+        ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4'
       "
     >
-      <div class="flex">
+      <div class="tw-flex">
         <v-icon @click="disminuirCantidad()">mdi-minus</v-icon>
         <v-text-field
           v-model="cantidad"
           solo
           hide-details
           flat
-          class="w-[200px] mx-4 text-center"
+          :min="0"
+          class="tw-w-[200px] tw-mx-4 tw-text-center"
         ></v-text-field>
-        <v-icon @click="aumentarCantidad()">mdi-plus</v-icon>
+        <v-icon @click="aumentarCantidad(producto.stock)">mdi-plus</v-icon>
       </div>
     </div>
     <!-- CANTIDAD -->
@@ -57,12 +58,12 @@
     <!-- AGREGAR -->
     <div
       :class="
-        `${index % 2 == 0 ? 'bg-white' : 'bg-neutral-100'}` +
-        ' col-span-2 py-4 px-4'
+        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+        ' tw-col-span-2 tw-py-4 tw-px-4'
       "
     >
       <button
-        class="uppercase bg-neutral-900 text-white font-bold px-4 py-2"
+        class="tw-uppercase tw-bg-neutral-900 tw-text-white tw-font-bold tw-px-4 tw-py-2"
         @click="agregarAlCarrito(producto, cantidad)"
       >
       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -90,11 +91,15 @@ export default {
     };
   },
   methods: {
-    aumentarCantidad() {
-      this.cantidad++;
+    aumentarCantidad(stock) {
+      if(this.cantidad < stock) {
+        this.cantidad++;
+      }
     },
     disminuirCantidad() {
-      this.cantidad--;
+      if (this.cantidad > 0) {
+        this.cantidad--;
+      }
     },
     agregarAlCarrito(producto, cantidad) {
       this.$store.dispatch("carro_compras/addProductToCart", {

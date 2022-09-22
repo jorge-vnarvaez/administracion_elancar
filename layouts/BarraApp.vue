@@ -1,13 +1,13 @@
 <template>
   <div class="relative left-0">
-    <div class="bg-yellow-400 h-screen fixed w-[40px] flex flex-col space-y-4">
+    <div class="tw-bg-yellow-400 tw-h-screen tw-fixed tw-w-[60px] tw-flex tw-flex-col tw-space-y-4 tw-px-2 tw-py-8">
       <!-- HOME -->
-      <nuxt-link :to="{ name: 'home' }">
+      <nuxt-link :to="{ name: 'home' }" class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon icon-tabler icon-tabler-home"
-          width="40"
-          height="40"
+          width="50"
+          height="50"
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="#000000"
@@ -32,7 +32,7 @@
       <!-- MENU COMPRAS -->
 
        <!-- MENU GESTION -->
-      <menu-gestion />
+      <!-- <menu-gestion /> -->
       <!-- MENU GESTION -->
 
 

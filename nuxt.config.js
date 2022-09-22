@@ -46,7 +46,6 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/tailwindcss',
     "@nuxtjs/vuetify"
   ],
 
@@ -55,6 +54,7 @@ export default {
     '@nuxtjs/google-fonts',
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
+    '@nuxtjs/tailwindcss'
   ],
 
   vuetify: {

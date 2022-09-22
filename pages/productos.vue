@@ -1,12 +1,12 @@
-<template>
-  <div class="p-24 h-full" v-if="productos.length > 0">
-    <div class="w-8/12">
-      <div class="flex justify-between">
-        <span class="font-bold text-4xl">Listado de productos</span>
+tw-<template>
+  <div class="tw-px-4 lg:tw-px-24 tw-py-10 tw-h-full" v-if="productos.length > 0">
+    <div class="lg:tw-w-10/12">
+      <div class="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between">
+        <span class="tw-font-bold tw-text-2xl lg:tw-text-4xl">Listado de productos</span>
         <!--[BUSCADOR]-->
         <div>
           <v-text-field
-            class="w-[440px]"
+            class="tw-w-[440px]"
             v-model="buscador"
             placeholder="Buscar producto por nombre, código o descripción"
             append-icon="mdi-magnify"
@@ -19,24 +19,24 @@
       </div>
 
       <!--[TABLE HEADERS]-->
-      <div class="grid grid-cols-12 mb-4 px-4">
-        <div class="col-span-4">
-          <span class="font-bold">Nombre</span>
+      <div class="tw-grid tw-grid-cols-12 tw-mb-4 tw-px-4">
+        <div class="tw-col-span-6 lg:tw-col-span-5">
+          <span class="tw-font-bold">Nombre</span>
         </div>
 
-        <div class="col-span-2">
-          <span class="font-bold">Precio neto</span>
+        <div class="tw-col-span-6 lg:tw-col-span-2">
+          <span class="tw-font-bold">Precio neto</span>
         </div>
 
-        <div class="col-span-2">
-          <span class="font-bold">Stock</span>
+        <div class="tw-col-span-6 lg:tw-col-span-1">
+          <span class="tw-font-bold">Stock</span>
         </div>
 
-        <div class="col-span-2">
-          <span class="font-bold">Cantidad</span>
+        <div class="tw-col-span-2">
+          <span class="tw-font-bold">Cantidad</span>
         </div>
 
-        <div class="col-span-2"></div>
+        <div class="tw-col-span-2"></div>
       </div>
       <!--[TABLE HEADERS]-->
 
@@ -57,7 +57,9 @@
       <!--[TABLE CONTENT]-->
 
       <!--[PAGINATION]-->
-      <!-- <v-pagination v-model="page" :length="productos.length / itemsPerPage"></v-pagination> -->
+      <div class="tw-my-8">
+        <v-pagination v-model="page" :length="productos.length / itemsPerPage"></v-pagination>
+      </div>
       <!--[PAGINATION]-->
     </div>
   </div>

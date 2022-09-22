@@ -1,40 +1,41 @@
 <template>
   <div
-    v-if="$vuetify.breakpoint.mobile ? false : true"
     @mouseover="opciones = true"
     @mouseleave="opciones = false"
-    class="text-gray-500 cursor-pointer"
+    class="tw-text-gray-500 tw-cursor-pointer"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="icon icon-tabler icon-tabler-report-money"
-      width="40"
-      height="40"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="#000000"
-      fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path
-        d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"
-      />
-      <rect x="9" y="3" width="6" height="4" rx="2" />
-      <path d="M14 11h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" />
-      <path d="M12 17v1m0 -8v1" />
-    </svg>
+    <div class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-report-money"
+        width="50"
+        height="50"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="#000000"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path
+          d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"
+        />
+        <rect x="9" y="3" width="6" height="4" rx="2" />
+        <path d="M14 11h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" />
+        <path d="M12 17v1m0 -8v1" />
+      </svg>
+    </div>
 
     <div
       @mouseleave="opciones = false"
       @mouseover="opciones = true"
-      class="absolute z-50 left-10 top-8 transition ease-in-out px-2"
-      v-bind:class="{ hidden: !opciones, flex: opciones }"
+      class="tw-absolute tw-z-50 tw-left-14 tw-top-16 tw-transition tw-ease-in-out tw-px-2"
+      v-if="opciones"
     >
-      <div class="bg-yellow-300 rounded-lg mt-4 shadow-lg">
+      <div class="tw-bg-yellow-300 tw-rounded-lg tw-mt-4 tw-shadow-lg">
         <span
-          class="block font-bold text-xl px-6 text-neutral-900 py-2 bg-yellow-400"
+          class="tw-block tw-font-bold tw-text-xl tw-px-6 tw-text-neutral-900 tw-py-2 tw-bg-yellow-400"
           >Ventas</span
         >
         <v-list-item-title
@@ -46,7 +47,7 @@
             :to="{ name: `${pagina.route_name}` }"
             ><p
               @click="opciones = false"
-              class="text-neutral-900 px-6 py-2 my-0 hover:bg-neutral-800 hover:text-white"
+              class="tw-text-neutral-900 tw-px-6 tw-py-2 my-0 hover:tw-bg-neutral-800 hover:tw-text-white"
             >
               {{ pagina.label }}
             </p></nuxt-link
@@ -61,7 +62,7 @@
 export default {
   data() {
     return {
-      opciones: true,
+      opciones: false,
       paginas: [
         {
           id: 1,

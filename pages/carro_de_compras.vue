@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full p-24">
+  <div class="w-full tw-p-24">
     <div class="container my-20 grid grid-cols-12 grid-rows-12 gap-x-8 gap-y-4">
       <div class="col-span-8 bg-white p-6 row-span-1">
         <div class="flex space-x-2">

@@ -1,15 +1,18 @@
 <template>
   <v-app class="app">
-    <BarraApp class="z-50" />
-    <Nuxt class="bg-neutral-100 z-10" />
+    <BarraAppMobile v-if="$vuetify.breakpoint.mobile" />
+    <BarraApp v-else class="tw-z-50" />
+    <Nuxt class="bg-neutral-100 tw-z-20" />
   </v-app>
 </template>
 
 <script>
+
+import BarraAppMobile from "@/layouts/BarraAppMobile.vue";
 import BarraApp from "../layouts/BarraApp.vue";
 
 export default {
-  components: { BarraApp },
+  components: { BarraAppMobile, BarraApp },
   mounted() {
     const carro = this.$cookies.get("carroCompras");
 

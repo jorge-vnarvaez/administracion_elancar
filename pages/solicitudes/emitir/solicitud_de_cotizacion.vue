@@ -1,5 +1,5 @@
 <template>
-  <div class="p-24">
+  <div class="tw-p-24">
     <div class="w-8/12">
       <span class="font-bold text-4xl">Emitir solicitud de cotización</span>
       <div class="grid grid-cols-12 mt-12 gap-x-8">
