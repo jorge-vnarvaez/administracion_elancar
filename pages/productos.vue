@@ -68,7 +68,6 @@ tw-<template>
 <script>
 import Buscador from "../components/filtros/Buscador.vue";
 import ProductoTableItem from "../components/utils/ProductoTableItem.vue";
-
 export default {
   middleware: "auth",
   components: { Buscador, ProductoTableItem },
@@ -83,7 +82,6 @@ export default {
   methods: {
     async filterProductos(queryBuscador) {
       const qs = require("qs");
-
       const query = qs.stringify({
         filter: {
           _or: [
@@ -101,7 +99,6 @@ export default {
         },
         fields: ["*,marca.*"],
       });
-
       this.productos = await this.$axios
         .$get(
           `${this.$config.apiUrl}/items/productos${
@@ -119,11 +116,9 @@ export default {
   },
   async asyncData(context) {
     const qs = require("qs");
-
     const query = qs.stringify({
       fields: ["*,marca.*"],
     });
-
     const productos = await context.$axios
       .$get(`${context.$config.apiUrl}/items/productos?${query}`)
       .then((res) => res.data);
