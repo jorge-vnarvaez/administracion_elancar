@@ -18,7 +18,7 @@
         <div class="tw-flex tw-flex-col">
           <span class="tw-text-4xl">Historial</span>
           <span class="tw-text-2xl tw-text-gray-800"
-            >Solicitudes de cotización</span
+            >Cotizaciónes</span
           >
         </div>
         <!--TITULO-->
@@ -59,7 +59,6 @@
       <!--TABLE HEADER-->
 
       <!--[TABLE CONTENT]-->
-
       <div
         v-for="(cotizacion, index) in solicitud_cotizaciones.slice(
           itemsPerPage * page - itemsPerPage,
@@ -118,7 +117,7 @@ export default {
       });
       this.solicitud_cotizaciones = await this.$axios
         .$get(
-          `${this.$config.apiUrl}/items/solicitudes_de_cotizacion${
+          `${this.$config.apiUrl}/items/cotizaciones_clientes${
             queryBuscador == "" ? "" : `?${query}`
           }`
         )
@@ -133,7 +132,7 @@ export default {
   },
   async asyncData(context) {
     const solicitud_cotizaciones = await context.$axios
-      .$get(`${context.$config.apiUrl}/items/solicitudes_de_cotizacion`)
+      .$get(`${context.$config.apiUrl}/items/cotizaciones_clientes`)
       .then((res) => res.data);
     return { solicitud_cotizaciones };
   },

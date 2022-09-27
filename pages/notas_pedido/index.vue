@@ -65,7 +65,7 @@
           itemsPerPage * page - itemsPerPage,
           itemsPerPage * page
         )"
-        :key="nota_de_pedido.id"
+        :key="nota_pedido.id"
       >
         <NotaDePedidoTableItem
           :nota_de_pedido="nota_pedido"
@@ -79,7 +79,7 @@
       <div class="tw-my-8">
         <v-pagination
           v-model="page"
-          :length="nota_de_pedido.length / itemsPerPage"
+          :length="Math.round(nota_de_pedido.length / itemsPerPage)"
         ></v-pagination>
       </div>
       <!--[PAGINATION]-->

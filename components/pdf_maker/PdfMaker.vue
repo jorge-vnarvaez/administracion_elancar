@@ -8,6 +8,7 @@
         :float-layout="true"
         :paginate-elements-by-height="1400"
         pdf-format="letter"
+        :filename="tipoDocumento + '-' + idDocumento"
       >
         <section slot="pdf-content">
           <div class="tw-px-12 tw-py-12 tw-h-[1000px]">
@@ -19,7 +20,7 @@
 
               <div class="tw-flex tw-flex-col align-start">
                 <!--TIPO DE DOCUMENTO -->
-                <div class=" tw-text-2xl tw-font-bold">
+                <div class="tw-text-2xl tw-font-bold">
                   {{ tipoDocumento }}
                 </div>
                 <!--TIPO DE DOCUMENTO -->
@@ -84,6 +85,9 @@
               <div class="tw-col-span-2">
                 <span class="tw-block tw-font-bold">Cantidad</span>
               </div>
+              <div v-if="!is_cotizacion_to_proveedores" class="tw-col-span-2">
+                <span class="tw-block tw-font-bold">Kg</span>
+              </div>
               <div class="tw-col-span-3">
                 <span class="tw-block tw-font-bold">Precio por unidad</span>
               </div>
@@ -98,14 +102,18 @@
             <!-- V-DIVIDER -->
 
             <!-- TABLE BODY -->
-            <div class="tw-grid tw-grid-cols-12 tw-mt-4" v-for="(producto) in detalleDocumento" :key="producto.id">
+            <div
+              class="tw-grid tw-grid-cols-12 tw-mt-4"
+              v-for="producto in detalleDocumento"
+              :key="producto.id"
+            >
               <div class="tw-col-span-3">
                 <span class="tw-block">{{ producto.nombre }}</span>
               </div>
               <div class="tw-col-span-2">
                 <span class="tw-block">{{ producto.cantidad }}</span>
               </div>
-              
+
               <div class="tw-col-span-3">
                 <span class="tw-block">$.-</span>
               </div>
@@ -126,8 +134,7 @@
 </template>
 
 <script>
-
-import qs from 'qs';
+import qs from "qs";
 import moment from "moment";
 import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
 
@@ -136,16 +143,20 @@ export default {
   props: {
     idDocumento: {
       type: Number,
-      default: () => {},
+      required: true,
     },
     tipoDocumento: {
       type: String,
       default: "",
+      required: true,
+      desc: "Tipo de documento a generar (cotización, orden de compra, etc)",
     },
     item: {
       type: String,
       default: "",
-    }
+      required: true,
+      desc: "Item a usado para consultar la api (cotización, ordenes_de_compra, etc)",
+    },
   },
   data() {
     return {
@@ -156,13 +167,13 @@ export default {
 
   watch: {
     infoDocumento(newValue) {
-      this.getDetalle()
-    }
+      this.getDetalle();
+    },
   },
   async fetch() {
-    const  query = qs.stringify({
-      fields: ['*.*']
-    })
+    const query = qs.stringify({
+      fields: ["*.*"],
+    });
 
     const { data } = await this.$axios
       .get(
@@ -174,37 +185,36 @@ export default {
   },
   methods: {
     async getDetalle() {
-      if(this.infoDocumento.detalle.length > 0) {
-
+      if (this.infoDocumento.detalle.length > 0) {
         const query = qs.stringify({
           filter: {
             _and: [
               {
                 id: {
-                  _in: this.infoDocumento.detalle.map((item) => item.productos_id),
+                  _in: this.infoDocumento.detalle.map(
+                    (item) => item.productos_id
+                  ),
                 },
               },
-            ]
-          }
-        })
-
+            ],
+          },
+        });
 
         const { data } = await this.$axios
-          .get(
-            `${this.$config.apiUrl}/items/productos?${query}`
-          )
+          .get(`${this.$config.apiUrl}/items/productos?${query}`)
           .then((res) => res.data);
 
-
         this.detalleDocumento = data.map((item) => {
-          const detalle = this.infoDocumento.detalle.find((detalle) => detalle.productos_id === item.id)
+          const detalle = this.infoDocumento.detalle.find(
+            (detalle) => detalle.productos_id === item.id
+          );
           return {
             ...item,
             cantidad: detalle.cantidad,
             // precio_unidad: detalle.precio_unidad,
             // kg: detalle.kg
-          }
-        })
+          };
+        });
       }
     },
     generatePdf() {
@@ -212,6 +222,11 @@ export default {
     },
     formatearFecha(fecha) {
       return moment(fecha).format("LL");
+    },
+  },
+  computed: {
+    is_cotizacion_to_proveedores() {
+      return this.item == "cotizaciones_proveedor" ? true : false;
     },
   },
 };

@@ -42,9 +42,9 @@
 
 <script>
 // import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
-import IconoVer from "@/components/iconos/IconoVer.vue";
-import PdfMaker from "@/components/pdf_maker/PdfMaker.vue";
 import moment from "moment";
+import PdfMaker from "@/components/pdf_maker/PdfMaker.vue";
+import IconoVer from "@/components/iconos/IconoVer.vue";
 
 export default {
   components: { IconoVer, PdfMaker },
