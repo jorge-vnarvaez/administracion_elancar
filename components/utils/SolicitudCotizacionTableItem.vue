@@ -31,18 +31,23 @@
       "
     >
       <IconoVer />
-      <IconoDescarga />
+      <PdfMaker tipoDocumento="Solicitud de cotización" item="cotizaciones_proveedor" :idDocumento="solicitud_de_cotizacion.id" />
+      <!-- <IconoDescarga /> -->
     </div>
     <!-- ARCHIVOS -->
+
+    
   </div>
 </template>
 
 <script>
-import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
+// import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
 import IconoVer from "@/components/iconos/IconoVer.vue";
+import PdfMaker from "@/components/pdf_maker/PdfMaker.vue";
 import moment from "moment";
+
 export default {
-  components: { IconoDescarga, IconoVer },
+  components: { IconoVer, PdfMaker },
   props: ["solicitud_de_cotizacion", "index"],
   methods: {
     formatearFecha(fecha) {

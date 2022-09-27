@@ -1,24 +1,35 @@
 <template>
   <div
     @mouseover="opciones = true"
-    @mouseleave="opciones = false"
-    class="tw-text-gray-500 tw-cursor-pointer"
+    class="tw-relative tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
   >
-    <div class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-store" width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <line x1="3" y1="21" x2="21" y2="21" />
-        <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />
-        <line x1="5" y1="21" x2="5" y2="10.85" />
-        <line x1="19" y1="21" x2="19" y2="10.85" />
-        <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
-      </svg>
-    </div>
+    <svg
+      @mouseleave="opciones = false"
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon icon-tabler icon-tabler-building-store"
+      width="40"
+      height="40"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="#000000"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <line x1="3" y1="21" x2="21" y2="21" />
+      <path
+        d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"
+      />
+      <line x1="5" y1="21" x2="5" y2="10.85" />
+      <line x1="19" y1="21" x2="19" y2="10.85" />
+      <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+    </svg>
 
     <div
       @mouseleave="opciones = false"
       @mouseover="opciones = true"
-      class="tw-absolute tw-left-14 tw-top-32 tw-transition tw-ease-in-out tw-px-2"
+      class="tw-absolute tw-left-14 tw-top-0 tw-transition tw-ease-in-out tw-px-2"
       v-if="opciones"
     >
       <div class="tw-bg-yellow-300 tw-rounded-lg tw-mt-4 tw-shadow-lg">
@@ -57,7 +68,7 @@ export default {
           route_name: "solicitudes-emitir-solicitud_de_cotizacion",
           label: "Emitir solicitud de cotización",
         },
-         {
+        {
           id: 2,
           route_name: "solicitudes-ver-solicitudes_de_cotizacion",
           label: "Ver solicitudes de cotización",

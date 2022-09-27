@@ -12,7 +12,7 @@ export default {
     // Iterate over carro compras and get total price of items
     getTotalPrice(state) {
         return state.carroCompras.reduce((total, item) => {
-            return total + item.producto.precio_actual * item.cantidad
+            return total + item.producto.precio * item.cantidad
         }, 0)
     },
     lengthCarro(state) {

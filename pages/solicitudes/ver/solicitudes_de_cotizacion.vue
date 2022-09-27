@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-p-24 tw-px-64">
+  <div class="tw-p-24 tw-px-64" v-if="solicitud_cotizaciones != null">
     <div class="tw-flex tw-justify-between">
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
@@ -40,7 +40,7 @@
       </div>
       <!--[BUSCADOR]-->
     </div>
-    <div v-if="solicitud_cotizaciones.length > 0">
+    <div v-if="solicitud_cotizaciones != null">
       <!--TABLE HEADER-->
 
       <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
@@ -76,10 +76,10 @@
       <!--[TABLE CONTENT]-->
 
       <!--[PAGINATION]-->
-      <div class="tw-my-8">
+      <div class="tw-my-8" v-if="solicitud_cotizaciones.length > 0">
         <v-pagination
           v-model="page"
-          :length="solicitud_cotizaciones.length / itemsPerPage"
+          :length="Math.round(pages)"
         ></v-pagination>
       </div>
       <!--[PAGINATION]-->
@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import qs from "qs";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import SolicitudDeCotizacionTableItem from "@/components/utils/SolicitudCotizacionTableItem.vue";
 
@@ -108,14 +109,15 @@ export default {
   },
   methods: {
     async filterCotizaciones(queryBuscador) {
-      const qs = require("qs");
       const query = qs.stringify({
         filter: {
           id: {
             _eq: queryBuscador,
           },
         },
+        fields: ["*.*"],
       });
+
       this.solicitud_cotizaciones = await this.$axios
         .$get(
           `${this.$config.apiUrl}/items/solicitudes_de_cotizacion${
@@ -133,10 +135,15 @@ export default {
   },
   async asyncData(context) {
     const solicitud_cotizaciones = await context.$axios
-      .$get(`${context.$config.apiUrl}/items/solicitudes_de_cotizacion`)
+      .$get(`${context.$config.apiUrl}/items/cotizaciones_proveedor`)
       .then((res) => res.data);
     return { solicitud_cotizaciones };
   },
+  computed: {
+    pages() {
+      return this.solicitud_cotizaciones.length / this.itemsPerPage;
+    }
+  }
 };
 </script>
 

@@ -1,5 +1,8 @@
 <template>
     <div class="grid grid-cols-12 w-full tw-p-24 gap-x-32 h-full">
+            <!-- PDF MAKER -->
+    <PdfMaker />
+    <!-- PDF MAKER -->
         <!-- BIENVENIDO -->
         <!-- <div class="col-span-8 bg-white p-10 shadow-md rounded-lg h-32 flex justify-between" v-if="usuario">
             <div>
@@ -39,12 +42,13 @@
 
 <script>
 
-import MacroCategorias from '../components/categorias/MacroCategorias.vue';
-import CardDirectAccess from '../components/reusable/CardDirectAccess.vue';
+import MacroCategorias from '@/components/categorias/MacroCategorias.vue';
+import CardDirectAccess from '@/components/reusable/CardDirectAccess.vue';
+import PdfMaker from '@/components/pdf_maker/PdfMaker.vue';
 
 export default {
     middleware: ["auth"],
-    components: { MacroCategorias, CardDirectAccess },
+    components: { MacroCategorias, CardDirectAccess, PdfMaker },
     mounted() {
         this.getCurrentUsuario();
     },

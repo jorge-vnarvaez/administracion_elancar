@@ -1,8 +1,13 @@
 <template>
-  <div class="relative left-0">
-    <div class="tw-bg-yellow-400 tw-h-screen tw-fixed tw-w-[60px] tw-flex tw-flex-col tw-space-y-4 tw-px-2 tw-py-8">
+  <div class="tw-relative tw-left-0">
+    <div
+      class="tw-bg-yellow-400 tw-h-screen tw-fixed tw-w-[60px] tw-flex tw-flex-col tw-space-y-4 tw-px-2 tw-py-8"
+    >
       <!-- HOME -->
-      <nuxt-link :to="{ name: 'home' }" class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2">
+      <nuxt-link
+        :to="{ name: 'home' }"
+        class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon icon-tabler icon-tabler-home"
@@ -31,14 +36,35 @@
       <menu-compras />
       <!-- MENU COMPRAS -->
 
-       <!-- MENU GESTION -->
+      <!-- MENU GESTION -->
       <!-- <menu-gestion /> -->
       <!-- MENU GESTION -->
 
-
       <!-- CARRO COMPRAS -->
-      <nuxt-link to="carro_de_compras">
-        <!-- <font-awesome-icon icon="fa-solid fa-cart-shopping" size="2xl" color="black" /> -->
+      <nuxt-link to="/carro_de_compras">
+        <div
+          @mouseover="opciones = true"
+          class="tw-relative tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-shopping-cart"
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#000000"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <circle cx="6" cy="19" r="2" />
+            <circle cx="17" cy="19" r="2" />
+            <path d="M17 17h-11v-14h-2" />
+            <path d="M6 5l14 1l-1 7h-13" />
+          </svg>
+        </div>
       </nuxt-link>
       <!-- CARRO COMPRAS -->
     </div>
@@ -54,11 +80,9 @@ export default {
   components: {
     MenuVentas,
     MenuCompras,
-    MenuGestion
+    MenuGestion,
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
