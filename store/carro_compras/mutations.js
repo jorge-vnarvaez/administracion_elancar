@@ -1,6 +1,8 @@
 export default {
     setCarro(state, carro) {
         state.carroCompras = carro;
+
+        this.$cookies.set("carroCompras", state.carroCompras);
     },
     // Add product to cart
     addProductToCart(state, { producto, cantidad }) {

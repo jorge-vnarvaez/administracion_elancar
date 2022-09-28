@@ -15,8 +15,10 @@ export default {
   components: { BarraAppMobile, BarraApp },
   mounted() {
     const carro = this.$cookies.get("carroCompras");
+    const info_despacho = this.$cookies.get("infoDespacho");
 
     this.$store.dispatch("carro_compras/setCarro", carro);
+    this.$store.dispatch("info_despacho/setInfoDespacho", info_despacho);
   },
 };
 </script>

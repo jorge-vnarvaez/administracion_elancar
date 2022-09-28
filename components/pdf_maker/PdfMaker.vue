@@ -12,28 +12,12 @@
       >
         <section slot="pdf-content">
           <div class="tw-px-12 tw-py-12 tw-h-[1000px]">
-            <!--MEMBRETE-->
-            <div class="tw-flex tw-space-x-4 align-center">
-              <!--LOGO ELANCAR -->
-              <img src="/logo_elancar.png" width="74" height="20" />
-              <!--LOGO ELANCAR -->
-
-              <div class="tw-flex tw-flex-col align-start">
-                <!--TIPO DE DOCUMENTO -->
-                <div class="tw-text-2xl tw-font-bold">
-                  {{ tipoDocumento }}
-                </div>
-                <!--TIPO DE DOCUMENTO -->
-
-                <!--FECHA -->
-                <div class="tw-text-lg tw-mt-2">
-                  <span class="tw-font-bold">Fecha emisión</span>
-                  <span>{{ formatearFecha(infoDocumento.fecha_emision) }}</span>
-                </div>
-                <!-- FECHA -->
-              </div>
-            </div>
-            <!--MEMBRETE-->
+            <!-- MEMBRE SUPERIOR -->
+            <MembreteSuperiorPdf
+              :tipoDocumento="tipoDocumento"
+              :fecha_emision="infoDocumento.fecha_emision"
+            />
+            <!-- MEMBRE SUPERIOR -->
 
             <!--V-DIVIDER-->
             <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
@@ -41,65 +25,14 @@
 
             <!--DATOS DEL CLIENTE-->
             <div v-if="infoDocumento.cliente">
-              <span class="tw-block tw-font-bold">Datos del cliente</span>
-              <div class="tw-flex tw-flex-col">
-                <!--NOMBRE COMPLETO-->
-                <span>
-                  {{ infoDocumento.cliente.primer_nombre }}
-                  {{ infoDocumento.cliente.segundo_nombre }}
-                  {{ infoDocumento.cliente.apellido_paterno }}
-                  {{ infoDocumento.cliente.apellido_materno }}
-                </span>
-                <!--NOMBRE COMPLETO-->
-
-                <!--FONO-->
-                <span
-                  >Fono:
-                  {{
-                    infoDocumento.cliente.fono != null
-                      ? infoDocumento.cliente.fono
-                      : "No indicado"
-                  }}</span
-                >
-                <!--FONO-->
-
-                <!--EMAIL-->
-                <span
-                  >Email:
-                  {{
-                    infoDocumento.cliente.email != null
-                      ? infoDocumento.cliente.email
-                      : "No indicado"
-                  }}</span
-                >
-                <!--EMAIL-->
-              </div>
+                <!-- TODO: LLAMAR AL COMPONENTE DATOSCLIENTE -->
             </div>
             <!--DATOS DEL CLIENTE-->
 
-            <!-- TABLE HEADERS -->
-            <div class="tw-grid tw-grid-cols-12 tw-mt-12">
-              <div class="tw-col-span-3">
-                <span class="tw-block tw-font-bold">Producto</span>
-              </div>
-              <div class="tw-col-span-2">
-                <span class="tw-block tw-font-bold">Cantidad</span>
-              </div>
-              <div v-if="!is_cotizacion_to_proveedores" class="tw-col-span-2">
-                <span class="tw-block tw-font-bold">Kg</span>
-              </div>
-              <div class="tw-col-span-3">
-                <span class="tw-block tw-font-bold">Precio por unidad</span>
-              </div>
-              <div class="tw-col-span-2">
-                <span class="tw-block tw-font-bold">Precio total</span>
-              </div>
-            </div>
-            <!-- TABLE HEADERS -->
+            <!-- DATOS DE ENVIO -->
+            
+            <!-- DATOS DE ENVIO -->
 
-            <!-- V-DIVIDER -->
-            <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
-            <!-- V-DIVIDER -->
 
             <!-- TABLE BODY -->
             <div
@@ -135,11 +68,12 @@
 
 <script>
 import qs from "qs";
-import moment from "moment";
+import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
+import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue"
 import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
 
 export default {
-  components: { IconoDescarga },
+  components: { MembreteSuperiorPdf, DatosCliente, IconoDescarga },
   props: {
     idDocumento: {
       type: Number,
@@ -219,9 +153,6 @@ export default {
     },
     generatePdf() {
       this.$refs.pdf.generatePdf();
-    },
-    formatearFecha(fecha) {
-      return moment(fecha).format("LL");
     },
   },
   computed: {

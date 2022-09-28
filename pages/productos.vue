@@ -1,6 +1,6 @@
 tw-<template>
-  <div class="tw-p-24 tw-px-64 tw-h-full" v-if="productos.length > 0">
-    <div class="lg:tw-w-10/12">
+  <div class="tw-p-24 tw-px-48 tw-h-full" v-if="productos.length > 0">
+    <div>
       <div class="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between">
         <span class="tw-font-bold tw-text-2xl lg:tw-text-4xl">Listado de productos</span>
         <!--[BUSCADOR]-->
