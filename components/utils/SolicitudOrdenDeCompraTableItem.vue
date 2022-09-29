@@ -7,7 +7,7 @@
           ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4 '
         "
       >
-        {{ solicitud_de_cotizacion.id }}
+        {{ orden_de_compra.id }}
       </div>
       <!-- CODIGO -->
   
@@ -18,8 +18,8 @@
           ' tw-col-span-6 lg:tw-col-span-6 tw-py-4 tw-px-4'
         "
       >
-        {{ formatearFecha(solicitud_de_cotizacion.fecha_emision) }}
-        <!-- {{ formatearHora(solicitud_de_cotizacion.hora_emision)}} -->
+        {{ formatearFecha(orden_de_compra.fecha_emision) }}
+        <!-- {{ formatearHora(orden_de_compra.hora_emision)}} -->
       </div>
       <!-- FECHA -->
   
@@ -43,7 +43,7 @@
   import moment from "moment";
   export default {
     components: { IconoDescarga, IconoVer },
-    props: ["solicitud_de_cotizacion", "index"],
+    props: ["orden_de_compra", "index"],
     methods: {
       formatearFecha(fecha) {
         return moment(fecha).format("LL");
