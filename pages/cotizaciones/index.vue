@@ -76,7 +76,7 @@
       <!--[PAGINATION]-->
     </div>
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
-      No hay resultados
+      <EmptyTable />
     </div>
   </div>
 </template>
@@ -86,11 +86,13 @@
 import IconoElancar from "@/components/reusable/IconoElancar.vue";  
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import SolicitudDeCotizacionTableItem from "@/components/utils/SolicitudCotizacionTableItem.vue";
+import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
   components: {
     CardNewSolicitud,
     SolicitudDeCotizacionTableItem,
+    EmptyTable,
   },
   data() {
     return {

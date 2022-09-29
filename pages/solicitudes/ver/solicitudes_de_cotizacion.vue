@@ -32,7 +32,7 @@
       </div>
       <!--[BUSCADOR]-->
     </div>
-    <div v-if="solicitud_cotizaciones != null">
+    <div v-if="solicitud_cotizaciones.length>0">
       <!--TABLE HEADER-->
 
       <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
@@ -77,7 +77,7 @@
       <!--[PAGINATION]-->
     </div>
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
-      No hay resultados
+      <EmptyTable />
     </div>
   </div>
 </template>
@@ -87,12 +87,14 @@ import qs from "qs";
 import IconoElancar from "@/components/reusable/IconoElancar.vue";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import SolicitudDeCotizacionTableItem from "@/components/utils/SolicitudCotizacionTableItem.vue";
+import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
   components: {
     IconoElancar,
     CardNewSolicitud,
     SolicitudDeCotizacionTableItem,
+    EmptyTable,
   },
   data() {
     return {
