@@ -17,9 +17,7 @@
         <!--TITULO-->
         <div class="tw-flex tw-flex-col">
           <span class="tw-text-4xl">Historial</span>
-          <span class="tw-text-2xl tw-text-gray-800"
-            >Notas de pedido</span
-          >
+          <span class="tw-text-2xl tw-text-gray-800">Notas de pedido</span>
         </div>
         <!--TITULO-->
       </div>
@@ -30,7 +28,7 @@
         <v-text-field
           class="tw-w-[700px] mt-6"
           v-model="buscador"
-          placeholder="Buscar cotizacion por código"
+          placeholder="Buscar nota de pedido por código"
           append-icon="mdi-magnify"
           solo
           flat
@@ -40,7 +38,7 @@
       </div>
       <!--[BUSCADOR]-->
     </div>
-    <div v-if="nota_de_pedido.length > 0">
+    <div v-if="notas_de_pedido.length > 0">
       <!--TABLE HEADER-->
 
       <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
@@ -61,16 +59,13 @@
       <!--[TABLE CONTENT]-->
 
       <div
-        v-for="(nota_pedido, index) in nota_de_pedido.slice(
+        v-for="(nota_pedido, index) in notas_de_pedido.slice(
           itemsPerPage * page - itemsPerPage,
           itemsPerPage * page
         )"
         :key="nota_pedido.id"
       >
-        <NotaDePedidoTableItem
-          :nota_de_pedido="nota_pedido"
-          :index="index"
-        />
+        <NotaDePedidoTableItem :nota_de_pedido="nota_pedido" :index="index" />
       </div>
 
       <!--[TABLE CONTENT]-->
@@ -79,13 +74,13 @@
       <div class="tw-my-8">
         <v-pagination
           v-model="page"
-          :length="Math.round(nota_de_pedido.length / itemsPerPage)"
+          :length="Math.round(notas_de_pedido.length / itemsPerPage)"
         ></v-pagination>
       </div>
       <!--[PAGINATION]-->
     </div>
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
-      No hay resultados
+      <EmptyTable />
     </div>
   </div>
 </template>
@@ -93,11 +88,13 @@
 <script>
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import NotaDePedidoTableItem from "@/components/utils/NotaDePedidoTableItem.vue";
+import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
   components: {
     CardNewSolicitud,
     NotaDePedidoTableItem,
+    EmptyTable,
   },
   data() {
     return {
@@ -116,7 +113,7 @@ export default {
           },
         },
       });
-      this.nota_de_pedido = await this.$axios
+      this.notas_de_pedido = await this.$axios
         .$get(
           `${this.$config.apiUrl}/items/notas_de_pedido${
             queryBuscador == "" ? "" : `?${query}`
@@ -132,10 +129,10 @@ export default {
     },
   },
   async asyncData(context) {
-    const nota_de_pedido = await context.$axios
+    const notas_de_pedido = await context.$axios
       .$get(`${context.$config.apiUrl}/items/notas_de_pedido`)
       .then((res) => res.data);
-    return { nota_de_pedido };
+    return { notas_de_pedido };
   },
 };
 </script>

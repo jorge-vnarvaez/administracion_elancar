@@ -3,13 +3,6 @@
     <div class="tw-flex tw-justify-between">
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
-        <!--TITULO-->
-        <div class="tw-flex tw-flex-col">
-          <span class="tw-text-4xl tw-text-left">Historial</span>
-          <span class="tw-text-2xl tw-text-gray-800">Ordenes de compra</span>
-        </div>
-        <!--TITULO-->
-
         <!--LOGO-->
         <div class="tw-w-[74px] tw-h-[100px]">
           <v-img
@@ -20,6 +13,13 @@
           ></v-img>
         </div>
         <!--LOGO-->
+
+        <!--TITULO-->
+        <div class="tw-flex tw-flex-col">
+          <span class="tw-text-4xl tw-text-left">Historial</span>
+          <span class="tw-text-2xl tw-text-gray-800">Ordenes de compra</span>
+        </div>
+        <!--TITULO-->
       </div>
       <!--LOGO, TITULO Y BUSCADOR -->
 
@@ -38,7 +38,7 @@
       </div>
       <!--[BUSCADOR]-->
     </div>
-    <div v-if="solicitud_cotizaciones.length > 0">
+    <div v-if="ordenes_de_compra.length > 0">
       <!--TABLE HEADER-->
 
       <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
@@ -59,14 +59,14 @@
       <!--[TABLE CONTENT]-->
 
       <div
-        v-for="(cotizacion, index) in solicitud_cotizaciones.slice(
+        v-for="(OrdenDeCompra, index) in ordenes_de_compra.slice(
           itemsPerPage * page - itemsPerPage,
           itemsPerPage * page
         )"
-        :key="cotizacion.id"
+        :key="OrdenDeCompra.id"
       >
-        <SolicitudDeCotizacionTableItem
-          :solicitud_de_cotizacion="cotizacion"
+        <SolicitudOrdenDeCompraTableItem
+          :orden_de_compra="OrdenDeCompra"
           :index="index"
         />
       </div>
@@ -77,25 +77,27 @@
       <div class="tw-my-8">
         <v-pagination
           v-model="page"
-          :length="solicitud_cotizaciones.length / itemsPerPage"
+          :length="ordenes_de_compra.length / itemsPerPage"
         ></v-pagination>
       </div>
       <!--[PAGINATION]-->
     </div>
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
-      No hay resultados
+      <EmptyTable />
     </div>
   </div>
 </template>
 
 <script>
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
-import SolicitudDeCotizacionTableItem from "@/components/utils/SolicitudCotizacionTableItem.vue";
+import SolicitudOrdenDeCompraTableItem from "@/components/utils/SolicitudOrdenDeCompraTableItem.vue";
+import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
   components: {
     CardNewSolicitud,
-    SolicitudDeCotizacionTableItem,
+    SolicitudOrdenDeCompraTableItem,
+    EmptyTable,
   },
   data() {
     return {
@@ -105,7 +107,7 @@ export default {
     };
   },
   methods: {
-    async filterCotizaciones(queryBuscador) {
+    async filterOrdenDeCompraes(queryBuscador) {
       const qs = require("qs");
       const query = qs.stringify({
         filter: {
@@ -114,9 +116,9 @@ export default {
           },
         },
       });
-      this.solicitud_cotizaciones = await this.$axios
+      this.ordenes_de_compra = await this.$axios
         .$get(
-          `${this.$config.apiUrl}/items/solicitudes_de_cotizacion${
+          `${this.$config.apiUrl}/items/ordenes_de_compra${
             queryBuscador == "" ? "" : `?${query}`
           }`
         )
@@ -126,14 +128,14 @@ export default {
   watch: {
     buscador: function (val) {
       val = val != null ? val : "";
-      this.filterCotizaciones(val);
+      this.filterOrdenDeCompraes(val);
     },
   },
   async asyncData(context) {
-    const solicitud_cotizaciones = await context.$axios
-      .$get(`${context.$config.apiUrl}/items/solicitudes_de_cotizacion`)
+    const ordenes_de_compra = await context.$axios
+      .$get(`${context.$config.apiUrl}/items/ordenes_de_compra`)
       .then((res) => res.data);
-    return { solicitud_cotizaciones };
+    return { ordenes_de_compra };
   },
 };
 </script>
