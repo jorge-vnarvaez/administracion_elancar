@@ -68,17 +68,15 @@
           </div>
         </nuxt-link>
         <!-- CARRO COMPRAS -->
-      </div>
 
-      <div>
-        <!-- CERRAR SESION -->
+        <!-- BOTON COTIZACION EN PROCESO -->
+        <nuxt-link v-if="cotizacion_en_proceso" to="/cotizaciones/crear">
           <div
-            @click="cerrarSesion"
-            class="tw-cursor-pointer tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2"
+            class="tw-relative tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-logout"
+              class="icon icon-tabler icon-tabler-file-text"
               width="48"
               height="48"
               viewBox="0 0 24 24"
@@ -89,10 +87,49 @@
               stroke-linejoin="round"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M7 12h14l-3 -3m0 6l3 -3" />
-              <path d="M4 12v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2" />
+              <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+              <path
+                d="M18 17v-13a2 2 0 0 0 -2 -2h-12a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h8"
+              />
+              <rect x="8" y="9" width="6" height="6" rx="2" />
             </svg>
           </div>
+        </nuxt-link>
+        <!-- BOTON COTIZACION EN PROCESO -->
+      </div>
+
+      <div>
+        <!-- CERRAR SESION -->
+        <v-tooltip right>
+          <template v-slot:activator="{ on, attrs }">
+            <div
+              @click="cerrarSesion"
+              v-bind="attrs"
+              v-on="on"
+              class="tw-cursor-pointer tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-logout"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#000000"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M7 12h14l-3 -3m0 6l3 -3" />
+                <path
+                  d="M4 12v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2"
+                />
+              </svg>
+            </div>
+          </template>
+          <span>Cerrar sesión</span>
+        </v-tooltip>
         <!-- CERRAR SESION -->
       </div>
     </div>
@@ -114,7 +151,12 @@ export default {
     cerrarSesion() {
       this.$store.dispatch("session/desconectar");
     },
-  }
+  },
+  computed: {
+    cotizacion_en_proceso() {
+      return this.$store.getters["info_despacho/getEstadoCotizacion"];
+    },
+  },
 };
 </script>
 

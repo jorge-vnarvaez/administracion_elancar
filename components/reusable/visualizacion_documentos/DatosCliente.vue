@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="cliente">
     <span class="tw-block tw-font-bold">Datos del cliente</span>
     <div class="tw-flex tw-flex-col">
       <!--NOMBRE COMPLETO-->
@@ -46,7 +46,7 @@ export default {
   props: {
     cliente: {
       type: Object,
-      default: {}
+      default: () => {}
     }
   }
 };

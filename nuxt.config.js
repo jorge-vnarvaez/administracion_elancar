@@ -13,7 +13,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'administracion_elancar',
+    title: 'Administración Elancar',
     htmlAttrs: {
       lang: 'en'
     },

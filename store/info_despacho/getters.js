@@ -1,5 +1,8 @@
 export default {
-    getInfoDespacho(state) {
-        return state.info_despacho;
+    getInfoDespachoCotizacion(state) {
+        return state.info_despacho_cotizacion;
+    },
+    getEstadoCotizacion(state) {
+        return state.cotizacion_en_proceso;
     }
 }

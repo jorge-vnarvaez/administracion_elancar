@@ -4,14 +4,7 @@
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
         <!--LOGO-->
-        <div class="tw-w-[74px] tw-h-[100px]">
-          <v-img
-            src="/logo_elancar.png"
-            width="74"
-            height="100"
-            contain
-          ></v-img>
-        </div>
+        <IconoElancar />
         <!--LOGO-->
 
         <!--TITULO-->
@@ -28,13 +21,12 @@
       <!--[BUSCADOR]-->
       <div>
         <v-text-field
-          class="tw-w-[700px] mt-6"
+          class="tw-w-[700px]"
           v-model="buscador"
           placeholder="Buscar cotizacion por código"
           append-icon="mdi-magnify"
           solo
           flat
-          outlined
           clearable
         ></v-text-field>
       </div>
@@ -90,6 +82,8 @@
 </template>
 
 <script>
+
+import IconoElancar from "@/components/reusable/IconoElancar.vue";  
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import SolicitudDeCotizacionTableItem from "@/components/utils/SolicitudCotizacionTableItem.vue";
 

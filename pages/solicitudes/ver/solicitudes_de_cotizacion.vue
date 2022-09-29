@@ -4,14 +4,7 @@
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
         <!--LOGO-->
-        <div class="tw-w-[74px] tw-h-[100px]">
-          <v-img
-            src="/logo_elancar.png"
-            width="74"
-            height="100"
-            contain
-          ></v-img>
-        </div>
+        <IconoElancar />
         <!--LOGO-->
 
         <!--TITULO-->
@@ -34,7 +27,6 @@
           append-icon="mdi-magnify"
           solo
           flat
-          outlined
           clearable
         ></v-text-field>
       </div>
@@ -92,11 +84,13 @@
 
 <script>
 import qs from "qs";
+import IconoElancar from "@/components/reusable/IconoElancar.vue";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import SolicitudDeCotizacionTableItem from "@/components/utils/SolicitudCotizacionTableItem.vue";
 
 export default {
   components: {
+    IconoElancar,
     CardNewSolicitud,
     SolicitudDeCotizacionTableItem,
   },
@@ -120,7 +114,7 @@ export default {
 
       this.solicitud_cotizaciones = await this.$axios
         .$get(
-          `${this.$config.apiUrl}/items/solicitudes_de_cotizacion${
+          `${this.$config.apiUrl}/items/cotizaciones_proveedor${
             queryBuscador == "" ? "" : `?${query}`
           }`
         )

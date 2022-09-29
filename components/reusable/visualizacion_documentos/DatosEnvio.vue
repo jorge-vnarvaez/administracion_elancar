@@ -22,7 +22,7 @@ export default {
   props: {
     datos_envio: {
       type: Object,
-      default: {},
+      default: () => {},
     },
   },
 };

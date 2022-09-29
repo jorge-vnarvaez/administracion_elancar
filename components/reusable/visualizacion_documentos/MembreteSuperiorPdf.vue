@@ -1,50 +1,70 @@
 <template>
-  <!--MEMBRETE-->
-  <div class="tw-flex tw-space-x-4 align-center">
-    <!--LOGO ELANCAR -->
-    <img src="/logo_elancar.png" width="74" height="20" />
-    <!--LOGO ELANCAR -->
+  <div class="tw-flex tw-justify-between">
+    <!--MEMBRETE-->
+    <div class="tw-flex tw-space-x-4 align-center">
+      <!--LOGO ELANCAR -->
+      <IconoElancar />
+      <!--LOGO ELANCAR -->
 
-    <div class="tw-flex tw-flex-col align-start">
-      <!--TIPO DE DOCUMENTO -->
-      <div class="tw-text-2xl tw-font-bold">
-        {{ tipoDocumento }}
-      </div>
-      <!--TIPO DE DOCUMENTO -->
+      <div class="tw-flex tw-flex-col align-start">
+        <!--TIPO DE DOCUMENTO -->
+        <div class="tw-text-2xl tw-font-bold">
+          {{ tipoDocumento }}
+        </div>
+        <!--TIPO DE DOCUMENTO -->
 
-      <!--FECHA -->
-      <div class="tw-text-lg tw-mt-2">
-        <span class="tw-font-bold">Fecha emisión</span>
-        <span>{{ fechaFormateada  }}</span>
+        <!--FECHA -->
+        <div class="tw-text-lg tw-mt-2">
+          <span class="tw-font-bold">Fecha emisión</span>
+          <span>{{ fechaFormateada }}</span>
+        </div>
+        <!-- FECHA -->
       </div>
-      <!-- FECHA -->
     </div>
+    <!--MEMBRETE-->
+
+    <!-- GRUPO BOTONES -->
+    <GrupoBotones
+      btnRealizarPedido
+      btnImprimir
+      btnBorrar
+      :tipoDocumento="tipoDocumento"
+    />
+    <!-- GRUPO BOTONES -->
   </div>
-  <!--MEMBRETE-->
 </template>
 
 <script>
 
-import moment from "moment"
+import moment from "moment";
+import IconoElancar from "@/components/reusable/IconoElancar.vue";
+import GrupoBotones from "@/components/reusable/visualizacion_documentos/GrupoBotones.vue";
 
 export default {
-    props: {
-        tipoDocumento: {
-            type: String,
-            default: ""
-        },
-        fecha_emision: {
-            type: String,
-            default: ""
-        }
+  components: {
+    IconoElancar,
+    GrupoBotones,
+  },
+  props: {
+    tipoDocumento: {
+      type: String,
+      default: "",
+      desc: "Define el tipo de documento que se esta visualizando",
     },
-    computed: {
-        fechaFormateada() {
-            return moment(this.fecha_emision).format("LL");
-        }
-    }
+    fecha_emision: {
+      type: [String, Date, Object],
+      default: "",
+      desc: "Define la fecha de emision del documento",
+    },
+  },
+  computed: {
+    fechaFormateada() {
+      return moment(this.fecha_emision).format("LL");
+    },
+  },
 };
 </script>
 
 <style>
+
 </style>

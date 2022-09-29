@@ -14,11 +14,12 @@ import BarraApp from "../layouts/BarraApp.vue";
 export default {
   components: { BarraAppMobile, BarraApp },
   mounted() {
-    const carro = this.$cookies.get("carroCompras");
-    const info_despacho = this.$cookies.get("infoDespacho");
+    const carro = this.$cookies.get("carroCompras") || [];
+    const info_despacho = this.$cookies.get("infoDespachoCotizacion");
 
     this.$store.dispatch("carro_compras/setCarro", carro);
-    this.$store.dispatch("info_despacho/setInfoDespacho", info_despacho);
+    this.$store.dispatch("info_despacho/setInfoDespachoCotizacion", info_despacho);
+    this.$store.commit("info_despacho/no_cotizacionEnProceso");
   },
 };
 </script>

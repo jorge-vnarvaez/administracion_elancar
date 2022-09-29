@@ -33,7 +33,6 @@
             
             <!-- DATOS DE ENVIO -->
 
-
             <!-- TABLE BODY -->
             <div
               class="tw-grid tw-grid-cols-12 tw-mt-4"

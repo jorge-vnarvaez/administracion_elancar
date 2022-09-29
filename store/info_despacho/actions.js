@@ -1,5 +1,8 @@
 export default{
-    setInfoDespacho({commit}, info_despacho){
-        commit('setInfoDespacho', info_despacho);
+    setInfoDespachoCotizacion({commit}, info_despacho){
+        commit('setInfoDespachoCotizacion', info_despacho);
+    },
+    borrarInfoDespachoCotizacion({commit}){
+        commit('borrarInfoDespachoCotizacion');
     }
 }

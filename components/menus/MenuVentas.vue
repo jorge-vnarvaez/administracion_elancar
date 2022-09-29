@@ -28,7 +28,7 @@
     <div
       @mouseleave="opciones = false"
       @mouseover="opciones = true"
-      class="tw-absolute tw-z-50 tw-left-14 tw-top-4 tw-transition tw-ease-in-out tw-px-2"
+      class="tw-absolute tw-z-50 tw-left-14 tw-top-0 tw-transition tw-ease-in-out tw-px-2"
       v-if="opciones"
     >
       <div class="tw-bg-yellow-300 tw-rounded-lg tw-mt-4 tw-shadow-lg">

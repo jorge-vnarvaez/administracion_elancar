@@ -26,7 +26,7 @@
           v-model="info_despacho.datos_cliente.rut"
           :rules="rutRules"
           label="Rut"
-          requiredinfo_despacho.datos_envio
+          required
           class="tw-col-span-4"
         >
         </v-text-field>
@@ -174,7 +174,7 @@ export default {
   },
   methods:{
     continuar(){
-      this.$store.dispatch('info_despacho/setInfoDespacho', this.info_despacho)
+      this.$store.dispatch('info_despacho/setInfoDespachoCotizacion', this.info_despacho)
       this.$router.push("/cotizaciones/crear")
     }
   }
