@@ -40,7 +40,7 @@
       </div>
       <!--[BUSCADOR]-->
     </div>
-    <div v-if="solicitud_cotizaciones.length>0">
+    <div v-if="solicitud_cotizaciones.length > 0">
       <!--TABLE HEADER-->
 
       <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
@@ -77,10 +77,7 @@
 
       <!--[PAGINATION]-->
       <div class="tw-my-8" v-if="solicitud_cotizaciones.length > 0">
-        <v-pagination
-          v-model="page"
-          :length="Math.round(pages)"
-        ></v-pagination>
+        <v-pagination v-model="page" :length="Math.round(pages)"></v-pagination>
       </div>
       <!--[PAGINATION]-->
     </div>
@@ -108,6 +105,16 @@ export default {
       page: 1,
       itemsPerPage: 7,
     };
+  },
+  mounted() {
+    console.log("page loaded...");
+
+    const performance = this.$store.getters["performance/getPerformance"];
+
+    // convert performance to seconds
+    const performanceInSeconds = performance / 1000;
+
+    console.log("Is takes " + performanceInSeconds + " seconds to load page");
   },
   methods: {
     async filterCotizaciones(queryBuscador) {
@@ -144,8 +151,8 @@ export default {
   computed: {
     pages() {
       return this.solicitud_cotizaciones.length / this.itemsPerPage;
-    }
-  }
+    },
+  },
 };
 </script>
 
