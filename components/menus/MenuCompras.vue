@@ -1,7 +1,17 @@
 <template>
   <div
     @mouseover="opciones = true"
-    class="tw-relative tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
+    class="
+      tw-relative
+      tw-bg-yellow-500
+      tw-rounded-lg
+      tw-shadow-md
+      tw-[40px]
+      tw-h-[40px]
+      tw-flex
+      align-center
+      tw-p-2 tw-cursor-pointer
+    "
   >
     <svg
       @mouseleave="opciones = false"
@@ -29,12 +39,22 @@
     <div
       @mouseleave="opciones = false"
       @mouseover="opciones = true"
-      class="tw-absolute tw-left-14 tw-top-0 tw-transition tw-ease-in-out tw-px-2"
+      class="
+        tw-absolute tw-left-14 tw-top-0 tw-transition tw-ease-in-out tw-px-2
+      "
       v-if="opciones"
     >
       <div class="tw-bg-yellow-300 tw-rounded-lg tw-mt-4 tw-shadow-lg">
         <span
-          class="tw-block tw-font-bold tw-text-xl tw-px-6 tw-text-neutral-900 tw-py-2 tw-bg-yellow-400"
+          class="
+            tw-block
+            tw-font-bold
+            tw-text-xl
+            tw-px-6
+            tw-text-neutral-900
+            tw-py-2
+            tw-bg-yellow-400
+          "
           >Compras</span
         >
         <v-list-item-title
@@ -45,8 +65,11 @@
             class="text-decoration-none"
             :to="{ name: `${pagina.route_name}` }"
             ><p
-              @click="opciones = false"
-              class="tw-text-neutral-900 tw-px-6 tw-py-2 tw-my-0 hover:tw-bg-neutral-800 hover:tw-text-white"
+              @click="testPerformance"
+              class="
+                tw-text-neutral-900 tw-px-6 tw-py-2 tw-my-0
+                hover:tw-bg-neutral-800 hover:tw-text-white
+              "
             >
               {{ pagina.label }}
             </p></nuxt-link
@@ -90,6 +113,13 @@ export default {
         // },
       ],
     };
+  },
+  methods: {
+    testPerformance() {
+      console.log("checking performance...")
+      const now = window.performance.now()
+      this.$store.dispatch("performance/instanceTime", now);
+    },
   },
 };
 </script>
