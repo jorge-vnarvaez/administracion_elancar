@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     fechaFormateada() {
-      return moment(this.fecha_emision).format("LL");
+      return moment(this.fecha_emision).format("DD/MM/YYYY");
     },
   },
 };

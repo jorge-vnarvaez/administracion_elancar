@@ -51,7 +51,6 @@
       <!--TABLE HEADER-->
 
       <!--[TABLE CONTENT]-->
-      {{ solicitud_cotizaciones }}
       <div
         v-for="(cotizacion, index) in solicitud_cotizaciones.slice(
           itemsPerPage * page - itemsPerPage,
