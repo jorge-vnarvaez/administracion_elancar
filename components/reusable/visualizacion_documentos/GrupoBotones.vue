@@ -36,17 +36,17 @@ export default {
         btnRealizarPedido: {
             type: Boolean,
             default: false,
-            desc: "Define si se muestra el boton de realizar pedido"
+            desc: "Define si se muestra o no el boton de realizar pedido"
         },
         btnImprimir: {
             type: Boolean,
             default: false,
-            desc: "Define si se muestra el boton de imprimir"
+            desc: "Define si se muestra o no el boton de imprimir"
         },
         btnBorrar: {
             type: Boolean,
             default: false,
-            desc: "Define si se muestra el boton de borrar"
+            desc: "Define si se muestra o no el boton de borrar"
         },
     },
     methods: {

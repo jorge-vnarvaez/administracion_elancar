@@ -30,7 +30,7 @@
         ' tw-col-span-6 tw-flex lg:tw-col-span-4 tw-py-4 tw-space-x-6 '
       "
     >
-      <IconoVer />
+      <IconoVer tipoDocumento="Nota de pedido" path="/notas_pedido" />
       <PdfMaker tipoDocumento="Nota de pedido" item="notas_de_pedido" :idDocumento="nota_de_pedido.id" />
     </div>
     <!-- ARCHIVOS -->

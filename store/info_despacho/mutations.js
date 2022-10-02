@@ -6,11 +6,8 @@ export default {
     },
     borrarInfoDespachoCotizacion(state){
         state.info_despacho_cotizacion = null;
-        state.cotizacion_en_proceso = !state.cotizacion_en_proceso;
         this.$cookies.remove("infoDespachoCotizacion");
+        state.cotizacion_en_proceso = false;
         this.$router.push("/productos");
     },
-    no_cotizacionEnProceso(state){
-        state.cotizacion_en_proceso = false;
-    }
 }

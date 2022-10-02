@@ -46,7 +46,8 @@ export default {
   props: {
     cliente: {
       type: Object,
-      default: () => {}
+      default: () => {},
+      desc: "Datos del cliente como nombre, fono, email, etc.",
     }
   }
 };

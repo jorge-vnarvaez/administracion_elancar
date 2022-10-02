@@ -25,17 +25,17 @@
 
     <!-- GRUPO BOTONES -->
     <GrupoBotones
-      btnRealizarPedido
-      btnImprimir
-      btnBorrar
+      v-if="grupoBotones"
       :tipoDocumento="tipoDocumento"
+      :btnRealizarPedido="btnRealizarPedido"
+      :btnImprimir="btnImprimir"
+      :btnBorrar="btnBorrar"
     />
     <!-- GRUPO BOTONES -->
   </div>
 </template>
 
 <script>
-
 import moment from "moment";
 import IconoElancar from "@/components/reusable/IconoElancar.vue";
 import GrupoBotones from "@/components/reusable/visualizacion_documentos/GrupoBotones.vue";
@@ -56,6 +56,26 @@ export default {
       default: "",
       desc: "Define la fecha de emision del documento",
     },
+    grupoBotones: {
+      type: Boolean,
+      default: false,
+      desc: "Define si se muestra o no el grupo de botones",
+    },
+    btnRealizarPedido: {
+      type: Boolean,
+      default: false,
+      desc: "Define si se muestra o no el boton de realizar pedido",
+    },
+    btnImprimir: {
+      type: Boolean,
+      default: false,
+      desc: "Define si se muestra o no el boton de imprimir",
+    },
+    btnBorrar: {
+      type: Boolean,
+      default: false,
+      desc: "Define si se muestra o no el boton de borrar",
+    },
   },
   computed: {
     fechaFormateada() {
@@ -65,6 +85,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

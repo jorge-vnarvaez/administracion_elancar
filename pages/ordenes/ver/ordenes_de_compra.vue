@@ -77,7 +77,7 @@
       <div class="tw-my-8">
         <v-pagination
           v-model="page"
-          :length="ordenes_de_compra.length / itemsPerPage"
+          :length="Math.round(ordenes_de_compra.length / itemsPerPage)"
         ></v-pagination>
       </div>
       <!--[PAGINATION]-->
@@ -105,6 +105,16 @@ export default {
       page: 1,
       itemsPerPage: 7,
     };
+  },
+  mounted() {
+    console.log("page loaded...");
+
+    const performance = this.$store.getters["performance/getPerformance"];
+
+    // convert performance to seconds
+    const performanceInSeconds = performance / 1000;
+
+    console.log("It takes " + performanceInSeconds + " seconds to load page");
   },
   methods: {
     async filterOrdenDeCompraes(queryBuscador) {

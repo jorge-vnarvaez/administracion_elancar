@@ -17,40 +17,38 @@
         lazy-validation
         class="tw-grid tw-grid-cols-12 tw-gap-x-20 place-items-center"
       >
-        <!-- ICONO-->
-        <div class="tw-col-span-2 tw-place-self-center">
-          <IconoUsuario />
+        <div class="tw-col-span-12 tw-grid tw-grid-cols-12 tw-gap-x-20">
+          <v-text-field
+            v-model="info_despacho.datos_cliente.rut"
+            :rules="rutRules"
+            label="Rut"
+            required
+            class="tw-col-span-3"
+          >
+          </v-text-field>
+          <v-text-field
+            v-model="info_despacho.datos_cliente.nombre_completo"
+            :rules="nombreRules"
+            label="Nombre"
+            required
+            class="tw-col-span-3"
+          >
+          </v-text-field>
         </div>
-        <!-- ICONO-->
-        <v-text-field
-          v-model="info_despacho.datos_cliente.rut"
-          :rules="rutRules"
-          label="Rut"
-          required
-          class="tw-col-span-4"
-        >
-        </v-text-field>
-        <v-text-field
-          v-model="info_despacho.datos_cliente.nombre_completo"
-          :rules="nombreRules"
-          label="Nombre"
-          required
-          class="tw-col-span-4"
-        >
-        </v-text-field>
+
         <v-text-field
           v-model="info_despacho.datos_cliente.fono"
           :rules="telefonoRules"
           label="Telefono"
           required
-          class="tw-col-span-4 tw-col-start-3"
+          class="tw-col-span-3 tw-o"
         ></v-text-field>
         <v-text-field
           v-model="info_despacho.datos_cliente.email"
           :rules="emailRules"
           label="Email"
           required
-          class="tw-col-span-4"
+          class="tw-col-span-3"
         >
         </v-text-field>
       </v-form>
@@ -70,7 +68,7 @@
       </div>
 
       <v-radio-group v-model="opciones_despacho" mandatory>
-        <div class="tw-flex tw-justify-between tw-w-[700px]">
+        <div class="tw-flex tw-justify-between tw-w-[740px]">
           <OpcionDespacho
             tipo="retiro_en_tienda"
             titulo="Retiro en Tienda"
@@ -103,14 +101,14 @@
           v-model="info_despacho.datos_envio.calle"
           label="Calle"
           required
-          class="tw-col-span-4 tw-col-start-3"
+          class="tw-col-span-3"
         >
         </v-text-field>
         <v-text-field
           v-model="info_despacho.datos_envio.numero"
           label="Numero"
           required
-          class="tw-col-span-4"
+          class="tw-col-span-3"
         >
         </v-text-field>
       </div>
@@ -152,7 +150,7 @@ export default {
         datos_envio: {
           calle: "",
           numero: "",
-        }
+        },
       },
       rutRules: [
         (v) => !!v || "Rut es requerido",
@@ -172,14 +170,16 @@ export default {
       opciones_despacho: null,
     };
   },
-  methods:{
-    continuar(){
-      this.$store.dispatch('info_despacho/setInfoDespachoCotizacion', this.info_despacho)
-      this.$router.push("/cotizaciones/crear")
-    }
-  }
+  methods: {
+    continuar() {
+      this.$store.dispatch(
+        "info_despacho/setInfoDespachoCotizacion",
+        this.info_despacho
+      );
+      this.$router.push("/cotizaciones/crear");
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

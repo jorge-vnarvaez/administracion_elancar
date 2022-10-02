@@ -6,6 +6,10 @@
         <MembreteSuperiorPdf
           tipoDocumento="Cotización"
           :fecha_emision="fecha_actual"
+          grupoBotones
+          btnImprimir
+          btnRealizarPedido
+          btnBorrar
         />
         <!-- MEMBRETE -->
 

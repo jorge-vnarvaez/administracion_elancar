@@ -70,7 +70,7 @@
         <!-- CARRO COMPRAS -->
 
         <!-- BOTON COTIZACION EN PROCESO -->
-        <nuxt-link v-if="cotizacion_en_proceso" to="/cotizaciones/crear">
+        <nuxt-link v-if="estado_cotizacion" to="/cotizaciones/crear">
           <div
             class="tw-relative tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
           >
@@ -147,16 +147,23 @@ export default {
     MenuCompras,
     MenuGestion,
   },
+  props: {
+    cotizacion_en_proceso: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
     cerrarSesion() {
       this.$store.dispatch("session/desconectar");
     },
   },
   computed: {
-    cotizacion_en_proceso() {
-      return this.$store.getters["info_despacho/getEstadoCotizacion"];
+    estado_cotizacion() {
+      return this.$cookies.get('cotizacionEnProceso');
     },
-  },
+  }
+ 
 };
 </script>
 

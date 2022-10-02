@@ -7,7 +7,7 @@
           ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4 '
         "
       >
-        {{ nota_de_pedido.id }}
+        {{ cotizacion_cliente.id }}
       </div>
       <!-- CODIGO -->
   
@@ -18,7 +18,7 @@
           ' tw-col-span-6 lg:tw-col-span-6 tw-py-4 tw-px-4'
         "
       >
-        {{ formatearFecha(nota_de_pedido.fecha_emision) }}
+        {{ formatearFecha(cotizacion_cliente.fecha_emision) }}
         <!-- {{ formatearHora(solicitud_de_cotizacion.hora_emision)}} -->
       </div>
       <!-- FECHA -->
@@ -30,7 +30,7 @@
           ' tw-col-span-6 tw-flex lg:tw-col-span-4 tw-py-4 tw-space-x-6 '
         "
       >
-        <IconoVer />
+        <IconoVer tipoDocumento="Cotización" path="/cotizaciones" />
         <IconoDescarga />
       </div>
       <!-- ARCHIVOS -->
@@ -38,12 +38,13 @@
   </template>
   
   <script>
+  import moment from "moment";
   import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
   import IconoVer from "@/components/iconos/IconoVer.vue";
-  import moment from "moment";
+  
   export default {
     components: { IconoDescarga, IconoVer },
-    props: ["nota_de_pedido", "index"],
+    props: ["cotizacion_cliente", "index"],
     methods: {
       formatearFecha(fecha) {
         return moment(fecha).format("LL");

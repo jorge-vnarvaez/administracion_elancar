@@ -10,7 +10,7 @@
 
       <!--NRO CALLE  -->
      <span>
-        {{ datos_envio.nro }}
+        {{ datos_envio.numero }}
       </span>
       <!--NRO CALLE  -->
     </div>

@@ -51,6 +51,7 @@
       <!--TABLE HEADER-->
 
       <!--[TABLE CONTENT]-->
+      {{ solicitud_cotizaciones }}
       <div
         v-for="(cotizacion, index) in solicitud_cotizaciones.slice(
           itemsPerPage * page - itemsPerPage,
@@ -58,8 +59,8 @@
         )"
         :key="cotizacion.id"
       >
-        <SolicitudDeCotizacionTableItem
-          :solicitud_de_cotizacion="cotizacion"
+        <CotizacionesClienteTableItem
+          :cotizacion_cliente="cotizacion"
           :index="index"
         />
       </div>
@@ -70,7 +71,7 @@
       <div class="tw-my-8">
         <v-pagination
           v-model="page"
-          :length="solicitud_cotizaciones.length / itemsPerPage"
+          :length="Math.round(solicitud_cotizaciones.length / itemsPerPage)"
         ></v-pagination>
       </div>
       <!--[PAGINATION]-->
@@ -85,13 +86,14 @@
 
 import IconoElancar from "@/components/reusable/IconoElancar.vue";  
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
-import SolicitudDeCotizacionTableItem from "@/components/utils/SolicitudCotizacionTableItem.vue";
+import CotizacionesClienteTableItem from "@/components/utils/CotizacionesClientesTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
   components: {
+    IconoElancar,
     CardNewSolicitud,
-    SolicitudDeCotizacionTableItem,
+    CotizacionesClienteTableItem,
     EmptyTable,
   },
   data() {

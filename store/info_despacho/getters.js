@@ -4,5 +4,5 @@ export default {
     },
     getEstadoCotizacion(state) {
         return state.cotizacion_en_proceso;
-    }
+    },
 }
