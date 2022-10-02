@@ -30,7 +30,7 @@
           ' tw-col-span-6 tw-flex lg:tw-col-span-4 tw-py-4 tw-space-x-6 '
         "
       >
-        <IconoVer tipoDocumento="Cotización" path="/cotizaciones" />
+        <IconoVer tipoDocumento="Cotización" path="/cotizaciones" :idDocumento="cotizacion_cliente.id"  />
         <IconoDescarga />
       </div>
       <!-- ARCHIVOS -->

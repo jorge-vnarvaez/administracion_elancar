@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-link :to="`${path}/visualizar`">
+    <nuxt-link :to="`${path}/visualizar/${idDocumento}`">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="icon icon-tabler icon-tabler-eye"
@@ -26,6 +26,10 @@
 <script>
 export default {
   props: {
+    idDocumento: {
+      type:[String, Number],
+      required: true,
+    },
     tipoDocumento: {
       type: String,
       default: null,
