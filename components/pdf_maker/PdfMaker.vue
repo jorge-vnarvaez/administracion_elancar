@@ -23,37 +23,29 @@
             <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
             <!--V-DIVIDER-->
 
+            <!-- DATOS DEL PROVEEDOR -->
+            <div v-if="infoDocumento.proveedor">
+              <DatosProveedor :proveedor="infoDocumento.proveedor" />
+            </div>
+            <!-- DATOS DEL PROVEEDOR -->
+
             <!--DATOS DEL CLIENTE-->
             <div v-if="infoDocumento.cliente">
-                <!-- TODO: LLAMAR AL COMPONENTE DATOSCLIENTE -->
+              <DatosCliente :cliente="infoDocumento.cliente" />
             </div>
             <!--DATOS DEL CLIENTE-->
 
             <!-- DATOS DE ENVIO -->
-            
+            <!--TODO: INSERTAR COMPONENTE DATOS ENVIO -->
             <!-- DATOS DE ENVIO -->
 
-            <!-- TABLE BODY -->
-            <div
-              class="tw-grid tw-grid-cols-12 tw-mt-4"
-              v-for="producto in detalleDocumento"
-              :key="producto.id"
-            >
-              <div class="tw-col-span-3">
-                <span class="tw-block">{{ producto.nombre }}</span>
-              </div>
-              <div class="tw-col-span-2">
-                <span class="tw-block">{{ producto.cantidad }}</span>
-              </div>
+            <!-- TABLE PRODUCTOS  -->
+            <TablaProductos
+              :labels="labels"
+              :productos="detalleDocumento"
+            />
+            <!-- TABLE PRODUCTOS  -->
 
-              <div class="tw-col-span-3">
-                <span class="tw-block">$.-</span>
-              </div>
-              <div class="tw-col-span-2">
-                <span class="tw-block">$.-</span>
-              </div>
-            </div>
-            <!-- TABLE BODY -->
           </div>
         </section>
       </vue-html2pdf>
@@ -68,11 +60,19 @@
 <script>
 import qs from "qs";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
-import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue"
+import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
 import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
+import DatosProveedor from "@/components/reusable/visualizacion_documentos/DatosProveedor.vue";
+import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 
 export default {
-  components: { MembreteSuperiorPdf, DatosCliente, IconoDescarga },
+  components: {
+    MembreteSuperiorPdf,
+    DatosCliente,
+    IconoDescarga,
+    DatosProveedor,
+    TablaProductos,
+  },
   props: {
     idDocumento: {
       type: Number,
@@ -95,6 +95,23 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
+      labels: [
+        {
+          titulo: "Productos",
+        },
+        {
+          titulo: "Kg"
+        },
+        {
+          titulo: "Cantidad",
+        },
+        {
+          titulo: "Precio por unidad",
+        },
+        {
+          titulo: "Total",
+        },
+      ],
     };
   },
 

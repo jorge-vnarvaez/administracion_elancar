@@ -8,22 +8,28 @@ export default {
     addProductToCart(state, { producto, cantidad }) {
         state.carroCompras = state.carroCompras || [];
 
-        if (state.carroCompras.length > 0) {
-            if (!state.carroCompras.find((item) => item.producto.id == producto.id)) {
-                state.carroCompras.push({ producto, cantidad })
-            } else {
-                state.carroCompras.find((item) => item.producto.id == producto.id).cantidad += cantidad
-                state.carroCompras.find((item) => item.producto.id == producto.id).producto = producto
-            }
+        // add cantidad to existing product as a new atributo
+        const productInCart = state.carroCompras.find(
+            (item) => item.id === producto.id
+        );
+
+        if (productInCart) {
+            productInCart.cantidad += cantidad;
         } else {
-            state.carroCompras.push({ producto, cantidad })
+            producto.cantidad = cantidad;
+            state.carroCompras.push({
+                ...producto,
+            });
         }
 
         this.$cookies.set('carroCompras', state.carroCompras);
     },
-    // Remove product from cart
-    removeProductFromCart(state, { producto }) {
-        state.carroCompras = state.carroCompras.filter((item) => item.producto.id != producto.id)
+    // remover producto del carro
+    removeProductFromCart(state, producto) {
+        state.carroCompras = state.carroCompras.filter(
+            (item) => item.id !== producto.id
+        );
+
         this.$cookies.set('carroCompras', state.carroCompras);
     },
     borrarCarro(state) {

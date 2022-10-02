@@ -12,7 +12,7 @@
         <span class="tw-block tw-font-bold tw-text-xl">Resumen de compra</span>
         <div class="tw-w-full tw-flex tw-justify-between tw-mt-4">
           <span>Costo de los productos </span>
-          <span class="tw-text-2xl">$ {{ totalPrecio }}</span>
+          <span class="tw-text-2xl">{{ formatearPrecio(totalPrecio) }}</span>
         </div>
 
         <div class="tw-mt-8">
@@ -26,9 +26,10 @@
         </div>
       </div>
 
-      <div v-for="item in carro" :key="item.producto.id" class="tw-col-span-8">
-        <producto-cart-item :item="item" :key="item.producto.id" />
+      <div v-for="item in carro" :key="item.id" class="tw-col-span-8">
+        <producto-cart-item :item="item" :key="item.id" />
       </div>
+
     </div>
   </div>
 </template>
@@ -39,6 +40,14 @@ import ProductoCartItem from "@/components/utils/ProductoCartItem.vue";
 export default {
   components: {
     ProductoCartItem,
+  },
+  methods: {
+    formatearPrecio(precio) {
+      return precio.toLocaleString("es-CL", {
+        style: "currency",
+        currency: "CLP",
+      });
+    },
   },
   computed: {
     carro() {

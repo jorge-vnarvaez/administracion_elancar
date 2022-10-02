@@ -15,8 +15,7 @@
 
         <!--FECHA -->
         <div class="tw-text-lg tw-mt-2">
-          <span class="tw-font-bold">Fecha emisión</span>
-          <span>{{ fechaFormateada }}</span>
+          <span class="tw-text-sm">Fecha emisión {{ fechaFormateada }}</span>
         </div>
         <!-- FECHA -->
       </div>
@@ -79,7 +78,7 @@ export default {
   },
   computed: {
     fechaFormateada() {
-      return moment(this.fecha_emision).format("LL");
+      return moment(this.fecha_emision).format("DD/MM/YYYY");
     },
   },
 };

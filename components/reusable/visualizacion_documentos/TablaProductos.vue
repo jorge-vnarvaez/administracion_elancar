@@ -14,30 +14,19 @@
 
     <!-- TABLE BODY -->
     <div v-for="(item, index) in productos" :key="index" class="tw-grid tw-grid-cols-12 my-8">
-        <span :class="col_span_table(0)">{{ item.producto.nombre }}</span>
+        <span :class="col_span_table(0)">{{ item.nombre }}</span>
         <span :class="col_span_table(1)">{{ item.cantidad }}</span>
-        <span :class="col_span_table(2)">{{ item.cantidad * item.producto.kg }}</span>
-        <span :class="col_span_table(3)">{{ item.producto.precio }}</span>
-        <span :class="col_span_table(4)">{{ item.cantidad * item.producto.precio }}</span>
+        <span :class="col_span_table(2)">{{ item.cantidad * item.kg }}</span>
+        <span :class="col_span_table(3)">{{ item.precio }}</span>
+        <span :class="col_span_table(4)">{{ item.cantidad * item.precio }}</span>
     </div>
     <!-- TABLE BODY -->
-
-
-    <!-- MEMBRETE INFERIOR -->
-    <MembreteInferiorPdf />
-    <!-- MEMBRETE INFERIOR -->
-
   </div>
 </template>
 
 <script>
 
-import MembreteInferiorPdf from '@/components/reusable/visualizacion_documentos/MembreteInferiorPdf.vue'
-
 export default {
-  components: {
-    MembreteInferiorPdf
-  },
   props: {
     labels: {
       type: Array,
@@ -48,7 +37,12 @@ export default {
       type: [Array, String],
       default: () => [],
       desc: "Describe los productos que se van a mostrar en la tabla",
-    }
+    },
+    cotizacion_proveedor: {
+      type: Boolean,
+      default: false,
+      desc: "Define si la cotización va dirigida a proveedor lo que retira los precios de la tabla",
+    },
   },
   methods: {
     col_span_table(index) {

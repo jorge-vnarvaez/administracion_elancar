@@ -18,7 +18,7 @@
         ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4'
       "
     >
-      $ {{ producto.precio_actual }}
+      {{ formatearPrecio(producto.precio) }}
     </div>
     <!-- PRECIO NETO -->
 
@@ -37,7 +37,7 @@
     <div
       :class="
         `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4'
+        ' tw-col-span-6 lg:tw-col-span-2 tw-py-1 tw-px-4'
       "
     >
       <div class="tw-flex">
@@ -59,7 +59,7 @@
     <div
       :class="
         `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-2 tw-py-4 tw-px-4'
+        ' tw-col-span-2 tw-py-3 tw-px-4'
       "
     >
       <button
@@ -91,6 +91,12 @@ export default {
     };
   },
   methods: {
+    formatearPrecio(precio) {
+      return precio.toLocaleString("es-CL", {
+        style: "currency",
+        currency: "CLP",
+      });
+    },
     aumentarCantidad(stock) {
       if(this.cantidad < stock) {
         this.cantidad++;
@@ -103,8 +109,8 @@ export default {
     },
     agregarAlCarrito(producto, cantidad) {
       this.$store.dispatch("carro_compras/addProductToCart", {
-        producto: producto,
-        cantidad: parseInt(cantidad),
+        producto,
+        cantidad
       });
     },
   },

@@ -49,6 +49,7 @@ tw-<template>
         :key="producto.id"
       >
         <producto-table-item
+          class="tw-flex align-center"
           :producto="producto"
           :index="index"
           :key="producto.id"

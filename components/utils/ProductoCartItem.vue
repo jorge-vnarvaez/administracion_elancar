@@ -1,28 +1,28 @@
 <template>
   <div class="tw-col-span-8 tw-bg-white tw-py-4 tw-px-8">
-    <span v-if="item.producto.marca" class="tw-block tw-font-light">{{
-      item.producto.marca.nombre
+    <span v-if="item.marca" class="tw-block tw-font-light">{{
+      item.marca.nombre
     }}</span>
-    <span class="tw-block tw-text-xl tw-font-bold">{{ item.producto.nombre }}</span>
-    <span class="tw-block tw-text-sm">Código: {{ item.producto.id }}</span>
+    <span class="tw-block tw-text-xl tw-font-bold">{{ item.nombre }}</span>
+    <span class="tw-block tw-text-sm">Código: {{ item.id }}</span>
 
     <div class="tw-flex tw-mt-4">
-      <div class="tw-flex tw-space-x-4">
+      <!-- <div class="tw-flex tw-space-x-4">
         <div>
           <v-img
-            :src="$config.apiUrl + '/assets/' + item.producto.imagen_referencia"
+            :src="$config.apiUrl + '/assets/' + item.imagen_referencia"
             width="250"
             height="250"
             contain
           ></v-img>
         </div>
-      </div>
+      </div> -->
 
       <div class="tw-w-full tw-flex tw-flex-col tw-justify-between  align-end">
         <div>
           <span class="tw-font-bold tw-text-xl tw-mr-4">Total</span
           ><span class="tw-text-xl"
-            >$ {{ item.producto.precio * item.cantidad }}</span
+            >{{ formatearPrecio(item.precio * item.cantidad) }}</span
           >
         </div>
         <div @click="eliminarItem(item)" class="tw-cursor-pointer">
@@ -38,8 +38,14 @@
 export default {
   props: ["item"],
   methods: {
+    formatearPrecio(precio) {
+      return precio.toLocaleString("es-CL", {
+        style: "currency",
+        currency: "CLP",
+      });
+    },
     eliminarItem(item) {
-        this.$store.dispatch("carro_compras/removeProductFromCart", item);
+        this.$store.dispatch("carro_compras/removeProductFromCart", { producto: item });
     },
   },
 };
