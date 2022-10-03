@@ -1,13 +1,16 @@
 <template>
-  <div>
+  <div class="tw-mt-12">
+    <span class="tw-block tw-mb-4 tw-font-bold tw-text-2xl">Detalle</span>
+
+
     <!-- TABLE HEADERS -->
-    <div class="tw-grid tw-grid-cols-12 tw-mt-12">
+    <div class="tw-grid tw-grid-cols-12">
       <div
         v-for="(item, index) in labels"
         :key="index"
         :class="col_span_table(index)"
       >
-        <span class="tw-block tw-font-bold">{{ item.titulo }}</span>
+        <span class="tw-block tw-font-bold">{{ item }}</span>
       </div>
     </div>
     <!-- TABLE HEADERS -->
@@ -23,18 +26,14 @@
       class="tw-grid tw-grid-cols-12 my-8"
     >
       <span :class="col_span_table(0)">{{ item.nombre }}</span>
-      <span :class="col_span_table(1)">{{ item.cantidad }}</span>
-      <span :class="col_span_table(2)">{{ item.cantidad * item.kg }} kg</span>
-      <span :class="col_span_table(3)">{{ formatearPrecio(item.precio) }}</span>
+      <span :class="col_span_table(1) + ' tw-font-bold'">{{ item.cantidad }}</span>
+      <span :class="col_span_table(3)">{{ cotizacion_proveedor ? '$.-' : formatearPrecio(item.precio) }}</span>
       <span :class="col_span_table(4)">{{
-        formatearPrecio(item.cantidad * item.precio)
+       cotizacion_proveedor ? '$.-' : formatearPrecio(item.cantidad * item.precio)
       }}</span>
     </div>
     <!-- TABLE BODY -->
 
-    <!--V-DIVIDER-->
-    <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
-    <!--V-DIVIDER-->
 
     <!-- PLANTILLA PRECIO-->
     <PlantillaPrecio :sub_total="sub_total" :transporte="transporte" />
@@ -79,9 +78,9 @@ export default {
         case 1:
           return "tw-col-span-2";
         case 2:
-          return "tw-col-span-2";
+          return "tw-col-span-3";
         case 3:
-          return "tw-col-span-2";
+          return "tw-col-span-3";
         case 4:
           return "tw-col-span-2";
         case 5:

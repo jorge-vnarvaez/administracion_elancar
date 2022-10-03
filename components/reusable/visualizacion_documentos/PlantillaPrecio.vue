@@ -1,6 +1,6 @@
 <template>
   <div class="tw-flex-col">
-    <span>{{ formatearPrecio(sub_total) }}</span>
+    <span class="tw-font-bold">Subtotal</span><span> {{ formatearPrecio(sub_total) }}</span>
   </div>
 </template>
 

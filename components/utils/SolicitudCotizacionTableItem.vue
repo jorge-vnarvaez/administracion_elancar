@@ -31,7 +31,7 @@
       "
     >
       <IconoVer />
-      <PdfMaker tipoDocumento="Solicitud de cotización" item="cotizaciones_proveedor" :idDocumento="solicitud_de_cotizacion.id" />
+      <PdfMaker tipoDocumento="Solicitud de cotización" item="cotizaciones_proveedor" :idDocumento="solicitud_de_cotizacion.id" :labels="labels" />
       <!-- <IconoDescarga /> -->
     </div>
     <!-- ARCHIVOS -->
@@ -49,6 +49,16 @@ import IconoVer from "@/components/iconos/IconoVer.vue";
 export default {
   components: { IconoVer, PdfMaker },
   props: ["solicitud_de_cotizacion", "index"],
+  data() {
+    return {
+      labels: [
+        "Productos",
+        "Cantidad",
+        "Precio unitario",
+        "Precio total",
+      ]
+    }
+  },
   methods: {
     formatearFecha(fecha) {
       return moment(fecha).format("LL");

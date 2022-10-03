@@ -160,7 +160,7 @@ export default {
   },
   computed: {
     estado_cotizacion() {
-      return this.$cookies.get('cotizacionEnProceso');
+      return this.$store.getters['info_despacho/getEstadoCotizacion'];
     },
   }
  

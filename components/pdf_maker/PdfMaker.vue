@@ -29,23 +29,27 @@
             </div>
             <!-- DATOS DEL PROVEEDOR -->
 
-            <!--DATOS DEL CLIENTE-->
-            <div v-if="infoDocumento.cliente">
-              <DatosCliente :cliente="infoDocumento.cliente" />
-            </div>
-            <!--DATOS DEL CLIENTE-->
+            <div class="tw-flex tw-space-x-14">
+              <!--DATOS DEL CLIENTE-->
+              <div v-if="infoDocumento.cliente">
+                <DatosCliente :cliente="infoDocumento.cliente" />
+              </div>
+              <!--DATOS DEL CLIENTE-->
 
-            <!-- DATOS DE ENVIO -->
-            <!--TODO: INSERTAR COMPONENTE DATOS ENVIO -->
-            <!-- DATOS DE ENVIO -->
+              <!-- DATOS DE ENVIO -->
+              <div v-if="infoDocumento.cliente">
+                <DatosEnvio :cliente="infoDocumento.cliente" />
+              </div>
+              <!-- DATOS DE ENVIO -->
+            </div>
 
             <!-- TABLE PRODUCTOS  -->
             <TablaProductos
               :labels="labels"
               :productos="detalleDocumento"
+              :cotizacion_proveedor="is_cotizacion_to_proveedor"
             />
             <!-- TABLE PRODUCTOS  -->
-
           </div>
         </section>
       </vue-html2pdf>
@@ -61,6 +65,7 @@
 import qs from "qs";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
+import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
 import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
 import DatosProveedor from "@/components/reusable/visualizacion_documentos/DatosProveedor.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
@@ -69,6 +74,7 @@ export default {
   components: {
     MembreteSuperiorPdf,
     DatosCliente,
+    DatosEnvio,
     IconoDescarga,
     DatosProveedor,
     TablaProductos,
@@ -90,28 +96,18 @@ export default {
       required: true,
       desc: "Item a usado para consultar la api (cotización, ordenes_de_compra, etc)",
     },
+    labels: {
+      type: Array,
+      default: () => [],
+      required: true,
+      desc: "Labels de la tabla de productos",
+    },
   },
   data() {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: [
-        {
-          titulo: "Productos",
-        },
-        {
-          titulo: "Kg"
-        },
-        {
-          titulo: "Cantidad",
-        },
-        {
-          titulo: "Precio por unidad",
-        },
-        {
-          titulo: "Total",
-        },
-      ],
+      DatosEnvio: {},
     };
   },
 
@@ -165,6 +161,7 @@ export default {
             // kg: detalle.kg
           };
         });
+
       }
     },
     generatePdf() {
@@ -172,7 +169,7 @@ export default {
     },
   },
   computed: {
-    is_cotizacion_to_proveedores() {
+    is_cotizacion_to_proveedor() {
       return this.item == "cotizaciones_proveedor" ? true : false;
     },
   },
