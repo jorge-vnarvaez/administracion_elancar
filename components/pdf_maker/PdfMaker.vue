@@ -67,6 +67,7 @@ import qs from "qs";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
+import DatosSucursal from "@/components/reusable/visualizacion_documentos/DatosSucursal.vue";
 import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
 import DatosProveedor from "@/components/reusable/visualizacion_documentos/DatosProveedor.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
@@ -76,6 +77,7 @@ export default {
     MembreteSuperiorPdf,
     DatosCliente,
     DatosEnvio,
+    DatosSucursal,
     IconoDescarga,
     DatosProveedor,
     TablaProductos,

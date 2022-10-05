@@ -1,19 +1,14 @@
 <template>
   <div class="tw-p-24 tw-px-64 tw-h-full">
-    <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-h-full">
+    <div class="tw-flex tw-flex-col tw-bg-white tw-p-8">
       <!-- MEMBRETE -->
       <MembreteSuperiorPdf
-        tipoDocumento="Nota de pedido"
-        :fecha_emision="nota_pedido.fecha_emision"
+        tipoDocumento="Cotización"
+        :fecha_emision="orden_de_compra.fecha_emision"
         grupoBotones
         btnImprimir
       />
       <!-- MEMBRETE -->
-
-      <!-- DATOS SUCURSAL -->
-      <DatosSucursal />
-      <!-- DATOS SUCURSAL -->
-
 
       <!--V-DIVIDER-->
       <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
@@ -21,11 +16,11 @@
 
       <div class="tw-grid tw-grid-cols-12">
         <!-- DATOS CLIENTE -->
-        <DatosCliente :cliente="nota_pedido.cliente" class="tw-col-span-5" />
+        <DatosCliente :cliente="orden_de_compra.cliente" class="tw-col-span-5" />
         <!-- DATOS CLIENTE -->
 
-        <!-- DATOS ENVIO :datos_envio="nota_pedido.datos_envio"-->
-        <DatosEnvio :datos_envio="nota_pedido.cliente" class="tw-col-span-7" />
+        <!-- DATOS ENVIO :datos_envio="orden_de_compra.datos_envio"-->
+        <DatosEnvio :datos_envio="orden_de_compra.cliente" class="tw-col-span-7" />
         <!-- DATOS ENVIO -->
 
         <!-- TABLA PRODUCTOS -->
@@ -45,14 +40,12 @@ import qs from "qs";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
-import DatosSucursal from "@/components/reusable/visualizacion_documentos/DatosSucursal.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 export default {
   components: {
     MembreteSuperiorPdf,
     DatosCliente,
     DatosEnvio,
-    DatosSucursal,
     TablaProductos,
   },
   data() {
@@ -71,24 +64,22 @@ export default {
     });
     const id = context.params.id;
     const { data } = await context.$axios
-      .get(`${context.$config.apiUrl}/items/notas_de_pedido/${id}?${query}`)
+      .get(`${context.$config.apiUrl}/items/ordenes_de_compra/${id}?${query}`)
       .then((res) => res.data);
     // this.infoDocumento = data;
     return {
-      nota_pedido: data,
+      orden_de_compra: data,
     };
   },
   methods: {
     async getDetalle() {
-      if (this.nota_pedido.detalle.length > 0) {
+      if (this.orden_de_compra.detalle.length > 0) {
         const query = qs.stringify({
           filter: {
             _and: [
               {
                 id: {
-                  _in: this.nota_pedido.detalle.map(
-                    (item) => item.productos_id
-                  ),
+                  _in: this.orden_de_compra.detalle.map((item) => item.productos_id),
                 },
               },
             ],
@@ -100,7 +91,7 @@ export default {
           .then((res) => res.data);
 
         this.detalleDocumento = data.map((item) => {
-          const detalle = this.nota_pedido.detalle.find(
+          const detalle = this.orden_de_compra.detalle.find(
             (detalle) => detalle.productos_id === item.id
           );
           return {

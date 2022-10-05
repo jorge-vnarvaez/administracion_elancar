@@ -42,7 +42,7 @@
           class="my-0"
           ><nuxt-link
             class="text-decoration-none"
-            :to="{ name: `${pagina.route_name}` }"
+            :to="`${pagina.route_name}`"
             ><p
               @click="opciones = false"
               class="tw-text-neutral-900 tw-px-6 tw-py-2 my-0 hover:tw-bg-neutral-800 hover:tw-text-white"
@@ -64,17 +64,17 @@ export default {
       paginas: [
         {
           id: 1,
-          route_name: "notas_pedido",
+          route_name: "/notas_pedido",
           label: "Ver notas de pedido",
         },
         {
           id: 2,
-          route_name: "cotizaciones",
+          route_name: "/cotizaciones",
           label: "Ver cotizaciones de clientes",
         },
         {
           id: 3,
-          route_name: "productos",
+          route_name: "/productos",
           label: "Productos",
         },
       ],

@@ -30,7 +30,7 @@
           ' tw-col-span-6 tw-flex lg:tw-col-span-4 tw-py-4 tw-space-x-6 '
         "
       >
-        <IconoVer />
+        <IconoVer tipoDocumento="orden_de_compra" path="ordenes" :idDocumento="orden_de_compra.id" />
         <IconoDescarga />
       </div>
       <!-- ARCHIVOS -->
