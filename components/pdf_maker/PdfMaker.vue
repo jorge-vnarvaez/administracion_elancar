@@ -11,7 +11,7 @@
         :filename="tipoDocumento + '-' + idDocumento"
       >
         <section slot="pdf-content">
-          <div class="tw-px-12 tw-py-12 tw-h-[1000px]">
+          <div class="tw-px-12 tw-py-12 tw-h-[1000px] tw-flex tw-flex-col">
             <!-- MEMBRE SUPERIOR -->
             <MembreteSuperiorPdf
               :tipoDocumento="tipoDocumento"
@@ -48,6 +48,7 @@
               :labels="labels"
               :productos="detalleDocumento"
               :cotizacion_proveedor="is_cotizacion_to_proveedor"
+              :cotizacion_cliente="is_cotizacion_to_cliente"
             />
             <!-- TABLE PRODUCTOS  -->
           </div>
@@ -172,6 +173,9 @@ export default {
     is_cotizacion_to_proveedor() {
       return this.item == "cotizaciones_proveedor" ? true : false;
     },
+    is_cotizacion_to_cliente() {
+      return this.item == "cotizaciones_clientes" ? true : false;
+    }
   },
 };
 </script>

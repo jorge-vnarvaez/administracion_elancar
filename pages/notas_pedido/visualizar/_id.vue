@@ -1,6 +1,6 @@
 <template>
   <div class="tw-p-24 tw-px-64 tw-h-full">
-    <div class="tw-flex tw-flex-col tw-bg-white tw-p-8">
+    <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-h-full">
       <!-- MEMBRETE -->
       <MembreteSuperiorPdf
         tipoDocumento="Nota de pedido"
@@ -20,14 +20,15 @@
         <!-- DATOS CLIENTE -->
 
         <!-- DATOS ENVIO :datos_envio="nota_pedido.datos_envio"-->
-        <DatosEnvio
-            :datos_envio="nota_pedido.DatosEnvio"
-            class="tw-col-span-7"
-          />
+        <DatosEnvio :datos_envio="nota_pedido.cliente" class="tw-col-span-7" />
         <!-- DATOS ENVIO -->
 
         <!-- TABLA PRODUCTOS -->
-        <TablaProductos :labels="labels" :productos="detalleDocumento" class="tw-col-span-12"/>
+        <TablaProductos
+          :labels="labels"
+          :productos="detalleDocumento"
+          class="tw-col-span-12"
+        />
         <!-- TABLA PRODUCTOS -->
       </div>
     </div>
@@ -51,24 +52,7 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: [
-        {
-          titulo: "Productos",
-        },
-        {
-          titulo: "Cantidad",
-        },
-        {
-          titulo: "Kg",
-        },
-        {
-          titulo: "Precio por unidad",
-        },
-        {
-          titulo: "Total",
-        },
-
-      ],
+      labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
     };
   },
   mounted() {

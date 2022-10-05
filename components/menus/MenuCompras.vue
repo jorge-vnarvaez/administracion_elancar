@@ -93,7 +93,7 @@ export default {
         },
         {
           id: 2,
-          route_name: "solicitudes-ver-solicitudes_de_cotizacion",
+          route_name: "solicitudes",
           label: "Ver solicitudes de cotización",
         },
         {

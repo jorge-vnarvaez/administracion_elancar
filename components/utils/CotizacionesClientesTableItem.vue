@@ -30,11 +30,12 @@
         ' tw-col-span-6 tw-flex lg:tw-col-span-4 tw-py-4 tw-space-x-6 '
       "
     >
-      <IconoVer tipoDocumento="Cotización" path="/cotizaciones" />
+      <IconoVer tipoDocumento="Cotización" path="/cotizaciones" :idDocumento="cotizacion_cliente.id" />
       <PdfMaker
         tipoDocumento="Cotización"
         :idDocumento="cotizacion_cliente.id"
         item="cotizaciones_clientes"
+        :labels="labels"
       />
     </div>
     <!-- ARCHIVOS -->
@@ -42,6 +43,7 @@
 </template>
 
 <script>
+
 import moment from "moment";
 import IconoVer from "@/components/iconos/IconoVer.vue";
 import PdfMaker from "@/components/pdf_maker/PdfMaker.vue";
@@ -49,6 +51,17 @@ import PdfMaker from "@/components/pdf_maker/PdfMaker.vue";
 export default {
   components: { IconoVer, PdfMaker },
   props: ["cotizacion_cliente", "index"],
+  data() {
+    return {
+      labels: [
+        "Productos",
+        "Cantidad",
+        "Kg",
+        "Precio por unidad",
+        "Precio total",
+      ],
+    }
+  },
   methods: {
     formatearFecha(fecha) {
       return moment(fecha).format("LL");

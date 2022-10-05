@@ -31,7 +31,7 @@
       "
     >
       <IconoVer tipoDocumento="Nota de pedido" path="/notas_pedido" :idDocumento="nota_de_pedido.id" />
-      <PdfMaker tipoDocumento="Nota de pedido" item="notas_de_pedido" :idDocumento="nota_de_pedido.id" />
+      <PdfMaker tipoDocumento="Nota de pedido" item="notas_de_pedido" :idDocumento="nota_de_pedido.id" :labels="labels" />
     </div>
     <!-- ARCHIVOS -->
   </div>
@@ -45,6 +45,17 @@ import IconoVer from "@/components/iconos/IconoVer.vue";
 export default {
   components: { PdfMaker, IconoVer },
   props: ["nota_de_pedido", "index"],
+  data() {
+    return {
+      labels: [
+        "Productos",
+        "Cantidad",
+        "Kg",
+        "Precio por unidad",
+        "Precio total",
+      ]
+    }
+  },
   methods: {
     formatearFecha(fecha) {
       return moment(fecha).format("LL");

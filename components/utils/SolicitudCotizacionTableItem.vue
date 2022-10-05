@@ -30,13 +30,16 @@
         ' tw-col-span-6 tw-flex lg:tw-col-span-4 tw-py-4 tw-space-x-6 '
       "
     >
-      <IconoVer />
-      <PdfMaker tipoDocumento="Solicitud de cotización" item="cotizaciones_proveedor" :idDocumento="solicitud_de_cotizacion.id" :labels="labels" />
+      <IconoVer tipoDocumento="Solicitud de cotización" path="/solicitudes" :idDocumento="solicitud_de_cotizacion.id" />
+      <PdfMaker
+        tipoDocumento="Solicitud de cotización"
+        item="cotizaciones_proveedor"
+        :idDocumento="solicitud_de_cotizacion.id"
+        :labels="labels"
+      />
       <!-- <IconoDescarga /> -->
     </div>
     <!-- ARCHIVOS -->
-
-    
   </div>
 </template>
 
@@ -51,13 +54,8 @@ export default {
   props: ["solicitud_de_cotizacion", "index"],
   data() {
     return {
-      labels: [
-        "Productos",
-        "Cantidad",
-        "Precio unitario",
-        "Precio total",
-      ]
-    }
+      labels: ["Productos", "Cantidad", "Precio unitario", "Precio total"],
+    };
   },
   methods: {
     formatearFecha(fecha) {

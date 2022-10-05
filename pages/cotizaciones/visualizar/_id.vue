@@ -24,7 +24,7 @@
 
         <!-- DATOS ENVIO :datos_envio="cotizacion_cliente.datos_envio"-->
         <DatosEnvio
-          :datos_envio="cotizacion_cliente.DatosEnvio"
+          :datos_envio="cotizacion_cliente.cliente"
           class="tw-col-span-7"
         />
         <!-- DATOS ENVIO -->
@@ -37,7 +37,6 @@
         />
         <!-- TABLA PRODUCTOS -->
       </div>
-      
 
       <!--MEMBRETE INFERIOR-->
       <MembreteInferiorPdf />
@@ -65,23 +64,7 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: [
-        {
-          titulo: "Productos",
-        },
-        {
-          titulo: "Cantidad",
-        },
-        {
-          titulo: "Kg",
-        },
-        {
-          titulo: "Precio por unidad",
-        },
-        {
-          titulo: "Total",
-        },
-      ],
+      labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
     };
   },
   mounted() {
