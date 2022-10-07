@@ -65,6 +65,10 @@
               <path d="M17 17h-11v-14h-2" />
               <path d="M6 5l14 1l-1 7h-13" />
             </svg>
+
+            <div class="tw-bg-neutral-900 tw-w-6 tw-h-6 tw-rounded-full tw-absolute tw-flex align-center tw-justify-center tw-top-6 tw-left-6">
+              <span class="tw-text-white tw-text-sm">{{ productos_in_cart }}</span>
+            </div>
           </div>
         </nuxt-link>
         <!-- CARRO COMPRAS -->
@@ -161,6 +165,9 @@ export default {
   computed: {
     estado_cotizacion() {
       return this.$store.getters['info_despacho/getEstadoCotizacion'];
+    },
+    productos_in_cart() {
+      return this.$store.getters["carro_compras/getTotalQuantity"];
     },
   }
  

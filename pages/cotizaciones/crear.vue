@@ -66,23 +66,7 @@ export default {
   },
   data() {
     return {
-      labels: [
-        {
-          titulo: "Productos",
-        },
-        {
-          titulo: "Cantidad",
-        },
-        {
-          titulo: "Kg",
-        },
-        {
-          titulo: "Precio por unidad",
-        },
-        {
-          titulo: "Total",
-        },
-      ],
+      labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
     };
   },
   computed: {

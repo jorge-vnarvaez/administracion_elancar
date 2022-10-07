@@ -100,16 +100,6 @@
         itemsPerPage: 7,
       };
     },
-    mounted() {
-      console.log("page loaded...");
-  
-      const performance = this.$store.getters["performance/getPerformance"];
-  
-      // convert performance to seconds
-      const performanceInSeconds = performance / 1000;
-  
-      console.log("Is takes " + performanceInSeconds + " seconds to load page");
-    },
     methods: {
       async filterCotizaciones(queryBuscador) {
         const query = qs.stringify({

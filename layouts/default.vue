@@ -13,8 +13,8 @@ import BarraApp from "../layouts/BarraApp.vue";
 export default {
   components: { BarraAppMobile, BarraApp },
   mounted() {
-    const carro = this.$cookies.get("carroCompras") || [];
-    this.$store.dispatch("carro_compras/setCarro", carro);
+    // const carro = this.$cookies.get("carroCompras") || [];
+    // this.$store.dispatch("carro_compras/setCarro", carro);
 
     const info_despacho = this.$cookies.get("infoDespachoCotizacion") || false;
     this.$store.dispatch("info_despacho/setInfoDespachoCotizacion", info_despacho);
