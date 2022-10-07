@@ -6,7 +6,7 @@
       <div class="tw-flex tw-flex-col tw-space-y-4">
         <!-- HOME -->
         <nuxt-link
-          :to="{ name: 'home' }"
+          to="/home"
           class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2"
         >
           <svg

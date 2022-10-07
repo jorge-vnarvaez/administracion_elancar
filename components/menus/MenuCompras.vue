@@ -103,7 +103,7 @@ export default {
         },
         {
           id: 4,
-          route_name: "ordenes-ver-ordenes_de_compra",
+          route_name: "ordenes",
           label: "Ver ordenes de compra",
         },
         // {

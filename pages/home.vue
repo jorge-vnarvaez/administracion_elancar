@@ -15,6 +15,10 @@
         <span class="block">{{ fecha_actual }}</span>
         <span class="flex">{{ hora_actual }}</span>
       </div>
+
+      <div>
+        {{ sucursal }}
+      </div>
     </div>
     <!-- BIENVENIDO -->
 
@@ -103,6 +107,9 @@ export default {
     hora_actual() {
       return this.$store.getters["ui/getHoraActual"];
     },
+    sucursal() {
+      return this.$store.getters['sucursal/getSucursal'];
+    }
   },
 };
 </script>
