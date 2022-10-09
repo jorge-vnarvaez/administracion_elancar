@@ -16,6 +16,7 @@
             <MembreteSuperiorPdf
               :tipoDocumento="tipoDocumento"
               :fecha_emision="infoDocumento.fecha_emision"
+              :infoDocumento="infoDocumento"
             />
             <!-- MEMBRE SUPERIOR -->
 
@@ -49,6 +50,7 @@
               :productos="detalleDocumento"
               :cotizacion_proveedor="is_cotizacion_to_proveedor"
               :cotizacion_cliente="is_cotizacion_to_cliente"
+              :orden_de_compra="is_orden_de_compra"
             />
             <!-- TABLE PRODUCTOS  -->
           </div>
@@ -67,7 +69,6 @@ import qs from "qs";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
-import DatosSucursal from "@/components/reusable/visualizacion_documentos/DatosSucursal.vue";
 import IconoDescarga from "@/components/iconos/IconoDescarga.vue";
 import DatosProveedor from "@/components/reusable/visualizacion_documentos/DatosProveedor.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
@@ -77,7 +78,6 @@ export default {
     MembreteSuperiorPdf,
     DatosCliente,
     DatosEnvio,
-    DatosSucursal,
     IconoDescarga,
     DatosProveedor,
     TablaProductos,
@@ -121,7 +121,7 @@ export default {
   },
   async fetch() {
     const query = qs.stringify({
-      fields: ["*.*"],
+      fields: ["id", "fecha_emision", "detalle.*", "proveedor.*", "cliente.*", "empresa.*.*"],
     });
 
     const { data } = await this.$axios
@@ -177,6 +177,9 @@ export default {
     },
     is_cotizacion_to_cliente() {
       return this.item == "cotizaciones_clientes" ? true : false;
+    },
+    is_orden_de_compra() {
+      return this.item == "ordenes_de_compra" ? true : false;
     }
   },
 };

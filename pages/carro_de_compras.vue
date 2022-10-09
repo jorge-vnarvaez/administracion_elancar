@@ -54,7 +54,7 @@ export default {
       return this.$store.getters["carro_compras/getCarroCompras"];
     },
     numeroProductos() {
-      return this.$store.getters["carro_compras/getTotalQuantity"];
+      return this.$store.getters["carro_compras/getCarroComprasLength"];
     },
     totalPrecio() {
       return this.$store.getters["carro_compras/getTotalPrice"];

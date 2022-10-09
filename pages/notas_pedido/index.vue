@@ -86,6 +86,8 @@
 </template>
 
 <script>
+
+import qs from "qs";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import NotaDePedidoTableItem from "@/components/utils/NotaDePedidoTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
@@ -105,7 +107,6 @@ export default {
   },
   methods: {
     async filterNotasPedidos(queryBuscador) {
-      const qs = require("qs");
       const query = qs.stringify({
         filter: {
           id: {
@@ -129,8 +130,20 @@ export default {
     },
   },
   async asyncData(context) {
+     const query = qs.stringify({
+        fields: [
+          "id",
+          "fecha_emision",
+          "cliente.*",
+          "detalle.*",
+          "empresa.*.*",
+        ],
+        sort: "fecha_emision"
+      });
+
+
     const notas_de_pedido = await context.$axios
-      .$get(`${context.$config.apiUrl}/items/notas_de_pedido`)
+      .$get(`${context.$config.apiUrl}/items/notas_de_pedido?${query}`)
       .then((res) => res.data);
     return { notas_de_pedido };
   },

@@ -167,7 +167,7 @@ export default {
       return this.$store.getters['info_despacho/getEstadoCotizacion'];
     },
     productos_in_cart() {
-      return this.$store.getters["carro_compras/getTotalQuantity"];
+      return this.$store.getters["carro_compras/getCarroComprasLength"];
     },
   }
  

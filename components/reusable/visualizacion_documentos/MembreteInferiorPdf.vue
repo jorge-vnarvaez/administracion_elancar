@@ -6,7 +6,7 @@
     </div>
 
     <div>
-      <span class="tw-block tw-w-[520px] tw-mt-4">
+      <span class="tw-block tw-w-[420px] tw-mt-4">
         Este documento tiene una válidez de <strong>3 días</strong> a partir de la fecha de
         emisión, posterior a esta fecha Elancar no está obligado a respetar los
         precios que aquí aparecen.

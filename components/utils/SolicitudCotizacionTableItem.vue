@@ -30,7 +30,11 @@
         ' tw-col-span-6 tw-flex lg:tw-col-span-4 tw-py-4 tw-space-x-6 '
       "
     >
-      <IconoVer tipoDocumento="Solicitud de cotización" path="/solicitudes" :idDocumento="solicitud_de_cotizacion.id" />
+      <IconoVer
+        tipoDocumento="Solicitud de cotización"
+        path="/solicitudes"
+        :idDocumento="solicitud_de_cotizacion.id"
+      />
       <PdfMaker
         tipoDocumento="Solicitud de cotización"
         item="cotizaciones_proveedor"

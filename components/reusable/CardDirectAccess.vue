@@ -6,8 +6,8 @@
       <div class="tw-flex tw-space-x-4 align-center">
         <div class="shadow-md p-4" v-html="icon_svg"></div>
         <div class="tw-flex-col">
-          <span class="block font-semibold">{{ label }}</span>
-          <span class="block tw-flex tw-flex-col tw-text-sm">{{ text }}</span>
+          <span class="block font-semibold tw-text-sm lg:text-base">{{ label }}</span>
+          <span class="block tw-flex tw-flex-col tw-text-xs lg:tw-text-sm">{{ text }}</span>
         </div>
       </div>
       <div class="tw-flex">

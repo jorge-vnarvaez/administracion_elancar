@@ -5,8 +5,7 @@
       <MembreteSuperiorPdf
         tipoDocumento="Cotización"
         :fecha_emision="cotizacion_cliente.fecha_emision"
-        grupoBotones
-        btnImprimir
+        :infoDocumento="cotizacion_cliente"
       />
       <!-- MEMBRETE -->
 
@@ -62,7 +61,6 @@ export default {
   },
   data() {
     return {
-      infoDocumento: {},
       detalleDocumento: [],
       labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
     };
@@ -72,7 +70,7 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["*.*"],
+      fields: ["id", "fecha_emision", "cliente.*", "detalle.*", "empresa.*.*"],
     });
     const id = context.params.id;
     const { data } = await context.$axios
@@ -80,7 +78,6 @@ export default {
         `${context.$config.apiUrl}/items/cotizaciones_clientes/${id}?${query}`
       )
       .then((res) => res.data);
-    // this.infoDocumento = data;
     return {
       cotizacion_cliente: data,
     };

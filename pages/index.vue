@@ -1,11 +1,11 @@
 <template>
   <div class="tw-grid tw-grid-cols-12 tw-w-full tw-h-screen">
-    <div class="tw-col-span-6">
+    <div class="tw-col-span-6" v-if="$vuetify.breakpoint.mobile ? false : true">
       <v-img src="/ferreteria-hero.jpeg" height="100%"></v-img>
     </div>
 
     <div
-      class="tw-col-span-6 tw-flex tw-flex-col justify-center tw-items-center"
+      class="tw-col-span-12 lg:tw-col-span-6 tw-flex tw-flex-col justify-center tw-items-center"
     >
       <!-- <div v-if="error.value" class="bg-red-500 px-6 py-2 mb-6">
         <v-icon color="white" class="mr-1">mdi-information</v-icon>
@@ -14,7 +14,7 @@
 
       <!--LOGO-->
       <div class="tw-mb-10">
-        <v-img src="/logo_elancar.png" contain></v-img>
+        <v-img src="/logo_elancar.png" :width="$vuetify.breakpoint.mobile ? 150 : 250" :height="120" contain></v-img>
       </div>
       <!--LOGO-->
 

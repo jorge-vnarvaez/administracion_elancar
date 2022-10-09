@@ -83,6 +83,7 @@
 
 <script>
 
+import qs from 'qs'
 import IconoElancar from "@/components/reusable/IconoElancar.vue";  
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import CotizacionesClienteTableItem from "@/components/utils/CotizacionesClientesTableItem.vue";
@@ -104,7 +105,6 @@ export default {
   },
   methods: {
     async filterCotizaciones(queryBuscador) {
-      const qs = require("qs");
       const query = qs.stringify({
         filter: {
           id: {
@@ -128,8 +128,14 @@ export default {
     },
   },
   async asyncData(context) {
+
+    const query = qs.stringify({
+      sort: "fecha_emision"
+    });
+
+
     const solicitud_cotizaciones = await context.$axios
-      .$get(`${context.$config.apiUrl}/items/cotizaciones_clientes`)
+      .$get(`${context.$config.apiUrl}/items/cotizaciones_clientes?${query}`)
       .then((res) => res.data);
     return { solicitud_cotizaciones };
   },

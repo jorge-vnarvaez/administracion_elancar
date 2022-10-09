@@ -1,12 +1,12 @@
 <template>
   <div
-    class="tw-grid tw-grid-cols-12 tw-w-full tw-py-24 tw-px-64 tw-gap-x-40 tw-h-full align-center"
+    class="tw-grid tw-grid-cols-12 tw-w-full tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48 tw-h-full align-center"
   >
     <!-- BIENVENIDO -->
     <div
-      class="tw-col-span-8 tw-bg-white tw-p-10 tw-shadow-md tw-rounded-lg tw-h-40 tw-flex align-center tw-justify-between"
-      v-if="usuario">
-
+      class="tw-col-span-12 tw-bg-white tw-p-10 tw-shadow-md tw-rounded-lg lg:tw-h-40 tw-flex tw-flex-col lg:tw-flex-row lg:align-center tw-space-y-8 lg:tw-space-y-0 tw-justify-between"
+      v-if="usuario"
+    >
       <div class="tw-flex tw-flex-col">
         <span class="block tw-font-semibold tw-text-2xl">Bienvenido/a</span>
         <span>{{ usuario.first_name }} {{ usuario.last_name }}</span>
@@ -16,64 +16,64 @@
         <span class="flex">{{ hora_actual }}</span>
       </div>
 
-      <div>
+      <!-- <div>
         {{ sucursal }}
-      </div>
+      </div> -->
     </div>
     <!-- BIENVENIDO -->
 
     <!-- ACCESOS DIRECTOS -->
-    <div class="tw-col-span-12 tw-mt-14">
-      <p class="tw-text-3xl tw-font-semibold">Accesos directos</p>
-    </div>
+    <div class="tw-col-span-12 tw-grid tw-grid-cols-12 lg:tw-gap-x-20 tw-gap-y-4 lg:tw-gap-y-12">
+      <div class="tw-col-span-12 tw-mt-14">
+        <p class="tw-text-3xl tw-font-semibold">Accesos directos</p>
+      </div>
 
-    <!-- PRODUCTOS -->
-    <div class=" tw-col-span-4 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-10">
-      <card-direct-access
-        label="Listado de productos"
-        text="Revisa el listado de productos"
-        icon="lista"
-        route_name="productos"
-      />
-    </div>
-    <!-- PRODUCTOS -->
+      <!-- PRODUCTOS -->
+      <div class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10">
+        <card-direct-access
+          label="Listado de productos"
+          text="Revisa el listado de productos"
+          icon="lista"
+          route_name="productos"
+        />
+      </div>
+      <!-- PRODUCTOS -->
 
-    <!-- ORDENES DE COMPRA -->
-    <div class="tw-col-span-4 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-10">
-      <card-direct-access
-        label="Orden de compra"
-        text="Revisa las ordenes de compra realizadas"
-        icon="file-search"
-        route_name="ordenes-ver-ordenes_de_compra"
-      />
-    </div>
-    <!-- ORDENES DE COMPRA -->
+      <!-- ORDENES DE COMPRA -->
+      <div class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10">
+        <card-direct-access
+          label="Orden de compra"
+          text="Revisa las ordenes de compra realizadas"
+          icon="file-search"
+          route_name="ordenes-ver-ordenes_de_compra"
+        />
+      </div>
+      <!-- ORDENES DE COMPRA -->
 
-    <!-- COTIZACIONES -->
-    <div
-      class="tw-col-span-4 tw-col-start-1 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-10"
-    >
-      <card-direct-access
-        label="Cotizaciones de venta"
-        text="Revisa las cotizaciones de ventas realizadas"
-        icon="file-search"
-        route_name="cotizaciones"
-      />
-    </div>
-    <!-- COTIZACIONES -->
+      <!-- COTIZACIONES -->
+      <div
+        class="tw-col-span-12 lg:tw-col-span-6 tw-col-start-1 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10"
+      >
+        <card-direct-access
+          label="Cotizaciones de venta"
+          text="Revisa las cotizaciones de ventas realizadas"
+          icon="file-search"
+          route_name="cotizaciones"
+        />
+      </div>
+      <!-- COTIZACIONES -->
 
-    <!-- NOTAS DE PEDIDO -->
-    <div
-      class="tw-col-span-4  tw-bg-white tw-rounded-lg tw-shadow-md tw-p-10"
-    >
-      <card-direct-access
-        label="Notas de pedido"
-        text="Revisa las notas de pedido realizadas"
-        icon="file"
-        route_name="notas_pedido"
-      />
+      <!-- NOTAS DE PEDIDO -->
+      <div class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10">
+        <card-direct-access
+          label="Notas de pedido"
+          text="Revisa las notas de pedido realizadas"
+          icon="file"
+          route_name="notas_pedido"
+        />
+      </div>
+      <!-- NOTAS DE PEDIDO -->
     </div>
-    <!-- NOTAS DE PEDIDO -->
 
     <!-- ACCESOS DIRECTOS -->
   </div>
@@ -108,8 +108,8 @@ export default {
       return this.$store.getters["ui/getHoraActual"];
     },
     sucursal() {
-      return this.$store.getters['sucursal/getSucursal'];
-    }
+      return this.$store.getters["sucursal/getSucursal"];
+    },
   },
 };
 </script>

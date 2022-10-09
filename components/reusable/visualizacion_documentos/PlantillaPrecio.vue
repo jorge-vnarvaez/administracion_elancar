@@ -1,6 +1,6 @@
 <template>
-  <div class="tw-grid grid-cols-12">
-    <div class="tw-col-span-2 tw-col-start-12">
+  <div class="tw-grid tw-grid-cols-12 tw-gap-x-8">
+    <div class="tw-col-span-2 tw-col-start-9">
       <div
         v-if="!cotizacion_proveedor"
         class="tw-flex tw-flex-col tw-space-y-4"

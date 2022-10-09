@@ -1,12 +1,11 @@
 <template>
   <div class="tw-p-24 tw-px-64 tw-h-full">
-    <div class="tw-flex tw-flex-col tw-bg-white tw-p-8">
+    <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-h-full">
       <!-- MEMBRETE -->
       <MembreteSuperiorPdf
-        tipoDocumento="Cotización"
+        tipoDocumento="Orden de compra"
         :fecha_emision="orden_de_compra.fecha_emision"
-        grupoBotones
-        btnImprimir
+        :infoDocumento="orden_de_compra"
       />
       <!-- MEMBRETE -->
 
@@ -16,11 +15,11 @@
 
       <div class="tw-grid tw-grid-cols-12">
         <!-- DATOS CLIENTE -->
-        <DatosCliente :cliente="orden_de_compra.cliente" class="tw-col-span-5" />
+        <DatosProveedor :proveedor="orden_de_compra.proveedor" class="tw-col-span-5" />
         <!-- DATOS CLIENTE -->
 
         <!-- DATOS ENVIO :datos_envio="orden_de_compra.datos_envio"-->
-        <DatosEnvio :datos_envio="orden_de_compra.cliente" class="tw-col-span-7" />
+        <!-- <DatosEnvio :datos_envio="orden_de_compra.cliente" class="tw-col-span-7" /> -->
         <!-- DATOS ENVIO -->
 
         <!-- TABLA PRODUCTOS -->
@@ -36,16 +35,16 @@
 </template>
 
 <script>
+
 import qs from "qs";
+import DatosProveedor from "@/components/reusable/visualizacion_documentos/DatosProveedor.vue";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
-import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
-import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
+
 export default {
   components: {
+    DatosProveedor,
     MembreteSuperiorPdf,
-    DatosCliente,
-    DatosEnvio,
     TablaProductos,
   },
   data() {
@@ -60,7 +59,7 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["*.*"],
+      fields: ["id", "fecha_emision", "proveedor.*", "detalle.*", "empresa.*.*"],
     });
     const id = context.params.id;
     const { data } = await context.$axios

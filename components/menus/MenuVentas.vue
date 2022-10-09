@@ -21,7 +21,7 @@
           class="my-0"
           ><nuxt-link
             class="text-decoration-none"
-            :to="`${pagina.route_name}`"
+            :to="{ name: pagina.route_name }"
             ><p
               class="tw-text-neutral-900 tw-px-6 tw-py-2 tw-my-0 hover:tw-bg-neutral-800 hover:tw-text-white"
             >

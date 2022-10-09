@@ -5,13 +5,11 @@
       <MembreteSuperiorPdf
         tipoDocumento="Nota de pedido"
         :fecha_emision="nota_pedido.fecha_emision"
-        grupoBotones
-        btnImprimir
+        :infoDocumento="nota_pedido"
       />
       <!-- MEMBRETE -->
 
       <!-- DATOS SUCURSAL -->
-      <DatosSucursal />
       <!-- DATOS SUCURSAL -->
 
 
@@ -45,14 +43,12 @@ import qs from "qs";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
-import DatosSucursal from "@/components/reusable/visualizacion_documentos/DatosSucursal.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 export default {
   components: {
     MembreteSuperiorPdf,
     DatosCliente,
     DatosEnvio,
-    DatosSucursal,
     TablaProductos,
   },
   data() {

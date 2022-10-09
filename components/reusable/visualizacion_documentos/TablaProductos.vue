@@ -1,10 +1,12 @@
 <template>
-  <div class="tw-mt-12 tw-flex tw-flex-col tw-h-full tw-justify-between">
+  <div
+    class="tw-mt-12 tw-flex tw-flex-col tw-h-full tw-justify-between tw-text-xs"
+  >
     <div>
       <span class="tw-block tw-mb-4 tw-font-bold tw-text-2xl">Detalle</span>
 
       <!-- TABLE HEADERS -->
-      <div class="tw-grid tw-grid-cols-12">
+      <div class="tw-grid tw-grid-cols-12 tw-gap-x-8">
         <div
           v-for="(item, index) in labels"
           :key="index"
@@ -23,14 +25,14 @@
       <div
         v-for="(item, index) in productos"
         :key="index"
-        class="tw-grid tw-grid-cols-12 tw-my-4"
+        class="tw-grid tw-grid-cols-12 tw-my-4 tw-gap-x-8"
       >
         <span :class="col_span_table(0)">{{ item.nombre }}</span>
         <span :class="col_span_table(1) + ' tw-font-bold'">{{
           item.cantidad
         }}</span>
         <span
-          v-if="!cotizacion_proveedor"
+          v-if="!cotizacion_proveedor || !orden_de_compra"
           :class="col_span_table(2) + ' tw-font-bold'"
           >{{ item.cantidad * item.kg }}</span
         >
@@ -46,19 +48,22 @@
       <!-- TABLE BODY -->
     </div>
 
-    <div :class="'tw-flex' + cotizacion_cliente ? ' tw-justify-between tw-align-center' : ''">
+    <div class="tw-flex tw-justify-between align-center">
       <!-- MEMBRETE INFERIOR -->
-      <MembreteInferiorPdf v-if="cotizacion_cliente" />
+      <div><MembreteInferiorPdf v-if="cotizacion_cliente" /></div>
       <!-- MEMBRETE INFERIOR -->
 
       <!-- PLANTILLA PRECIO-->
-      <PlantillaPrecio
-        :sub_total="sub_total"
-        :transporte="0"
-        :total="total"
-        :cotizacion_proveedor="cotizacion_proveedor"
-        class="tw-justify-end"
-      />
+      <div>
+        <PlantillaPrecio
+          :sub_total="sub_total"
+          :transporte="0"
+          :total="total"
+          :cotizacion_proveedor="cotizacion_proveedor"
+          class="tw-justify-end"
+        />
+      </div>
+
       <!-- PLANTILLA PRECIO-->
     </div>
   </div>
@@ -93,6 +98,11 @@ export default {
       type: Boolean,
       default: false,
       desc: "Define si la cotización va dirigida a cliente lo que permite agregar el precio de transporte y el membrete inferior",
+    },
+    orden_de_compra: {
+      type: Boolean,
+      default: false,
+      desc: "Define si el documento donde se inyecta la tabla es una orden de compra",
     }
   },
   methods: {
@@ -105,13 +115,13 @@ export default {
     col_span_table(index) {
       switch (index) {
         case 0:
-          return "tw-col-span-3";
+          return "tw-col-span-4";
         case 1:
-          return "tw-col-span-2";
+          return "tw-col-span-1";
         case 2:
-          return this.cotizacion_proveedor ? "tw-col-span-3" : "tw-col-span-1";
+          return this.cotizacion_proveedor ? "tw-col-span-2" : "tw-col-span-1";
         case 3:
-          return "tw-col-span-3";
+          return "tw-col-span-2";
         case 4:
           return "tw-col-span-2";
         case 5:
