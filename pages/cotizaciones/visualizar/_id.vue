@@ -23,23 +23,22 @@
 
         <!-- DATOS ENVIO :datos_envio="cotizacion_cliente.datos_envio"-->
         <DatosEnvio
-          :datos_envio="cotizacion_cliente.cliente"
+          :cliente="cotizacion_cliente.cliente"
           class="tw-col-span-7"
         />
+
+        <!-- {{ cotizacion_cliente.cliente.direcciones[0].calle }} -->
         <!-- DATOS ENVIO -->
 
         <!-- TABLA PRODUCTOS -->
         <TablaProductos
           :labels="labels"
           :productos="detalleDocumento"
+          cotizacion_cliente
           class="tw-col-span-12"
         />
         <!-- TABLA PRODUCTOS -->
       </div>
-
-      <!--MEMBRETE INFERIOR-->
-      <MembreteInferiorPdf />
-      <!--MEMBRETE INFERIOR-->
     </div>
   </div>
 </template>
@@ -70,7 +69,7 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "cliente.*", "detalle.*", "empresa.*.*"],
+      fields: ["id", "fecha_emision", "cliente.*.*", "detalle.*", "empresa.*.*"],
     });
     const id = context.params.id;
     const { data } = await context.$axios

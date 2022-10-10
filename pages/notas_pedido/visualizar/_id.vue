@@ -1,6 +1,6 @@
 <template>
-  <div class="tw-p-24 tw-px-64 tw-h-full">
-    <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-h-full">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-64">
+    <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-text-sm">
       <!-- MEMBRETE -->
       <MembreteSuperiorPdf
         tipoDocumento="Nota de pedido"
@@ -17,13 +17,13 @@
       <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
       <!--V-DIVIDER-->
 
-      <div class="tw-grid tw-grid-cols-12">
+      <div class="tw-grid tw-grid-cols-12 tw-gap-y-4 lg:tw-gap-y-0">
         <!-- DATOS CLIENTE -->
-        <DatosCliente :cliente="nota_pedido.cliente" class="tw-col-span-5" />
+        <DatosCliente :cliente="nota_pedido.cliente" class="tw-col-span-12 lg:tw-col-span-5" />
         <!-- DATOS CLIENTE -->
 
         <!-- DATOS ENVIO :datos_envio="nota_pedido.datos_envio"-->
-        <DatosEnvio :datos_envio="nota_pedido.cliente" class="tw-col-span-7" />
+        <DatosEnvio :datos_envio="nota_pedido.cliente" class="tw-col-span-12 lg:tw-col-span-7" />
         <!-- DATOS ENVIO -->
 
         <!-- TABLA PRODUCTOS -->

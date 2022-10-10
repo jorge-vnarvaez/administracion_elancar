@@ -111,11 +111,17 @@ export default {
             _eq: queryBuscador,
           },
         },
+        sort: "fecha_emision"
       });
+
+      const query_defecto = qs.stringify({
+        sort: "fecha_emision"
+      });
+
       this.solicitud_cotizaciones = await this.$axios
         .$get(
           `${this.$config.apiUrl}/items/cotizaciones_clientes${
-            queryBuscador == "" ? "" : `?${query}`
+            queryBuscador == "" ? `?${query_defecto}` : `?${query}`
           }`
         )
         .then((res) => res.data);
@@ -130,6 +136,13 @@ export default {
   async asyncData(context) {
 
     const query = qs.stringify({
+      fields: [
+        "id",
+        "fecha_emision",
+        "detalle.*",
+        "cliente.*.*",
+        "empresa..*.*"
+      ],
       sort: "fecha_emision"
     });
 

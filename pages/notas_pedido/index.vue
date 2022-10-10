@@ -1,6 +1,6 @@
 <template>
-  <div class="tw-p-24 tw-px-64">
-    <div class="tw-flex tw-justify-between">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-64">
+    <div class="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between">
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
         <!--LOGO-->
@@ -38,26 +38,53 @@
       </div>
       <!--[BUSCADOR]-->
     </div>
-    <div v-if="notas_de_pedido.length > 0">
-      <!--TABLE HEADER-->
+    <!-- DESKTOP VIEW -->
+    <div v-if="$vuetify.breakpoint.mobile ? false : true">
+      <div v-if="notas_de_pedido.length > 0">
+        <!--TABLE HEADER-->
 
-      <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
-        <div class="tw-col-span-6 lg:tw-col-span-2">
-          <span class="tw-font-bold">Codigo</span>
-        </div>
+        <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Codigo</span>
+          </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-6">
-          <span class="tw-font-bold">Fecha</span>
-        </div>
+          <div class="tw-col-span-6 lg:tw-col-span-6">
+            <span class="tw-font-bold">Fecha</span>
+          </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-4">
-          <span class="tw-font-bold">Ver o Descargar</span>
+          <div class="tw-col-span-6 lg:tw-col-span-4">
+            <span class="tw-font-bold">Ver o Descargar</span>
+          </div>
         </div>
+        <!--TABLE HEADER-->
+
+        <!--[TABLE CONTENT]-->
+        <div
+          v-for="(nota_pedido, index) in notas_de_pedido.slice(
+            itemsPerPage * page - itemsPerPage,
+            itemsPerPage * page
+          )"
+          :key="nota_pedido.id"
+        >
+          <NotaDePedidoTableItem :nota_de_pedido="nota_pedido" :index="index" />
+        </div>
+        <!--[TABLE CONTENT]-->
+
+        <!--[PAGINATION]-->
+        <div class="tw-my-8">
+          <v-pagination
+            v-model="page"
+            :length="Math.round(notas_de_pedido.length / itemsPerPage)"
+          ></v-pagination>
+        </div>
+        <!--[PAGINATION]-->
       </div>
-      <!--TABLE HEADER-->
+    </div>
+    <!-- DESKTOP VIEW -->
 
+    <!-- MOBILE VIEW -->
+    <div v-if="$vuetify.breakpoint.mobile ? true : false">
       <!--[TABLE CONTENT]-->
-
       <div
         v-for="(nota_pedido, index) in notas_de_pedido.slice(
           itemsPerPage * page - itemsPerPage,
@@ -67,26 +94,17 @@
       >
         <NotaDePedidoTableItem :nota_de_pedido="nota_pedido" :index="index" />
       </div>
-
       <!--[TABLE CONTENT]-->
+    </div>
+    <!-- MOBILE VIEW -->
 
-      <!--[PAGINATION]-->
-      <div class="tw-my-8">
-        <v-pagination
-          v-model="page"
-          :length="Math.round(notas_de_pedido.length / itemsPerPage)"
-        ></v-pagination>
-      </div>
-      <!--[PAGINATION]-->
-    </div>
-    <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
+    <!-- <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
       <EmptyTable />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-
 import qs from "qs";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import NotaDePedidoTableItem from "@/components/utils/NotaDePedidoTableItem.vue";
@@ -113,11 +131,17 @@ export default {
             _eq: queryBuscador,
           },
         },
+        sort: "fecha_emision"
       });
+
+      const query_defecto = qs.stringify({
+        sort: "fecha_emision"
+      });
+
       this.notas_de_pedido = await this.$axios
         .$get(
           `${this.$config.apiUrl}/items/notas_de_pedido${
-            queryBuscador == "" ? "" : `?${query}`
+            queryBuscador == "" ? `?${query_defecto}` : `?${query}`
           }`
         )
         .then((res) => res.data);
@@ -130,17 +154,10 @@ export default {
     },
   },
   async asyncData(context) {
-     const query = qs.stringify({
-        fields: [
-          "id",
-          "fecha_emision",
-          "cliente.*",
-          "detalle.*",
-          "empresa.*.*",
-        ],
-        sort: "fecha_emision"
-      });
-
+    const query = qs.stringify({
+      fields: ["id", "fecha_emision", "cliente.*", "detalle.*", "empresa.*.*"],
+      sort: "fecha_emision",
+    });
 
     const notas_de_pedido = await context.$axios
       .$get(`${context.$config.apiUrl}/items/notas_de_pedido?${query}`)

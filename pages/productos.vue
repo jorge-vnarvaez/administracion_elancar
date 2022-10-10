@@ -77,7 +77,7 @@ export default {
       buscador: "",
       cantidad: 0,
       page: 1,
-      itemsPerPage: 10,
+      itemsPerPage: 7,
     };
   },
   methods: {
@@ -98,7 +98,6 @@ export default {
             },
           ],
         },
-        fields: ["*,marca.*"],
       });
       this.productos = await this.$axios
         .$get(
@@ -116,12 +115,8 @@ export default {
     },
   },
   async asyncData(context) {
-    const qs = require("qs");
-    const query = qs.stringify({
-      fields: ["*,marca.*"],
-    });
     const productos = await context.$axios
-      .$get(`${context.$config.apiUrl}/items/productos?${query}`)
+      .$get(`${context.$config.apiUrl}/items/productos`)
       .then((res) => res.data);
     return { productos };
   },

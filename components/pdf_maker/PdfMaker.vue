@@ -121,7 +121,7 @@ export default {
   },
   async fetch() {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "detalle.*", "proveedor.*", "cliente.*", "empresa.*.*"],
+      fields: ["id", "fecha_emision", "detalle.*", "proveedor.*", "cliente.*.*", "empresa.*.*"],
     });
 
     const { data } = await this.$axios

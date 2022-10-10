@@ -11,7 +11,7 @@
       <div class="tw-col-span-4 tw-bg-white tw-p-6 tw-row-span-2">
         <span class="tw-block tw-font-bold tw-text-xl">Resumen de compra</span>
         <div class="tw-w-full tw-flex tw-justify-between tw-mt-4">
-          <span>Costo de los productos </span>
+          <span>Total a pagar </span>
           <span class="tw-text-2xl">{{ formatearPrecio(totalPrecio) }}</span>
         </div>
 

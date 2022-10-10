@@ -117,10 +117,16 @@ export default {
           },
         },
       });
+
+      const query_defecto = qs.stringify({
+        sort: "fecha_emision"
+      });
+
+
       this.ordenes_de_compra = await this.$axios
         .$get(
           `${this.$config.apiUrl}/items/ordenes_de_compra${
-            queryBuscador == "" ? "" : `?${query}`
+            queryBuscador == "" ? `?${query_defecto}` : `?${query}`
           }`
         )
         .then((res) => res.data);

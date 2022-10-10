@@ -5,28 +5,36 @@
     >
       <div class="tw-flex tw-flex-col tw-space-y-4">
         <!-- HOME -->
-        <nuxt-link
-          to="/home"
-          class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-home"
-            width="50"
-            height="50"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#000000"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <polyline points="5 12 3 12 12 3 21 12 19 12" />
-            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-          </svg>
-        </nuxt-link>
+        <v-tooltip right>
+          <template v-slot:activator="{ on, attrs }">
+            <div v-bind="attrs" v-on="on" class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2">
+              <nuxt-link
+                to="/home"
+              >
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-home"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="#000000"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+                  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                </svg>
+              </nuxt-link>
+            </div>
+          </template>
+          <span>Inicio</span>
+        </v-tooltip>
+
         <!-- HOME -->
 
         <!-- MENU VENTAS -->
@@ -66,8 +74,12 @@
               <path d="M6 5l14 1l-1 7h-13" />
             </svg>
 
-            <div class="tw-bg-neutral-900 tw-w-6 tw-h-6 tw-rounded-full tw-absolute tw-flex align-center tw-justify-center tw-top-6 tw-left-6">
-              <span class="tw-text-white tw-text-sm">{{ productos_in_cart }}</span>
+            <div
+              class="tw-bg-neutral-900 tw-w-6 tw-h-6 tw-rounded-full tw-absolute tw-flex align-center tw-justify-center tw-top-6 tw-left-6"
+            >
+              <span class="tw-text-white tw-text-sm">{{
+                productos_in_cart
+              }}</span>
             </div>
           </div>
         </nuxt-link>
@@ -164,13 +176,12 @@ export default {
   },
   computed: {
     estado_cotizacion() {
-      return this.$store.getters['info_despacho/getEstadoCotizacion'];
+      return this.$store.getters["info_despacho/getEstadoCotizacion"];
     },
     productos_in_cart() {
       return this.$store.getters["carro_compras/getCarroComprasLength"];
     },
-  }
- 
+  },
 };
 </script>
 

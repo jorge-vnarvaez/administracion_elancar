@@ -26,6 +26,7 @@
         <TablaProductos
           :labels="labels"
           :productos="detalleDocumento"
+          cotizacion_proveedor
           class="tw-col-span-12"
         />
         <!-- TABLA PRODUCTOS -->
@@ -51,7 +52,7 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
+      labels: ["Productos", "Cantidad", "Precio por unidad", "Total"],
     };
   },
   mounted() {

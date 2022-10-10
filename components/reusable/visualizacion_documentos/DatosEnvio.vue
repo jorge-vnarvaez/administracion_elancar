@@ -20,11 +20,10 @@
     </div>
 
     <div v-else>
-       {{ cliente }}
-        <!-- <div>
+        <div v-if="cliente">
           <span class="tw-block">{{ cliente.direcciones[0].calle }} #{{ cliente.direcciones[0].numero }}</span>
           <span>Recibe: {{ cliente.primer_nombre }} {{ cliente.apellido_paterno }} {{ cliente.apellido_materno }}</span>
-        </div> -->
+        </div>
       </div>
   </div>
 </template>

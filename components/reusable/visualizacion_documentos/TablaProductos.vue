@@ -1,8 +1,9 @@
 <template>
   <div
-    class="tw-mt-12 tw-flex tw-flex-col tw-h-full tw-justify-between tw-text-xs"
+    class="tw-mt-12 tw-flex tw-flex-col  tw-justify-between tw-text-xs"
   >
-    <div>
+    <!-- DESKTOP VIEW -->
+    <div v-if="$vuetify.breakpoint.mobile ? false : true">
       <span class="tw-block tw-mb-4 tw-font-bold tw-text-2xl">Detalle</span>
 
       <!-- TABLE HEADERS -->
@@ -32,7 +33,7 @@
           item.cantidad
         }}</span>
         <span
-          v-if="!cotizacion_proveedor || !orden_de_compra"
+          v-if="(cotizacion_proveedor && orden_de_compra) || cotizacion_cliente"
           :class="col_span_table(2) + ' tw-font-bold'"
           >{{ item.cantidad * item.kg }}</span
         >
@@ -47,23 +48,36 @@
       </div>
       <!-- TABLE BODY -->
     </div>
+    <!-- DESKTOP VIEW -->
 
-    <div class="tw-flex tw-justify-between align-center">
+    <!-- MOBILE VIEW -->
+    <div v-if="$vuetify.breakpoint.mobile ? true : false">
+       <div
+        v-for="(item, index) in productos"
+        :key="index"
+        class="tw-grid tw-grid-cols-12 tw-my-4 tw-gap-x-8"
+      >
+        {{ item }}
+      </div>
+    </div>
+
+    <!-- MOBILE VIEW -->
+
+
+    <div class="tw-flex tw-justify-between align-center tw-mt-12">
       <!-- MEMBRETE INFERIOR -->
-      <div><MembreteInferiorPdf v-if="cotizacion_cliente" /></div>
+      <div v-if="cotizacion_cliente"><MembreteInferiorPdf /></div>
       <!-- MEMBRETE INFERIOR -->
 
       <!-- PLANTILLA PRECIO-->
-      <div>
+      <div class=" tw-flex tw-justify-end tw-w-full">
         <PlantillaPrecio
           :sub_total="sub_total"
           :transporte="0"
           :total="total"
           :cotizacion_proveedor="cotizacion_proveedor"
-          class="tw-justify-end"
         />
       </div>
-
       <!-- PLANTILLA PRECIO-->
     </div>
   </div>

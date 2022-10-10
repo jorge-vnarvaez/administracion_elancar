@@ -13,7 +13,7 @@
 
       <div class="tw-flex tw-flex-col align-start">
         <!--TIPO DE DOCUMENTO -->
-        <div class="tw-text-xl tw-font-bold">
+        <div class="tw-text-sm lg:tw-text-xl tw-font-bold">
           <span>{{ tipoDocumento }}</span> <span v-if="infoDocumento">#{{ infoDocumento.id }}</span>
         </div>
         <!--TIPO DE DOCUMENTO -->
