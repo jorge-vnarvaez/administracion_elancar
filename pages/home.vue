@@ -45,7 +45,7 @@
           label="Orden de compra"
           text="Revisa las ordenes de compra realizadas"
           icon="file-search"
-          route_name="ordenes-ver-ordenes_de_compra"
+          route_name="ordenes"
         />
       </div>
       <!-- ORDENES DE COMPRA -->

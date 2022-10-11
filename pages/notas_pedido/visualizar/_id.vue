@@ -22,9 +22,10 @@
         <DatosCliente :cliente="nota_pedido.cliente" class="tw-col-span-12 lg:tw-col-span-5" />
         <!-- DATOS CLIENTE -->
 
-        <!-- DATOS ENVIO :datos_envio="nota_pedido.datos_envio"-->
-        <DatosEnvio :datos_envio="nota_pedido.cliente" class="tw-col-span-12 lg:tw-col-span-7" />
-        <!-- DATOS ENVIO -->
+        <!-- DATOS ENVIO  -->
+        <DatosEnvio :cliente="nota_pedido.cliente" class="tw-col-span-12 lg:tw-col-span-7" />
+        <!-- DATOS ENVIO  -->
+
 
         <!-- TABLA PRODUCTOS -->
         <TablaProductos
@@ -64,7 +65,7 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["*.*"],
+      fields: ["id", "fecha_emision", "cliente.*.*", "detalle.*", "empresa.*.*"],
     });
     const id = context.params.id;
     const { data } = await context.$axios

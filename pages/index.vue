@@ -14,7 +14,12 @@
 
       <!--LOGO-->
       <div class="tw-mb-10">
-        <v-img src="/logo_elancar.png" :width="$vuetify.breakpoint.mobile ? 150 : 250" :height="120" contain></v-img>
+        <v-img
+          src="/logo_elancar.png"
+          :width="$vuetify.breakpoint.mobile ? 150 : 250"
+          :height="120"
+          contain
+        ></v-img>
       </div>
       <!--LOGO-->
 
@@ -79,6 +84,12 @@
         <!--BOTON SESION-->
       </v-form>
       <!--FORMULARIO INICIO SESSION-->
+
+      <!-- SNACKBAR ERROR -->
+      <v-alert type="error" v-if="snackbar">
+        {{ error }}
+      </v-alert>
+      <!-- SNACKBAR ERROR -->
     </div>
   </div>
 </template>
@@ -89,6 +100,7 @@ export default {
   layout: "login",
   data() {
     return {
+      timeout: 3000,
       validado: false,
       email: null,
       password: null,
@@ -96,16 +108,16 @@ export default {
       items: [
         {
           id: 1,
-          text: "Sucursal 1"
+          text: "Sucursal 1",
         },
         {
           id: 2,
-          text: "Sucursal 2"
+          text: "Sucursal 2",
         },
         {
           id: 3,
-          text: "Sucursal 3"
-        }
+          text: "Sucursal 3",
+        },
       ],
       sucursal: null,
     };
@@ -124,7 +136,7 @@ export default {
 
         const params = this.$route.query.redirect || "/home";
 
-        this.$store.dispatch('sucursal/getSucursal', this.sucursal)
+        this.$store.dispatch("sucursal/getSucursal", this.sucursal);
 
         this.$store.dispatch("session/login", {
           credenciales: credenciales,
@@ -135,7 +147,10 @@ export default {
   },
   computed: {
     error() {
-      return this.$store.getters["session/getError"];
+      return this.$store.getters["session/getError"].errorMsg;
+    },
+    snackbar() {
+      return this.$store.getters["session/getError"].value;
     },
   },
 };

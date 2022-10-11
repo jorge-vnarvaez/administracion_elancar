@@ -59,7 +59,7 @@ export default {
         {
           id: 2,
           route_name: "solicitudes",
-          label: "Ver Solicitudes de Cotización",
+          label: "Solicitudes de Cotización",
         },
         // {
         //   id: 3,
@@ -69,7 +69,7 @@ export default {
         {
           id: 4,
           route_name: "ordenes",
-          label: "Ver ordenes de compra",
+          label: "Ordenes de compra",
         },
       ],
     };

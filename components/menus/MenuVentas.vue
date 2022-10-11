@@ -49,12 +49,12 @@ export default {
         {
           id: 1,
           route_name: "notas_pedido",
-          label: "Ver Notas de Pedido",
+          label: "Notas de Pedido",
         },
         {
           id: 2,
           route_name: "cotizaciones",
-          label: "Ver Cotizaciones a Clientes",
+          label: "Cotizaciones a Clientes",
         },
         // {
         //   id: 3,
@@ -64,7 +64,7 @@ export default {
         {
           id: 4,
           route_name: "productos",
-          label: "Listado Productos",
+          label: "Listado de Productos",
         },
     
       ],
