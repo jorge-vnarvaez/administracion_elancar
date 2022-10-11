@@ -27,6 +27,7 @@
           :labels="labels"
           :productos="detalleDocumento"
           class="tw-col-span-12"
+          orden_de_compra
         />
         <!-- TABLA PRODUCTOS -->
       </div>
@@ -51,7 +52,7 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
+      labels: ["Productos", "Cantidad",  "Precio por unidad", "Total"],
     };
   },
   mounted() {

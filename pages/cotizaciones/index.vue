@@ -21,7 +21,7 @@
       <!--[BUSCADOR]-->
       <div>
         <v-text-field
-          class="tw-w-[700px]"
+          class="tw-w-[500px]"
           v-model="buscador"
           placeholder="Buscar cotizacion por código"
           append-icon="mdi-magnify"

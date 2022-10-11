@@ -25,7 +25,7 @@
     <!-- ACCESOS DIRECTOS -->
     <div class="tw-col-span-12 tw-grid tw-grid-cols-12 lg:tw-gap-x-20 tw-gap-y-4 lg:tw-gap-y-12">
       <div class="tw-col-span-12 tw-mt-14">
-        <p class="tw-text-3xl tw-font-semibold">Accesos directos</p>
+        <p class="tw-text-4xl tw-font-semibold">Accesos directos</p>
       </div>
 
       <!-- PRODUCTOS -->

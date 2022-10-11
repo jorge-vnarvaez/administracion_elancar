@@ -26,13 +26,12 @@
       <!--[BUSCADOR]-->
       <div>
         <v-text-field
-          class="tw-w-[700px] mt-6"
+          class="tw-w-[500px]"
           v-model="buscador"
           placeholder="Buscar nota de pedido por código"
           append-icon="mdi-magnify"
           solo
           flat
-          outlined
           clearable
         ></v-text-field>
       </div>

@@ -108,7 +108,6 @@ export default {
       labels: [
         "Productos",
         "Cantidad",
-        "Kg",
         "Precio por unidad",
         "Precio total",
       ],

@@ -3,7 +3,7 @@
     <span class="tw-block tw-font-bold">Datos de envío</span>
     <div v-if="datos_envio != null">
       <div>
-        <div class="tw-flex tw-flex-col">
+        <div class="tw-flex tw-flex-col tw-text-xs">
           <!--CALLE -->
           <span>
             {{ datos_envio.calle }}
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div v-else>
+    <div v-else class="tw-text-xs">
         <div v-if="cliente">
           <span class="tw-block">{{ cliente.direcciones[0].calle }} #{{ cliente.direcciones[0].numero }}</span>
           <span>Recibe: {{ cliente.primer_nombre }} {{ cliente.apellido_paterno }} {{ cliente.apellido_materno }}</span>

@@ -83,6 +83,7 @@ export default {
   googleFonts: {
     Poppins: true,
     Montserrat: true,
+    Inter: true,
   },
 
   devServerHandlers: []

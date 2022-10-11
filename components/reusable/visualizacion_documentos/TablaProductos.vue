@@ -117,7 +117,12 @@ export default {
       type: Boolean,
       default: false,
       desc: "Define si el documento donde se inyecta la tabla es una orden de compra",
-    }
+    },
+    nota_de_pedido: {
+      type: Boolean,
+      default: false,
+      desc: "Define si el documento donde se inyecta la tabla es una nota de pedido",
+    },
   },
   methods: {
     formatearPrecio(precio) {
@@ -135,9 +140,9 @@ export default {
         case 2:
           return this.cotizacion_proveedor ? "tw-col-span-2" : "tw-col-span-1";
         case 3:
-          return "tw-col-span-2";
+          return this.cotizacion_proveedor ? "tw-col-span-2" : "tw-col-span-1";
         case 4:
-          return "tw-col-span-2";
+          return "tw-col-span-3";
         case 5:
           return "tw-col-span-1";
       }

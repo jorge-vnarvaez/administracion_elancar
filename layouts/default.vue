@@ -24,9 +24,9 @@ export default {
 
 <style>
 .v-application {
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
 }
-.text-5xl {
+/* .text-5xl {
   font-family: "Montserrat", sans-serif;
-}
+} */
 </style>

@@ -30,6 +30,7 @@
         <TablaProductos
           :labels="labels"
           :productos="detalleDocumento"
+          nota_de_pedido
           class="tw-col-span-12"
         />
         <!-- TABLA PRODUCTOS -->
@@ -55,7 +56,7 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
+      labels: ["Productos", "Cantidad",  "Precio por unidad", "Total"],
     };
   },
   mounted() {
