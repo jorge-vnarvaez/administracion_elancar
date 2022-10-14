@@ -4,5 +4,8 @@ export default{
     },
     borrarInfoDespachoCotizacion({commit}){
         commit('borrarInfoDespachoCotizacion');
-    }
+    },
+    setInfoDespachoNotaPedido({commit}, info_despacho){
+        commit('setInfoDespachoNotaPedido', info_despacho);
+    },
 }

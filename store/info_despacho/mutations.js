@@ -1,4 +1,11 @@
 export default {
+    setInfoDespachoNotaPedido(state, info_despacho){
+        state.info_despacho_nota_pedido = info_despacho || false;
+        if(state.info_despacho_nota_pedido){
+            state.pedido_en_proceso = state.pedido_en_proceso || true;
+            this.$cookies.set("infoDespachoNotaPedido", state.info_despacho_nota_pedido)
+        }
+    },
     setInfoDespachoCotizacion(state, info_despacho){
         state.info_despacho_cotizacion = info_despacho || false;
         if(state.info_despacho_cotizacion){

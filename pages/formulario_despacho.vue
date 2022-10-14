@@ -1,7 +1,11 @@
 <template>
-  <div class="tw-p-24 tw-px-64">
+  <div class="tw-p-24 tw-px-48">
+    <span class="tw-font-bold tw-text-2xl lg:tw-text-4xl tw-px-8"
+      >Emitiendo {{ DocumentoAEmitir }}</span
+    >
+
     <!--PASO 1-->
-    <div class="tw-bg-white tw-p-8">
+    <div class="tw-bg-white tw-p-8 tw-mt-8">
       <div class="tw-mb-8">
         <span class="tw-block tw-font-bold">Paso 1</span>
         <span class="tw-block tw-text-sky-900"
@@ -14,21 +18,21 @@
       <v-form
         ref="form"
         v-model="validado"
-        lazy-validation
         class="tw-grid tw-grid-cols-12 tw-gap-x-20 place-items-center"
       >
         <div class="tw-col-span-12 tw-grid tw-grid-cols-12 tw-gap-x-20">
           <v-text-field
             v-model="info_despacho.datos_cliente.rut"
-            :rules="rutRules"
             label="Rut"
             required
+            ref="rut"
+            :rules="[reglas.requerido, reglas.rut_valido, reglas.rut_mask]"
             class="tw-col-span-3"
           >
           </v-text-field>
           <v-text-field
             v-model="info_despacho.datos_cliente.nombre_completo"
-            :rules="nombreRules"
+            :rules="[reglas.requerido]"
             label="Nombre"
             required
             class="tw-col-span-3"
@@ -38,14 +42,14 @@
 
         <v-text-field
           v-model="info_despacho.datos_cliente.fono"
-          :rules="telefonoRules"
+          :rules="[reglas.requerido, reglas.telefono]"
           label="Telefono"
           required
           class="tw-col-span-3 tw-o"
         ></v-text-field>
         <v-text-field
           v-model="info_despacho.datos_cliente.email"
-          :rules="emailRules"
+          :rules="[reglas.requerido, reglas.email]"
           label="Email"
           required
           class="tw-col-span-3"
@@ -68,7 +72,9 @@
       </div>
 
       <v-radio-group v-model="opciones_despacho" mandatory>
-        <div class="tw-flex tw-justify-between tw-w-[740px]">
+        <div
+          class="tw-flex tw-flex-col md:tw-flex-col lg:tw-flex-row lg:tw-justify-between tw-w-[740px]"
+        >
           <OpcionDespacho
             tipo="retiro_en_tienda"
             titulo="Retiro en Tienda"
@@ -121,6 +127,7 @@
       <v-btn
         color="black"
         class="tw-text-white tw-font-bold tw-w-40"
+        :disabled="!validado"
         @click="continuar"
         >Continuar</v-btn
       >
@@ -152,32 +159,105 @@ export default {
           numero: "",
         },
       },
-      rutRules: [
-        (v) => !!v || "Rut es requerido",
-        (v) =>
-          /^\d{1,2}\.\d{3}\.\d{3}[-][0-9kK]{1}$/.test(v) || "Rut no es valido",
-      ],
-      nombreRules: [(v) => !!v || "Nombre es requerido"],
-      telefonoRules: [
-        (v) => !!v || "Telefono es requerido",
-        (v) => /^\d{9}$/.test(v) || "Telefono no es valido",
-      ],
-      emailRules: [
-        (v) => !!v || "Email es requerido",
-        (v) => /.+@.+\..+/.test(v) || "Email no es valido",
-      ],
+      reglas: {
+        requerido: (value) => !!value || "Requerido",
+        telefono: (v) => /^\d{9}$/.test(v) || "Telefono no es valido",
+        email: (v) => /.+@.+\..+/.test(v) || "Email no es valido",
+        rut_valido: (v) => {
+          return !!v && !this.validateRut(v) || "Rut invalido";
+
+        },
+        //
+
+        rut_mask: (v) => {
+          const rutPattern = new RegExp(
+            "^[0-9]{1,2}.[0-9]{3}.[0-9]{3}(-|)[0-9kK]{1}$"
+          );
+          return !!v && rutPattern.test(v) || "Rut invalido";
+        },
+      },
       validado: false,
       opciones_despacho: null,
+      DocumentoAEmitir: null,
     };
   },
+
+  //watch para rut chileno dinamico
+  watch: {
+    "info_despacho.datos_cliente.rut": function (val) {
+      this.info_despacho.datos_cliente.rut = this.cleanRut(
+        this.info_despacho.datos_cliente.rut
+      );
+      let len = this.info_despacho.datos_cliente.rut.length - 1;
+      if (len > 3) {
+        let dv = this.info_despacho.datos_cliente.rut[len];
+        let beforeDv = this.info_despacho.datos_cliente.rut
+          .substring(0, len)
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        this.info_despacho.datos_cliente.rut = beforeDv + "-" + dv;
+      }
+    },
+  },
   methods: {
+    cleanRut(value) {
+      return value.replace(/^0+|[^0-9kK]+/g, "").toUpperCase();
+    },
     continuar() {
       this.$store.dispatch(
         "info_despacho/setInfoDespachoCotizacion",
         this.info_despacho
       );
-      this.$router.push("/cotizaciones/crear");
+      this.$store.dispatch(
+        "info_despacho/setInfoDespachoNotaPedido",
+        this.info_despacho
+      );
+
+      if (this.DocumentoAEmitir == "cotizacion") {
+        this.$router.push("/cotizaciones/crear");
+      }
+      if (this.DocumentoAEmitir == "nota de pedido") {
+        this.$router.push("/notas_pedido/crear");
+      }
     },
+    validateRut() {
+      let error = false;
+
+      let rut = this.cleanRut(this.info_despacho.datos_cliente.rut);
+      let digito_verificador = this.info_despacho.datos_cliente.rut.substr(-1);
+
+      rut = rut.substr(0, rut.length - 1);
+
+      let serie = 0;
+      let producto = 0;
+
+      do {
+        producto += (rut % 10) * ((serie % 6) + 2);
+        serie++;
+      } while ((rut = Math.floor(rut / 10)));
+
+      let resto = producto % 11;
+      let resultado = 11 - resto;
+
+      if (resultado == 11) {
+        resultado = 0;
+      } else if (resultado == 10) {
+        resultado = "K";
+      }
+
+      if (digito_verificador != resultado) {
+        error = true;
+      } else {
+        error = false;
+      }
+
+      return error;
+    },
+    // errorInRut() {
+    //   this.error =true;
+    // },
+  },
+  mounted() {
+    this.DocumentoAEmitir = this.$route.params.documento_a_emitir;
   },
 };
 </script>

@@ -1,6 +1,8 @@
 <template>
   <div class="tw-w-full tw-p-24 tw-px-64" v-if="carro">
-    <div class="tw-container tw-my-20 tw-grid tw-grid-cols-12 tw-grid-rows-12 tw-gap-x-8 tw-gap-y-4">
+    <div
+      class="tw-container tw-my-20 tw-grid tw-grid-cols-12 tw-grid-rows-12 tw-gap-x-8 tw-gap-y-4"
+    >
       <div class="tw-col-span-8 tw-bg-white tw-p-6 tw-row-span-1">
         <div class="tw-flex tw-space-x-2">
           <v-icon>mdi-cart-outline</v-icon
@@ -15,21 +17,36 @@
           <span class="tw-text-2xl">{{ formatearPrecio(totalPrecio) }}</span>
         </div>
 
+        <!--BUTTON COTIZAR-->
         <div class="tw-mt-8">
-          <nuxt-link to="/formulario_despacho">
+          <nuxt-link :to="{ name: 'formulario_despacho', params: { documento_a_emitir: 'cotizacion'} }">
             <div class="tw-bg-yellow-400">
-              <span class="tw-block tw-text-center tw-text-neutral-900 tw-py-4 tw-font-bold"
+              <span
+                class="tw-block tw-text-center tw-text-neutral-900 tw-py-4 tw-font-bold"
                 >Cotizar</span
               >
             </div>
           </nuxt-link>
         </div>
+        <!--BUTTON COTIZAR-->
+
+        <!--BUTTON HACER PEDIDO-->
+        <div class="tw-mt-8">
+          <nuxt-link :to="{ name: 'formulario_despacho', params: { documento_a_emitir: 'nota de pedido'} }">
+            <div class="tw-bg-black">
+              <span
+                class="tw-block tw-text-center tw-text-white tw-py-4 tw-font-bold"
+                >Hacer pedido</span
+              >
+            </div>
+          </nuxt-link>
+        </div>
+        <!--BUTTON HACER PEDIDO-->
       </div>
 
       <div v-for="item in carro" :key="item.id" class="tw-col-span-8">
         <producto-cart-item :item="item" :key="item.id" />
       </div>
-
     </div>
   </div>
 </template>

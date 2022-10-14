@@ -11,7 +11,7 @@
       <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-mt-8">
         <!-- MEMBRETE -->
         <MembreteSuperiorPdf
-          tipoDocumento="Cotización"
+          tipoDocumento="Nota de pedido"
           :fecha_emision="fecha_actual"
         />
         <!-- MEMBRETE -->
@@ -37,20 +37,20 @@
         </div>
 
         <!-- TABLA PRODUCTOS -->
-        <TablaProductos :labels="labels" :productos="carro_de_compra" cotizacion_cliente />
+        <TablaProductos :labels="labels" :productos="carro_de_compra" />
         <!-- TABLA PRODUCTOS -->
       </div>
     </div>
 
     <!-- <div v-if="!info_despacho" class="tw-flex tw-flex-col align-center tw-justify-center">
-      <v-img src="/empty-box.png" width="320" height="400" contain></v-img>
-      <span class="tw-block tw-mb-8 tw-text-3xl tw-w-96 tw-text-center">Al parecer no existe una cotización en proceso.</span>
-      <nuxt-link to="/home">
-        <div class="tw-bg-neutral-900 tw-px-4 tw-py-2">
-          <span class="tw-text-white">Volver al inicio</span>
-        </div>
-      </nuxt-link>                                   
-    </div> -->
+        <v-img src="/empty-box.png" width="320" height="400" contain></v-img>
+        <span class="tw-block tw-mb-8 tw-text-3xl tw-w-96 tw-text-center">Al parecer no existe una cotización en proceso.</span>
+        <nuxt-link to="/home">
+          <div class="tw-bg-neutral-900 tw-px-4 tw-py-2">
+            <span class="tw-text-white">Volver al inicio</span>
+          </div>
+        </nuxt-link>                                   
+      </div> -->
   </div>
 </template>
 <script>
@@ -60,7 +60,7 @@ import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCl
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 import Iconoguardar from "@/components/iconos/Iconoguardar.vue";
-import MembreteInferiorPdf from "@/components/reusable/visualizacion_documentos/MembreteInferiorPdf.vue";
+
 export default {
   components: {
     MembreteSuperiorPdf,
@@ -68,7 +68,6 @@ export default {
     DatosEnvio,
     TablaProductos,
     Iconoguardar,
-    MembreteInferiorPdf,
   },
   data() {
     return {
@@ -80,7 +79,7 @@ export default {
       return this.$store.getters["carro_compras/getCarroCompras"];
     },
     info_despacho() {
-      return this.$store.getters["info_despacho/getInfoDespachoCotizacion"];
+      return this.$store.getters["info_despacho/getInfoDespachoNotaPedido"];
     },
     fecha_actual() {
       return moment();
