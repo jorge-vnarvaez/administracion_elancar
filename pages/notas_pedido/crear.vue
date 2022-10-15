@@ -4,7 +4,7 @@
       <div class="tw-mt-8 tw-w-full tw-align-center tw-flex tw-justify-end tw">
         <nuxt-link to="">
           <div class="tw-bg-black tw-p-3">
-            <Iconoguardar />
+            <IconoGuardar />
           </div>
         </nuxt-link>
       </div>
@@ -13,6 +13,7 @@
         <MembreteSuperiorPdf
           tipoDocumento="Nota de pedido"
           :fecha_emision="fecha_actual"
+          is_creando
         />
         <!-- MEMBRETE -->
 
@@ -59,7 +60,7 @@ import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
-import Iconoguardar from "@/components/iconos/Iconoguardar.vue";
+import IconoGuardar from "@/components/iconos/IconoGuardar.vue";
 
 export default {
   components: {
@@ -67,7 +68,7 @@ export default {
     DatosCliente,
     DatosEnvio,
     TablaProductos,
-    Iconoguardar,
+    IconoGuardar,
   },
   data() {
     return {

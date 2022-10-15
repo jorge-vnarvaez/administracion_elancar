@@ -52,6 +52,16 @@ export default {
     GrupoBotones,
   },
   props: {
+    empresa: {
+      type: Object,
+      default: () => {},
+      desc: "Objeto con los datos de la empresa",
+    },
+    is_creando: {
+      type: Boolean,
+      default: false,
+      desc: "Indica si se está creando un documento o se está visualizando uno ya creado",
+    },
     infoDocumento: {
       type: Object,
       default: () => {},

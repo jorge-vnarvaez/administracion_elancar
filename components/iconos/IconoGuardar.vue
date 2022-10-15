@@ -2,8 +2,8 @@
   <svg
     xmlns="http://www.w3.org/2000/svg"
     class="icon icon-tabler icon-tabler-device-floppy"
-    width="50"
-    height="50"
+    width="32"
+    height="32"
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="#ffffff"

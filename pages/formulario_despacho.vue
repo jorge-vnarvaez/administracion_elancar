@@ -1,7 +1,7 @@
 <template>
   <div class="tw-p-24 tw-px-48">
     <span class="tw-font-bold tw-text-2xl lg:tw-text-4xl tw-px-8"
-      >Emitiendo {{ DocumentoAEmitir }}</span
+      >Emitiendo {{ documento_a_emitir }}</span
     >
 
     <!--PASO 1-->
@@ -20,7 +20,10 @@
         v-model="validado"
         class="tw-grid tw-grid-cols-12 tw-gap-x-20 place-items-center"
       >
-        <div class="tw-col-span-12 tw-grid tw-grid-cols-12 tw-gap-x-20">
+        <div
+          class="tw-col-span-12 tw-grid tw-grid-cols-12 tw-gap-x-20 tw-relative"
+        >
+          <!--RUT-->
           <v-text-field
             v-model="info_despacho.datos_cliente.rut"
             label="Rut"
@@ -30,16 +33,39 @@
             class="tw-col-span-3"
           >
           </v-text-field>
+          <!--RUT-->
+
+          <!-- COINCIDENCIAS RUT -->
+          <div
+            v-if="clientes_has_rut.length > 0 && !cliente_has_seleccionado"
+            class="tw-absolute tw-inset-y-20 tw-col-span-3 tw-z-50"
+          >
+            <div class="tw-bg-slate-100 tw-px-8 tw-py-2 tw-shadow-md">
+              <div
+                v-for="(cliente, index) in clientes_has_rut"
+                :key="index"
+                class="tw-py-1 tw-cursor-pointer"
+                @click="seleccionarCliente(cliente)"
+              >
+                {{ formatRut(cliente.rut) }}
+              </div>
+            </div>
+          </div>
+          <!-- COINCIDENCIAS RUT -->
+
+          <!-- NOMBRE -->
           <v-text-field
             v-model="info_despacho.datos_cliente.nombre_completo"
             :rules="[reglas.requerido]"
-            label="Nombre"
+            label="Nombre, Apellido Paterno y Materno"
             required
             class="tw-col-span-3"
           >
           </v-text-field>
+          <!-- NOMBRE -->
         </div>
 
+        <!--TELEFONO-->
         <v-text-field
           v-model="info_despacho.datos_cliente.fono"
           :rules="[reglas.requerido, reglas.telefono]"
@@ -47,6 +73,9 @@
           required
           class="tw-col-span-3 tw-o"
         ></v-text-field>
+        <!--TELEFONO-->
+
+        <!-- EMAIL -->
         <v-text-field
           v-model="info_despacho.datos_cliente.email"
           :rules="[reglas.requerido, reglas.email]"
@@ -55,8 +84,8 @@
           class="tw-col-span-3"
         >
         </v-text-field>
+        <!-- EMAIL -->
       </v-form>
-
       <!-- FORM CLIENTE-->
     </div>
     <!--PASO 1-->
@@ -103,6 +132,13 @@
         >
       </div>
       <div class="tw-grid tw-grid-cols-12 tw-gap-x-20">
+          <v-text-field
+          v-model="info_despacho.datos_envio.sector"
+          label="Sector"
+          required
+          class="tw-col-span-3"
+        >
+        </v-text-field>
         <v-text-field
           v-model="info_despacho.datos_envio.calle"
           label="Calle"
@@ -117,12 +153,12 @@
           class="tw-col-span-3"
         >
         </v-text-field>
+        
       </div>
     </div>
     <!--PASO 3-->
 
     <!--BUTTON CONTINUE-->
-
     <div class="tw-flex tw-justify-end tw-mt-12">
       <v-btn
         color="black"
@@ -132,14 +168,15 @@
         >Continuar</v-btn
       >
     </div>
-
     <!--BUTTON CONTINUE-->
   </div>
 </template>
 
 <script>
+import qs from "qs";
 import IconoUsuario from "@/components/iconos/IconoUsuario.vue";
 import OpcionDespacho from "@/components/reusable/OpcionDespacho.vue";
+
 export default {
   components: {
     IconoUsuario,
@@ -157,15 +194,15 @@ export default {
         datos_envio: {
           calle: "",
           numero: "",
+          sector: "",
         },
       },
       reglas: {
         requerido: (value) => !!value || "Requerido",
-        telefono: (v) => /^\d{9}$/.test(v) || "Telefono no es valido",
+        telefono: (v) => /^\d{8}$/.test(v) || "Telefono no es valido",
         email: (v) => /.+@.+\..+/.test(v) || "Email no es valido",
         rut_valido: (v) => {
-          return !!v && !this.validateRut(v) || "Rut invalido";
-
+          return (!!v && !this.validateRut(v)) || "Rut invalido";
         },
         //
 
@@ -173,18 +210,18 @@ export default {
           const rutPattern = new RegExp(
             "^[0-9]{1,2}.[0-9]{3}.[0-9]{3}(-|)[0-9kK]{1}$"
           );
-          return !!v && rutPattern.test(v) || "Rut invalido";
+          return (!!v && rutPattern.test(v)) || "Rut invalido";
         },
       },
       validado: false,
-      opciones_despacho: null,
-      DocumentoAEmitir: null,
+      opciones_despacho: 'retiro_en_tienda',
+      documento_a_emitir: null,
+      clientes_has_rut: [],
+      cliente_has_seleccionado: false,
     };
   },
-
-  //watch para rut chileno dinamico
   watch: {
-    "info_despacho.datos_cliente.rut": function (val) {
+    "info_despacho.datos_cliente.rut": async function (val) {
       this.info_despacho.datos_cliente.rut = this.cleanRut(
         this.info_despacho.datos_cliente.rut
       );
@@ -196,13 +233,64 @@ export default {
           .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         this.info_despacho.datos_cliente.rut = beforeDv + "-" + dv;
       }
+
+      await this.getClientesHasRut(this.info_despacho.datos_cliente.rut);
     },
   },
   methods: {
-    cleanRut(value) {
-      return value.replace(/^0+|[^0-9kK]+/g, "").toUpperCase();
+    seleccionarCliente(cliente) {
+      this.cliente_has_seleccionado = !this.cliente_has_seleccionado;
+
+      this.info_despacho.datos_cliente.rut = cliente.rut;
+      this.info_despacho.datos_cliente.nombre_completo =
+        cliente.primer_nombre +
+        " " +
+        cliente.apellido_paterno +
+        " " +
+        cliente.apellido_materno;
+      this.info_despacho.datos_cliente.fono = cliente.fono;
+      this.info_despacho.datos_cliente.email = cliente.email;
+
+      this.clientes_has_rut = [];
     },
-    continuar() {
+    async getClientesHasRut(rut) {
+      const query = qs.stringify({
+        filter: {
+          rut: {
+            _contains: this.cleanRut(rut),
+          },
+        },
+      });
+
+      this.clientes_has_rut = await this.$axios
+        .$get(`${this.$config.apiUrl}/items/clientes?${rut != "" ? query : ""}`)
+        .then((res) => res.data);
+
+      if (rut == "") {
+        this.info_despacho.datos_cliente.rut = "";
+        this.info_despacho.datos_cliente.nombre_completo = "";
+        this.info_despacho.datos_cliente.fono = "";
+        this.info_despacho.datos_cliente.email = "";
+        this.clientes_has_rut = [];
+        this.cliente_has_seleccionado = false;
+      }
+    },
+    cleanRut(value) {
+      return value.replace(/\.|-/g, "");
+    },
+    formatRut(value) {
+      let rut = value.replace(/\.|-/g, "");
+      let len = rut.length - 1;
+      if (len > 3) {
+        let dv = rut[len];
+        let beforeDv = rut
+          .substring(0, len)
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        rut = beforeDv + "-" + dv;
+      }
+      return rut;
+    },
+    async continuar() {
       this.$store.dispatch(
         "info_despacho/setInfoDespachoCotizacion",
         this.info_despacho
@@ -212,10 +300,30 @@ export default {
         this.info_despacho
       );
 
-      if (this.DocumentoAEmitir == "cotizacion") {
+      if (this.cliente_has_seleccionado == false) {
+        await this.$axios.post(`${this.$config.apiUrl}/items/clientes`, {
+          rut: this.cleanRut(this.info_despacho.datos_cliente.rut),
+          primer_nombre:
+            this.info_despacho.datos_cliente.nombre_completo.split(" ")[0],
+          apellido_paterno:
+            this.info_despacho.datos_cliente.nombre_completo.split(" ")[1],
+          apellido_materno:
+            this.info_despacho.datos_cliente.nombre_completo.split(" ")[2],
+          fono: this.info_despacho.datos_cliente.fono,
+          email: this.info_despacho.datos_cliente.email,
+          direcciones: this.opciones_despacho == 'despacho_domicilio' ? [{
+            calle: this.info_despacho.datos_envio.calle,
+            numero: this.info_despacho.datos_envio.numero,
+            comuna: 'Calama',
+            sector: this.info_despacho.datos_envio.sector,
+          }] : [],
+        })
+      }
+
+      if (this.documento_a_emitir == "cotizacion") {
         this.$router.push("/cotizaciones/crear");
       }
-      if (this.DocumentoAEmitir == "nota de pedido") {
+      if (this.documento_a_emitir == "nota de pedido") {
         this.$router.push("/notas_pedido/crear");
       }
     },
@@ -252,12 +360,9 @@ export default {
 
       return error;
     },
-    // errorInRut() {
-    //   this.error =true;
-    // },
   },
   mounted() {
-    this.DocumentoAEmitir = this.$route.params.documento_a_emitir;
+    this.documento_a_emitir = this.$route.params.documento_a_emitir;
   },
 };
 </script>

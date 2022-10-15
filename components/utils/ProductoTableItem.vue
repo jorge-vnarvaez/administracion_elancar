@@ -29,7 +29,7 @@
         ' tw-col-span-3 lg:tw-col-span-1 tw-py-4 tw-px-4'
       "
     >
-      {{ producto.stock || 0}}
+      {{ producto.stock || 0 }}
     </div>
     <!-- STOCK -->
 
@@ -62,23 +62,36 @@
         ' tw-col-span-2 tw-py-3 tw-px-4'
       "
     >
-      <button
+      <v-btn
+        :disabled="cantidad == 0"
         class="tw-uppercase tw-bg-neutral-900 tw-text-white tw-font-bold tw-px-4 tw-py-2"
         @click="agregarAlCarrito(producto, cantidad)"
       >
-      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="6" cy="19" r="2" />
-      <circle cx="17" cy="19" r="2" />
-      <path d="M17 17h-11v-14h-2" />
-      <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-      <path d="M15 6h6m-3 -3v6" />
-      </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-shopping-cart-plus"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#ffffff"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="6" cy="19" r="2" />
+          <circle cx="17" cy="19" r="2" />
+          <path d="M17 17h-11v-14h-2" />
+          <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
+          <path d="M15 6h6m-3 -3v6" />
+        </svg>
         <!-- <font-awesome-icon icon="fa-solid fa-cart-plus" color="white" /> -->
-      </button>
+      </v-btn>
     </div>
     <!-- AGREGAR -->
 
+    <v-snackbar type="success" v-model="producto_agregado" :timeout="timeout" color="green darken-1">Producto agregado con exito!</v-snackbar>
   </div>
 </template>
 
@@ -88,6 +101,8 @@ export default {
   data() {
     return {
       cantidad: 0,
+      producto_agregado: false,
+      timeout: 2000,
     };
   },
   methods: {
@@ -98,7 +113,7 @@ export default {
       });
     },
     aumentarCantidad(stock) {
-      if(this.cantidad < stock) {
+      if (this.cantidad < stock) {
         this.cantidad++;
       }
     },
@@ -108,9 +123,10 @@ export default {
       }
     },
     agregarAlCarrito(producto, cantidad) {
+      this.producto_agregado = true;
       this.$store.dispatch("carro_compras/addProductToCart", {
         producto,
-        cantidad
+        cantidad,
       });
     },
   },
