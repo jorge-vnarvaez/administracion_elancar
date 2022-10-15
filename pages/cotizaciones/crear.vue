@@ -1,12 +1,13 @@
 <template>
   <div class="tw-p-24 tw-px-64 tw-h-full">
     <div v-if="info_despacho">
-      <div class="tw-mt-8 tw-w-full tw-align-center tw-flex tw-justify-end tw">
-        <nuxt-link to="">
-          <div class="tw-bg-black tw-p-3">
-            <IconoGuardar />
-          </div>
-        </nuxt-link>
+      <div class=" tw-w-full tw-align-center tw-flex tw-justify-end tw-space-x-3">
+        <div class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-lg">
+          <IconoBorrar  />
+        </div>
+        <div class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-lg"  @click="GuardarCotizacion ">
+          <IconoGuardar  />
+        </div>
       </div>
       <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-mt-8">
         <!-- MEMBRETE -->
@@ -14,6 +15,7 @@
           tipoDocumento="Cotización"
           :fecha_emision="fecha_actual"
           is_creando
+          :empresa="empresa"
         />
         <!-- MEMBRETE -->
 
@@ -38,7 +40,11 @@
         </div>
 
         <!-- TABLA PRODUCTOS -->
-        <TablaProductos :labels="labels" :productos="carro_de_compra" cotizacion_cliente />
+        <TablaProductos
+          :labels="labels"
+          :productos="carro_de_compra"
+          cotizacion_cliente
+        />
         <!-- TABLA PRODUCTOS -->
       </div>
     </div>
@@ -62,8 +68,10 @@ import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvi
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 import IconoGuardar from "@/components/iconos/IconoGuardar.vue";
 import MembreteInferiorPdf from "@/components/reusable/visualizacion_documentos/MembreteInferiorPdf.vue";
+import IconoBorrar from "@/components/iconos/blancos/IconoBorrar.vue";
 export default {
   components: {
+    IconoBorrar,
     MembreteSuperiorPdf,
     DatosCliente,
     DatosEnvio,
@@ -85,6 +93,26 @@ export default {
     },
     fecha_actual() {
       return moment();
+    },
+    hora_actual() {
+      return moment().format("HH:mm");
+    },
+    empresa() {
+      return this.$store.getters["sucursal/getSucursal"];
+    },
+  },
+  methods: {
+    async GuardarCotizacion() {
+      await this.$axios.post(
+        `${this.$config.apiUrl}/items/cotizaciones_clientes`,
+        {
+          fecha_emision: this.fecha_actual,
+          hora_emision: this.hora_actual,
+          cliente: this.info_despacho.datos_cliente.id,
+          empresa: this.empresa.id,
+          detalle: this.carro_de_compra,
+        }
+      );
     },
   },
 };

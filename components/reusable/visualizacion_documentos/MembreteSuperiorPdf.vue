@@ -5,7 +5,8 @@
       <!--LOGO ELANCAR -->
       <div class="tw-flex align-center tw-space-x-2">
         <IconoElancar />
-        <DatosEmpresa v-if="infoDocumento" :empresa="infoDocumento.empresa" />
+        <DatosEmpresa v-if="infoDocumento" :empresa="infoDocumento.empresa"  />
+        <DatosEmpresa v-if="is_creando" :empresa="empresa"  />
       </div>
 
 

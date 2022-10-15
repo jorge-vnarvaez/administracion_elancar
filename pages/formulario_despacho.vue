@@ -186,6 +186,7 @@ export default {
     return {
       info_despacho: {
         datos_cliente: {
+          id: "",
           rut: "",
           nombre_completo: "",
           fono: "",
@@ -240,7 +241,7 @@ export default {
   methods: {
     seleccionarCliente(cliente) {
       this.cliente_has_seleccionado = !this.cliente_has_seleccionado;
-
+      this.info_despacho.datos_cliente.id = cliente.id;
       this.info_despacho.datos_cliente.rut = cliente.rut;
       this.info_despacho.datos_cliente.nombre_completo =
         cliente.primer_nombre +
@@ -267,6 +268,7 @@ export default {
         .then((res) => res.data);
 
       if (rut == "") {
+        this.info_despacho.datos_cliente.id = "";
         this.info_despacho.datos_cliente.rut = "";
         this.info_despacho.datos_cliente.nombre_completo = "";
         this.info_despacho.datos_cliente.fono = "";
