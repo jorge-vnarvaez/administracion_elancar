@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-p-24 tw-px-64 tw-h-full">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48">
     <div class="tw-flex tw-flex-col tw-bg-white tw-p-8">
       <!-- MEMBRETE -->
       <MembreteSuperiorPdf

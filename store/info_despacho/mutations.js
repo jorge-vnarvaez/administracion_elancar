@@ -10,7 +10,7 @@ export default {
         state.info_despacho_nota_pedido = null;
         this.$cookies.remove("infoDespachoNotaPedido");
         state.pedido_en_proceso = null;
-        this.$router.push("/productos");
+        // this.$router.push("/productos");
     },
     setInfoDespachoCotizacion(state, info_despacho) {
         state.info_despacho_cotizacion = info_despacho || false;
@@ -23,6 +23,6 @@ export default {
         state.info_despacho_cotizacion = null;
         this.$cookies.remove("infoDespachoCotizacion");
         state.cotizacion_en_proceso = null;
-        this.$router.push("/productos");
+        // this.$router.push("/productos");
     },
 }

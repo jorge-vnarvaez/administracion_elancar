@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-p-24 tw-px-64 tw-h-full">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48">
     <div v-if="info_despacho">
       <div
         class="tw-w-full tw-align-center tw-flex tw-justify-end tw-space-x-3"
@@ -129,10 +129,44 @@
         </div>
       </nuxt-link>                                   
     </div> -->
+
+    <!-- ALERTA BORRADO EXITOSO -->
+    <v-snackbar
+      type="success"
+      v-model="documento_borrado"
+      :timeout="timeout_borrado"
+      color="yellow darken-1"
+    >
+      <div class="tw-flex tw-space-x-4 tw-align-center">
+        <v-progress-circular indeterminate color="black"></v-progress-circular>
+
+        <span class="tw-text-neutral-900 tw-font-bold"
+          >El documento se ha borrado exitosamente, serás redirigido al listado
+          de productos en {{ contador }} segundos...</span
+        >
+      </div>
+    </v-snackbar>
+    <!-- ALERTA BORRADO EXITOSO -->
+
+    <!-- ALERTA GUARDADO EXITOSO -->
+    <v-snackbar
+      type="success"
+      v-model="documento_guardado"
+      :timeout="timeout_guardado"
+      color="yellow darken-1"
+    >
+      <div class="tw-flex tw-space-x-4 tw-align-center">
+        <v-progress-circular indeterminate color="black"></v-progress-circular>
+        <span class="tw-text-neutral-900 tw-font-bold"
+          >El documento se ha guardado exitosamente, serás redirigido al listado
+          de productos en {{ contador }} segundos...</span
+        >
+      </div>
+    </v-snackbar>
+    <!-- ALERTA GUARDADO EXITOSO -->
   </div>
 </template>
 <script>
-
 import moment from "moment";
 import IconoGuardar from "@/components/iconos/IconoGuardar.vue";
 import IconoBorrar from "@/components/iconos/blancos/IconoBorrar.vue";
@@ -159,6 +193,11 @@ export default {
       labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
       dialog_borrar: false,
       dialog_guardar: false,
+      documento_borrado: false,
+      documento_guardado: false,
+      timeout_borrado: 9000,
+      timeout_guardado: 9000,
+      contador: 7,
     };
   },
   computed: {
@@ -180,11 +219,24 @@ export default {
   },
   methods: {
     borrarDocumento() {
+      this.documento_borrado = true;
       this.dialog_borrar = false;
       this.$store.dispatch("info_despacho/borrarInfoDespachoCotizacion");
       this.$store.dispatch("carro_compras/borrarCarro");
+      setInterval(() => {
+        this.contador--;
+        if (this.contador === 0) {
+          this.documento_borrado = false;
+          this.contador = 7;
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        this.$router.push("/productos");
+      }, 7000);
     },
     async guardarDocumento() {
+      this.documento_guardado = true;
       this.dialog_guardar = false;
       await this.$axios.post(
         `${this.$config.apiUrl}/items/cotizaciones_clientes`,
@@ -197,12 +249,25 @@ export default {
             return {
               productos_id: producto.id,
               cantidad: producto.cantidad,
-          }})
+            };
+          }),
         }
       );
+
       this.$store.dispatch("info_despacho/borrarInfoDespachoCotizacion");
       this.$store.dispatch("carro_compras/borrarCarro");
-      this.$router.push("/productos");
+
+      setInterval(() => {
+        this.contador--;
+        if (this.contador === 0) {
+          this.documento_guardado = false;
+          this.contador = 7;
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        this.$router.push("/productos");
+      }, 7000);
     },
   },
 };

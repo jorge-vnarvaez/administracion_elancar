@@ -1,7 +1,7 @@
 <template>
-  <div class="tw-w-full tw-p-24 tw-px-64" v-if="carro">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48" v-if="carro">
     <div
-      class="tw-container tw-my-20 tw-grid tw-grid-cols-12 tw-gap-x-8 tw-gap-y-4"
+      class="tw-grid tw-grid-cols-12 tw-gap-x-8 tw-gap-y-4"
     >
       <!-- CANTIDAD PRODUCTOS -->
       <div class="tw-col-span-8 tw-bg-white tw-p-6 tw-row-span-1">
@@ -25,7 +25,7 @@
         <!-- IVA -->
          <div class="tw-w-full tw-flex tw-justify-between tw-mt-4">
           <span>IVA (19%): </span>
-          <span class="tw-text-2xl">{{ $formatearPrecio(totalPrecio) }}</span>
+          <span class="tw-text-2xl">{{ $formatearPrecio(iva) }}</span>
         </div>
         <!-- IVA -->
 
@@ -83,6 +83,9 @@ export default {
     totalPrecio() {
       return this.$store.getters["carro_compras/getTotalPrice"];
     },
+    iva() {
+      return this.totalPrecio * 0.19;
+    }
   },
 };
 </script>

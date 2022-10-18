@@ -136,7 +136,11 @@ export default {
 
         const params = this.$route.query.redirect || "/home";
 
-        this.$store.dispatch("sucursal/getSucursal", this.sucursal);
+        this.$store.dispatch("sucursal/loadSucursal", this.sucursal);
+
+        const sucursal = this.$store.getters["sucursal/getSucursal"];
+
+        this.$store.dispatch("setSucursal", sucursal);
 
         this.$store.dispatch("session/login", {
           credenciales: credenciales,

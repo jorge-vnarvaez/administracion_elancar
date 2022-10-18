@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-64">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48">
     <div class="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between">
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
