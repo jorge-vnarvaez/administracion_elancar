@@ -18,7 +18,7 @@
         ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4'
       "
     >
-      {{ formatearPrecio(producto.precio) }}
+      {{ $formatearPrecio(producto.precio) }}
     </div>
     <!-- PRECIO NETO -->
 
@@ -91,7 +91,15 @@
     </div>
     <!-- AGREGAR -->
 
-    <v-snackbar type="success" v-model="producto_agregado" :timeout="timeout" color="green darken-1">Producto agregado con exito!</v-snackbar>
+    <v-snackbar
+      type="success"
+      v-model="producto_agregado"
+      :timeout="timeout"
+      color="green darken-1"
+    >
+      <v-icon color="white">mdi-check-circle</v-icon>
+      <span>Producto agregado con exito!</span>
+    </v-snackbar>
   </div>
 </template>
 
@@ -106,12 +114,6 @@ export default {
     };
   },
   methods: {
-    formatearPrecio(precio) {
-      return precio.toLocaleString("es-CL", {
-        style: "currency",
-        currency: "CLP",
-      });
-    },
     aumentarCantidad(stock) {
       if (this.cantidad < stock) {
         this.cantidad++;

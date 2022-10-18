@@ -40,14 +40,17 @@
             v-if="clientes_has_rut.length > 0 && !cliente_has_seleccionado"
             class="tw-absolute tw-inset-y-20 tw-col-span-3 tw-z-50"
           >
-            <div class="tw-bg-slate-100 tw-px-8 tw-py-2 tw-shadow-md">
+            <div class="tw-bg-neutral-100 tw-px-4 tw-py-3 tw-shadow-md tw-w-[200px]">
+              <span class="tw-text-sm tw-font-bold tw-block">Clientes encontrados: </span>
               <div
                 v-for="(cliente, index) in clientes_has_rut"
                 :key="index"
                 class="tw-py-1 tw-cursor-pointer"
                 @click="seleccionarCliente(cliente)"
               >
-                {{ formatRut(cliente.rut) }}
+                <span class="tw-font-thin">
+                    {{ formatRut(cliente.rut) }}
+                </span>
               </div>
             </div>
           </div>
@@ -261,6 +264,7 @@ export default {
             _contains: this.cleanRut(rut),
           },
         },
+        limit: 3,
       });
 
       this.clientes_has_rut = await this.$axios

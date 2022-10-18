@@ -8,4 +8,7 @@ export default{
     setInfoDespachoNotaPedido({commit}, info_despacho){
         commit('setInfoDespachoNotaPedido', info_despacho);
     },
+    borrarInfoDespachoNotaPedido({commit}){
+        commit('borrarInfoDespachoNotaPedido');
+    },
 }

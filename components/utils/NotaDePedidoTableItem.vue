@@ -82,11 +82,10 @@
             Visualizar/Descargar
           </span>
           <IconoVer
-          tipoDocumento="Nota de pedido"
-          path="/notas_pedido"
-          :idDocumento="nota_de_pedido.id"
-        />
-
+            tipoDocumento="Nota de pedido"
+            path="/notas_pedido"
+            :idDocumento="nota_de_pedido.id"
+          />
         </div>
       </div>
       <!-- <span>{{ nota_de_pedido.id }}</span> -->
@@ -105,12 +104,7 @@ export default {
   props: ["nota_de_pedido", "index"],
   data() {
     return {
-      labels: [
-        "Productos",
-        "Cantidad",
-        "Precio por unidad",
-        "Precio total",
-      ],
+      labels: ["Productos", "Cantidad", "Precio por unidad", "Precio total"],
     };
   },
   methods: {

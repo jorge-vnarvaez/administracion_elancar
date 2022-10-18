@@ -40,8 +40,12 @@
           <span class="tw-font-bold">Codigo</span>
         </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-6">
+        <div class="tw-col-span-6 lg:tw-col-span-4">
           <span class="tw-font-bold">Fecha</span>
+        </div>
+
+        <div class="tw-col-span-6 lg:tw-col-span-2">
+          <span class="tw-font-bold">Hora</span>
         </div>
 
         <div class="tw-col-span-6 lg:tw-col-span-4">
@@ -111,11 +115,11 @@ export default {
             _eq: queryBuscador,
           },
         },
-        sort: "fecha_emision"
+        sort: ["fecha_emision", "hora_emision"]
       });
 
       const query_defecto = qs.stringify({
-        sort: "fecha_emision"
+        sort: ["fecha_emision", "hora_emision"]
       });
 
       this.solicitud_cotizaciones = await this.$axios
@@ -139,11 +143,12 @@ export default {
       fields: [
         "id",
         "fecha_emision",
+        "hora_emision",
         "detalle.*",
         "cliente.*.*",
         "empresa..*.*"
       ],
-      sort: "fecha_emision"
+      sort: ["fecha_emision", "hora_emision"]
     });
 
 

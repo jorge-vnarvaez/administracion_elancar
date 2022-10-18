@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="tw-mt-12 tw-flex tw-flex-col  tw-justify-between tw-text-xs"
-  >
+  <div class="tw-mt-12 tw-flex tw-flex-col tw-justify-between tw-text-xs">
     <!-- DESKTOP VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? false : true">
       <span class="tw-block tw-mb-4 tw-font-bold tw-text-2xl">Detalle</span>
@@ -38,12 +36,12 @@
           >{{ item.cantidad * item.kg }}</span
         >
         <span :class="col_span_table(3)">{{
-          cotizacion_proveedor ? "$.-" : formatearPrecio(item.precio)
+          cotizacion_proveedor ? "$.-" : $formatearPrecio(item.precio)
         }}</span>
         <span :class="col_span_table(4)">{{
           cotizacion_proveedor
             ? "$.-"
-            : formatearPrecio(item.cantidad * item.precio)
+            : $formatearPrecio(item.cantidad * item.precio)
         }}</span>
       </div>
       <!-- TABLE BODY -->
@@ -52,7 +50,7 @@
 
     <!-- MOBILE VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? true : false">
-       <div
+      <div
         v-for="(item, index) in productos"
         :key="index"
         class="tw-grid tw-grid-cols-12 tw-my-4 tw-gap-x-8"
@@ -63,14 +61,11 @@
 
     <!-- MOBILE VIEW -->
 
-
+    <!-- MEMBRETE INFERIOR -->
     <div class="tw-flex tw-justify-between align-center tw-mt-12">
-      <!-- MEMBRETE INFERIOR -->
       <div v-if="cotizacion_cliente"><MembreteInferiorPdf /></div>
-      <!-- MEMBRETE INFERIOR -->
-
       <!-- PLANTILLA PRECIO-->
-      <div class=" tw-flex tw-justify-end tw-w-full">
+      <div class="tw-flex tw-justify-end tw-w-full">
         <PlantillaPrecio
           :sub_total="sub_total"
           :transporte="0"
@@ -80,6 +75,7 @@
       </div>
       <!-- PLANTILLA PRECIO-->
     </div>
+    <!-- MEMBRETE INFERIOR -->
   </div>
 </template>
 
@@ -125,12 +121,6 @@ export default {
     },
   },
   methods: {
-    formatearPrecio(precio) {
-      return precio.toLocaleString("es-CL", {
-        style: "currency",
-        currency: "CLP",
-      });
-    },
     col_span_table(index) {
       switch (index) {
         case 0:

@@ -12,7 +12,7 @@
       <div>
         <span class="tw-font-bold tw-text-xl tw-mr-4">Total</span
         ><span class="tw-text-xl">{{
-          formatearPrecio(item.precio * item.cantidad)
+          $formatearPrecio(item.precio * item.cantidad)
         }}</span>
       </div>
       <div @click="eliminarItem(item)" class="tw-cursor-pointer">
@@ -27,12 +27,6 @@
 export default {
   props: ["item"],
   methods: {
-    formatearPrecio(precio) {
-      return precio.toLocaleString("es-CL", {
-        style: "currency",
-        currency: "CLP",
-      });
-    },
     eliminarItem(item) {
       this.$store.dispatch("carro_compras/removeProductFromCart", {
         producto: item,

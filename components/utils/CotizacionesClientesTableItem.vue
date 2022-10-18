@@ -15,13 +15,23 @@
     <div
       :class="
         `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-6 tw-py-4 tw-px-4'
+        ' tw-col-span-6 lg:tw-col-span-4 tw-py-4'
       "
     >
       {{ formatearFecha(cotizacion_cliente.fecha_emision) }}
-      <!-- {{ formatearHora(solicitud_de_cotizacion.hora_emision)}} -->
     </div>
     <!-- FECHA -->
+
+
+    <!-- HORA -->
+    <div
+      :class="
+        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+        ' tw-col-span-6 lg:tw-col-span-2 tw-py-4'
+      ">
+      {{ cotizacion_cliente.hora_emision }}
+    </div>
+    <!-- HORA -->
 
     <!-- ARCHIVOS -->
     <div
@@ -31,12 +41,12 @@
       "
     >
       <IconoVer tipoDocumento="Cotización" path="/cotizaciones" :idDocumento="cotizacion_cliente.id" />
-      <PdfMaker
+      <!-- <PdfMaker
         tipoDocumento="Cotización"
         :idDocumento="cotizacion_cliente.id"
         item="cotizaciones_clientes"
         :labels="labels"
-      />
+      /> -->
     </div>
     <!-- ARCHIVOS -->
   </div>
@@ -66,9 +76,9 @@ export default {
     formatearFecha(fecha) {
       return moment(fecha).format("LL");
     },
-    // formatearHora(hora){
-    //     return moment(hora).format("A")
-    // }
+    formatearHora(hora){
+        return moment(hora).format("HH:mm:ss")
+    }
   },
 };
 </script>

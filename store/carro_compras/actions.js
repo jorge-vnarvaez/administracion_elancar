@@ -8,7 +8,6 @@ export default {
     },
     // Remove product from cart
     removeProductFromCart({ commit }, { producto }) {
-        console.log(producto);
         commit('removeProductFromCart', producto)
     },
     borrarCarro({ commit }) {

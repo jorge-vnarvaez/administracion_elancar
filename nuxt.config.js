@@ -35,7 +35,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '@/plugins/vue-html2pdf', mode: 'client' }
+    { src: '@/plugins/vue-html2pdf', mode: 'client' },
+    { src: '@/plugins/calculadora.js' },
+    { src: '@/plugins/precios.js' },
   ],
 
   purgeCSS: {

@@ -2,11 +2,9 @@
   <div class="tw-p-24 tw-px-64 tw-h-full">
     <div v-if="info_despacho">
       <div class="tw-mt-8 tw-w-full tw-align-center tw-flex tw-justify-end tw">
-        <nuxt-link to="">
-          <div class="tw-bg-black tw-p-3">
+          <div class="tw-bg-black tw-p-3" @click="guardarDocumento">
             <IconoGuardar />
           </div>
-        </nuxt-link>
       </div>
       <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-mt-8">
         <!-- MEMBRETE -->
@@ -14,6 +12,7 @@
           tipoDocumento="Nota de pedido"
           :fecha_emision="fecha_actual"
           is_creando
+          :empresa="empresa"
         />
         <!-- MEMBRETE -->
 
@@ -75,6 +74,17 @@ export default {
       labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
     };
   },
+  methods: {
+    async guardarDocumento() {
+      await this.$axios.post(`${this.$config.apiUrl}/items/notas_de_pedido`, {
+        fecha_emision: this.fecha_actual,
+        hora_emision: this.hora_actual,
+        cliente: this.info_despacho.datos_cliente.id,
+        empresa: this.empresa.id,
+        detalle: this.carro_de_compra,
+      });
+    }
+  },
   computed: {
     carro_de_compra() {
       return this.$store.getters["carro_compras/getCarroCompras"];
@@ -85,6 +95,12 @@ export default {
     fecha_actual() {
       return moment();
     },
+    hora_actual() {
+      return moment().format("HH:mm");
+    },
+    empresa() {
+      return this.$store.getters["sucursal/getSucursal"];
+    }
   },
 };
 </script>

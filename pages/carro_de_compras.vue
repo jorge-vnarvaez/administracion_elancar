@@ -1,21 +1,33 @@
 <template>
   <div class="tw-w-full tw-p-24 tw-px-64" v-if="carro">
     <div
-      class="tw-container tw-my-20 tw-grid tw-grid-cols-12 tw-grid-rows-12 tw-gap-x-8 tw-gap-y-4"
+      class="tw-container tw-my-20 tw-grid tw-grid-cols-12 tw-gap-x-8 tw-gap-y-4"
     >
+      <!-- CANTIDAD PRODUCTOS -->
       <div class="tw-col-span-8 tw-bg-white tw-p-6 tw-row-span-1">
         <div class="tw-flex tw-space-x-2">
           <v-icon>mdi-cart-outline</v-icon
           ><span>Tu carro de compras con {{ numeroProductos }} productos</span>
         </div>
       </div>
+      <!-- CANTIDAD PRODUCTOS -->
 
-      <div class="tw-col-span-4 tw-bg-white tw-p-6 tw-row-span-2">
+      <!-- RESUMEN COMPRA -->
+      <div class="tw-col-span-4 tw-bg-white tw-p-6 ">
         <span class="tw-block tw-font-bold tw-text-xl">Resumen de compra</span>
+        <!-- TOTAL NETO -->
         <div class="tw-w-full tw-flex tw-justify-between tw-mt-4">
-          <span>Total a pagar </span>
-          <span class="tw-text-2xl">{{ formatearPrecio(totalPrecio) }}</span>
+          <span>Neto: </span>
+          <span class="tw-text-2xl">{{ $formatearPrecio(totalPrecio) }}</span>
         </div>
+        <!-- TOTAL NETO -->
+
+        <!-- IVA -->
+         <div class="tw-w-full tw-flex tw-justify-between tw-mt-4">
+          <span>IVA (19%): </span>
+          <span class="tw-text-2xl">{{ $formatearPrecio(totalPrecio) }}</span>
+        </div>
+        <!-- IVA -->
 
         <!--BUTTON COTIZAR-->
         <div class="tw-mt-8">
@@ -43,10 +55,13 @@
         </div>
         <!--BUTTON HACER PEDIDO-->
       </div>
+      <!-- RESUMEN COMPRA -->
 
+      <!-- PRODUCTOS -->
       <div v-for="item in carro" :key="item.id" class="tw-col-span-8">
-        <producto-cart-item :item="item" :key="item.id" />
+        <ProductoCartItem :item="item" :key="item.id" />
       </div>
+      <!-- PRODUCTOS -->
     </div>
   </div>
 </template>
@@ -57,14 +72,6 @@ import ProductoCartItem from "@/components/utils/ProductoCartItem.vue";
 export default {
   components: {
     ProductoCartItem,
-  },
-  methods: {
-    formatearPrecio(precio) {
-      return precio.toLocaleString("es-CL", {
-        style: "currency",
-        currency: "CLP",
-      });
-    },
   },
   computed: {
     carro() {

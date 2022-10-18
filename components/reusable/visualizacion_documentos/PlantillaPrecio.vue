@@ -4,14 +4,14 @@
       <!--SUBTOTAL-->
       <div>
         <span class="tw-font-bold">Subtotal: </span
-        ><span> {{ sub_total == 0 ? "$.-" : formatearPrecio(sub_total) }}</span>
+        ><span> {{ sub_total == 0 ? "$.-" : $formatearPrecio(sub_total) }}</span>
       </div>
       <!--SUBTOTAL-->
 
       <!--IVA-->
       <div>
         <span class="tw-font-bold">IVA (19%): </span
-        ><span> {{ iva == 0 ? "$.-" : formatearPrecio(iva) }}</span>
+        ><span> {{ iva == 0 ? "$.-" : $formatearPrecio(iva) }}</span>
       </div>
       <!--IVA-->
 
@@ -19,7 +19,7 @@
       <div>
         <span class="tw-font-bold">Transporte: </span
         ><span>
-          {{ transporte == 0 ? "$.-" : formatearPrecio(transporte) }}</span
+          {{ transporte == 0 ? "$.-" : $formatearPrecio(transporte) }}</span
         >
       </div>
       <!-- TRANSPORTE -->
@@ -27,7 +27,7 @@
       <!-- TOTAL -->
       <div>
         <span class="tw-font-bold">Total: </span
-        ><span> {{ total == 0 ? "$.-" : formatearPrecio(total) }}</span>
+        ><span> {{ total == 0 ? "$.-" : $formatearPrecio(total) }}</span>
       </div>
       <!-- TOTAL -->
     </div>
@@ -36,7 +36,7 @@
       <!-- TOTAL -->
       <div>
         <span class="tw-font-bold">Total: </span
-        ><span> {{ total == 0 ? "$.-" : formatearPrecio(total) }}</span>
+        ><span> {{ total == 0 ? "$.-" : $formatearPrecio(total) }}</span>
       </div>
       <!-- TOTAL -->
     </div>
@@ -65,14 +65,6 @@ export default {
       type: Boolean,
       default: false,
       desc: "Define si el documento es una cotización a proveedor",
-    },
-  },
-  methods: {
-    formatearPrecio(precio) {
-      return precio.toLocaleString("es-CL", {
-        style: "currency",
-        currency: "CLP",
-      });
     },
   },
   computed: {

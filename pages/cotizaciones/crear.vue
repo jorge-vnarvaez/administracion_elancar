@@ -1,13 +1,84 @@
 <template>
   <div class="tw-p-24 tw-px-64 tw-h-full">
     <div v-if="info_despacho">
-      <div class=" tw-w-full tw-align-center tw-flex tw-justify-end tw-space-x-3">
-        <div class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-lg">
-          <IconoBorrar  />
+      <div
+        class="tw-w-full tw-align-center tw-flex tw-justify-end tw-space-x-3"
+      >
+        <!-- ICONO BORRAR Y DIALOG -->
+        <div
+          class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-md"
+          @click="dialog_borrar = true"
+        >
+          <v-dialog v-model="dialog_borrar" max-width="290">
+            <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
+              <v-card-text class="tw-text-center tw-text-2xl">
+                ¿Está seguro/a que desea borrar la cotización actual?
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  depressed
+                  color="black"
+                  class="tw-text-white"
+                  @click="borrarDocumento"
+                >
+                  Si, borrar
+                </v-btn>
+
+                <v-btn
+                  depressed
+                  color="yellow darken-1"
+                  class="tw-text-neutral-900"
+                  @click="dialog_borrar = false"
+                >
+                  No, cancelar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <IconoBorrar />
         </div>
-        <div class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-lg"  @click="GuardarCotizacion ">
-          <IconoGuardar  />
+        <!-- ICONO BORRAR Y DIALOG -->
+
+        <!-- ICONO GUARDAR Y DIALOG -->
+        <div
+          class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-md"
+          @click="dialog_guardar = true"
+        >
+          <v-dialog v-model="dialog_guardar" max-width="290">
+            <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
+              <v-card-text class="tw-text-center tw-text-2xl">
+                ¿Está seguro/a que desea guardar la cotización actual?
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  depressed
+                  color="black"
+                  class="tw-text-white"
+                  @click="guardarDocumento"
+                >
+                  Si, guardar
+                </v-btn>
+
+                <v-btn
+                  depressed
+                  color="yellow darken-1"
+                  class="tw-text-neutral-900"
+                  @click="dialog_guardar = false"
+                >
+                  No, volver
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <IconoGuardar />
         </div>
+        <!-- ICONO GUARDAR Y DIALOG -->
       </div>
       <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-mt-8">
         <!-- MEMBRETE -->
@@ -61,27 +132,33 @@
   </div>
 </template>
 <script>
+
 import moment from "moment";
+import IconoGuardar from "@/components/iconos/IconoGuardar.vue";
+import IconoBorrar from "@/components/iconos/blancos/IconoBorrar.vue";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
-import IconoGuardar from "@/components/iconos/IconoGuardar.vue";
 import MembreteInferiorPdf from "@/components/reusable/visualizacion_documentos/MembreteInferiorPdf.vue";
-import IconoBorrar from "@/components/iconos/blancos/IconoBorrar.vue";
+import DialogAccion from "@/components/reusable/DialogAccion.vue";
+
 export default {
   components: {
+    IconoGuardar,
     IconoBorrar,
     MembreteSuperiorPdf,
     DatosCliente,
     DatosEnvio,
     TablaProductos,
-    IconoGuardar,
     MembreteInferiorPdf,
+    DialogAccion,
   },
   data() {
     return {
       labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
+      dialog_borrar: false,
+      dialog_guardar: false,
     };
   },
   computed: {
@@ -102,7 +179,13 @@ export default {
     },
   },
   methods: {
-    async GuardarCotizacion() {
+    borrarDocumento() {
+      this.dialog_borrar = false;
+      this.$store.dispatch("info_despacho/borrarInfoDespachoCotizacion");
+      this.$store.dispatch("carro_compras/borrarCarro");
+    },
+    async guardarDocumento() {
+      this.dialog_guardar = false;
       await this.$axios.post(
         `${this.$config.apiUrl}/items/cotizaciones_clientes`,
         {
@@ -110,9 +193,16 @@ export default {
           hora_emision: this.hora_actual,
           cliente: this.info_despacho.datos_cliente.id,
           empresa: this.empresa.id,
-          detalle: this.carro_de_compra,
+          detalle: this.carro_de_compra.map((producto) => {
+            return {
+              productos_id: producto.id,
+              cantidad: producto.cantidad,
+          }})
         }
       );
+      this.$store.dispatch("info_despacho/borrarInfoDespachoCotizacion");
+      this.$store.dispatch("carro_compras/borrarCarro");
+      this.$router.push("/productos");
     },
   },
 };
