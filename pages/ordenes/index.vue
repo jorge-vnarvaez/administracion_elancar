@@ -91,7 +91,7 @@
 
 import qs from "qs";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
-import OrdenDeCompraTableItem from "@/components/utils/OrdenDeCompraTableItem.vue";
+import OrdenDeCompraTableItem from "@/components/utils/table_items/OrdenDeCompraTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {

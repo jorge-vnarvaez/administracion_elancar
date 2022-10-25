@@ -131,38 +131,31 @@
     </div> -->
 
     <!-- ALERTA BORRADO EXITOSO -->
-    <v-snackbar
-      type="success"
-      v-model="documento_borrado"
-      :timeout="timeout_borrado"
-      color="yellow darken-1"
-    >
-      <div class="tw-flex tw-space-x-4 tw-align-center">
-        <v-progress-circular indeterminate color="black"></v-progress-circular>
-
-        <span class="tw-text-neutral-900 tw-font-bold"
+    <div v-if="documento_borrado" class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col">
+      <v-img src="/deleting_document.png" width="500" height="420" contain></v-img>
+      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
+        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
           >El documento se ha borrado exitosamente, serás redirigido al listado
           de productos en {{ contador }} segundos...</span
         >
+
+        <v-progress-circular indeterminate color="black"></v-progress-circular>
       </div>
-    </v-snackbar>
+    </div>
     <!-- ALERTA BORRADO EXITOSO -->
 
     <!-- ALERTA GUARDADO EXITOSO -->
-    <v-snackbar
-      type="success"
-      v-model="documento_guardado"
-      :timeout="timeout_guardado"
-      color="yellow darken-1"
-    >
-      <div class="tw-flex tw-space-x-4 tw-align-center">
-        <v-progress-circular indeterminate color="black"></v-progress-circular>
-        <span class="tw-text-neutral-900 tw-font-bold"
+    <div v-if="documento_guardado" class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col">
+      <v-img src="/saving_document.png" width="500" height="420" contain></v-img>
+      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
+        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
           >El documento se ha guardado exitosamente, serás redirigido al listado
           de productos en {{ contador }} segundos...</span
         >
+
+        <v-progress-circular indeterminate color="black"></v-progress-circular>
       </div>
-    </v-snackbar>
+    </div>
     <!-- ALERTA GUARDADO EXITOSO -->
   </div>
 </template>

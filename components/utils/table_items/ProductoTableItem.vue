@@ -42,14 +42,16 @@
     >
       <div class="tw-flex">
         <v-icon @click="disminuirCantidad()">mdi-minus</v-icon>
-        <v-text-field
-          v-model="cantidad"
-          solo
-          hide-details
-          flat
-          :min="0"
-          class="tw-w-[200px] tw-mx-4 tw-text-center"
-        ></v-text-field>
+        <div>
+          <v-text-field
+            v-model="cantidad"
+            solo
+            hide-details
+            flat
+            :min="0"
+            class="tw-w-[140px] tw-mx-4 tw-text-center"
+          ></v-text-field>
+        </div>
         <v-icon @click="aumentarCantidad(producto.stock)">mdi-plus</v-icon>
       </div>
     </div>
@@ -112,6 +114,17 @@ export default {
       producto_agregado: false,
       timeout: 2000,
     };
+  },
+  watch: {
+    cantidad() {
+      if (this.cantidad > this.producto.stock) {
+        this.cantidad = this.producto.stock;
+      }
+
+      if (this.cantidad <= 0) {
+        this.cantidad = 0;
+      }
+    },
   },
   methods: {
     aumentarCantidad(stock) {

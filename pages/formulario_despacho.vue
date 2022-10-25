@@ -40,8 +40,12 @@
             v-if="clientes_has_rut.length > 0 && !cliente_has_seleccionado"
             class="tw-absolute tw-inset-y-20 tw-col-span-3 tw-z-50"
           >
-            <div class="tw-bg-neutral-100 tw-px-4 tw-py-3 tw-shadow-md tw-w-[200px]">
-              <span class="tw-text-sm tw-font-bold tw-block">Clientes encontrados: </span>
+            <div
+              class="tw-bg-neutral-100 tw-px-4 tw-py-3 tw-shadow-md tw-w-[200px]"
+            >
+              <span class="tw-text-sm tw-font-bold tw-block"
+                >Clientes encontrados:
+              </span>
               <div
                 v-for="(cliente, index) in clientes_has_rut"
                 :key="index"
@@ -49,7 +53,7 @@
                 @click="seleccionarCliente(cliente)"
               >
                 <span class="tw-font-thin">
-                    {{ formatRut(cliente.rut) }}
+                  {{ formatRut(cliente.rut) }}
                 </span>
               </div>
             </div>
@@ -135,7 +139,7 @@
         >
       </div>
       <div class="tw-grid tw-grid-cols-12 tw-gap-x-20">
-          <v-text-field
+        <v-text-field
           v-model="info_despacho.datos_envio.sector"
           label="Sector"
           required
@@ -156,7 +160,6 @@
           class="tw-col-span-3"
         >
         </v-text-field>
-        
       </div>
     </div>
     <!--PASO 3-->
@@ -218,7 +221,7 @@ export default {
         },
       },
       validado: false,
-      opciones_despacho: 'retiro_en_tienda',
+      opciones_despacho: "retiro_en_tienda",
       documento_a_emitir: null,
       clientes_has_rut: [],
       cliente_has_seleccionado: false,
@@ -297,15 +300,6 @@ export default {
       return rut;
     },
     async continuar() {
-      this.$store.dispatch(
-        "info_despacho/setInfoDespachoCotizacion",
-        this.info_despacho
-      );
-      this.$store.dispatch(
-        "info_despacho/setInfoDespachoNotaPedido",
-        this.info_despacho
-      );
-
       if (this.cliente_has_seleccionado == false) {
         await this.$axios.post(`${this.$config.apiUrl}/items/clientes`, {
           rut: this.cleanRut(this.info_despacho.datos_cliente.rut),
@@ -317,19 +311,32 @@ export default {
             this.info_despacho.datos_cliente.nombre_completo.split(" ")[2],
           fono: this.info_despacho.datos_cliente.fono,
           email: this.info_despacho.datos_cliente.email,
-          direcciones: this.opciones_despacho == 'despacho_domicilio' ? [{
-            calle: this.info_despacho.datos_envio.calle,
-            numero: this.info_despacho.datos_envio.numero,
-            comuna: 'Calama',
-            sector: this.info_despacho.datos_envio.sector,
-          }] : [],
-        })
+          direcciones:
+            this.opciones_despacho == "despacho_domicilio"
+              ? [
+                  {
+                    calle: this.info_despacho.datos_envio.calle,
+                    numero: this.info_despacho.datos_envio.numero,
+                    comuna: "Calama",
+                    sector: this.info_despacho.datos_envio.sector,
+                  },
+                ]
+              : [],
+        });
       }
 
       if (this.documento_a_emitir == "cotizacion") {
+        this.$store.dispatch(
+          "info_despacho/setInfoDespachoCotizacion",
+          this.info_despacho
+        );
         this.$router.push("/cotizaciones/crear");
       }
       if (this.documento_a_emitir == "nota de pedido") {
+        this.$store.dispatch(
+          "info_despacho/setInfoDespachoNotaPedido",
+          this.info_despacho
+        );
         this.$router.push("/notas_pedido/crear");
       }
     },

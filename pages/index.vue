@@ -68,6 +68,7 @@
             full-width
             :item-text="(item) => item.text"
             :item-value="(item) => item.id"
+            required
           ></v-select>
         </div>
         <!--SELECT SUCURSAL-->
@@ -119,7 +120,10 @@ export default {
           text: "Sucursal 3",
         },
       ],
-      sucursal: null,
+      sucursal: {
+        id: 1,
+        text: "Sucursal 1",
+      },
     };
   },
   methods: {
@@ -136,11 +140,11 @@ export default {
 
         const params = this.$route.query.redirect || "/home";
 
-        this.$store.dispatch("sucursal/loadSucursal", this.sucursal);
+        this.$store.dispatch("sucursal/loadSucursal", this.sucursal.id);
 
         const sucursal = this.$store.getters["sucursal/getSucursal"];
 
-        this.$store.dispatch("setSucursal", sucursal);
+        this.$store.dispatch("sucursal/setSucursal", this.sucursal.id);
 
         this.$store.dispatch("session/login", {
           credenciales: credenciales,

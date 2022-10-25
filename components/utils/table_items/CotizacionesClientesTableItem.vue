@@ -41,12 +41,12 @@
       "
     >
       <IconoVer tipoDocumento="Cotización" path="/cotizaciones" :idDocumento="cotizacion_cliente.id" />
-      <!-- <PdfMaker
+      <PdfMaker
         tipoDocumento="Cotización"
         :idDocumento="cotizacion_cliente.id"
         item="cotizaciones_clientes"
         :labels="labels"
-      /> -->
+      />
     </div>
     <!-- ARCHIVOS -->
   </div>

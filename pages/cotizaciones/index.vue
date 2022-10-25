@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-p-24 tw-px-64">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48">
     <div class="tw-flex tw-justify-between">
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
@@ -10,9 +10,7 @@
         <!--TITULO-->
         <div class="tw-flex tw-flex-col">
           <span class="tw-text-4xl">Historial</span>
-          <span class="tw-text-2xl tw-text-gray-800"
-            >Cotizaciónes</span
-          >
+          <span class="tw-text-2xl tw-text-gray-800">Cotizaciónes</span>
         </div>
         <!--TITULO-->
       </div>
@@ -73,24 +71,27 @@
       <!--[PAGINATION]-->
       <div class="tw-my-8">
         <v-pagination
+          color="black"
           v-model="page"
-          :length="Math.round(solicitud_cotizaciones.length / itemsPerPage)"
+          :length="Math.ceil(solicitud_cotizaciones.length / itemsPerPage)"
         ></v-pagination>
       </div>
       <!--[PAGINATION]-->
     </div>
+
+    <!-- NO RESULTADOS -->
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
       <EmptyTable />
     </div>
+    <!-- NO RESULTADOS -->
   </div>
 </template>
 
 <script>
-
-import qs from 'qs'
-import IconoElancar from "@/components/reusable/IconoElancar.vue";  
+import qs from "qs";
+import IconoElancar from "@/components/reusable/IconoElancar.vue";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
-import CotizacionesClienteTableItem from "@/components/utils/CotizacionesClientesTableItem.vue";
+import CotizacionesClienteTableItem from "@/components/utils/table_items/CotizacionesClientesTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
@@ -104,7 +105,7 @@ export default {
     return {
       buscador: "",
       page: 1,
-      itemsPerPage: 7,
+      itemsPerPage: 6,
     };
   },
   methods: {
@@ -115,11 +116,11 @@ export default {
             _eq: queryBuscador,
           },
         },
-        sort: ["fecha_emision", "hora_emision"]
+        sort: ["fecha_emision", "hora_emision"],
       });
 
       const query_defecto = qs.stringify({
-        sort: ["fecha_emision", "hora_emision"]
+        sort: ["fecha_emision", "hora_emision"],
       });
 
       this.solicitud_cotizaciones = await this.$axios
@@ -138,7 +139,6 @@ export default {
     },
   },
   async asyncData(context) {
-
     const query = qs.stringify({
       fields: [
         "id",
@@ -146,11 +146,10 @@ export default {
         "hora_emision",
         "detalle.*",
         "cliente.*.*",
-        "empresa..*.*"
+        "empresa..*.*",
       ],
-      sort: ["fecha_emision", "hora_emision"]
+      sort: ["fecha_emision", "hora_emision"],
     });
-
 
     const solicitud_cotizaciones = await context.$axios
       .$get(`${context.$config.apiUrl}/items/cotizaciones_clientes?${query}`)

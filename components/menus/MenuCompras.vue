@@ -53,7 +53,7 @@ export default {
       paginas: [
         {
           id: 1,
-          route_name: "notas_pedido",
+          route_name: "solicitudes-crear",
           label: "Emitir Solicitud de Cotización",
         },
         {

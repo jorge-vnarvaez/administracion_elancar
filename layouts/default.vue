@@ -17,15 +17,17 @@ export default {
     this.$store.dispatch("carro_compras/setCarro", carro);
 
     const sucursal = this.$cookies.get("datosSucursal") || {};
-    console.log(this);
     this.$store.dispatch("sucursal/setSucursal", sucursal);
 
     const info_despacho = this.$cookies.get("infoDespachoCotizacion") || false;
+    const info_pedido = this.$cookies.get("infoDespachoNotaPedido") || false;
 
     this.$store.dispatch(
       "info_despacho/setInfoDespachoCotizacion",
       info_despacho
     );
+
+    this.$store.dispatch("info_despacho/setInfoDespachoNotaPedido", info_pedido);
   },
 };
 </script>

@@ -116,19 +116,44 @@
       </div>
     </div>
 
-    <!-- <div v-if="!info_despacho" class="tw-flex tw-flex-col align-center tw-justify-center">
-        <v-img src="/empty-box.png" width="320" height="400" contain></v-img>
-        <span class="tw-block tw-mb-8 tw-text-3xl tw-w-96 tw-text-center">Al parecer no existe una cotización en proceso.</span>
-        <nuxt-link to="/home">
-          <div class="tw-bg-neutral-900 tw-px-4 tw-py-2">
-            <span class="tw-text-white">Volver al inicio</span>
-          </div>
-        </nuxt-link>                                   
-      </div> -->
+    <!-- ALERTA BORRADO EXITOSO -->
+    <div
+      v-if="documento_borrado"
+      class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col"
+    >
+      <v-img
+        src="/deleting_document.png"
+        width="500"
+        height="420"
+        contain
+      ></v-img>
+      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
+        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
+          >El documento se ha borrado exitosamente, serás redirigido al listado
+          de productos en {{ contador }} segundos...</span
+        >
+
+        <v-progress-circular indeterminate color="black"></v-progress-circular>
+      </div>
+    </div>
+    <!-- ALERTA BORRADO EXITOSO -->
+
+    <!-- ALERTA GUARDADO EXITOSO -->
+     <div v-if="documento_guardado" class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col">
+      <v-img src="/saving_document.png" width="500" height="420" contain></v-img>
+      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
+        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
+          >El documento se ha guardado exitosamente, serás redirigido al listado
+          de productos en {{ contador }} segundos...</span
+        >
+
+        <v-progress-circular indeterminate color="black"></v-progress-circular>
+      </div>
+    </div>
+    <!-- ALERTA GUARDADO EXITOSO -->
   </div>
 </template>
 <script>
-
 import moment from "moment";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
@@ -162,6 +187,7 @@ export default {
     borrarDocumento() {
       this.documento_borrado = true;
       this.dialog_borrar = false;
+
       this.$store.dispatch("info_despacho/borrarInfoDespachoNotaPedido");
       this.$store.dispatch("carro_compras/borrarCarro");
       setInterval(() => {
@@ -177,13 +203,46 @@ export default {
       }, 7000);
     },
     async guardarDocumento() {
+      this.documento_guardado = true;
+      this.dialog_guardar = false;
+
       await this.$axios.post(`${this.$config.apiUrl}/items/notas_de_pedido`, {
         fecha_emision: this.fecha_actual,
         hora_emision: this.hora_actual,
         cliente: this.info_despacho.datos_cliente.id,
         empresa: this.empresa.id,
-        detalle: this.carro_de_compra,
+        detalle: this.carro_de_compra.map((producto) => {
+          return {
+            productos_id: producto.id,
+            cantidad: producto.cantidad,
+          };
+        }),
       });
+
+      // for each item in carro_de_compra send a patch request to update the stock
+      this.carro_de_compra.forEach(async (producto) => {
+        await this.$axios.patch(
+          `${this.$config.apiUrl}/items/productos/${producto.id}`,
+          {
+            stock: producto.stock - producto.cantidad,
+          }
+        );
+      });
+
+      this.$store.dispatch("info_despacho/borrarInfoDespachoNotaPedido");
+      this.$store.dispatch("carro_compras/borrarCarro");
+
+      setInterval(() => {
+        this.contador--;
+        if (this.contador === 0) {
+          this.documento_guardado = false;
+          this.contador = 7;
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        this.$router.push("/productos");
+      }, 7000);
     },
   },
   computed: {

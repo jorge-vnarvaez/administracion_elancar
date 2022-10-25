@@ -37,26 +37,62 @@
       </div>
       <!--[BUSCADOR]-->
     </div>
-    <!-- DESKTOP VIEW -->
-    <div v-if="$vuetify.breakpoint.mobile ? false : true">
-      <div v-if="notas_de_pedido.length > 0">
-        <!--TABLE HEADER-->
 
-        <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
-          <div class="tw-col-span-6 lg:tw-col-span-2">
-            <span class="tw-font-bold">Codigo</span>
-          </div>
+    <div v-if="notas_de_pedido.length > 0">
+      <!-- DESKTOP VIEW -->
+      <div v-if="$vuetify.breakpoint.mobile ? false : true">
+        <div v-if="notas_de_pedido.length > 0">
+          <!--TABLE HEADER-->
 
-          <div class="tw-col-span-6 lg:tw-col-span-6">
-            <span class="tw-font-bold">Fecha</span>
-          </div>
+          <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
+            <div class="tw-col-span-6 lg:tw-col-span-2">
+              <span class="tw-font-bold">Codigo</span>
+            </div>
 
-          <div class="tw-col-span-6 lg:tw-col-span-4">
-            <span class="tw-font-bold">Ver o Descargar</span>
+            <div class="tw-col-span-6 lg:tw-col-span-4">
+              <span class="tw-font-bold">Fecha</span>
+            </div>
+
+            <div class="tw-col-span-6 lg:tw-col-span-2">
+              <span class="tw-font-bold">Hora</span>
+            </div>
+
+            <div class="tw-col-span-6 lg:tw-col-span-4">
+              <span class="tw-font-bold">Ver o Descargar</span>
+            </div>
           </div>
+          <!--TABLE HEADER-->
+
+          <!--[TABLE CONTENT]-->
+          <div
+            v-for="(nota_pedido, index) in notas_de_pedido.slice(
+              itemsPerPage * page - itemsPerPage,
+              itemsPerPage * page
+            )"
+            :key="nota_pedido.id"
+          >
+            <NotaDePedidoTableItem
+              :nota_de_pedido="nota_pedido"
+              :index="index"
+            />
+          </div>
+          <!--[TABLE CONTENT]-->
+
+          <!--[PAGINATION]-->
+          <div class="tw-my-8">
+            <v-pagination
+              v-model="page"
+              color="black"
+              :length="Math.ceil(notas_de_pedido.length / itemsPerPage)"
+            ></v-pagination>
+          </div>
+          <!--[PAGINATION]-->
         </div>
-        <!--TABLE HEADER-->
+      </div>
+      <!-- DESKTOP VIEW -->
 
+      <!-- MOBILE VIEW -->
+      <div v-if="$vuetify.breakpoint.mobile ? true : false">
         <!--[TABLE CONTENT]-->
         <div
           v-for="(nota_pedido, index) in notas_de_pedido.slice(
@@ -68,45 +104,20 @@
           <NotaDePedidoTableItem :nota_de_pedido="nota_pedido" :index="index" />
         </div>
         <!--[TABLE CONTENT]-->
-
-        <!--[PAGINATION]-->
-        <div class="tw-my-8">
-          <v-pagination
-            v-model="page"
-            :length="Math.round(notas_de_pedido.length / itemsPerPage)"
-          ></v-pagination>
-        </div>
-        <!--[PAGINATION]-->
       </div>
+      <!-- MOBILE VIEW -->
     </div>
-    <!-- DESKTOP VIEW -->
 
-    <!-- MOBILE VIEW -->
-    <div v-if="$vuetify.breakpoint.mobile ? true : false">
-      <!--[TABLE CONTENT]-->
-      <div
-        v-for="(nota_pedido, index) in notas_de_pedido.slice(
-          itemsPerPage * page - itemsPerPage,
-          itemsPerPage * page
-        )"
-        :key="nota_pedido.id"
-      >
-        <NotaDePedidoTableItem :nota_de_pedido="nota_pedido" :index="index" />
-      </div>
-      <!--[TABLE CONTENT]-->
-    </div>
-    <!-- MOBILE VIEW -->
-
-    <!-- <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
+    <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
       <EmptyTable />
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
 import qs from "qs";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
-import NotaDePedidoTableItem from "@/components/utils/NotaDePedidoTableItem.vue";
+import NotaDePedidoTableItem from "@/components/utils/table_items/NotaDePedidoTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
@@ -119,7 +130,7 @@ export default {
     return {
       buscador: "",
       page: 1,
-      itemsPerPage: 7,
+      itemsPerPage: 6,
     };
   },
   methods: {
@@ -130,11 +141,11 @@ export default {
             _eq: queryBuscador,
           },
         },
-        sort: "fecha_emision"
+        sort: "fecha_emision",
       });
 
       const query_defecto = qs.stringify({
-        sort: "fecha_emision"
+        sort: "fecha_emision",
       });
 
       this.notas_de_pedido = await this.$axios
@@ -154,7 +165,14 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "cliente.*", "detalle.*", "empresa.*.*"],
+      fields: [
+        "id",
+        "fecha_emision",
+        "hora_emision",
+        "cliente.*",
+        "detalle.*",
+        "empresa.*.*",
+      ],
       sort: "fecha_emision",
     });
 

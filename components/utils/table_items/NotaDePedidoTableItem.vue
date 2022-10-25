@@ -20,12 +20,23 @@
       <div
         :class="
           `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 lg:tw-col-span-6 tw-py-4 tw-px-4'
+          ' tw-col-span-6 lg:tw-col-span-4 tw-py-4'
         "
       >
         {{ formatearFecha(nota_de_pedido.fecha_emision) }}
       </div>
       <!-- FECHA -->
+
+      <!-- HORA -->
+      <div
+        :class="
+          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+          ' tw-col-span-6 lg:tw-col-span-2 tw-py-4'
+        "
+      >
+        {{ nota_de_pedido.hora_emision }}
+      </div>
+      <!-- HORA -->
 
       <!-- ARCHIVOS -->
       <div
@@ -88,7 +99,6 @@
           />
         </div>
       </div>
-      <!-- <span>{{ nota_de_pedido.id }}</span> -->
     </div>
     <!--MOBILE VIEW -->
   </div>

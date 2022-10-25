@@ -83,7 +83,7 @@
 import qs from "qs";
 import IconoElancar from "@/components/reusable/IconoElancar.vue";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
-import SolicitudDeCotizacionTableItem from "@/components/utils/SolicitudCotizacionTableItem.vue";
+import SolicitudDeCotizacionTableItem from "@/components/utils/table_items/SolicitudCotizacionTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
