@@ -1,10 +1,25 @@
 <template>
   <div
-    class="tw-grid tw-grid-cols-12 tw-w-full tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48 tw-h-full align-center"
+    class="
+      tw-grid tw-grid-cols-12 tw-w-full tw-py-12
+      lg:tw-p-24
+      tw-px-8
+      lg:tw-px-48
+      tw-h-full
+      align-center
+    "
   >
     <!-- BIENVENIDO -->
     <div
-      class="tw-col-span-12 tw-bg-white tw-p-10 tw-shadow-md tw-rounded-lg lg:tw-h-40 tw-flex tw-flex-col lg:tw-flex-row lg:align-center tw-space-y-8 lg:tw-space-y-0 tw-justify-between"
+      class="
+        tw-col-span-12 tw-bg-white tw-p-10 tw-shadow-md tw-rounded-lg
+        lg:tw-h-40
+        tw-flex tw-flex-col
+        lg:tw-flex-row lg:align-center
+        tw-space-y-8
+        lg:tw-space-y-0
+        tw-justify-between
+      "
       v-if="usuario"
     >
       <div class="tw-flex tw-flex-col">
@@ -19,18 +34,31 @@
       <!-- <div>
         {{ sucursal }}
       </div> -->
-      
     </div>
     <!-- BIENVENIDO -->
 
     <!-- ACCESOS DIRECTOS -->
-    <div class="tw-col-span-12 tw-grid tw-grid-cols-12 lg:tw-gap-x-20 tw-gap-y-4 lg:tw-gap-y-12">
+    <div
+      class="
+        tw-col-span-12 tw-grid tw-grid-cols-12
+        lg:tw-gap-x-20
+        tw-gap-y-4
+        lg:tw-gap-y-12
+      "
+    >
       <div class="tw-col-span-12 tw-mt-14">
         <p class="tw-text-4xl tw-font-semibold">Accesos directos</p>
       </div>
 
       <!-- PRODUCTOS -->
-      <div class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10">
+      <div
+        class="
+          tw-col-span-12
+          lg:tw-col-span-6
+          tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6
+          lg:tw-p-10
+        "
+      >
         <card-direct-access
           label="Listado de productos"
           text="Revisa el listado de productos"
@@ -41,7 +69,14 @@
       <!-- PRODUCTOS -->
 
       <!-- ORDENES DE COMPRA -->
-      <div class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10">
+      <div
+        class="
+          tw-col-span-12
+          lg:tw-col-span-6
+          tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6
+          lg:tw-p-10
+        "
+      >
         <card-direct-access
           label="Orden de compra"
           text="Revisa las ordenes de compra realizadas"
@@ -53,7 +88,12 @@
 
       <!-- COTIZACIONES -->
       <div
-        class="tw-col-span-12 lg:tw-col-span-6 tw-col-start-1 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10"
+        class="
+          tw-col-span-12
+          lg:tw-col-span-6
+          tw-col-start-1 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6
+          lg:tw-p-10
+        "
       >
         <card-direct-access
           label="Cotizaciones de venta"
@@ -65,7 +105,14 @@
       <!-- COTIZACIONES -->
 
       <!-- NOTAS DE PEDIDO -->
-      <div class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10">
+      <div
+        class="
+          tw-col-span-12
+          lg:tw-col-span-6
+          tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6
+          lg:tw-p-10
+        "
+      >
         <card-direct-access
           label="Notas de pedido"
           text="Revisa las notas de pedido realizadas"
@@ -74,6 +121,24 @@
         />
       </div>
       <!-- NOTAS DE PEDIDO -->
+
+      <!-- PRUEBA POWER BI -->
+      <div
+        class="
+          tw-col-span-12
+          lg:tw-col-span-6
+          tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6
+          lg:tw-p-10
+        "
+      >
+        <card-direct-access
+          label="Prueba Power BI"
+          text="Ruta para probar el componente de Power BI"
+          icon="file"
+          route_name="prueba"
+        />
+      </div>
+      <!--PRUEBA POWER BI -->
     </div>
 
     <!-- ACCESOS DIRECTOS -->

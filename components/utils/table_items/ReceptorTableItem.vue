@@ -30,7 +30,7 @@
     <div
       :class="
         `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-4 tw-py-4'
+        ' tw-col-span-6 lg:tw-col-span-3 tw-py-4'
       "
     >
       <span v-if="receptor.correo">

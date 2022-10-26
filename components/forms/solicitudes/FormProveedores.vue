@@ -91,17 +91,13 @@ export default {
       radioGroup: 1,
     };
   },
-  mounted() {
-    console.log(this.proveedores[0]);
-    // this.proveedorSeleccionado(this.proveedores[0]);
+  async fetch() {
+    this.$store.dispatch("proveedores/fetchProveedores");
   },
   methods: {
     proveedorSeleccionado(proveedor) {
       this.$store.dispatch("proveedores/setCurrentProveedor", proveedor);
     },
-  },
-  async fetch() {
-    this.$store.dispatch("proveedores/fetchProveedores");
   },
 };
 </script>

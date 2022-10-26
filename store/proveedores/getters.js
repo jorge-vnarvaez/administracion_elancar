@@ -2,6 +2,9 @@ export default {
     getProveedores(state) {
         return state.proveedores;
     },
+    // getFirstProveedor(state) {
+    //     return state.proveedores[0];
+    // },
     getCurrentProveedor(state) {
         return state.currentProveedor
     },
@@ -13,5 +16,8 @@ export default {
     },
     getProductosCurrentProveedor(state) {
         return state.currentProveedor.productos
+    },
+    getStatusProveedores(state) {
+        return state.loadingProveedores;
     }
 }

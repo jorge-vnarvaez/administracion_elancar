@@ -104,7 +104,6 @@ export default {
       }
     },
   },
-
   computed: {
     current_proveedor() {
       return this.$store.getters["proveedores/getCurrentProveedor"];

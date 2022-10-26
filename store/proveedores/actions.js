@@ -16,6 +16,7 @@ export default {
             .$get(`${this.$config.apiUrl}/items/proveedores?${query}`)
             .then((res) => res.data);
 
+        commit('setCurrentProveedor', data[0]);
         commit('setProveedores', data);
     }
 }
