@@ -88,7 +88,6 @@
           <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
           <path d="M15 6h6m-3 -3v6" />
         </svg>
-        <!-- <font-awesome-icon icon="fa-solid fa-cart-plus" color="white" /> -->
       </v-btn>
     </div>
     <!-- AGREGAR -->

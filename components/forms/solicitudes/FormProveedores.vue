@@ -42,7 +42,12 @@
         "
       >
         <v-radio-group v-model="radioGroup" class="tw-py-0" hide-details>
-          <v-radio :key="proveedor.id" :value="proveedor.id" @click="proveedorSeleccionado(proveedor)"> </v-radio>
+          <v-radio
+            :key="proveedor.id"
+            :value="proveedor.id"
+            @click="proveedorSeleccionado(proveedor)"
+          >
+          </v-radio>
         </v-radio-group>
       </div>
       <!-- RADIO BUTTON -->
@@ -61,35 +66,42 @@
 </template>
 
 <script>
-import qs from "qs";
 import ProveedorTableItem from "@/components/utils/table_items/ProveedorTableItem.vue";
 
 export default {
-  data() {
-    return {
-      page: 1,
-      itemsPerPage: 6,
-      radioGroup: 1,
-      proveedorSelected: null,
-      proveedores: [],
-    };
+  props: {
+    page: {
+      type: Number,
+      default: 1,
+    },
+    itemsPerPage: {
+      type: Number,
+      default: 10,
+    },
+    proveedores: {
+      type: Array,
+      default: () => [],
+    },
   },
   components: {
     ProveedorTableItem,
   },
+  data() {
+    return {
+      radioGroup: 1,
+    };
+  },
+  mounted() {
+    console.log(this.proveedores[0]);
+    // this.proveedorSeleccionado(this.proveedores[0]);
+  },
   methods: {
     proveedorSeleccionado(proveedor) {
-        this.$store.dispatch('proveedores/setCurrentProveedor', proveedor);
+      this.$store.dispatch("proveedores/setCurrentProveedor", proveedor);
     },
   },
   async fetch() {
-    const query = qs.stringify({
-      fields: ["id", "nombre", "casa_matriz.*", "receptores.*", "productos.productos_id.*",],
-    });
-
-    this.proveedores = await this.$axios
-      .$get(`${this.$config.apiUrl}/items/proveedores?${query}`)
-      .then((res) => res.data);
+    this.$store.dispatch("proveedores/fetchProveedores");
   },
 };
 </script>

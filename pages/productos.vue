@@ -113,7 +113,7 @@ export default {
       buscador: "",
       cantidad: 0,
       page: 1,
-      itemsPerPage: 6,
+      itemsPerPage: 3,
     };
   },
   async mounted() {

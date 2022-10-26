@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-grid tw-grid-cols-11">
+  <div class="tw-grid tw-grid-cols-12">
     <!-- NOMBRE -->
     <div
       :class="
@@ -36,7 +36,7 @@
     <div
       :class="
         `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-4 tw-py-1 tw-px-4'
+        ' tw-col-span-6 lg:tw-col-span-3 tw-py-1 tw-px-4'
       "
     >
       <div class="tw-flex">
@@ -55,6 +55,52 @@
       </div>
     </div>
     <!-- CANTIDAD -->
+
+    <!-- AGREGAR -->
+    <div
+      :class="
+        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+        ' tw-col-span-2 tw-py-3 tw-px-4'
+      "
+    >
+      <v-btn
+        :disabled="cantidad == 0"
+        class="tw-uppercase tw-bg-neutral-900 tw-text-white tw-font-bold tw-px-4 tw-py-2"
+        @click="agregarAlCarrito(producto, cantidad)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-shopping-cart-plus"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#ffffff"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="6" cy="19" r="2" />
+          <circle cx="17" cy="19" r="2" />
+          <path d="M17 17h-11v-14h-2" />
+          <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
+          <path d="M15 6h6m-3 -3v6" />
+        </svg>
+        <!-- <font-awesome-icon icon="fa-solid fa-cart-plus" color="white" /> -->
+      </v-btn>
+    </div>
+    <!-- AGREGAR -->
+
+    <v-snackbar
+      type="success"
+      v-model="producto_agregado"
+      :timeout="timeout"
+      color="green darken-1"
+    >
+      <v-icon color="white">mdi-check-circle</v-icon>
+      <span>Producto agregado con exito!</span>
+    </v-snackbar>
   </div>
 </template>
 
@@ -63,6 +109,8 @@ export default {
   data() {
     return {
       cantidad: 0,
+      producto_agregado: false,
+      timeout: 2000,
     };
   },
   props: {
@@ -76,15 +124,20 @@ export default {
     },
   },
   methods: {
-    aumentarCantidad(stock) {
-      if (this.cantidad < stock) {
-        this.cantidad++;
-      }
+    aumentarCantidad() {
+      this.cantidad++;
     },
     disminuirCantidad() {
       if (this.cantidad > 0) {
         this.cantidad--;
       }
+    },
+    agregarAlCarrito(producto, cantidad) {
+      this.producto_agregado = true;
+      this.$store.dispatch("carro_solicitudes/addProductToCart", {
+        producto,
+        cantidad,
+      });
     },
   },
   computed: {
