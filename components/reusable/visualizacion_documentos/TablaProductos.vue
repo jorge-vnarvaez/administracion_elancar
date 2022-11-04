@@ -24,25 +24,46 @@
       <div
         v-for="(item, index) in productos"
         :key="index"
-        class="tw-grid tw-grid-cols-12 tw-my-4 tw-gap-x-8"
+        class="tw-grid tw-grid-cols-12 tw-my-4 tw-gap-x-8 tw-content-center"
       >
-        <span :class="col_span_table(0)">{{ item.nombre }}</span>
-        <span :class="col_span_table(1) + ' tw-font-bold'">{{
-          item.cantidad
-        }}</span>
+        <!-- NOMBRE PRODUCTO -->
+        <span :class="col_span_table(0) + ' tw-flex align-center'">{{ item.nombre }}</span>
+        <!-- NOMBRE PRODUCTO -->
+
+        <!-- CANTIDAD -->
+        <span
+          v-if="visualizando"
+          :class="col_span_table(1) + ' tw-font-bold'"
+          >{{ item.cantidad }}</span
+        >
+
+        <div v-if="visualizando == false">
+          <CantidadProductos :item="item" />
+        </div>
+
+        <!-- CANTIDAD -->
+
+        <!-- TOTAL KG -->
         <span
           v-if="(cotizacion_proveedor && orden_de_compra) || cotizacion_cliente"
           :class="col_span_table(2) + ' tw-font-bold'"
           >{{ item.cantidad * item.kg }}</span
         >
-        <span :class="col_span_table(3)">{{
+        <!-- TOTAL KG -->
+
+        <!-- PRECIO UNITARIO -->
+        <span :class="col_span_table(3) + ' tw-flex align-center'">{{
           cotizacion_proveedor ? "$.-" : $formatearPrecio(item.precio)
         }}</span>
-        <span :class="col_span_table(4)">{{
+        <!-- PRECIO UNITARIO -->
+
+        <!-- PRECIO TOTAL -->
+        <span :class="col_span_table(4) + ' tw-flex align-center'">{{
           cotizacion_proveedor
             ? "$.-"
             : $formatearPrecio(item.cantidad * item.precio)
         }}</span>
+        <!-- PRECIO TOTAL -->
       </div>
       <!-- TABLE BODY -->
     </div>
@@ -80,13 +101,16 @@
 </template>
 
 <script>
+
 import MembreteInferiorPdf from "@/components/reusable/visualizacion_documentos/MembreteInferiorPdf.vue";
 import PlantillaPrecio from "@/components/reusable/visualizacion_documentos/PlantillaPrecio.vue";
+import CantidadProductos from "@/components/utils/CantidadProductos.vue";
 
 export default {
   components: {
     MembreteInferiorPdf,
     PlantillaPrecio,
+    CantidadProductos,
   },
   props: {
     labels: {
@@ -118,6 +142,11 @@ export default {
       type: Boolean,
       default: false,
       desc: "Define si el documento donde se inyecta la tabla es una nota de pedido",
+    },
+    visualizando: {
+      type: Boolean,
+      default: false,
+      desc: "Define si el documento donde se inyecta la tabla es una visualizacion del documento",
     },
   },
   methods: {

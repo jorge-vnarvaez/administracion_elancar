@@ -36,6 +36,7 @@
           :productos="detalleDocumento"
           cotizacion_cliente
           class="tw-col-span-12"
+          visualizando
         />
         <!-- TABLA PRODUCTOS -->
       </div>

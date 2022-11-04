@@ -12,7 +12,7 @@
     </div>
     <!-- SUBTITLE, DESCRIPTION AND SEARCH -->
 
-    <div  v-if="receptores.length > 0">
+    <div v-if="receptores.length > 0">
       <!-- TABLE HEADERS -->
       <div class="tw-grid tw-grid-cols-12 tw-mt-20 tw-mb-4 tw-px-4">
         <div class="tw-col-span-1"></div>
@@ -68,12 +68,27 @@
         <!-- NOMBRE Y CASA MATRIZ -->
       </div>
       <!-- TABLE CONTENT -->
+
+      <!-- A QUIEN CORRESPONDA -->
+      <v-radio-group v-model="radioGroup" class="tw-py-0 tw-px-4" hide-details>
+        <v-radio :key="0" label="A quién corresponda" @click="receptorSeleccionado(null)">
+        </v-radio>
+      </v-radio-group>
+      <!-- A QUIEN CORRESPONDA -->
     </div>
 
     <!-- NO RESULTS -->
-    <div class="tw-w-full tw-flex tw-flex-col align-center" v-else>
-      <v-img src="/receptores_not_found.png" width="320" height="270" contain></v-img>
-      <span class="tw-font-bold tw-text-xl">El proveedor no posee receptores registrados</span>
+    <div class="tw-mt-8 tw-w-full tw-flex tw-flex-col align-center" v-else>
+      <v-img
+        src="/receptores_not_found.png"
+        width="320"
+        height="270"
+        contain
+      ></v-img>
+      <span class="tw-font-bold tw-text-xl"
+        >El proveedor no posee receptores registrados</span
+      >
+      <span>Por consecuencia la solicitud de emitirá a quién corresponda.</span>
     </div>
     <!-- NO RESULTS -->
   </div>
@@ -107,7 +122,7 @@ export default {
   },
   methods: {
     receptorSeleccionado(receptor) {
-      this.$store.dispatch("receptores/setReceptorCurrentreceptor", receptor);
+      this.$store.dispatch("carro_solicitudes/setReceptorCurrentProveedor", receptor);
     },
   },
 };

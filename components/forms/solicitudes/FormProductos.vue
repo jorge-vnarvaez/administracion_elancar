@@ -1,5 +1,5 @@
 <template>
-  <div v-if="productos.length > 0">
+  <div>
     <!-- SUBTITLE, DESCRIPTION AND SEARCH -->
     <div class="tw-flex align-center tw-mt-12">
       <div>
@@ -12,42 +12,49 @@
     </div>
     <!-- SUBTITLE, DESCRIPTION AND SEARCH -->
 
-    <!-- TABLE HEADERS -->
-    <div class="tw-grid tw-grid-cols-12 tw-mt-20 tw-mb-4 tw-px-4">
-      <div class="tw-col-span-6 lg:tw-col-span-5">
-        <span class="tw-font-bold">Nombre</span>
+    <div v-if="productos.length > 0">
+      <!-- TABLE HEADERS -->
+      <div class="tw-grid tw-grid-cols-12 tw-mt-20 tw-mb-4 tw-px-4">
+        <div class="tw-col-span-6 lg:tw-col-span-5">
+          <span class="tw-font-bold">Nombre</span>
+        </div>
+
+        <div class="tw-col-span-6 lg:tw-col-span-2">
+          <span class="tw-font-bold">Stock Actual</span>
+        </div>
+
+        <div class="tw-col-span-6 lg:tw-col-span-3">
+          <span class="tw-font-bold">Cantidad</span>
+        </div>
+
+        <div class="tw-col-span-6 lg:tw-col-span-2"></div>
       </div>
+      <!-- TABLE HEADERS -->
 
-      <div class="tw-col-span-6 lg:tw-col-span-2">
-        <span class="tw-font-bold">Stock Actual</span>
-      </div>
-
-      <div class="tw-col-span-6 lg:tw-col-span-3">
-        <span class="tw-font-bold">Cantidad</span>
-      </div>
-
-      <div class="tw-col-span-6 lg:tw-col-span-2">
-
-      </div>
-    </div>
-    <!-- TABLE HEADERS -->
-
-    <!-- TABLE CONTENT -->
-    <div
-      v-for="(producto, index) in productos"
-      :key="producto.id"
-      class="tw-grid tw-grid-cols-12"
-    >
-      <!-- NOMBRE Y CASA MATRIZ -->
-      <ProductoTableItemMin
-        class="tw-flex align-center tw-col-span-12"
-        :producto="producto.productos_id"
-        :index="index"
+      <!-- TABLE CONTENT -->
+      <div
+        v-for="(producto, index) in productos"
         :key="producto.id"
-      />
-      <!-- NOMBRE Y CASA MATRIZ -->
+        class="tw-grid tw-grid-cols-12"
+      >
+        <!-- NOMBRE Y CASA MATRIZ -->
+        <ProductoTableItemMin
+          class="tw-flex align-center tw-col-span-12"
+          :producto="producto.productos_id"
+          :index="index"
+          :key="producto.id"
+        />
+        <!-- NOMBRE Y CASA MATRIZ -->
+      </div>
+      <!-- TABLE CONTENT -->
     </div>
-    <!-- TABLE CONTENT -->
+
+    <!-- NO RESULTS -->
+    <div class="tw-mt-8 tw-w-full tw-flex tw-flex-col align-center" v-else>
+      <v-img src="/no_proveedor_products.png" width="320" height="270" contain></v-img>
+      <span class="tw-font-bold tw-text-xl">El proveedor no posee productos asociados</span>
+    </div>
+    <!-- NO RESULTS -->
   </div>
 </template>
 
@@ -76,7 +83,7 @@ export default {
   },
   computed: {
     productos() {
-      return this.$store.getters["proveedores/getProductosCurrentProveedor"];
+      return this.$store.getters["carro_solicitudes/getProductosCurrentProveedor"];
     },
   },
 };

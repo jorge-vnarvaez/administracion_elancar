@@ -154,6 +154,7 @@
   </div>
 </template>
 <script>
+
 import moment from "moment";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
@@ -207,6 +208,7 @@ export default {
       this.dialog_guardar = false;
 
       await this.$axios.post(`${this.$config.apiUrl}/items/notas_de_pedido`, {
+        usuario_emisor: this.$cookies.get('user_id'),
         fecha_emision: this.fecha_actual,
         hora_emision: this.hora_actual,
         cliente: this.info_despacho.datos_cliente.id,
@@ -217,6 +219,7 @@ export default {
             cantidad: producto.cantidad,
           };
         }),
+        monto_total: this.$store.getters['carro_compras/getTotalPrice'] + this.$store.getters['carro_compras/getTotalPrice'] * 0.19
       });
 
       // for each item in carro_de_compra send a patch request to update the stock

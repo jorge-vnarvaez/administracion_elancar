@@ -101,18 +101,21 @@ export default {
         case 2:
           this.form = 3;
           break;
+        case 3:
+          this.$router.push("/carro_de_solicitudes");
+          break;
       }
     },
   },
   computed: {
     current_proveedor() {
-      return this.$store.getters["proveedores/getCurrentProveedor"];
+      return this.$store.getters["carro_solicitudes/getCurrentProveedor"];
     },
     proveedores() {
-      return this.$store.getters["proveedores/getProveedores"];
+      return this.$store.getters["carro_solicitudes/getProveedores"];
     },
     receptores() {
-      return this.$store.getters["proveedores/getReceptoresCurrentProveedor"];
+      return this.$store.getters["carro_solicitudes/getReceptoresCurrentProveedor"];
     },
     length_items() {
       // create an switch based on the form
@@ -122,11 +125,11 @@ export default {
       // if form == 3, return the length of the productos
       switch (this.form) {
         case 1:
-          return this.$store.getters["proveedores/getProveedores"].length;
+          return this.$store.getters["carro_solicitudes/getProveedores"].length;
         case 2:
-          return this.$store.getters["proveedores/getReceptoresCurrentProveedor"];
+          return this.$store.getters["carro_solicitudes/getReceptoresCurrentProveedor"];
         case 3:
-          return this.$store.getters["proveedores/getProductosCurrentProveedor"];
+          return this.$store.getters["carro_solicitudes/getProductosCurrentProveedor"];
       }
     },
   },

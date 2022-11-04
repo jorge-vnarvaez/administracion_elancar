@@ -4,7 +4,7 @@ export default {
             const { data } = await this.$axios.post(`${this.$config.apiUrl}/auth/login`, {
                 email: options.credenciales.email,
                 password: options.credenciales.password,
-            });
+            })
 
             commit('setSession', { session: data, params: options.params});
         } catch(e) {
@@ -20,11 +20,9 @@ export default {
             });
 
             commit('setCurrentUser', { data });
-
         } catch(e) {
 
         }
-    
     },
     desconectar({ commit }) {
         commit('removeSession');

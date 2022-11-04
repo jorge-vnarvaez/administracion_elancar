@@ -57,17 +57,17 @@ export default {
       });
     },
     aumentarCantidad() {
-      this.$store.dispatch('carro_compras/updateProductQuantity', {
+      this.$store.dispatch("carro_compras/updateProductQuantity", {
         id: this.item.id,
-        cantidad: this.item.cantidad + 1
-      })
+        cantidad: this.item.cantidad + 1,
+      });
     },
     disminuirCantidad() {
       if (this.item.cantidad > 1) {
-        this.$store.dispatch('carro_compras/updateProductQuantity', {
-        id: this.item.id,
-        cantidad: this.item.cantidad - 1
-      })
+        this.$store.dispatch("carro_compras/updateProductQuantity", {
+          id: this.item.id,
+          cantidad: this.item.cantidad - 1,
+        });
       }
     },
   },

@@ -1,3 +1,6 @@
 export default () => ({
-    carroSolicitudes: []
+    carroSolicitudes: [],
+    proveedores: [],
+    currentProveedor: null,
+    currentReceptor: null,
 })

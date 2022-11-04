@@ -4,7 +4,7 @@
     <div
       :class="
         `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-4 tw-py-4 tw-px-4'
+        ' tw-col-span-6 lg:tw-col-span-5 tw-py-4 tw-px-4'
       "
     >
       {{ receptor.nombre_completo }}

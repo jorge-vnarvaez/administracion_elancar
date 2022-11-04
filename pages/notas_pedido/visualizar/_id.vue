@@ -9,10 +9,6 @@
       />
       <!-- MEMBRETE -->
 
-      <!-- DATOS SUCURSAL -->
-      <!-- DATOS SUCURSAL -->
-
-
       <!--V-DIVIDER-->
       <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
       <!--V-DIVIDER-->
@@ -26,13 +22,13 @@
         <DatosEnvio :cliente="nota_pedido.cliente" class="tw-col-span-12 lg:tw-col-span-7" />
         <!-- DATOS ENVIO  -->
 
-
         <!-- TABLA PRODUCTOS -->
         <TablaProductos
           :labels="labels"
           :productos="detalleDocumento"
           nota_de_pedido
           class="tw-col-span-12"
+          visualizando
         />
         <!-- TABLA PRODUCTOS -->
       </div>

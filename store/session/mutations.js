@@ -11,6 +11,7 @@ export default {
     },
     setCurrentUser(state, { data }) {
         state.user = data.data;
+        this.$cookies.set('user_id', data.data.id);
     },
     removeSession(state) {
         this.$cookies.remove("access_token");

@@ -120,16 +120,6 @@
       </div>
     </div>
 
-    <!-- <div v-if="!info_despacho" class="tw-flex tw-flex-col align-center tw-justify-center">
-      <v-img src="/empty-box.png" width="320" height="400" contain></v-img>
-      <span class="tw-block tw-mb-8 tw-text-3xl tw-w-96 tw-text-center">Al parecer no existe una cotización en proceso.</span>
-      <nuxt-link to="/home">
-        <div class="tw-bg-neutral-900 tw-px-4 tw-py-2">
-          <span class="tw-text-white">Volver al inicio</span>
-        </div>
-      </nuxt-link>                                   
-    </div> -->
-
     <!-- ALERTA BORRADO EXITOSO -->
     <div v-if="documento_borrado" class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col">
       <v-img src="/deleting_document.png" width="500" height="420" contain></v-img>
@@ -160,6 +150,7 @@
   </div>
 </template>
 <script>
+
 import moment from "moment";
 import IconoGuardar from "@/components/iconos/IconoGuardar.vue";
 import IconoBorrar from "@/components/iconos/blancos/IconoBorrar.vue";
@@ -234,6 +225,7 @@ export default {
       await this.$axios.post(
         `${this.$config.apiUrl}/items/cotizaciones_clientes`,
         {
+          usuario_emisor: this.$cookies.get('user_id'),
           fecha_emision: this.fecha_actual,
           hora_emision: this.hora_actual,
           cliente: this.info_despacho.datos_cliente.id,
@@ -244,6 +236,7 @@ export default {
               cantidad: producto.cantidad,
             };
           }),
+          monto_total: this.$store.getters["carro_compras/getTotalPrice"] + this.$store.getters['carro_compras/getTotalPrice'] * 0.19, // 19% de iva
         }
       );
 

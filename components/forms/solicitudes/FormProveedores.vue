@@ -92,11 +92,11 @@ export default {
     };
   },
   async fetch() {
-    this.$store.dispatch("proveedores/fetchProveedores");
+    this.$store.dispatch("carro_solicitudes/fetchProveedores");
   },
   methods: {
     proveedorSeleccionado(proveedor) {
-      this.$store.dispatch("proveedores/setCurrentProveedor", proveedor);
+      this.$store.dispatch("carro_solicitudes/setCurrentProveedor", proveedor);
     },
   },
 };

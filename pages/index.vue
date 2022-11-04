@@ -142,8 +142,6 @@ export default {
 
         this.$store.dispatch("sucursal/loadSucursal", this.sucursal.id);
 
-        const sucursal = this.$store.getters["sucursal/getSucursal"];
-
         this.$store.dispatch("sucursal/setSucursal", this.sucursal.id);
 
         this.$store.dispatch("session/login", {
