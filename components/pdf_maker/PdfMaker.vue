@@ -26,7 +26,7 @@
 
             <!-- DATOS DEL PROVEEDOR -->
             <div v-if="infoDocumento.proveedor">
-              <DatosProveedor :proveedor="infoDocumento.proveedor" />
+              <DatosProveedor :proveedor="infoDocumento.proveedor" :receptor="infoDocumento.receptor || {}" />
             </div>
             <!-- DATOS DEL PROVEEDOR -->
 
@@ -51,6 +51,7 @@
               :cotizacion_proveedor="is_cotizacion_to_proveedor"
               :cotizacion_cliente="is_cotizacion_to_cliente"
               :orden_de_compra="is_orden_de_compra"
+              visualizando
             />
             <!-- TABLE PRODUCTOS  -->
           </div>
@@ -121,7 +122,7 @@ export default {
   },
   async fetch() {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "detalle.*", "proveedor.*", "cliente.*.*", "empresa.*.*"],
+      fields: ["id", "fecha_emision", "detalle.*", "proveedor.*.*", "receptor.*", "cliente.*.*", "empresa.*.*"],
     });
 
     const { data } = await this.$axios
