@@ -51,10 +51,13 @@ export default {
     },
     setCurrentProveedor(state, proveedor) {
         state.currentProveedor = proveedor
-        if(proveedor.id != this.$cookies.get('currentProveedor').id){
-            state.carroSolicitudes = [];
-            this.$cookies.remove('carroSolicitudes');
+        if (proveedor != {}) {
+            if (proveedor.id != this.$cookies.get('currentProveedor').id) {
+                state.carroSolicitudes = [];
+                this.$cookies.remove('carroSolicitudes');
+            }
         }
+
         this.$cookies.set('currentProveedor', state.currentProveedor)
     },
     setReceptorCurrentProveedor(state, receptor) {
