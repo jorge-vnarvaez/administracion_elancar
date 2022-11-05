@@ -49,6 +49,9 @@ export default {
     setProveedores(state, proveedores) {
         state.proveedores = proveedores;
     },
+    setCurrentProveedor(state, proveedor) {
+        console.log(proveedor);
+    },
     setReceptorCurrentProveedor(state, receptor) {
         state.currentReceptor = receptor
         this.$cookies.set('currentReceptor', state.currentReceptor)

@@ -19,6 +19,9 @@ export default {
     setReceptorCurrentProveedor({ commit }, receptor) {
         commit('setReceptorCurrentProveedor', receptor)
     },
+    setCurrentProveedor({ commit }, proveedor) {
+        commit('setCurrentProveedor', proveedor)
+    },
     async fetchProveedores({ commit }) {
         const qs = require('qs');
 
