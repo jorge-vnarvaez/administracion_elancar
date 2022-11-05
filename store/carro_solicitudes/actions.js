@@ -25,8 +25,6 @@ export default {
     async fetchProveedores({ commit }) {
         const qs = require('qs');
 
-        commit('setCurrentProveedor', null)
-
         const query = qs.stringify({
             fields: ["id", "rut", "nombre", "casa_matriz.*", "receptores.*", "productos.productos_id.*",],
         });
