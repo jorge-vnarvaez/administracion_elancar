@@ -50,7 +50,7 @@ export default {
         state.proveedores = proveedores;
     },
     setCurrentProveedor(state, proveedor) {
-        console.log(proveedor);
+        state.currentProveedor = proveedor;
     },
     setReceptorCurrentProveedor(state, receptor) {
         state.currentReceptor = receptor
