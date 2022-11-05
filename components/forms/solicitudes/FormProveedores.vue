@@ -93,6 +93,8 @@ export default {
   },
   async fetch() {
     this.$store.dispatch("carro_solicitudes/fetchProveedores");
+    this.$store.commit("carro_solicitudes/setCarro", []);
+    this.$cookies.remove("carroSolicitudes");	
   },
   methods: {
     proveedorSeleccionado(proveedor) {
