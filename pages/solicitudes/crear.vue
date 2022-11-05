@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-p-24 tw-px-48 tw-h-full">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48">
     <!-- TITLE -->
     <div class="tw-flex tw-space-x-4 align-center">
       <IconoElancar />

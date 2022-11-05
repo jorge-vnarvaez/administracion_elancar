@@ -14,13 +14,9 @@
       <!--V-DIVIDER-->
 
       <div class="tw-grid tw-grid-cols-12">
-        <!-- DATOS CLIENTE -->
-        <DatosProveedor :proveedor="cotizacion_proveedor.proveedor" class="tw-col-span-5" />
-        <!-- DATOS CLIENTE -->
-
-        <!-- DATOS ENVIO :datos_envio="cotizacion_proveedor.datos_envio"-->
-       
-        <!-- DATOS ENVIO -->
+        <!-- DATOS PROVEEDOR -->
+        <DatosProveedor :proveedor="cotizacion_proveedor.proveedor" :receptor="cotizacion_proveedor.receptor" class="tw-col-span-12" />
+          <!-- DATOS PROVEEDOR -->
 
         <!-- TABLA PRODUCTOS -->
         <TablaProductos
@@ -28,6 +24,7 @@
           :productos="detalleDocumento"
           cotizacion_proveedor
           class="tw-col-span-12"
+          visualizando
         />
         <!-- TABLA PRODUCTOS -->
       </div>
@@ -60,7 +57,7 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "detalle.*", "proveedor.*", "empresa.*.*"],
+      fields: ["id", "fecha_emision", "detalle.*", "proveedor.*.*", "receptor.*", "empresa.*.*"],
     });
     const id = context.params.id;
     const { data } = await context.$axios

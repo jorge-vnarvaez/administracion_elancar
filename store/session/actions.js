@@ -13,7 +13,15 @@ export default {
     },
     async current({ commit }) {
         try {
-            const { data } = await this.$axios.get(`${this.$config.apiUrl}/users/me`, {
+
+            const qs = require('qs');
+
+            const query = qs.stringify({
+                fields: ['*.*', 'role.*']
+            })
+
+
+            const { data } = await this.$axios.get(`${this.$config.apiUrl}/users/me?${query}`, {
                 headers: {
                     Authorization: `Bearer ${this.$cookies.get('access_token')}`,
                 },

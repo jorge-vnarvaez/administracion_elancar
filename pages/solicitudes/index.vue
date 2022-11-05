@@ -109,12 +109,12 @@ export default {
           },
         },
         sort: "fecha_emision",
-        fields: ["*.*"],
+        fields: ["*.*.*"],
       });
 
       const query_defecto = qs.stringify({
         sort: "fecha_emision",
-        fields: ["*.*"],
+        fields: ["*.*.*"],
       });
 
       this.solicitud_cotizaciones = await this.$axios
