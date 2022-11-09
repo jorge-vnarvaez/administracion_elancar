@@ -8,13 +8,13 @@ export default {
             ]
         });
 
-        const { data } = await this.$axios.$get(`${this.$config.apiUrl}/items/productos?${query}`).then((res) => res);
+        const { data } = await this.$axios.$get(`${this.$config.apiUrl}/items/productos?${query}`).then((res) => {
+            return res
+        });
+
         commit('setProductos', data);
     },
     applyFilters({ commit }, filters) {
         commit('setFilters', filters);
     },
-    // filterByStringQuery({ commit }, query) {
-    //     commit('setStringQuery', query);
-    // }
 }

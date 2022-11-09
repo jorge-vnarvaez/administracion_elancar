@@ -5,6 +5,8 @@
         <span class="tw-font-bold tw-text-2xl lg:tw-text-4xl"
           >Listado de productos</span
         >
+
+        {{ buscador }}
         <!--[BUSCADOR]-->
         <div>
           <v-text-field
@@ -15,6 +17,7 @@
             solo
             flat
             clearable
+            @click:clear="buscador = []"
           ></v-text-field>
         </div>
         <!--[BUSCADOR]-->
@@ -69,7 +72,7 @@
             <v-pagination
               v-model="page"
               color="black"
-              :length="Math.round(productos.length / itemsPerPage)"
+              :length="Math.ceil(productos.length / itemsPerPage)"
             ></v-pagination>
           </div>
           <!--[PAGINATION]-->
@@ -110,10 +113,10 @@ export default {
   },
   data() {
     return {
-      buscador: "",
+      buscador: null,
       cantidad: 0,
       page: 1,
-      itemsPerPage: 3,
+      itemsPerPage: 6,
     };
   },
   async mounted() {
@@ -121,7 +124,6 @@ export default {
   },
   methods: {
     filterProductos(queryBuscador) {
-      // this.$store.dispatch('productos/filterByStringQuery', queryBuscador);
       this.$store.dispatch("productos/applyFilters", queryBuscador);
     },
   },
@@ -138,12 +140,20 @@ export default {
             ]
           : [];
 
-      this.filterProductos(query);
+      this.$cookies.set("query_buscador", query);
+
+      if(query.length > 0) {
+        this.filterProductos(query);
+      } else {
+        this.$store.dispatch('productos/loadProductos');
+      }
+     
+
     },
   },
   computed: {
     productos() {
-      return this.$store.getters["productos/getProductos"];
+      return this.$store.getters["productos/getFilteredProductos"];
     },
     loading_productos() {
       return this.$store.getters["productos/getLoadingProductos"];

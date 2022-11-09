@@ -13,14 +13,15 @@ export default {
     getCarroSolicitudesLength(state) {
         return state.carroSolicitudes.length
     },
+    // Return a boolean if carro solicitudes is empty
+    getCarroSolicitudesIsEmpty(state) {
+        return state.carroSolicitudes.length === 0
+    },
     // Iterate over carro compras and get total price of items
     getTotalPrice(state) {
         return state.carroSolicitudes.reduce((total, item) => {
             return total + item.precio * item.cantidad
         }, 0)
-    },
-    lengthCarro(state) {
-        return state.carroSolicitudes.length
     },
     getProveedores(state) {
         return state.proveedores;
@@ -42,5 +43,8 @@ export default {
     },
     getStatusProveedores(state) {
         return state.loadingProveedores;
+    },
+    getMetodoDePago(state) {
+        return state.metodoDePago
     }
 }

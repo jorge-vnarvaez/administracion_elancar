@@ -22,6 +22,12 @@ export default {
     setCurrentProveedor({ commit }, proveedor) {
         commit('setCurrentProveedor', proveedor)
     },
+    setMetodoDePago({ commit }, metodoDePago) {
+        commit('setMetodoDePago', metodoDePago)
+    },
+    setCondicionesDeVenta({ commit }, condicionesDeVenta) {
+        commit('setCondicionesDeVenta', condicionesDeVenta)
+    },
     async fetchProveedores({ commit }) {
         const qs = require('qs');
 

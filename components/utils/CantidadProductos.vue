@@ -8,8 +8,9 @@
         hide-details
         flat
         dense
+        disabled
         :min="0"
-        class="tw-w-[40px] tw-mx-4 tw-text-center"
+        class="tw-w-[50px] tw-mx-4 tw-text-center"
       ></v-text-field>
     </div>
     <v-icon @click="aumentarCantidad(item.stock)" small>mdi-plus</v-icon>
@@ -18,17 +19,26 @@
 
 <script>
 export default {
-  props: ["item"],
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+    cart_type: {
+      type: String,
+      required: true,
+    },
+  },
   methods: {
     aumentarCantidad() {
-       this.$store.dispatch('carro_solicitudes/updateProductQuantity', {
+       this.$store.dispatch(`carro_${this.cart_type}/updateProductQuantity`, {
         id: this.item.id,
         cantidad: this.item.cantidad + 1
       })
     },
     disminuirCantidad() {
       if (this.item.cantidad > 1) {
-        this.$store.dispatch("carro_solicitudes/updateProductQuantity", {
+        this.$store.dispatch(`carro_${this.cart_type}/updateProductQuantity`, {
           id: this.item.id,
           cantidad: this.item.cantidad - 1,
         });

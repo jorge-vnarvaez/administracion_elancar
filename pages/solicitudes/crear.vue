@@ -52,6 +52,7 @@
         <v-btn
           color="black"
           class="tw-text-white tw-font-bold tw-w-40"
+          :disabled="form == 3 && carro_solicitudes"
           @click="continuar"
           >Continuar</v-btn
         >
@@ -111,11 +112,17 @@ export default {
     current_proveedor() {
       return this.$store.getters["carro_solicitudes/getCurrentProveedor"];
     },
+    current_receptor() {
+      return this.$store.getters["carro_solicitudes/getCurrentReceptor"];
+    },
     proveedores() {
       return this.$store.getters["carro_solicitudes/getProveedores"];
     },
     receptores() {
       return this.$store.getters["carro_solicitudes/getReceptoresCurrentProveedor"];
+    },
+    carro_solicitudes() {
+      return this.$store.getters["carro_solicitudes/getCarroSolicitudesIsEmpty"];
     },
     length_items() {
       // create an switch based on the form

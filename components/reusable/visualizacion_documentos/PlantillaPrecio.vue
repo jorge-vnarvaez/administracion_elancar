@@ -4,7 +4,9 @@
       <!--SUBTOTAL-->
       <div>
         <span class="tw-font-bold">Subtotal: </span
-        ><span> {{ sub_total == 0 ? "$.-" : $formatearPrecio(sub_total) }}</span>
+        ><span>
+          {{ sub_total == 0 ? "$.-" : $formatearPrecio(sub_total) }}</span
+        >
       </div>
       <!--SUBTOTAL-->
 
@@ -14,6 +16,15 @@
         ><span> {{ iva == 0 ? "$.-" : $formatearPrecio(iva) }}</span>
       </div>
       <!--IVA-->
+
+      <!-- TOTAL KG -->
+      <div>
+        <span class="tw-font-bold">Total Kg: </span
+        ><span>
+          {{ total_kg }}</span
+        >
+      </div>
+      <!-- TOTAL KG -->
 
       <!-- TRANSPORTE -->
       <div>
@@ -50,6 +61,11 @@ export default {
       type: Number,
       default: 0,
       desc: "Define el sub total del documento",
+    },
+    total_kg: {
+      type: [Number, String],
+      default: 0,
+      desc: "Define el total de kilos del pedido",
     },
     transporte: {
       type: Number,

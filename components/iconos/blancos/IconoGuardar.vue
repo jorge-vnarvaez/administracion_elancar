@@ -3,8 +3,8 @@
     color="green darken-1"
     class="ma-2 white--text"
   >
-    Emitir
-    <v-icon right dark>mdi-share-all-outline</v-icon>
+    Guardar
+    <v-icon right dark>mdi-content-save-outline</v-icon>
   </v-btn>
 </template>
 

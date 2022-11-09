@@ -8,6 +8,7 @@ export const getFilteredProductos = (state) => {
         return state.filteredProductos;
 };
 
+
 export const getMateriales = (state) => {
         // create an array of unique materiales, the same material can't be repeated
         let materiales = [];

@@ -3,4 +3,6 @@ export default () => ({
     proveedores: [],
     currentProveedor: null,
     currentReceptor: null,
+    metodoDePago: null,
+    condicionesDeVenta: null,
 })

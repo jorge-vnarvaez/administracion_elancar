@@ -1,11 +1,11 @@
 <template>
-  <div class="tw-mt-12 tw-flex tw-flex-col tw-justify-between tw-text-xs">
+  <div class="tw-mt-8 tw-flex tw-flex-col tw-justify-between tw-text-xs">
     <!-- DESKTOP VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? false : true">
       <span class="tw-block tw-mb-4 tw-font-bold tw-text-2xl">Detalle</span>
 
       <!-- TABLE HEADERS -->
-      <div class="tw-grid tw-grid-cols-12 tw-gap-x-8">
+      <div class="tw-grid tw-grid-cols-12">
         <div
           v-for="(item, index) in labels"
           :key="index"
@@ -24,7 +24,7 @@
       <div
         v-for="(item, index) in productos"
         :key="index"
-        class="tw-grid tw-grid-cols-12 tw-my-4 tw-gap-x-8 tw-content-center"
+        class="tw-grid tw-grid-cols-12 tw-my-4"
       >
         <!-- NOMBRE PRODUCTO -->
         <span :class="col_span_table(0) + ' tw-flex align-center'">{{ item.nombre }}</span>
@@ -37,17 +37,17 @@
           >{{ item.cantidad }}</span
         >
 
-        <div v-if="visualizando == false">
-          <CantidadProductos :item="item" />
+        <div v-if="visualizando == false" :class="col_span_table(1)">
+          <CantidadProductos :item="item" :cart_type="cart_type" />
         </div>
 
         <!-- CANTIDAD -->
 
         <!-- TOTAL KG -->
         <span
-          v-if="(cotizacion_proveedor && orden_de_compra) || cotizacion_cliente"
-          :class="col_span_table(2) + ' tw-font-bold'"
-          >{{ item.cantidad * item.kg }}</span
+          v-if="!cotizacion_proveedor"
+          :class="col_span_table(2) + ' tw-font-bold tw-flex align-center'"
+          >{{ (item.cantidad * item.kg).toFixed(2) }}</span
         >
         <!-- TOTAL KG -->
 
@@ -88,6 +88,7 @@
       <!-- PLANTILLA PRECIO-->
       <div class="tw-flex tw-justify-end tw-w-full">
         <PlantillaPrecio
+          :total_kg="total_kg"
           :sub_total="sub_total"
           :transporte="0"
           :total="total"
@@ -148,24 +149,45 @@ export default {
       default: false,
       desc: "Define si el documento donde se inyecta la tabla es una visualizacion del documento",
     },
+    cart_type: {
+      type: String,
+      default: "compras",
+      desc: "Define el tipo de carrito que se va a mostrar en la tabla",
+    }
   },
   methods: {
     col_span_table(index) {
       switch (index) {
         case 0:
-          return "tw-col-span-4";
-        case 1:
-          return "tw-col-span-1";
-        case 2:
-          return this.cotizacion_proveedor ? "tw-col-span-2" : "tw-col-span-1";
-        case 3:
-          return this.cotizacion_proveedor ? "tw-col-span-2" : "tw-col-span-1";
-        case 4:
           return "tw-col-span-3";
-        case 5:
-          return "tw-col-span-1";
+        case 1:
+          return "tw-col-span-3";
+        case 2:
+          return "tw-col-span-2";
+        case 3:
+          return "tw-col-span-2";
+        case 4:
+          return "tw-col-span-2";
+        default:
+          return "tw-col-span-2";
       }
     },
+    colors(index) {
+      switch (index) {
+        case 0:
+          return "tw-bg-red-100";
+        case 1:
+          return "tw-bg-green-200";
+        case 2:
+          return "tw-bg-blue-100";
+        case 3:
+          return "tw-bg-yellow-200";
+        case 4:
+          return "tw-bg-orange-100";
+        case 5:
+          return "tw-bg-gray-200";
+      }
+    }
   },
   computed: {
     sub_total() {
@@ -174,6 +196,9 @@ export default {
         total += item.cantidad * item.precio;
       });
       return this.cotizacion_proveedor ? 0 : total;
+    },
+    total_kg() {
+      return this.$total_kg(this.productos.map((item) => (item.cantidad * item.kg))).toFixed(2);
     },
     transporte() {
       return 0;

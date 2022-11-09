@@ -8,7 +8,7 @@
     <div>
       <span class="tw-block tw-w-[420px] tw-mt-4">
         Este documento tiene una válidez de <strong>3 días</strong> a partir de la fecha de
-        emisión, posterior a esta fecha Elancar no está obligado a respetar los
+        emisión, posterior a esta fecha Elancar Limitada o cualquiera de sus divisiones no tiene la obligación de respetar los
         precios que aquí aparecen.
       </span>
 

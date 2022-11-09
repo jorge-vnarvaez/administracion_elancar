@@ -1,6 +1,5 @@
 <template>
-  <div class="col-span-6">
-    <span class="text-lg font-bold uppercase">Condiciones de venta *</span>
+  <div>
     <v-select
       v-model="condicionVenta"
       :items="condiciones_de_venta"

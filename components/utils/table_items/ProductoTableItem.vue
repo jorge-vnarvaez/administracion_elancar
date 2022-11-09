@@ -1,107 +1,109 @@
 <template>
-  <div class="tw-grid tw-grid-cols-12">
-    <!-- NOMBRE -->
-    <div
-      :class="
-        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-5 tw-py-4 tw-px-4'
-      "
-    >
-      {{ producto.nombre }}
-    </div>
-    <!-- NOMBRE -->
-
-    <!-- PRECIO NETO -->
-    <div
-      :class="
-        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4'
-      "
-    >
-      {{ $formatearPrecio(producto.precio) }}
-    </div>
-    <!-- PRECIO NETO -->
-
-    <!-- STOCK -->
-    <div
-      :class="
-        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-3 lg:tw-col-span-1 tw-py-4 tw-px-4'
-      "
-    >
-      {{ producto.stock || 0 }}
-    </div>
-    <!-- STOCK -->
-
-    <!-- CANTIDAD -->
-    <div
-      :class="
-        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-2 tw-py-1 tw-px-4'
-      "
-    >
-      <div class="tw-flex">
-        <v-icon @click="disminuirCantidad()">mdi-minus</v-icon>
-        <div>
-          <v-text-field
-            v-model="cantidad"
-            solo
-            hide-details
-            flat
-            :min="0"
-            class="tw-w-[140px] tw-mx-4 tw-text-center"
-          ></v-text-field>
-        </div>
-        <v-icon @click="aumentarCantidad(producto.stock)">mdi-plus</v-icon>
-      </div>
-    </div>
-    <!-- CANTIDAD -->
-
-    <!-- AGREGAR -->
-    <div
-      :class="
-        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-2 tw-py-3 tw-px-4'
-      "
-    >
-      <v-btn
-        :disabled="cantidad == 0"
-        class="tw-uppercase tw-bg-neutral-900 tw-text-white tw-font-bold tw-px-4 tw-py-2"
-        @click="agregarAlCarrito(producto, cantidad)"
+  <v-responsive max-width="1800">
+    <div class="tw-grid tw-grid-cols-12">
+      <!-- NOMBRE -->
+      <div
+        :class="
+          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+          ' tw-col-span-6 lg:tw-col-span-5 tw-py-4 tw-px-4'
+        "
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-shopping-cart-plus"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="#ffffff"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <circle cx="6" cy="19" r="2" />
-          <circle cx="17" cy="19" r="2" />
-          <path d="M17 17h-11v-14h-2" />
-          <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-          <path d="M15 6h6m-3 -3v6" />
-        </svg>
-      </v-btn>
-    </div>
-    <!-- AGREGAR -->
+        {{ producto.nombre }}
+      </div>
+      <!-- NOMBRE -->
 
-    <v-snackbar
-      type="success"
-      v-model="producto_agregado"
-      :timeout="timeout"
-      color="green darken-1"
-    >
-      <v-icon color="white">mdi-check-circle</v-icon>
-      <span>Producto agregado con exito!</span>
-    </v-snackbar>
-  </div>
+      <!-- PRECIO NETO -->
+      <div
+        :class="
+          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+          ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4'
+        "
+      >
+        {{ $formatearPrecio(producto.precio) }}
+      </div>
+      <!-- PRECIO NETO -->
+
+      <!-- STOCK -->
+      <div
+        :class="
+          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+          ' tw-col-span-3 lg:tw-col-span-1 tw-py-4 tw-px-4'
+        "
+      >
+        {{ producto.stock || 0 }}
+      </div>
+      <!-- STOCK -->
+
+      <!-- CANTIDAD -->
+      <div
+        :class="
+          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+          ' tw-col-span-6 lg:tw-col-span-2 tw-py-1 tw-px-4'
+        "
+      >
+        <div class="tw-flex">
+          <v-icon @click="disminuirCantidad()">mdi-minus</v-icon>
+          <div>
+            <v-text-field
+              v-model="cantidad"
+              solo
+              hide-details
+              flat
+              :min="0"
+              class="tw-w-[80px] tw-mx-4 tw-text-center"
+            ></v-text-field>
+          </div>
+          <v-icon @click="aumentarCantidad(producto.stock)">mdi-plus</v-icon>
+        </div>
+      </div>
+      <!-- CANTIDAD -->
+
+      <!-- AGREGAR -->
+      <div
+        :class="
+          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+          ' tw-col-span-2 tw-py-3 tw-px-4'
+        "
+      >
+        <v-btn
+          :disabled="cantidad == 0"
+          class="tw-uppercase tw-bg-neutral-900 tw-text-white tw-font-bold tw-px-4 tw-py-2"
+          @click="agregarAlCarrito(producto, cantidad)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-shopping-cart-plus"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#ffffff"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <circle cx="6" cy="19" r="2" />
+            <circle cx="17" cy="19" r="2" />
+            <path d="M17 17h-11v-14h-2" />
+            <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
+            <path d="M15 6h6m-3 -3v6" />
+          </svg>
+        </v-btn>
+      </div>
+      <!-- AGREGAR -->
+
+      <v-snackbar
+        type="success"
+        v-model="producto_agregado"
+        :timeout="timeout"
+        color="green darken-1"
+      >
+        <v-icon color="white">mdi-check-circle</v-icon>
+        <span>Producto agregado con exito!</span>
+      </v-snackbar>
+    </div>
+  </v-responsive>
 </template>
 
 <script>

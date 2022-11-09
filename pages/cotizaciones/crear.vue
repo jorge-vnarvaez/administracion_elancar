@@ -6,7 +6,6 @@
       >
         <!-- ICONO BORRAR Y DIALOG -->
         <div
-          class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-md"
           @click="dialog_borrar = true"
         >
           <v-dialog v-model="dialog_borrar" max-width="290">
@@ -44,7 +43,6 @@
 
         <!-- ICONO GUARDAR Y DIALOG -->
         <div
-          class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-md"
           @click="dialog_guardar = true"
         >
           <v-dialog v-model="dialog_guardar" max-width="290">
@@ -115,6 +113,7 @@
           :labels="labels"
           :productos="carro_de_compra"
           cotizacion_cliente
+          cart_type="compras"
         />
         <!-- TABLA PRODUCTOS -->
       </div>
@@ -152,7 +151,7 @@
 <script>
 
 import moment from "moment";
-import IconoGuardar from "@/components/iconos/IconoGuardar.vue";
+import IconoGuardar from "@/components/iconos/blancos/IconoGuardar.vue";
 import IconoBorrar from "@/components/iconos/blancos/IconoBorrar.vue";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";

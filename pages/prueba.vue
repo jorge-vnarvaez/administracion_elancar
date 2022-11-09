@@ -1,12 +1,17 @@
 <template>
   <div>
+    <CotizacionesCliente />
   </div>
 </template>
 
 <script>
 
-export default {
+import CotizacionesCliente from "@/components/api/CotizacionesClientes.vue";
 
+export default {
+  components: {
+    CotizacionesCliente,
+  }
 };
 </script>
 

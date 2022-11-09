@@ -45,9 +45,8 @@ export default {
       desc: "Objeto con los datos del proveedor",
     },
     receptor: {
-      type: Object,
+      type: [Object],
       default: () => {},
-      required: true,
       desc: "Objeto con los datos del receptor",
     },
   },

@@ -12,7 +12,7 @@
     <!-- SUBTITLE, DESCRIPTION AND SEARCH -->
 
     <!-- TABLE HEADERS -->
-    <div class="tw-grid tw-grid-cols-12 tw-mt-20 tw-mb-4 tw-px-4">
+    <div class="tw-grid tw-grid-cols-12 tw-mt-8 tw-mb-4 tw-px-4">
       <div class="tw-col-span-1"></div>
 
       <div class="tw-col-span-6 lg:tw-col-span-5">

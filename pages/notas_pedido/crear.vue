@@ -2,11 +2,10 @@
   <div class="tw-p-24 tw-px-64 tw-h-full">
     <div v-if="info_despacho">
       <div
-        class="tw-w-full tw-align-center tw-flex tw-justify-end tw-space-x-3"
+        class="tw-w-full tw-align-center tw-flex tw-justify-end tw-space-x-2"
       >
         <!-- ICONO BORRAR Y DIALOG -->
         <div
-          class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-md"
           @click="dialog_borrar = true"
         >
           <v-dialog v-model="dialog_borrar" max-width="290">
@@ -44,7 +43,6 @@
 
         <!-- ICONO GUARDAR Y DIALOG -->
         <div
-          class="tw-bg-black tw-p-3 tw-cursor-pointer tw-rounded-md"
           @click="dialog_guardar = true"
         >
           <v-dialog v-model="dialog_guardar" max-width="290">
@@ -111,7 +109,7 @@
         </div>
 
         <!-- TABLA PRODUCTOS -->
-        <TablaProductos :labels="labels" :productos="carro_de_compra" />
+        <TablaProductos :labels="labels" :productos="carro_de_compra" cart_type="compras" />
         <!-- TABLA PRODUCTOS -->
       </div>
     </div>
@@ -156,21 +154,21 @@
 <script>
 
 import moment from "moment";
+import IconoGuardar from "@/components/iconos/blancos/IconoGuardar.vue";
+import IconoBorrar from "@/components/iconos/blancos/IconoBorrar.vue";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
-import IconoGuardar from "@/components/iconos/IconoGuardar.vue";
-import IconoBorrar from "@/components/iconos/blancos/IconoBorrar.vue";
 
 export default {
   components: {
+    IconoGuardar,
+    IconoBorrar,
     MembreteSuperiorPdf,
     DatosCliente,
     DatosEnvio,
     TablaProductos,
-    IconoGuardar,
-    IconoBorrar,
   },
   data() {
     return {

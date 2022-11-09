@@ -84,39 +84,45 @@
 
         <!-- CARRO SOLICITUDES -->
         <nuxt-link v-if="productos_solicitados > 0" to="/carro_de_solicitudes">
-          <div
-            @mouseover="opciones = true"
-            class="tw-relative tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-file-upload"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="#000000"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-              <path
-                d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"
-              />
-              <line x1="12" y1="11" x2="12" y2="17" />
-              <polyline points="9 14 12 11 15 14" />
-            </svg>
+          <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+              <div
+               v-bind="attrs"
+                v-on="on"
+                class="tw-relative tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-file-upload"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="#000000"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                  <path
+                    d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"
+                  />
+                  <line x1="12" y1="11" x2="12" y2="17" />
+                  <polyline points="9 14 12 11 15 14" />
+                </svg>
 
-            <div
-              class="tw-bg-neutral-900 tw-w-6 tw-h-6 tw-rounded-full tw-absolute tw-flex align-center tw-justify-center tw-top-6 tw-left-6"
-            >
-              <span class="tw-text-white tw-text-sm">{{
-                productos_solicitados
-              }}</span>
-            </div>
-          </div>
+                <div
+                  class="tw-bg-neutral-900 tw-w-6 tw-h-6 tw-rounded-full tw-absolute tw-flex align-center tw-justify-center tw-top-6 tw-left-6"
+                >
+                  <span class="tw-text-white tw-text-sm">{{
+                    productos_solicitados
+                  }}</span>
+                </div>
+              </div>
+            </template>
+            <span>Solicitud de cotización en proceso</span>
+          </v-tooltip>
         </nuxt-link>
         <!-- CARRO SOLICITUDES -->
 

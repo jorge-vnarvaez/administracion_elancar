@@ -4,17 +4,20 @@
     <div class="tw-flex align-center tw-mt-12">
       <div>
         <span class="tw-font-bold tw-uppercase lg:tw-text-2xl">Receptor</span>
-        <span class="tw-block lg:tw-text-xl">
-          Indique el receptor (vendedor) que estará a cargo de recibir
-          solicitud, en caso contrario, marcar la opción “a quién corresponda”
-        </span>
+
+        <div class="tw-flex">
+          <span class="tw-block lg:tw-text-xl">
+            Indique el receptor (vendedor) que estará a cargo de recibir
+            solicitud.
+          </span>
+        </div>
       </div>
     </div>
     <!-- SUBTITLE, DESCRIPTION AND SEARCH -->
 
     <div v-if="receptores.length > 0">
       <!-- TABLE HEADERS -->
-      <div class="tw-grid tw-grid-cols-12 tw-mt-20 tw-mb-4 tw-px-4">
+      <div class="tw-grid tw-grid-cols-12 tw-mt-8 tw-mb-4 tw-px-4">
         <div class="tw-col-span-1"></div>
 
         <div class="tw-col-span-6 lg:tw-col-span-5">
@@ -70,10 +73,17 @@
       <!-- TABLE CONTENT -->
 
       <!-- A QUIEN CORRESPONDA -->
-      <v-radio-group v-model="radioGroup" class="tw-py-0 tw-px-4" hide-details>
+      <div class="tw-mt-8">
+        <v-icon x-large>mdi-alert-circle-outline</v-icon>
+        <span class="tw-text-xl"
+          >Si no indica un receptor, por defecto, se emitirá a quién
+          corresponda.</span
+        >
+      </div>
+      <!-- <v-radio-group v-model="radioGroup" class="tw-py-0 tw-px-4" hide-details>
         <v-radio :key="0" label="A quién corresponda" @click="receptorSeleccionado(null)">
         </v-radio>
-      </v-radio-group>
+      </v-radio-group> -->
       <!-- A QUIEN CORRESPONDA -->
     </div>
 
@@ -122,7 +132,10 @@ export default {
   },
   methods: {
     receptorSeleccionado(receptor) {
-      this.$store.dispatch("carro_solicitudes/setReceptorCurrentProveedor", receptor);
+      this.$store.dispatch(
+        "carro_solicitudes/setReceptorCurrentProveedor",
+        receptor
+      );
     },
   },
 };
