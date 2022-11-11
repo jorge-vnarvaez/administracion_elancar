@@ -86,6 +86,7 @@ export default {
     Poppins: true,
     Montserrat: true,
     Inter: true,
+    Dosis: true,
   },
 
   devServerHandlers: []

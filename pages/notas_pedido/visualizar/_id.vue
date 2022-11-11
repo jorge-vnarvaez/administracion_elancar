@@ -60,7 +60,7 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: ["Productos", "Cantidad", "Precio por unidad", "Total"],
+      labels: ["Productos", "Cant", "Precio Uni", "Total", "Kg"],
     };
   },
   mounted() {
@@ -85,7 +85,6 @@ export default {
   },
   methods: {
     getDetalle() {
-      console.log(this.nota_pedido.detalle);
       this.detalleDocumento = this.nota_pedido.detalle.map((item) => {
         return {
           ...item,

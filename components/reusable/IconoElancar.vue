@@ -11,7 +11,7 @@ export default {
 <style>
 .contain {
   width: 74px;
-  height: 100px;
+  height: 80px;
   object-fit: contain;
 }
 </style>

@@ -21,7 +21,7 @@
             <!-- MEMBRE SUPERIOR -->
 
             <!--V-DIVIDER-->
-            <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
+            <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-2"></div>
             <!--V-DIVIDER-->
 
             <!-- DATOS DEL PROVEEDOR -->
@@ -30,7 +30,7 @@
             </div>
             <!-- DATOS DEL PROVEEDOR -->
 
-            <div class="tw-flex tw-space-x-14">
+            <div class="tw-flex tw-space-x-4">
               <!--DATOS DEL CLIENTE-->
               <div v-if="infoDocumento.cliente">
                 <DatosCliente :cliente="infoDocumento.cliente" />
@@ -51,7 +51,8 @@
               :cotizacion_proveedor="is_cotizacion_to_proveedor"
               :cotizacion_cliente="is_cotizacion_to_cliente"
               :orden_de_compra="is_orden_de_compra"
-              visualizando
+              con_detalle
+              pdf
             />
             <!-- TABLE PRODUCTOS  -->
           </div>
@@ -114,15 +115,14 @@ export default {
       DatosEnvio: {},
     };
   },
-
   watch: {
     infoDocumento(newValue) {
-      // this.getDetalle();
+      this.getDetalle();
     },
   },
   async fetch() {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "detalle.*", "proveedor.*.*", "receptor.*", "cliente.*.*", "empresa.*.*"],
+      fields: ["id", "fecha_emision", "detalle.*.*", "proveedor.*.*", "receptor.*", "cliente.*.*", "empresa.*.*"],
     });
 
     const { data } = await this.$axios
@@ -134,6 +134,14 @@ export default {
     this.infoDocumento = data;
   },
   methods: {
+    getDetalle() {
+      this.detalleDocumento = this.infoDocumento.detalle.map((item) => {
+        return {
+          ...item,
+          cantidad: item.cantidad,
+        }
+      })
+    },
     generatePdf() {
       this.$refs.pdf.generatePdf();
     },
@@ -152,4 +160,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+FontPdf{
+  font-family: 'Dosis', sans-serif;
+}
+
+</style>

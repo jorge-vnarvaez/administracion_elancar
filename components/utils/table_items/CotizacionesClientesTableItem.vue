@@ -65,10 +65,10 @@ export default {
     return {
       labels: [
         "Productos",
-        "Cantidad",
-        "Kg",
-        "Precio por unidad",
+        "Cant",
+        "Precio Uni",
         "Precio total",
+        "Kg",
       ],
     }
   },
