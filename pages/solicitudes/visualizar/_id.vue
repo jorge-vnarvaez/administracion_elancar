@@ -25,6 +25,7 @@
           cotizacion_proveedor
           class="tw-col-span-12"
           visualizando
+          con_detalle
         />
         <!-- TABLA PRODUCTOS -->
       </div>
@@ -57,49 +58,26 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "detalle.*", "proveedor.*.*", "receptor.*", "empresa.*.*"],
+      fields: ["id", "fecha_emision", "detalle.*.*", "proveedor.*.*", "receptor.*", "empresa.*.*"],
     });
     const id = context.params.id;
     const { data } = await context.$axios
       .get(`${context.$config.apiUrl}/items/cotizaciones_proveedor/${id}?${query}`)
       .then((res) => res.data);
-    // this.infoDocumento = data;
+
     return {
       cotizacion_proveedor: data,
     };
   },
   methods: {
-    async getDetalle() {
-      if (this.cotizacion_proveedor.detalle.length > 0) {
-        const query = qs.stringify({
-          filter: {
-            _and: [
-              {
-                id: {
-                  _in: this.cotizacion_proveedor.detalle.map((item) => item.productos_id),
-                },
-              },
-            ],
-          },
-        });
-
-        const { data } = await this.$axios
-          .get(`${this.$config.apiUrl}/items/productos?${query}`)
-          .then((res) => res.data);
-
-        this.detalleDocumento = data.map((item) => {
-          const detalle = this.cotizacion_proveedor.detalle.find(
-            (detalle) => detalle.productos_id === item.id
-          );
+    getDetalle() {
+        this.detalleDocumento = this.cotizacion_proveedor.detalle.map((item) => {
           return {
             ...item,
-            cantidad: detalle.cantidad,
-            // precio_unidad: detalle.precio_unidad,
-            // kg: detalle.kg
+            cantidad: item.cantidad,
           };
         });
       }
-    },
   },
 };
 </script>

@@ -24,10 +24,16 @@
       <div
         v-for="(item, index) in productos"
         :key="index"
-        class="tw-grid tw-grid-cols-12 tw-my-4"
+        :class="
+          visualizando
+            ? 'tw-my-4'
+            : 'tw-my-1' + ' tw-grid tw-grid-cols-12 tw-my-4'
+        "
       >
         <!-- NOMBRE PRODUCTO -->
-        <span :class="col_span_table(0) + ' tw-flex align-center'">{{ item.nombre }}</span>
+        <span :class="col_span_table(0) + ' tw-flex align-center'">{{
+          con_detalle ? item.productos_id.nombre : item.nombre
+        }}</span>
         <!-- NOMBRE PRODUCTO -->
 
         <!-- CANTIDAD -->
@@ -40,20 +46,21 @@
         <div v-if="visualizando == false" :class="col_span_table(1)">
           <CantidadProductos :item="item" :cart_type="cart_type" />
         </div>
-
         <!-- CANTIDAD -->
 
         <!-- TOTAL KG -->
         <span
           v-if="!cotizacion_proveedor"
           :class="col_span_table(2) + ' tw-font-bold tw-flex align-center'"
-          >{{ (item.cantidad * item.kg).toFixed(2) }}</span
+          >{{ item.cantidad * (con_detalle ? item.productos_id.kg : item.kg) }}</span
         >
         <!-- TOTAL KG -->
 
         <!-- PRECIO UNITARIO -->
         <span :class="col_span_table(3) + ' tw-flex align-center'">{{
-          cotizacion_proveedor ? "$.-" : $formatearPrecio(item.precio)
+          cotizacion_proveedor
+            ? "$.-"
+            : $formatearPrecio(con_detalle ? item.productos_id.precio : item.precio)
         }}</span>
         <!-- PRECIO UNITARIO -->
 
@@ -61,7 +68,7 @@
         <span :class="col_span_table(4) + ' tw-flex align-center'">{{
           cotizacion_proveedor
             ? "$.-"
-            : $formatearPrecio(item.cantidad * item.precio)
+            : $formatearPrecio(item.cantidad * (con_detalle ? item.productos_id.precio : item.precio))
         }}</span>
         <!-- PRECIO TOTAL -->
       </div>
@@ -102,7 +109,6 @@
 </template>
 
 <script>
-
 import MembreteInferiorPdf from "@/components/reusable/visualizacion_documentos/MembreteInferiorPdf.vue";
 import PlantillaPrecio from "@/components/reusable/visualizacion_documentos/PlantillaPrecio.vue";
 import CantidadProductos from "@/components/utils/CantidadProductos.vue";
@@ -153,7 +159,12 @@ export default {
       type: String,
       default: "compras",
       desc: "Define el tipo de carrito que se va a mostrar en la tabla",
-    }
+    },
+    con_detalle: {
+      type: Boolean,
+      default: false,
+      desc: "Define si la tabla va a mostrar el detalle de los productos (esta propiedad aplica a visualizacion de documentos) no es indispensable utilizarla en la creacion de los documentos",
+    },
   },
   methods: {
     col_span_table(index) {
@@ -187,7 +198,7 @@ export default {
         case 5:
           return "tw-bg-gray-200";
       }
-    }
+    },
   },
   computed: {
     sub_total() {
@@ -198,7 +209,9 @@ export default {
       return this.cotizacion_proveedor ? 0 : total;
     },
     total_kg() {
-      return this.$total_kg(this.productos.map((item) => (item.cantidad * item.kg))).toFixed(2);
+      return this.$total_kg(
+       this.con_detalle ? this.productos.map((item) => item.cantidad * item.productos_id.kg) : this.productos.map((item) => item.cantidad * item.kg)
+      ).toFixed(2);
     },
     transporte() {
       return 0;

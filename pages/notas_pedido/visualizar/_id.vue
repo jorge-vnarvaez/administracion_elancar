@@ -15,11 +15,17 @@
 
       <div class="tw-grid tw-grid-cols-12 tw-gap-y-4 lg:tw-gap-y-0">
         <!-- DATOS CLIENTE -->
-        <DatosCliente :cliente="nota_pedido.cliente" class="tw-col-span-12 lg:tw-col-span-5" />
+        <DatosCliente
+          :cliente="nota_pedido.cliente"
+          class="tw-col-span-12 lg:tw-col-span-5"
+        />
         <!-- DATOS CLIENTE -->
 
         <!-- DATOS ENVIO  -->
-        <DatosEnvio :cliente="nota_pedido.cliente" class="tw-col-span-12 lg:tw-col-span-7" />
+        <DatosEnvio
+          :cliente="nota_pedido.cliente"
+          class="tw-col-span-12 lg:tw-col-span-7"
+        />
         <!-- DATOS ENVIO  -->
 
         <!-- TABLA PRODUCTOS -->
@@ -29,6 +35,7 @@
           nota_de_pedido
           class="tw-col-span-12"
           visualizando
+          con_detalle
         />
         <!-- TABLA PRODUCTOS -->
       </div>
@@ -53,7 +60,7 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: ["Productos", "Cantidad",  "Precio por unidad", "Total"],
+      labels: ["Productos", "Cantidad", "Precio por unidad", "Total"],
     };
   },
   mounted() {
@@ -61,52 +68,32 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "cliente.*.*", "detalle.*", "empresa.*.*"],
+      fields: [
+        "id",
+        "fecha_emision",
+        "cliente.*.*",
+        "detalle.*.*",
+        "empresa.*.*",
+      ],
     });
     const id = context.params.id;
-    const { data } = await context.$axios
+    const nota_pedido = await context.$axios
       .get(`${context.$config.apiUrl}/items/notas_de_pedido/${id}?${query}`)
-      .then((res) => res.data);
-    // this.infoDocumento = data;
-    return {
-      nota_pedido: data,
-    };
+      .then((res) => res.data.data);
+
+    return { nota_pedido };
   },
   methods: {
-    async getDetalle() {
-      if (this.nota_pedido.detalle.length > 0) {
-        const query = qs.stringify({
-          filter: {
-            _and: [
-              {
-                id: {
-                  _in: this.nota_pedido.detalle.map(
-                    (item) => item.productos_id
-                  ),
-                },
-              },
-            ],
-          },
-        });
-
-        const { data } = await this.$axios
-          .get(`${this.$config.apiUrl}/items/productos?${query}`)
-          .then((res) => res.data);
-
-        this.detalleDocumento = data.map((item) => {
-          const detalle = this.nota_pedido.detalle.find(
-            (detalle) => detalle.productos_id === item.id
-          );
-          return {
-            ...item,
-            cantidad: detalle.cantidad,
-            // precio_unidad: detalle.precio_unidad,
-            // kg: detalle.kg
-          };
-        });
-      }
+    getDetalle() {
+      console.log(this.nota_pedido.detalle);
+      this.detalleDocumento = this.nota_pedido.detalle.map((item) => {
+        return {
+          ...item,
+          total: item.cantidad * item.productos_id.precio,
+        };
+      });
     },
-  },
+  }
 };
 </script>
 

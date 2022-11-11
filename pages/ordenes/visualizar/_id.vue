@@ -60,48 +60,24 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "proveedor.*", "detalle.*", "empresa.*.*"],
+      fields: ["id", "fecha_emision", "proveedor.*", "detalle.*.*", "empresa.*.*"],
     });
     const id = context.params.id;
     const { data } = await context.$axios
       .get(`${context.$config.apiUrl}/items/ordenes_de_compra/${id}?${query}`)
       .then((res) => res.data);
-    // this.infoDocumento = data;
     return {
       orden_de_compra: data,
     };
   },
   methods: {
-    async getDetalle() {
-      if (this.orden_de_compra.detalle.length > 0) {
-        const query = qs.stringify({
-          filter: {
-            _and: [
-              {
-                id: {
-                  _in: this.orden_de_compra.detalle.map((item) => item.productos_id),
-                },
-              },
-            ],
-          },
-        });
-
-        const { data } = await this.$axios
-          .get(`${this.$config.apiUrl}/items/productos?${query}`)
-          .then((res) => res.data);
-
-        this.detalleDocumento = data.map((item) => {
-          const detalle = this.orden_de_compra.detalle.find(
-            (detalle) => detalle.productos_id === item.id
-          );
+    getDetalle() {
+        this.detalleDocumento = this.orden_de_compra.detalle.map((item) => {
           return {
             ...item,
-            cantidad: detalle.cantidad,
-            // precio_unidad: detalle.precio_unidad,
-            // kg: detalle.kg
+            cantidad: item.cantidad,
           };
         });
-      }
     },
   },
 };

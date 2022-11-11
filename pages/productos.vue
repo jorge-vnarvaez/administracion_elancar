@@ -5,8 +5,6 @@
         <span class="tw-font-bold tw-text-2xl lg:tw-text-4xl"
           >Listado de productos</span
         >
-
-        {{ buscador }}
         <!--[BUSCADOR]-->
         <div>
           <v-text-field
@@ -73,6 +71,7 @@
               v-model="page"
               color="black"
               :length="Math.ceil(productos.length / itemsPerPage)"
+              total-visible="7"
             ></v-pagination>
           </div>
           <!--[PAGINATION]-->

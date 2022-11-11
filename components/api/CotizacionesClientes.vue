@@ -67,7 +67,6 @@
           :index="index"
         />
       </div>
-
       <!--[TABLE CONTENT]-->
 
       <!--[PAGINATION]-->
@@ -117,7 +116,7 @@ export default {
         "id",
         "fecha_emision",
         "hora_emision",
-        "detalle.*",
+        "detalle.*.*",
         "cliente.*.*",
         "empresa..*.*",
       ],

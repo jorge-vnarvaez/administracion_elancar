@@ -37,6 +37,7 @@
           cotizacion_cliente
           class="tw-col-span-12"
           visualizando
+          con_detalle
         />
         <!-- TABLA PRODUCTOS -->
       </div>
@@ -81,7 +82,7 @@ export default {
         "id",
         "fecha_emision",
         "cliente.*.*",
-        "detalle.*",
+        "detalle.*.*",
         "empresa.*.*",
       ],
     });
@@ -92,51 +93,18 @@ export default {
 
     this.cotizacion_cliente = data;
 
-    this.getDetalle();
-  },
-  mounted() {
-     this.getDetalle();
+    this.detalleDocumento = this.cotizacion_cliente.detalle.map((item) => {
+      return {
+        ...item,
+        total: item.cantidad * item.productos_id.precio,
+      };
+    });
   },
   activated() {
     // Call fetch again if last fetch more than 30 sec ago
     if (this.$fetchState.timestamp <= Date.now() - 30000) {
       this.$fetch();
     }
-  },
-  methods: {
-    async getDetalle() {
-      if (this.cotizacion_cliente.detalle) {
-        const query = qs.stringify({
-          filter: {
-            _and: [
-              {
-                id: {
-                  _in: this.cotizacion_cliente.detalle.map(
-                    (item) => item.productos_id
-                  ),
-                },
-              },
-            ],
-          },
-        });
-
-        const { data } = await this.$axios
-          .get(`${this.$config.apiUrl}/items/productos?${query}`)
-          .then((res) => res.data);
-
-        this.detalleDocumento = data.map((item) => {
-          const detalle = this.cotizacion_cliente.detalle.find(
-            (detalle) => detalle.productos_id === item.id
-          );
-          return {
-            ...item,
-            cantidad: detalle.cantidad,
-            // precio_unidad: detalle.precio_unidad,
-            // kg: detalle.kg
-          };
-        });
-      }
-    },
   },
 };
 </script>

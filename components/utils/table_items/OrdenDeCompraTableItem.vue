@@ -36,7 +36,7 @@
         :idDocumento="orden_de_compra.id"
       />
       <PdfMaker
-        tipo="Orden de compra"
+        tipoDocumento="Orden de compra"
         item="ordenes_de_compra"
         :idDocumento="orden_de_compra.id"
         :labels="labels"
@@ -63,9 +63,6 @@ export default {
     formatearFecha(fecha) {
       return moment(fecha).format("LL");
     },
-    // formatearHora(hora){
-    //     return moment(hora).format("A")
-    // }
   },
 };
 </script>

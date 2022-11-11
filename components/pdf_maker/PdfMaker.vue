@@ -117,7 +117,7 @@ export default {
 
   watch: {
     infoDocumento(newValue) {
-      this.getDetalle();
+      // this.getDetalle();
     },
   },
   async fetch() {
@@ -134,40 +134,6 @@ export default {
     this.infoDocumento = data;
   },
   methods: {
-    async getDetalle() {
-      if (this.infoDocumento.detalle.length > 0) {
-        const query = qs.stringify({
-          filter: {
-            _and: [
-              {
-                id: {
-                  _in: this.infoDocumento.detalle.map(
-                    (item) => item.productos_id
-                  ),
-                },
-              },
-            ],
-          },
-        });
-
-        const { data } = await this.$axios
-          .get(`${this.$config.apiUrl}/items/productos?${query}`)
-          .then((res) => res.data);
-
-        this.detalleDocumento = data.map((item) => {
-          const detalle = this.infoDocumento.detalle.find(
-            (detalle) => detalle.productos_id === item.id
-          );
-          return {
-            ...item,
-            cantidad: detalle.cantidad,
-            // precio_unidad: detalle.precio_unidad,
-            // kg: detalle.kg
-          };
-        });
-
-      }
-    },
     generatePdf() {
       this.$refs.pdf.generatePdf();
     },
