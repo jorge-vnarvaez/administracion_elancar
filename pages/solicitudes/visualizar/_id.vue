@@ -24,7 +24,6 @@
           :productos="detalleDocumento"
           cotizacion_proveedor
           class="tw-col-span-12"
-          visualizando
           con_detalle
         />
         <!-- TABLA PRODUCTOS -->

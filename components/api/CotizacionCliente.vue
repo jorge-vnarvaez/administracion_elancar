@@ -36,7 +36,6 @@
           :productos="detalleDocumento"
           cotizacion_cliente
           class="tw-col-span-12"
-          visualizando
           con_detalle
         />
         <!-- TABLA PRODUCTOS -->
@@ -73,7 +72,7 @@ export default {
     return {
       cotizacion_cliente: {},
       detalleDocumento: [],
-      labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
+      labels: ["Productos", "Cant", "Precio por unidad", "Total", "Kg"],
     };
   },
   async fetch() {

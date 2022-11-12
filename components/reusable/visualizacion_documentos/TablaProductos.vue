@@ -1,8 +1,8 @@
 <template>
-  <div class="tw-mt-8 tw-flex tw-flex-col tw-justify-between tw-text-xs">
+  <div class="tw-mt-1 tw-flex tw-flex-col tw-justify-between tw-text-xs">
     <!-- DESKTOP VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? false : true">
-      <span class="tw-block tw-mb-4 tw-font-bold tw-text-2xl">Detalle</span>
+      <span class="tw-block tw-mb-2 tw-font-bold tw-text-2xl">Detalle</span>
 
       <!-- TABLE HEADERS -->
       <div class="tw-grid tw-grid-cols-12">
@@ -17,18 +17,14 @@
       <!-- TABLE HEADERS -->
 
       <!-- V-DIVIDER -->
-      <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
+      <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-1"></div>
       <!-- V-DIVIDER -->
-
+      
       <!-- TABLE BODY -->
       <div
         v-for="(item, index) in productos"
         :key="index"
-        :class="
-          visualizando
-            ? 'tw-my-4'
-            : 'tw-my-1' + ' tw-grid tw-grid-cols-12 tw-my-4'
-        "
+        class="tw-my-1 tw-grid tw-grid-cols-12"
       >
         <!-- NOMBRE PRODUCTO -->
         <span :class="col_span_table(0) + ' tw-flex align-center'">{{
@@ -38,39 +34,48 @@
 
         <!-- CANTIDAD -->
         <span
-          v-if="visualizando"
+          v-if="visualizando == false"
           :class="col_span_table(1) + ' tw-font-bold'"
           >{{ item.cantidad }}</span
         >
 
-        <div v-if="visualizando == false" :class="col_span_table(1)">
+        <div v-if="visualizando" :class="col_span_table(1)">
           <CantidadProductos :item="item" :cart_type="cart_type" />
         </div>
         <!-- CANTIDAD -->
 
+   
+
+        <!-- PRECIO UNITARIO -->
+        <span :class="col_span_table(2) + ' tw-flex align-center'">{{
+          cotizacion_proveedor
+            ? "$.-"
+            : $formatearPrecio(
+                con_detalle ? item.productos_id.precio : item.precio
+              )
+        }}</span>
+        <!-- PRECIO UNITARIO -->
+
+        <!-- PRECIO TOTAL -->
+        <span :class="col_span_table(3) + ' tw-flex align-center '">{{
+          cotizacion_proveedor
+            ? "$.-"
+            : $formatearPrecio(
+                item.cantidad *
+                  (con_detalle ? item.productos_id.precio : item.precio)
+              )
+        }}</span>
+        <!-- PRECIO TOTAL -->
+
         <!-- TOTAL KG -->
         <span
           v-if="!cotizacion_proveedor"
-          :class="col_span_table(2) + ' tw-font-bold tw-flex align-center'"
-          >{{ item.cantidad * (con_detalle ? item.productos_id.kg : item.kg) }}</span
+          :class="col_span_table(4) + ' tw-font-bold tw-flex align-center'"
+          >{{
+            item.cantidad * (con_detalle ? item.productos_id.kg : item.kg)
+          }}</span
         >
         <!-- TOTAL KG -->
-
-        <!-- PRECIO UNITARIO -->
-        <span :class="col_span_table(3) + ' tw-flex align-center'">{{
-          cotizacion_proveedor
-            ? "$.-"
-            : $formatearPrecio(con_detalle ? item.productos_id.precio : item.precio)
-        }}</span>
-        <!-- PRECIO UNITARIO -->
-
-        <!-- PRECIO TOTAL -->
-        <span :class="col_span_table(4) + ' tw-flex align-center'">{{
-          cotizacion_proveedor
-            ? "$.-"
-            : $formatearPrecio(item.cantidad * (con_detalle ? item.productos_id.precio : item.precio))
-        }}</span>
-        <!-- PRECIO TOTAL -->
       </div>
       <!-- TABLE BODY -->
     </div>
@@ -165,20 +170,25 @@ export default {
       default: false,
       desc: "Define si la tabla va a mostrar el detalle de los productos (esta propiedad aplica a visualizacion de documentos) no es indispensable utilizarla en la creacion de los documentos",
     },
+    pdf: {
+      type: Boolean,
+      default: false,
+      desc: 'Define si el documento esta en formato PDF'
+    }
   },
   methods: {
     col_span_table(index) {
       switch (index) {
         case 0:
-          return "tw-col-span-3";
+          return "tw-col-span-6 tw-bg-blue-200";
         case 1:
-          return "tw-col-span-3";
+          return "tw-col-span-1 tw-bg-red-200";
         case 2:
-          return "tw-col-span-2";
+          return "tw-col-span-2 tw-bg-green-100";
         case 3:
-          return "tw-col-span-2";
+          return "tw-col-span-2 tw-bg-orange-300";
         case 4:
-          return "tw-col-span-2";
+          return "tw-col-span-1 tw-bg-teal-100";
         default:
           return "tw-col-span-2";
       }
@@ -203,14 +213,23 @@ export default {
   computed: {
     sub_total() {
       let total = 0;
-      this.productos.forEach((item) => {
-        total += item.cantidad * item.precio;
-      });
+      if(this.con_detalle) {
+        this.productos.forEach((item) => {
+                total += item.cantidad * item.productos_id.precio
+        });
+      } else {
+        this.productos.forEach((item) => {
+          total += item.cantidad * item.precio;
+        });
+      }
+     
       return this.cotizacion_proveedor ? 0 : total;
     },
     total_kg() {
       return this.$total_kg(
-       this.con_detalle ? this.productos.map((item) => item.cantidad * item.productos_id.kg) : this.productos.map((item) => item.cantidad * item.kg)
+        this.con_detalle
+          ? this.productos.map((item) => item.cantidad * item.productos_id.kg)
+          : this.productos.map((item) => item.cantidad * item.kg)
       ).toFixed(2);
     },
     transporte() {

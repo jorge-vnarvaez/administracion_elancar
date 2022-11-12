@@ -120,10 +120,7 @@ export default {
           text: "Sucursal 3",
         },
       ],
-      sucursal: {
-        id: 1,
-        text: "Sucursal 1",
-      },
+      sucursal: null,
     };
   },
   methods: {
@@ -140,9 +137,10 @@ export default {
 
         const params = this.$route.query.redirect || "/home";
 
-        this.$store.dispatch("sucursal/loadSucursal", this.sucursal.id);
 
-        this.$store.dispatch("sucursal/setSucursal", this.sucursal.id);
+        this.$store.dispatch("sucursal/loadSucursal", this.sucursal);
+
+        this.$store.dispatch("sucursal/setSucursal", this.sucursal);
 
         this.$store.dispatch("session/login", {
           credenciales: credenciales,

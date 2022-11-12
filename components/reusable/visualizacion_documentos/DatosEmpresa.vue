@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-flex tw-flex-col tw-text-sm" v-if="empresa">
+  <div class="tw-flex tw-flex-col tw-text-sm tw-mb-2" v-if="empresa">
     <span>{{ empresa.nombre }}</span>
     <span>{{ empresa.direccion }}</span>
     <span>{{ empresa.telefono }}</span>

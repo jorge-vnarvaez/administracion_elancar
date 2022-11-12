@@ -3,7 +3,7 @@
     <!--MEMBRETE-->
     <div class="tw-flex tw-space-x-4 align-center tw-justify-between tw-w-full">
       <!--LOGO ELANCAR -->
-      <div class="tw-flex align-center tw-space-x-2">
+      <div class="tw-flex align-center tw-space-x-4">
         <IconoElancar />
         <DatosEmpresa v-if="infoDocumento" :empresa="infoDocumento.empresa"  />
         <DatosEmpresa v-if="is_creando" :empresa="empresa"  />
@@ -20,7 +20,7 @@
         <!--TIPO DE DOCUMENTO -->
 
         <!--FECHA -->
-        <div class="tw-text-lg tw-mt-2">
+        <div class="tw-text-lg">
           <span class="tw-text-sm">Fecha emisión {{ fechaFormateada }}</span>
         </div>
         <!-- FECHA -->

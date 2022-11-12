@@ -123,6 +123,11 @@ export default {
       required: true,
     },
   },
+  watch: {
+    cantidad(val) {
+      this.cantidad = typeof val == 'string' ? parseInt(val) : val;
+    }
+  },
   methods: {
     aumentarCantidad() {
       this.cantidad++;

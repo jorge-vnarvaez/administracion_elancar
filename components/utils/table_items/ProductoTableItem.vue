@@ -117,7 +117,10 @@ export default {
     };
   },
   watch: {
-    cantidad() {
+    cantidad(val) {
+
+      this.cantidad = typeof val == 'string' ? parseInt(val) : val;
+
       if (this.cantidad > this.producto.stock) {
         this.cantidad = this.producto.stock;
       }
