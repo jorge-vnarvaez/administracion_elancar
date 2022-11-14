@@ -9,6 +9,7 @@
 import CotizacionCliente from "@/components/api/CotizacionCliente.vue";
 
 export default {
+  middleware: ["auth"],
   components: {
     CotizacionCliente,
   }

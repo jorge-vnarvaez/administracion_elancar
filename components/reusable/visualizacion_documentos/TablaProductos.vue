@@ -1,6 +1,6 @@
 <template>
   <div class="tw-mt-1 tw-flex tw-flex-col tw-justify-between tw-text-xs">
-    <!-- DESKTOP VIEW -->
+    <!-- START DESKTOP VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? false : true">
       <span class="tw-block tw-mb-2 tw-font-bold tw-text-2xl">Detalle</span>
 
@@ -19,7 +19,7 @@
       <!-- V-DIVIDER -->
       <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-1"></div>
       <!-- V-DIVIDER -->
-      
+
       <!-- TABLE BODY -->
       <div
         v-for="(item, index) in productos"
@@ -43,8 +43,6 @@
           <CantidadProductos :item="item" :cart_type="cart_type" />
         </div>
         <!-- CANTIDAD -->
-
-   
 
         <!-- PRECIO UNITARIO -->
         <span :class="col_span_table(2) + ' tw-flex align-center'">{{
@@ -78,38 +76,111 @@
         <!-- TOTAL KG -->
       </div>
       <!-- TABLE BODY -->
+      <!-- MEMBRETE INFERIOR -->
+      <div class="tw-flex tw-justify-between align-center tw-mt-12">
+        <div v-if="cotizacion_cliente"><MembreteInferiorPdf /></div>
+        <!-- PLANTILLA PRECIO-->
+        <div class="tw-flex tw-justify-end tw-w-full">
+          <PlantillaPrecio
+            :total_kg="total_kg"
+            :sub_total="sub_total"
+            :transporte="0"
+            :total="total"
+            :cotizacion_proveedor="cotizacion_proveedor"
+          />
+        </div>
+        <!-- PLANTILLA PRECIO-->
+      </div>
+      <!-- MEMBRETE INFERIOR -->
     </div>
-    <!-- DESKTOP VIEW -->
 
-    <!-- MOBILE VIEW -->
+    <!-- END DESKTOP VIEW -->
+
+    <!-- START MOBILE VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? true : false">
+      <span class="tw-block tw-mb-2 tw-font-bold tw-text-2xl">Detalle</span>
+
+      <!-- TABLE HEADERS -->
+      <div class="tw-grid tw-grid-cols-12">
+        <div
+          v-for="(item, index) in labels"
+          :key="index"
+          :class="col_span_table(index)"
+        >
+          <span class="tw-block tw-font-bold">{{ item }}</span>
+        </div>
+      </div>
+      <!-- TABLE HEADERS -->
+
+      <!-- V-DIVIDER -->
+      <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-1"></div>
+      <!-- V-DIVIDER -->
+
+      <!-- TABLE BODY -->
       <div
         v-for="(item, index) in productos"
         :key="index"
-        class="tw-grid tw-grid-cols-12 tw-my-4 tw-gap-x-8"
+        class="tw-my-1 tw-grid tw-grid-cols-12"
       >
-        {{ item }}
+        <!-- NOMBRE PRODUCTO -->
+        <span :class="col_span_table(0) + ' tw-flex align-center'">{{
+          con_detalle ? item.productos_id.nombre : item.nombre
+        }}</span>
+        <!-- NOMBRE PRODUCTO -->
+
+        <!-- CANTIDAD -->
+        <span
+          v-if="visualizando == false"
+          :class="col_span_table(1) + ' tw-font-bold'"
+          >{{ item.cantidad }}</span
+        >
+
+        <div v-if="visualizando" :class="col_span_table(2)">
+          <CantidadProductos :item="item" :cart_type="cart_type" />
+        </div>
+        <!-- CANTIDAD -->
+
+        <!-- PRECIO UNITARIO -->
+        <span :class="col_span_table(2) + ' tw-flex align-center'">{{
+          cotizacion_proveedor
+            ? "$.-"
+            : $formatearPrecio(
+                con_detalle ? item.productos_id.precio : item.precio
+              )
+        }}</span>
+        <!-- PRECIO UNITARIO -->
+
+        <!-- PRECIO TOTAL -->
+        <span :class="col_span_table(3) + ' tw-flex align-center '">{{
+          cotizacion_proveedor
+            ? "$.-"
+            : $formatearPrecio(
+                item.cantidad *
+                  (con_detalle ? item.productos_id.precio : item.precio)
+              )
+        }}</span>
+        <!-- PRECIO TOTAL -->
       </div>
+      <!-- TABLE BODY -->
+      <!-- MEMBRETE INFERIOR -->
+      <div class="tw-flex tw-flex-col align-center tw-mt-12">
+        <!-- PLANTILLA PRECIO-->
+        <div class="tw-flex tw-justify-end tw-w-full">
+          <PlantillaPrecio
+            :total_kg="total_kg"
+            :sub_total="sub_total"
+            :transporte="0"
+            :total="total"
+            :cotizacion_proveedor="cotizacion_proveedor"
+          />
+        </div>
+        <!-- PLANTILLA PRECIO-->
+        <div v-if="cotizacion_cliente" class="tw-my-8 lg:tw-my-0"><MembreteInferiorPdf /></div>
+      </div>
+      <!-- MEMBRETE INFERIOR -->
     </div>
 
-    <!-- MOBILE VIEW -->
-
-    <!-- MEMBRETE INFERIOR -->
-    <div class="tw-flex tw-justify-between align-center tw-mt-12">
-      <div v-if="cotizacion_cliente"><MembreteInferiorPdf /></div>
-      <!-- PLANTILLA PRECIO-->
-      <div class="tw-flex tw-justify-end tw-w-full">
-        <PlantillaPrecio
-          :total_kg="total_kg"
-          :sub_total="sub_total"
-          :transporte="0"
-          :total="total"
-          :cotizacion_proveedor="cotizacion_proveedor"
-        />
-      </div>
-      <!-- PLANTILLA PRECIO-->
-    </div>
-    <!-- MEMBRETE INFERIOR -->
+    <!-- END MOBILE VIEW -->
   </div>
 </template>
 
@@ -173,22 +244,22 @@ export default {
     pdf: {
       type: Boolean,
       default: false,
-      desc: 'Define si el documento esta en formato PDF'
-    }
+      desc: "Define si el documento esta en formato PDF",
+    },
   },
   methods: {
     col_span_table(index) {
       switch (index) {
         case 0:
-          return "tw-col-span-6 tw-bg-blue-200";
+          return "lg:tw-col-span-6 tw-col-span-4 tw-truncate tw-mr-1";
         case 1:
-          return "tw-col-span-1 tw-bg-red-200";
+          return "lg:tw-col-span-1 tw-col-span-2";
         case 2:
-          return "tw-col-span-2 tw-bg-green-100";
+          return "lg:tw-col-span-2 tw-col-span-3";
         case 3:
-          return "tw-col-span-2 tw-bg-orange-300";
+          return "lg:tw-col-span-2 tw-col-span-3";
         case 4:
-          return "tw-col-span-1 tw-bg-teal-100";
+          return "tw-col-span-1";
         default:
           return "tw-col-span-2";
       }
@@ -200,7 +271,7 @@ export default {
         case 1:
           return "tw-bg-green-200";
         case 2:
-          return "tw-bg-blue-100";
+          return "tw-bg-blue-500";
         case 3:
           return "tw-bg-yellow-200";
         case 4:
@@ -213,16 +284,16 @@ export default {
   computed: {
     sub_total() {
       let total = 0;
-      if(this.con_detalle) {
+      if (this.con_detalle) {
         this.productos.forEach((item) => {
-                total += item.cantidad * item.productos_id.precio
+          total += item.cantidad * item.productos_id.precio;
         });
       } else {
         this.productos.forEach((item) => {
           total += item.cantidad * item.precio;
         });
       }
-     
+
       return this.cotizacion_proveedor ? 0 : total;
     },
     total_kg() {

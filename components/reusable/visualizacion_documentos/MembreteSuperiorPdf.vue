@@ -1,7 +1,7 @@
 <template>
-  <div class="tw-flex tw-justify-between">
+  <div class="tw-flex lg:tw-justify-between">
     <!--MEMBRETE-->
-    <div class="tw-flex tw-space-x-4 align-center tw-justify-between tw-w-full">
+    <div class="lg:tw-flex xs:tw-flex-col-reverse tw-space-x-4 align-center lg:tw-justify-between tw-w-full">
       <!--LOGO ELANCAR -->
       <div class="tw-flex align-center tw-space-x-4">
         <IconoElancar />

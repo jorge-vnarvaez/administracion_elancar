@@ -84,19 +84,6 @@
         />
       </div>
       <!-- NOTAS DE PEDIDO -->
-
-      <!-- PRUEBA POWER BI -->
-      <div
-        class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10"
-      >
-        <card-direct-access
-          label="Prueba Power BI"
-          text="Ruta para probar el componente de Power BI"
-          icon="file"
-          route_name="prueba"
-        />
-      </div>
-      <!--PRUEBA POWER BI -->
     </div>
 
     <!-- ACCESOS DIRECTOS -->

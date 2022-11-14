@@ -162,6 +162,7 @@ import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvi
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 
 export default {
+  middleware: ["auth"],
   components: {
     IconoGuardar,
     IconoBorrar,

@@ -90,7 +90,7 @@
 
         <div class="tw-mt-4 tw-flex tw-justify-between">
           <span class="tw-block tw-font-bold tw-w-[40px]">
-            Visualizar/Descargar
+            Visualizar
           </span>
           <IconoVer
             tipoDocumento="Nota de pedido"
@@ -100,7 +100,7 @@
         </div>
       </div>
     </div>
-    <!--MOBILE VIEW -->
+    <!--END MOBILE VIEW -->
   </div>
 </template>
 

@@ -41,53 +41,48 @@
     <div v-if="notas_de_pedido.length > 0">
       <!-- DESKTOP VIEW -->
       <div v-if="$vuetify.breakpoint.mobile ? false : true">
-        <div v-if="notas_de_pedido.length > 0">
-          <!--TABLE HEADER-->
+        <!--TABLE HEADER-->
 
-          <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
-            <div class="tw-col-span-6 lg:tw-col-span-2">
-              <span class="tw-font-bold">Codigo</span>
-            </div>
-
-            <div class="tw-col-span-6 lg:tw-col-span-4">
-              <span class="tw-font-bold">Fecha</span>
-            </div>
-
-            <div class="tw-col-span-6 lg:tw-col-span-2">
-              <span class="tw-font-bold">Hora</span>
-            </div>
-
-            <div class="tw-col-span-6 lg:tw-col-span-4">
-              <span class="tw-font-bold">Ver o Descargar</span>
-            </div>
+        <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Codigo</span>
           </div>
-          <!--TABLE HEADER-->
 
-          <!--[TABLE CONTENT]-->
-          <div
-            v-for="(nota_pedido, index) in notas_de_pedido.slice(
-              itemsPerPage * page - itemsPerPage,
-              itemsPerPage * page
-            )"
-            :key="nota_pedido.id"
-          >
-            <NotaDePedidoTableItem
-              :nota_de_pedido="nota_pedido"
-              :index="index"
-            />
+          <div class="tw-col-span-6 lg:tw-col-span-4">
+            <span class="tw-font-bold">Fecha</span>
           </div>
-          <!--[TABLE CONTENT]-->
 
-          <!--[PAGINATION]-->
-          <div class="tw-my-8">
-            <v-pagination
-              v-model="page"
-              color="black"
-              :length="Math.ceil(notas_de_pedido.length / itemsPerPage)"
-            ></v-pagination>
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Hora</span>
           </div>
-          <!--[PAGINATION]-->
+
+          <div class="tw-col-span-6 lg:tw-col-span-4">
+            <span class="tw-font-bold">Ver o Descargar</span>
+          </div>
         </div>
+        <!--TABLE HEADER-->
+
+        <!--[TABLE CONTENT]-->
+        <div
+          v-for="(nota_pedido, index) in notas_de_pedido.slice(
+            itemsPerPage * page - itemsPerPage,
+            itemsPerPage * page
+          )"
+          :key="nota_pedido.id"
+        >
+          <NotaDePedidoTableItem :nota_de_pedido="nota_pedido" :index="index" />
+        </div>
+        <!--[TABLE CONTENT]-->
+
+        <!--[PAGINATION]-->
+        <div class="tw-my-8">
+          <v-pagination
+            v-model="page"
+            color="black"
+            :length="Math.ceil(notas_de_pedido.length / itemsPerPage)"
+          ></v-pagination>
+        </div>
+        <!--[PAGINATION]-->
       </div>
       <!-- DESKTOP VIEW -->
 
@@ -104,6 +99,16 @@
           <NotaDePedidoTableItem :nota_de_pedido="nota_pedido" :index="index" />
         </div>
         <!--[TABLE CONTENT]-->
+        
+        <!--[PAGINATION]-->
+        <div class="tw-my-8">
+          <v-pagination
+            v-model="page"
+            color="black"
+            :length="Math.ceil(notas_de_pedido.length / itemsPerPage)"
+          ></v-pagination>
+        </div>
+        <!--[PAGINATION]-->
       </div>
       <!-- MOBILE VIEW -->
     </div>
@@ -121,6 +126,7 @@ import NotaDePedidoTableItem from "@/components/utils/table_items/NotaDePedidoTa
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
+  middleware: ["auth"],
   components: {
     CardNewSolicitud,
     NotaDePedidoTableItem,

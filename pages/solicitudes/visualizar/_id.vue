@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-p-24 tw-px-64 tw-h-full">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-64">
     <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-h-full">
       <!-- MEMBRETE -->
       <MembreteSuperiorPdf
@@ -40,6 +40,7 @@ import DatosProveedor from "@/components/reusable/visualizacion_documentos/Datos
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 
 export default {
+  middleware: ["auth"],
   components: {
     MembreteSuperiorPdf,
     DatosProveedor,

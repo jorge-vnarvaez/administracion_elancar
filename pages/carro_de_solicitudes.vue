@@ -205,6 +205,7 @@ import DatosProveedor from "@/components/reusable/visualizacion_documentos/Datos
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 
 export default {
+  middleware: ["auth"],
   components: {
     IconoBorrar,
     IconoEmitir,

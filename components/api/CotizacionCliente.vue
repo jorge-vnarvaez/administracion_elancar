@@ -17,7 +17,7 @@
         <!-- DATOS CLIENTE -->
         <DatosCliente
           :cliente="cotizacion_cliente.cliente"
-          class="tw-col-span-5"
+          class="tw-col-span-12"
         />
         <!-- DATOS CLIENTE -->
 
