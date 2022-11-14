@@ -61,11 +61,11 @@ export default {
           route_name: "solicitudes",
           label: "Solicitudes de Cotización",
         },
-        {
-          id: 3,
-          route_name: "ordenes-crear",
-          label: "Emitir orden de compra",
-        },
+        // {
+        //   id: 3,
+        //   route_name: "ordenes-crear",
+        //   label: "Emitir orden de compra",
+        // },
         {
           id: 4,
           route_name: "ordenes",

@@ -46,5 +46,8 @@ export default {
     },
     getMetodoDePago(state) {
         return state.metodoDePago
+    },
+    getCondicionDeVenta(state) {
+        return state.condicionesDeVenta
     }
 }

@@ -21,13 +21,6 @@
         />
         <!-- DATOS CLIENTE -->
 
-        <!-- DATOS ENVIO  -->
-        <!-- <DatosEnvio
-          :cliente="nota_pedido.cliente"
-          class="tw-col-span-12 lg:tw-col-span-7"
-        /> -->
-        <!-- DATOS ENVIO  -->
-
         <!-- TABLA PRODUCTOS -->
         <TablaProductos
           :labels="labels"
@@ -35,6 +28,7 @@
           nota_de_pedido
           class="tw-col-span-12"
           con_detalle
+          visualizando
         />
         <!-- TABLA PRODUCTOS -->
       </div>

@@ -20,7 +20,7 @@
       <!-- DATOS RECEPTOR -->
     </div>
 
-    <div class="lg:tw-col-span-6 tw-col-span-12">
+    <div class="lg:tw-col-span-3 tw-col-span-12">
       <span class="tw-block tw-font-bold">Dirección</span>
       <div>
         <span>{{ proveedor.casa_matriz.calle }}</span>
@@ -30,7 +30,13 @@
       <div>
         <span>{{ proveedor.casa_matriz.region }}</span>
       </div>
+    </div>
 
+    <div class="tw-col-span-3">
+      <span class="tw-block tw-font-bold">Método de pago</span>
+      <div>
+        <span>{{ metodo_de_pago }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +54,11 @@ export default {
       type: [Object],
       default: () => {},
       desc: "Objeto con los datos del receptor",
+    },
+    metodo_de_pago: {
+      type: String,
+      default: "",
+      desc: "Método de pago",
     },
   },
 };

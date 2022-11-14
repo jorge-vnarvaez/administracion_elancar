@@ -4,7 +4,7 @@
       v-model="condicionVenta"
       :items="condiciones_de_venta"
       :item-text="(condicionVenta) => condicionVenta.nombre"
-      :item-value="(condicionVenta) => condicionVenta.id"
+      :item-value="(condicionVenta) => condicionVenta"
       placeholder="Seleccione una condicion de venta"
       flat
       solo
@@ -25,6 +25,11 @@ export default {
       ],
       condicionVenta: null,
     };
+  },
+  watch: {
+    condicionVenta: function (val) {
+      this.$store.dispatch("carro_solicitudes/setCondicionesDeVenta", val);
+    },
   },
 };
 </script>

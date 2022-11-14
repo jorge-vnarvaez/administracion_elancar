@@ -2,9 +2,9 @@
   <v-btn
     color="red darken-1"
     class="ma-2 white--text"
+    outlined
   >
-    Borrar
-    <v-icon right dark>mdi-delete-forever-outline</v-icon>
+    <v-icon dark>mdi-delete-forever-outline</v-icon>
   </v-btn>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
   <div class="tw-mt-1 tw-flex tw-flex-col tw-justify-between tw-text-xs">
-    <!-- START DESKTOP VIEW -->
+    <!--  DESKTOP VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? false : true">
       <span class="tw-block tw-mb-2 tw-font-bold tw-text-2xl">Detalle</span>
 
       <!-- TABLE HEADERS -->
-      <div class="tw-grid tw-grid-cols-12">
+      <div class="tw-grid tw-grid-cols-12 tw-gap-x-4">
         <div
           v-for="(item, index) in labels"
           :key="index"
@@ -17,14 +17,14 @@
       <!-- TABLE HEADERS -->
 
       <!-- V-DIVIDER -->
-      <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-1"></div>
+      <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-2"></div>
       <!-- V-DIVIDER -->
 
       <!-- TABLE BODY -->
       <div
         v-for="(item, index) in productos"
         :key="index"
-        class="tw-my-1 tw-grid tw-grid-cols-12"
+        class="tw-my-2 tw-grid tw-grid-cols-12 tw-gap-x-4"
       >
         <!-- NOMBRE PRODUCTO -->
         <span :class="col_span_table(0) + ' tw-flex align-center'">{{
@@ -34,33 +34,33 @@
 
         <!-- CANTIDAD -->
         <span
-          v-if="visualizando == false"
-          :class="col_span_table(1) + ' tw-font-bold'"
+          v-if="visualizando"
+          :class="col_span_table(1) + ' tw-font-bold tw-flex align-center'"
           >{{ item.cantidad }}</span
         >
 
-        <div v-if="visualizando" :class="col_span_table(1)">
+        <div v-if="visualizando == false" :class="col_span_table(1)">
           <CantidadProductos :item="item" :cart_type="cart_type" />
         </div>
         <!-- CANTIDAD -->
 
         <!-- PRECIO UNITARIO -->
-        <span :class="col_span_table(2) + ' tw-flex align-center'">{{
+        <span  :class="col_span_table(2) + ' tw-flex align-center'">{{
           cotizacion_proveedor
             ? "$.-"
             : $formatearPrecio(
-                con_detalle ? item.productos_id.precio : item.precio
+               orden_de_compra ?  item.precio_compra : con_detalle ? item.productos_id.precio : item.precio
               )
         }}</span>
         <!-- PRECIO UNITARIO -->
 
         <!-- PRECIO TOTAL -->
-        <span :class="col_span_table(3) + ' tw-flex align-center '">{{
+        <span  :class="col_span_table(3) + ' tw-flex align-center '">{{
           cotizacion_proveedor
             ? "$.-"
             : $formatearPrecio(
                 item.cantidad *
-                  (con_detalle ? item.productos_id.precio : item.precio)
+                  (orden_de_compra ? item.precio_compra : con_detalle ? item.productos_id.precio : item.precio)
               )
         }}</span>
         <!-- PRECIO TOTAL -->
@@ -76,6 +76,7 @@
         <!-- TOTAL KG -->
       </div>
       <!-- TABLE BODY -->
+
       <!-- MEMBRETE INFERIOR -->
       <div class="tw-flex tw-justify-between align-center tw-mt-12">
         <div v-if="cotizacion_cliente"><MembreteInferiorPdf /></div>
@@ -94,9 +95,9 @@
       <!-- MEMBRETE INFERIOR -->
     </div>
 
-    <!-- END DESKTOP VIEW -->
+    <!-- DESKTOP VIEW -->
 
-    <!-- START MOBILE VIEW -->
+    <!-- MOBILE VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? true : false">
       <span class="tw-block tw-mb-2 tw-font-bold tw-text-2xl">Detalle</span>
 
@@ -123,19 +124,19 @@
         class="tw-my-1 tw-grid tw-grid-cols-12"
       >
         <!-- NOMBRE PRODUCTO -->
-        <span :class="col_span_table(0) + ' tw-flex align-center'">{{
+        <span :class="col_span_table(0) + ' tw-flex align-center tw-truncate tw-mr-1'">{{
           con_detalle ? item.productos_id.nombre : item.nombre
         }}</span>
         <!-- NOMBRE PRODUCTO -->
 
         <!-- CANTIDAD -->
         <span
-          v-if="visualizando == false"
+          v-if="visualizando"
           :class="col_span_table(1) + ' tw-font-bold'"
           >{{ item.cantidad }}</span
         >
 
-        <div v-if="visualizando" :class="col_span_table(2)">
+        <div v-if="visualizando == false" :class="col_span_table(2)">
           <CantidadProductos :item="item" :cart_type="cart_type" />
         </div>
         <!-- CANTIDAD -->
@@ -162,6 +163,7 @@
         <!-- PRECIO TOTAL -->
       </div>
       <!-- TABLE BODY -->
+
       <!-- MEMBRETE INFERIOR -->
       <div class="tw-flex tw-flex-col align-center tw-mt-12">
         <!-- PLANTILLA PRECIO-->
@@ -179,8 +181,7 @@
       </div>
       <!-- MEMBRETE INFERIOR -->
     </div>
-
-    <!-- END MOBILE VIEW -->
+    <!-- MOBILE VIEW -->
   </div>
 </template>
 
@@ -244,20 +245,25 @@ export default {
     pdf: {
       type: Boolean,
       default: false,
-      desc: "Define si el documento esta en formato PDF",
+      desc: 'Define si el documento esta en formato PDF'
+    },
+    convirtiendo: {
+      type: Boolean,
+      default: false,
+      desc: 'Define si el documento se va a convertir a orden de compra'
     },
   },
   methods: {
     col_span_table(index) {
       switch (index) {
         case 0:
-          return "lg:tw-col-span-6 tw-col-span-4 tw-truncate tw-mr-1";
+          return "lg:tw-col-span-6 tw-col-span-4";
         case 1:
           return "lg:tw-col-span-1 tw-col-span-2";
         case 2:
           return "lg:tw-col-span-2 tw-col-span-3";
         case 3:
-          return "lg:tw-col-span-2 tw-col-span-3";
+          return "lg:tw-col-span-2 tw-col-span-2";
         case 4:
           return "tw-col-span-1";
         default:
@@ -284,16 +290,22 @@ export default {
   computed: {
     sub_total() {
       let total = 0;
-      if (this.con_detalle) {
-        this.productos.forEach((item) => {
-          total += item.cantidad * item.productos_id.precio;
-        });
-      } else {
+      if(this.con_detalle) {
+        if(this.orden_de_compra) {
+          this.productos.forEach((item) => {
+            total += item.cantidad * item.precio_compra;
+          });
+        } else {
+          this.productos.forEach((item) => {
+            total += item.cantidad * item.productos_id.precio;
+          });
+        }
+      } else if(!this.con_detalle) {
         this.productos.forEach((item) => {
           total += item.cantidad * item.precio;
         });
-      }
-
+      } 
+     
       return this.cotizacion_proveedor ? 0 : total;
     },
     total_kg() {

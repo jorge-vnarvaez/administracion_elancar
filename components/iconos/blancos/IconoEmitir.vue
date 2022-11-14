@@ -1,10 +1,9 @@
 <template>
   <v-btn
-    color="green darken-1"
+    color="black"
     class="ma-2 white--text"
   >
     Emitir
-    <v-icon right dark>mdi-share-all-outline</v-icon>
   </v-btn>
 </template>
 

@@ -4,43 +4,6 @@
       <div
         class="tw-w-full tw-align-center tw-flex tw-justify-end tw-space-x-2"
       >
-        <!-- ICONO BORRAR Y DIALOG -->
-        <div
-          @click="dialog_borrar = true"
-        >
-          <v-dialog v-model="dialog_borrar" max-width="290">
-            <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
-              <v-card-text class="tw-text-center tw-text-2xl">
-                ¿Está seguro/a que desea borrar la nota de pedido actual?
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-
-                <v-btn
-                  depressed
-                  color="black"
-                  class="tw-text-white"
-                  @click="borrarDocumento"
-                >
-                  Si, borrar
-                </v-btn>
-
-                <v-btn
-                  depressed
-                  color="yellow darken-1"
-                  class="tw-text-neutral-900"
-                  @click="dialog_borrar = false"
-                >
-                  No, cancelar
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <IconoBorrar />
-        </div>
-        <!-- ICONO BORRAR Y DIALOG -->
-
         <!-- ICONO GUARDAR Y DIALOG -->
         <div
           @click="dialog_guardar = true"
@@ -77,6 +40,43 @@
           <IconoGuardar />
         </div>
         <!-- ICONO GUARDAR Y DIALOG -->
+
+         <!-- ICONO BORRAR Y DIALOG -->
+        <div
+          @click="dialog_borrar = true"
+        >
+          <v-dialog v-model="dialog_borrar" max-width="290">
+            <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
+              <v-card-text class="tw-text-center tw-text-2xl">
+                ¿Está seguro/a que desea borrar la nota de pedido actual?
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  depressed
+                  color="black"
+                  class="tw-text-white"
+                  @click="borrarDocumento"
+                >
+                  Si, borrar
+                </v-btn>
+
+                <v-btn
+                  depressed
+                  color="yellow darken-1"
+                  class="tw-text-neutral-900"
+                  @click="dialog_borrar = false"
+                >
+                  No, cancelar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <IconoBorrar />
+        </div>
+        <!-- ICONO BORRAR Y DIALOG -->
       </div>
       <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-mt-8">
         <!-- MEMBRETE -->

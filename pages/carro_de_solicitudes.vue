@@ -1,14 +1,46 @@
 <template>
   <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48">
     <div v-if="carro.length > 0">
-      {{ metodo_de_pago }}
       <div
         class="tw-w-full tw-align-center tw-flex tw-justify-end tw-space-x-3"
       >
+        <!-- ICONO EMITIR Y DIALOG -->
+        <div @click="dialog_emitir = true">
+          <v-dialog v-model="dialog_emitir" max-width="310">
+            <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
+              <v-card-text class="tw-text-center tw-text-2xl">
+                ¿Está seguro/a que desea emitir la cotización actual?
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  depressed
+                  color="black"
+                  class="tw-text-white"
+                  @click="guardarDocumento"
+                >
+                  Si, Emitir
+                </v-btn>
+
+                <v-btn
+                  depressed
+                  color="yellow darken-1"
+                  class="tw-text-neutral-900"
+                  @click="dialog_emitir = false"
+                >
+                  No, Cancelar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <IconoEmitir />
+        </div>
+        <!-- ICONO EMITIR Y DIALOG -->
+
         <!-- ICONO BORRAR Y DIALOG -->
-        <!-- <div
-          @click="dialog_borrar = true"
-        >
+        <div @click="dialog_borrar = true">
           <v-dialog v-model="dialog_borrar" max-width="290">
             <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
               <v-card-text class="tw-text-center tw-text-2xl">
@@ -39,45 +71,8 @@
             </v-card>
           </v-dialog>
           <IconoBorrar />
-        </div> -->
-        <!-- ICONO BORRAR Y DIALOG -->
-        
-        <!-- ICONO EMITIR Y DIALOG -->
-        <div
-          @click="dialog_emitir = true"
-        >
-          <v-dialog v-model="dialog_emitir" max-width="310">
-            <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
-              <v-card-text class="tw-text-center tw-text-2xl">
-                ¿Está seguro/a que desea emitir la cotización actual?
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-
-                <v-btn
-                  depressed
-                  color="black"
-                  class="tw-text-white"
-                  @click="guardarDocumento"
-                >
-                  Si, Emitir
-                </v-btn>
-
-                <v-btn
-                  depressed
-                  color="yellow darken-1"
-                  class="tw-text-neutral-900"
-                  @click="dialog_emitir = false"
-                >
-                  No, volver
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <IconoEmitir />
         </div>
-        <!-- ICONO EMITIR Y DIALOG -->
+        <!-- ICONO BORRAR Y DIALOG -->
       </div>
 
       <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-mt-8">
@@ -149,7 +144,10 @@
               <FormasDePago />
             </div>
 
-            <div class="tw-col-span-3">
+            <div
+              v-if="metodo_de_pago && metodo_de_pago.nombre == 'Cheque'"
+              class="tw-col-span-3"
+            >
               <span class="tw-block tw-font-bold">Condiciones de venta</span>
               <CondicionesDeVenta />
             </div>
@@ -169,6 +167,28 @@
         </div>
       </div>
     </div>
+
+    <!-- ALERTA BORRADO EXITOSO -->
+    <div
+      v-if="documento_borrado"
+      class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col"
+    >
+      <v-img
+        src="/deleting_document.png"
+        width="500"
+        height="420"
+        contain
+      ></v-img>
+      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
+        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
+          >El documento se ha borrado exitosamente, serás redirigido al menu de
+          solicitudes en {{ contador }} segundos...</span
+        >
+
+        <v-progress-circular indeterminate color="black"></v-progress-circular>
+      </div>
+    </div>
+    <!-- ALERTA BORRADO EXITOSO -->
 
     <!-- ALERTA GUARDADO EXITOSO -->
     <div
@@ -226,6 +246,23 @@ export default {
     };
   },
   methods: {
+    borrarDocumento() {
+      this.documento_borrado = true;
+      this.dialog_borrar = false;
+
+      this.$store.dispatch("carro_solicitudes/borrarCarro");
+      setInterval(() => {
+        this.contador--;
+        if (this.contador === 0) {
+          this.documento_borrado = false;
+          this.contador = 7;
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        this.$router.push("/solicitudes/crear");
+      }, 7000);
+    },
     async guardarDocumento() {
       this.documento_emitido = true;
       this.dialog_emitir = false;
@@ -236,7 +273,8 @@ export default {
           usuario_emisor: this.$cookies.get("user_id"),
           fecha_emision: this.fecha_actual,
           hora_emision: this.hora_actual,
-          forma_de_pago: this.$store.getters['carro_solicitudes/getMetodoDePago'],
+          forma_de_pago:
+            this.$store.getters["carro_solicitudes/getMetodoDePago"].nombre,
           proveedor: this.proveedorActual.id,
           receptor: this.receptorActual.id,
           empresa: this.empresa.id,
@@ -249,7 +287,7 @@ export default {
         }
       );
 
-      this.$store.dispatch('carro_solicitudes/borrarCarro');
+      this.$store.dispatch("carro_solicitudes/borrarCarro");
 
       setInterval(() => {
         this.contador--;
@@ -285,7 +323,10 @@ export default {
     },
     metodo_de_pago() {
       return this.$store.getters["carro_solicitudes/getMetodoDePago"];
-    },  
+    },
+    condicion_de_venta() {
+      return this.$store.getters["carro_solicitudes/getCondicionDeVenta"];
+    },
     empresa() {
       return this.$store.getters["sucursal/getSucursal"];
     },

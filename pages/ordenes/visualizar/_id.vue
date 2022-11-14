@@ -15,7 +15,11 @@
 
       <div class="lg:tw-grid lg:tw-grid-cols-12">
         <!-- DATOS CLIENTE -->
-        <DatosProveedor :proveedor="orden_de_compra.proveedor" class="tw-col-span-5" />
+        <DatosProveedor
+          :proveedor="orden_de_compra.proveedor"
+          :metodo_de_pago="orden_de_compra.forma_de_pago"
+          class="tw-col-span-12"
+        />
         <!-- DATOS CLIENTE -->
 
         <!-- DATOS ENVIO :datos_envio="orden_de_compra.datos_envio"-->
@@ -28,7 +32,8 @@
           :productos="detalleDocumento"
           class="tw-col-span-12"
           orden_de_compra
-          
+          con_detalle
+          visualizando
         />
         <!-- TABLA PRODUCTOS -->
       </div>
@@ -37,7 +42,6 @@
 </template>
 
 <script>
-
 import qs from "qs";
 import DatosProveedor from "@/components/reusable/visualizacion_documentos/DatosProveedor.vue";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
@@ -61,7 +65,14 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "proveedor.*", "detalle.*.*", "empresa.*.*"],
+      fields: [
+        "id",
+        "fecha_emision",
+        "forma_de_pago",
+        "proveedor.*.*",
+        "detalle.*.*",
+        "empresa.*.*",
+      ],
     });
     const id = context.params.id;
     const { data } = await context.$axios
@@ -73,12 +84,12 @@ export default {
   },
   methods: {
     getDetalle() {
-        this.detalleDocumento = this.orden_de_compra.detalle.map((item) => {
-          return {
-            ...item,
-            cantidad: item.cantidad,
-          };
-        });
+      this.detalleDocumento = this.orden_de_compra.detalle.map((item) => {
+        return {
+          ...item,
+          cantidad: item.cantidad,
+        };
+      });
     },
   },
 };

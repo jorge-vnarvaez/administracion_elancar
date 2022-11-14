@@ -43,18 +43,16 @@ export default {
           id: 6,
           nombre: "Crédito",
         },
-        { id: 7, nombre: "Cheque a 30 días" },
-        { id: 8, nombre: "Cheque a 60 días" },
-        { id: 9, nombre: "Cheque a 90 días" },
+        { id: 7, nombre: "Cheque" },
       ],
       formaPago: null,
     };
   },
   watch: {
     formaPago: function (val) {
-      this.$store.dispatch('carro_solicitudes/setMetodoDePago', val);
+      this.$store.dispatch("carro_solicitudes/setMetodoDePago", val);
     },
-  }
+  },
 };
 </script>
 

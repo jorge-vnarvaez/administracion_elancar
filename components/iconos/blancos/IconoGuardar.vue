@@ -1,10 +1,9 @@
 <template>
   <v-btn
-    color="green darken-1"
+    color="black"
     class="ma-2 white--text"
   >
     Guardar
-    <v-icon right dark>mdi-content-save-outline</v-icon>
   </v-btn>
 </template>
 

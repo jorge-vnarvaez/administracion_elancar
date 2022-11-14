@@ -32,6 +32,7 @@
       </div>
       <!--[BUSCADOR]-->
     </div>
+
     <div v-if="solicitud_cotizaciones.length > 0">
       <!-- DESKTOP VIEW -->
       <div v-if="$vuetify.breakpoint.mobile ? false : true">
@@ -105,7 +106,6 @@
         </div>
         <!--[PAGINATION]-->
       </div>
-      <!-- MOBILE VIEW -->
     </div>
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
       <EmptyTable />
@@ -115,7 +115,7 @@
 
 <script>
 import qs from "qs";
-import IconoElancar from "@/components/reusable/IconoElancar.vue";
+import IconoElancar from "@/components/iconos/IconoElancar.vue";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import SolicitudDeCotizacionTableItem from "@/components/utils/table_items/SolicitudCotizacionTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";

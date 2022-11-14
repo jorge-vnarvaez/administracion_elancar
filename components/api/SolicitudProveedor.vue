@@ -1,0 +1,413 @@
+<template>
+  <div class="tw-p-24 tw-px-64">
+    <!-- INSTRUCTIVO -->
+    <div
+      v-if="documento_generado == false"
+      class="tw-bg-neutral-900 tw-text-white rounded-lg tw-px-8 tw-py-4 tw-w-full tw-mb-8"
+    >
+      <div class="tw-flex align-center tw-space-x-2">
+        <v-icon color="white" large>mdi-information-outline</v-icon>
+        <span class="tw-text-xl tw-uppercase tw-font-black">Atención</span>
+      </div>
+
+      <div>
+        <span class="tw-font-bold"
+          >Si te han aprobado una solicitud de cotización o deseas generar una
+          orden de compra teniendo en cuenta la cantidad que haz solicitado.
+        </span>
+
+        <span class="tw-block tw-mt-4"> Ten en cuenta lo siguiente </span>
+
+        <div class="tw-mt-4">
+          <span class="tw-block">
+            1. Si deseas generar una orden de compra, verifica que la cantidad
+            de productos que haz solicitado esten correctos.
+          </span>
+          <span class="tw-block">
+            2. Si deseas generar una orden de compra, debes tener en cuenta los
+            precios de la solicitud de cotización enviados por el proveedor.
+          </span>
+
+          <v-btn
+            v-if="convirtiendo == false"
+            class="tw-mt-8"
+            color="white"
+            outlined
+            @click="convirtiendo = !convirtiendo"
+          >
+            Convertir a orden de compra
+          </v-btn>
+
+          <v-btn
+            v-if="convirtiendo"
+            class="tw-mt-8"
+            color="white"
+            outlined
+            :disabled="!prices_setted"
+            @click="dialogo_generar = true"
+          >
+            Generar orden de compra
+          </v-btn>
+        </div>
+      </div>
+    </div>
+    <!-- INSTRUCTIVO -->
+
+    <!-- ICONO CONVERTIR Y DIALOG -->
+    <v-dialog v-model="dialogo_generar" max-width="310">
+      <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
+        <v-card-text class="tw-text-center tw-text-2xl">
+          ¿Está seguro/a que desea generar la orden de compra?
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            depressed
+            color="black"
+            class="tw-text-white"
+            @click="generarOrden"
+          >
+            Si, Generar
+          </v-btn>
+
+          <v-btn
+            depressed
+            color="yellow darken-1"
+            class="tw-text-neutral-900"
+            @click="dialogo_generar = false"
+          >
+            No, Cancelar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- ICONO CONVERTIR Y DIALOG -->
+
+    <div v-if="documento_generado == false">
+      <!-- INFORMACION DE LA SOLICITUD -->
+      <div
+        v-if="convirtiendo == false"
+        class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-h-full"
+      >
+        <!-- MEMBRETE -->
+        <MembreteSuperiorPdf
+          tipoDocumento="Solicitud de cotización"
+          :fecha_emision="cotizacion_proveedor.fecha_emision"
+          :infoDocumento="cotizacion_proveedor"
+        />
+        <!-- MEMBRETE -->
+
+        <!--V-DIVIDER-->
+        <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
+        <!--V-DIVIDER-->
+
+        <div class="tw-grid tw-grid-cols-12">
+          <!-- DATOS PROVEEDOR -->
+          <DatosProveedor
+            v-if="cotizacion_proveedor.proveedor"
+            :proveedor="cotizacion_proveedor.proveedor"
+            :receptor="cotizacion_proveedor.receptor"
+            :metodo_de_pago="cotizacion_proveedor.forma_de_pago"
+            class="tw-col-span-12"
+          />
+          <!-- DATOS PROVEEDOR -->
+
+          <!-- TABLA PRODUCTOS -->
+          <TablaProductos
+            :labels="labels"
+            :productos="detalleDocumento"
+            cotizacion_proveedor
+            class="tw-col-span-12"
+            visualizando
+            convirtiendo
+            con_detalle
+          />
+          <!-- TABLA PRODUCTOS -->
+        </div>
+      </div>
+      <!-- INFORMACION DE LA SOLICITUD -->
+
+      <!-- INFORMACION PRE ORDEN DE COMPRA -->
+      <div
+        v-if="convirtiendo"
+        class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-h-full"
+      >
+        <MembreteSuperiorPdf
+          tipoDocumento="Solicitud de cotización"
+          :fecha_emision="cotizacion_proveedor.fecha_emision"
+          :infoDocumento="cotizacion_proveedor"
+        />
+
+        <!--V-DIVIDER-->
+        <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
+        <!--V-DIVIDER-->
+
+        <div class="tw-grid tw-grid-cols-12">
+          <!-- DATOS PROVEEDOR -->
+          <DatosProveedor
+            :proveedor="cotizacion_proveedor.proveedor"
+            :receptor="cotizacion_proveedor.receptor"
+            :metodo_de_pago="cotizacion_proveedor.forma_de_pago"
+            class="tw-col-span-12"
+          />
+          <!-- DATOS PROVEEDOR -->
+
+          <!-- TABLA PRODUCTOS -->
+          <div
+            class="tw-mt-1 tw-flex tw-flex-col tw-justify-between tw-text-xs tw-col-span-12"
+          >
+            <!-- DESKTOP VIEW -->
+            <div v-if="$vuetify.breakpoint.mobile ? false : true">
+              <span class="tw-block tw-mb-2 tw-font-bold tw-text-2xl"
+                >Detalle</span
+              >
+              <span class="tw-text-lg"
+                >Verifica que la cantidad de los productos sea la que haz
+                solicitado e ingresa el precio de cada producto en la columna de
+                precio unitario.</span
+              >
+
+              <!-- TABLE HEADERS -->
+              <div class="tw-grid tw-grid-cols-12 tw-mt-8 tw-mb-4">
+                <div class="tw-col-span-6 lg:tw-col-span-6">
+                  <span class="tw-font-bold">Nombre</span>
+                </div>
+
+                <div class="tw-col-span-6 lg:tw-col-span-1">
+                  <span class="tw-font-bold">Cantidad</span>
+                </div>
+
+                <div class="tw-col-span-6 lg:tw-col-span-2">
+                  <span class="tw-font-bold">Precio uni</span>
+                </div>
+
+                <div class="tw-col-span-6 lg:tw-col-span-3">
+                  <span class="tw-font-bold">Precio total</span>
+                </div>
+
+                <div class="tw-col-span-6 lg:tw-col-span-2"></div>
+              </div>
+              <!-- TABLE HEADERS -->
+
+              <!-- TABLE BODY -->
+              <div
+                v-for="(producto, index) in detalleDocumento"
+                :key="index"
+                class="tw-grid tw-grid-cols-12"
+              >
+                <!-- NOMBRE -->
+                <div
+                  :class="
+                    `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+                    ' tw-col-span-6 lg:tw-col-span-6 tw-py-4'
+                  "
+                >
+                  {{ producto.productos_id.nombre }}
+                </div>
+                <!-- NOMBRE -->
+
+                <!-- CANTIDAD -->
+                <div
+                  :class="
+                    `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+                    ' tw-col-span-6 lg:tw-col-span-1 tw-py-1 tw-flex align-center'
+                  "
+                >
+                  {{ producto.cantidad }}
+                </div>
+                <!-- CANTIDAD -->
+
+                <!-- PRECIO UNITARIO -->
+                <div
+                  :key="index"
+                  :class="
+                    `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+                    ' tw-col-span-6 lg:tw-col-span-5 tw-py-1'
+                  "
+                >
+                  <PrecioUnitario
+                    :item="producto"
+                    :detalle_documento="detalleDocumento"
+                  />
+                </div>
+
+                <!-- PRECIO UNITARIO -->
+              </div>
+            </div>
+          </div>
+
+          <!-- MEMBRETE INFERIOR -->
+          <div
+            class="tw-flex tw-justify-between align-center tw-mt-12 tw-w-full tw-col-span-12"
+          >
+            <!-- PLANTILLA PRECIO-->
+            <div class="tw-flex tw-justify-end tw-w-full">
+              <PlantillaPrecio
+                :total_kg="0"
+                :sub_total="120"
+                :transporte="0"
+                :total="total"
+                cotizacion_proveedor
+              />
+            </div>
+            <!-- PLANTILLA PRECIO-->
+          </div>
+          <!-- MEMBRETE INFERIOR -->
+          <!-- TABLA PRODUCTOS -->
+        </div>
+      </div>
+      <!-- INFORMACION PRE ORDEN DE COMPRA -->
+    </div>
+
+    <!-- ALERTA GUARDADO EXITOSO -->
+    <div
+      v-if="documento_generado"
+      class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col"
+    >
+      <v-img
+        src="/solicitud_emitida.png"
+        width="500"
+        height="420"
+        contain
+      ></v-img>
+      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
+        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
+          >El documento se ha emitido exitosamente, serás redirigido a la orden
+          de compra generada en {{ contador }} segundos...</span
+        >
+
+        <v-progress-circular indeterminate color="black"></v-progress-circular>
+      </div>
+    </div>
+    <!-- ALERTA GUARDADO EXITOSO -->
+  </div>
+</template>
+
+<script>
+import qs from "qs";
+import IconoEmitir from "@/components/iconos/blancos/IconoEmitir";
+import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
+import DatosProveedor from "@/components/reusable/visualizacion_documentos/DatosProveedor.vue";
+import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
+import PrecioUnitario from "@/components/utils/PrecioUnitario.vue";
+import PlantillaPrecio from "@/components/reusable/visualizacion_documentos/PlantillaPrecio.vue";
+
+export default {
+  props: {
+    id: {
+      type: [Number, String],
+      required: true,
+    },
+  },
+  components: {
+    IconoEmitir,
+    MembreteSuperiorPdf,
+    DatosProveedor,
+    TablaProductos,
+    PrecioUnitario,
+    PlantillaPrecio,
+  },
+  data() {
+    return {
+      cotizacion_proveedor: {},
+      detalleDocumento: [],
+      labels: ["Productos", "Cantidad", "Precio por unidad", "Total"],
+      dialogo_generar: false,
+      documento_generado: false,
+      convirtiendo: false,
+      contador: 7,
+    };
+  },
+  async fetch() {
+    const query = qs.stringify({
+      fields: [
+        "id",
+        "fecha_emision",
+        "hora_emision",
+        "forma_de_pago",
+        "detalle.*.*",
+        "proveedor.*.*",
+        "receptor.*",
+        "empresa.*.*",
+      ],
+    });
+
+    const { data } = await fetch(
+      `${this.$config.apiUrl}/items/cotizaciones_proveedor/${this.id}?${query}`
+    ).then((res) => res.json());
+
+    this.cotizacion_proveedor = data;
+
+    this.getDetalle();
+  },
+  methods: {
+    getDetalle() {
+      this.detalleDocumento = this.cotizacion_proveedor.detalle.map((item) => {
+        return {
+          ...item,
+          cantidad: item.cantidad,
+        };
+      });
+
+      this.$store.dispatch(
+        "ordenes_de_compra/setDetalle",
+        this.detalleDocumento
+      );
+    },
+    async generarOrden() {
+      this.documento_generado = true;
+      this.dialogo_generar = false;
+
+      const data = await this.$axios
+        .post(`${this.$config.apiUrl}/items/ordenes_de_compra`, {
+          fecha_emision: this.cotizacion_proveedor.fecha_emision,
+          hora_emision: this.cotizacion_proveedor.hora_emision,
+          empresa: this.empresa.id,
+          proveedor: this.cotizacion_proveedor.proveedor.id,
+          forma_de_pago: this.cotizacion_proveedor.forma_de_pago,
+          detalle: this.$store.getters["ordenes_de_compra/getDetalle"],
+          monto_total: this.total,
+        })
+        .then((res) => res.data.data);
+
+      setInterval(() => {
+        this.contador--;
+        if (this.contador === 0) {
+          this.documento_generado = false;
+          this.contador = 7;
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        this.$router.push(`/ordenes/visualizar/${data.id}`);
+      }, 7000);
+    },
+  },
+  computed: {
+    fecha_actual() {
+      return moment();
+    },
+    proveedorActual() {
+      return this.$store.getters["carro_solicitudes/getCurrentProveedor"];
+    },
+    hora_actual() {
+      return moment().format("HH:mm");
+    },
+    empresa() {
+      return this.$store.getters["sucursal/getSucursal"];
+    },
+    prices_setted() {
+      return this.$store.getters["ordenes_de_compra/getPricesSetted"];
+    },
+    total() {
+      return this.prices_setted
+        ? this.$store.getters["ordenes_de_compra/getTotal"]
+        : 0;
+    },
+  },
+};
+</script>
+
+<style></style>

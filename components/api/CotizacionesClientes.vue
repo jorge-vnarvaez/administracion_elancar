@@ -122,7 +122,7 @@
 
 <script>
 import qs from "qs";
-import IconoElancar from "@/components/reusable/IconoElancar.vue";
+import IconoElancar from "@/components/iconos/IconoElancar.vue";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import CotizacionesClienteTableItem from "@/components/utils/table_items/CotizacionesClientesTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";

@@ -86,7 +86,7 @@
 
       <div
         v-else
-        class="tw-flex tw-flex-col tw-w-full tw-justify-center align-center tw-h-full"
+        class="tw-flex tw-flex-col tw-w-full tw-justify-center align-center tw-h-screen"
       >
         <div>
           <v-img src="/empty_cart.png" width="500" height="420" contain></v-img>
@@ -99,13 +99,13 @@
 
     <div v-if="$vuetify.breakpoint.mobile ? true : false">
       <div
-        class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48 tw-flex "
+        class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48 tw-flex"
         v-if="carro.length > 0"
       >
         <div class="tw-grid tw-grid-cols-12 tw-gap-x-8 tw-gap-y-4">
           <!-- CANTIDAD PRODUCTOS -->
           <div class="tw-col-span-12 tw-p-6 tw-bg-white">
-            <div class="tw-flex tw-space-x-2 ">
+            <div class="tw-flex tw-space-x-2">
               <v-icon>mdi-cart-outline</v-icon
               ><span
                 >Tu carro de compras con {{ numeroProductos }} productos</span

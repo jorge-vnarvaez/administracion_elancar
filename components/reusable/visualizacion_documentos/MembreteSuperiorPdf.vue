@@ -43,7 +43,7 @@
 <script>
 import moment from "moment";
 import DatosEmpresa from '@/components/reusable/visualizacion_documentos/DatosEmpresa.vue';
-import IconoElancar from "@/components/reusable/IconoElancar.vue";
+import IconoElancar from "@/components/iconos/IconoElancar.vue";
 import GrupoBotones from "@/components/reusable/visualizacion_documentos/GrupoBotones.vue";
 
 export default {

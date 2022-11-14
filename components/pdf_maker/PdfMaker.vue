@@ -51,6 +51,7 @@
               :cotizacion_proveedor="is_cotizacion_to_proveedor"
               :cotizacion_cliente="is_cotizacion_to_cliente"
               :orden_de_compra="is_orden_de_compra"
+              visualizando
               con_detalle
               pdf
             />

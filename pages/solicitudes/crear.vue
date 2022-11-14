@@ -37,16 +37,6 @@
       </div>
       <!--BUTTON ATRAS-->
 
-      <!--[PAGINATION]-->
-      <!-- <div class="tw-my-12" v-if="form != 3">
-        <v-pagination
-          v-model="page"
-          color="black"
-          :length="Math.ceil(length_items / itemsPerPage)"
-        ></v-pagination>
-      </div> -->
-      <!--[PAGINATION]-->
-
       <!--BUTTON CONTINUE-->
       <div class="tw-flex tw-justify-end tw-mt-12">
         <v-btn
@@ -63,7 +53,7 @@
 </template>
 
 <script>
-import IconoElancar from "@/components/reusable/IconoElancar.vue";
+import IconoElancar from "@/components/iconos/IconoElancar.vue";
 import FormProveedores from "@/components/forms/solicitudes/FormProveedores.vue";
 import FormReceptores from "@/components/forms/solicitudes/FormReceptores.vue";
 import FormProductos from "@/components/forms/solicitudes/FormProductos.vue";

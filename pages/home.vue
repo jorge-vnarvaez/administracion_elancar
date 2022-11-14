@@ -10,9 +10,7 @@
       <div class="tw-flex tw-flex-col">
         <span class="block tw-font-semibold tw-text-2xl">Bienvenido/a</span>
         <span>{{ usuario.first_name }} {{ usuario.last_name }}</span>
-        <v-chip color="black" label class="tw-text-white tw-mt-2 tw-p-2">
-          {{ usuario.role.name }}
-        </v-chip>
+       
       </div>
       <div class="tw-flex tw-flex-col text-right">
         <span class="block">{{ fecha_actual }}</span>

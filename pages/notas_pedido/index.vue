@@ -42,7 +42,6 @@
       <!-- DESKTOP VIEW -->
       <div v-if="$vuetify.breakpoint.mobile ? false : true">
         <!--TABLE HEADER-->
-
         <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
           <div class="tw-col-span-6 lg:tw-col-span-2">
             <span class="tw-font-bold">Codigo</span>

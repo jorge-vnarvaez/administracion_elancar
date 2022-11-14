@@ -2,7 +2,7 @@
   <v-app class="app">
     <BarraAppMobile v-if="$vuetify.breakpoint.mobile" />
     <BarraApp v-else class="tw-z-50" />
-    <Nuxt class="tw-bg-neutral-100 tw-h-full tw-z-20 tw-w-full" />
+    <Nuxt class="tw-z-20 tw-w-full tw-h-screen tw-bg-neutral-100 tw-overflow-auto" />
   </v-app>
 </template>
 
