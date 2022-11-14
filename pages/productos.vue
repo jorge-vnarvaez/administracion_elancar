@@ -1,7 +1,8 @@
 <template>
-  <div class="tw-p-24 tw-px-48 tw-h-full">
-    <div>
-      <div class="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between">
+  <div class="tw-p-8 lg:tw-p-24 lg:tw-px-48 tw-h-full">
+    <!-- START DESKTOP VIEW -->
+    <div v-if="$vuetify.breakpoint.mobile ? false : true">
+      <div class="tw-flex tw-flex-row tw-justify-between">
         <span class="tw-font-bold tw-text-2xl lg:tw-text-4xl"
           >Listado de productos</span
         >
@@ -28,15 +29,15 @@
         <div v-if="productos.length > 0">
           <!--[TABLE HEADERS]-->
           <div class="tw-grid tw-grid-cols-12 tw-mb-4 tw-px-4">
-            <div class="tw-col-span-6 lg:tw-col-span-5">
+            <div class="tw-col-span-5">
               <span class="tw-font-bold">Nombre</span>
             </div>
 
-            <div class="tw-col-span-6 lg:tw-col-span-2">
+            <div class="tw-col-span-2">
               <span class="tw-font-bold">Precio neto</span>
             </div>
 
-            <div class="tw-col-span-6 lg:tw-col-span-1">
+            <div class="tw-col-span-1">
               <span class="tw-font-bold">Stock</span>
             </div>
 
@@ -91,6 +92,78 @@
       </div>
       <!-- NO HAY PRODUCTOS -->
     </div>
+    <!-- END DESKTOP VIEW -->
+
+    <!-- START MOBILE VIEW -->
+    <div v-if="$vuetify.breakpoint.mobile ? true : false">
+      <div class="tw-flex tw-flex-col">
+        <span class="tw-font-bold tw-text-2xl">Listado de productos</span>
+        <!--[BUSCADOR]-->
+        <div>
+          <v-text-field
+            class="tw-w-96"
+            v-model="buscador"
+            placeholder="Buscar producto por nombre, código o descripción"
+            append-icon="mdi-magnify"
+            solo
+            flat
+            clearable
+            @click:clear="buscador = []"
+          ></v-text-field>
+        </div>
+        <!--[BUSCADOR]-->
+      </div>
+
+      <div v-if="!loading_productos">
+        <!-- FILTRO PRODUCTOS -->
+        <FiltroProductos />
+        <!-- FILTRO PRODUCTOS -->
+        <div v-if="productos.length > 0">
+          
+          <!--[TABLE CONTENT]-->
+          <div
+            v-for="(producto, index) in productos.slice(
+              itemsPerPage * page - itemsPerPage,
+              itemsPerPage * page
+            )"
+            :key="producto.id"
+          >
+            <producto-table-item
+              class="tw-flex align-center"
+              :producto="producto"
+              :index="index"
+              :key="producto.id"
+            />
+          </div>
+          <!--[TABLE CONTENT]-->
+
+          <!--[PAGINATION]-->
+          <div class="tw-my-8">
+            <v-pagination
+              v-model="page"
+              color="black"
+              :length="Math.ceil(productos.length / itemsPerPage)"
+              total-visible="7"
+            ></v-pagination>
+          </div>
+          <!--[PAGINATION]-->
+        </div>
+      </div>
+
+      <div v-if="loading_productos">
+        <ProductosListSkeleton />
+      </div>
+
+      <!-- NO HAY PRODUCTOS -->
+      <div
+        v-if="productos.length == 0 && !loading_productos"
+        class="tw-py-12 tw-text-2xl tw-font-bold"
+      >
+        <EmptyTable />
+      </div>
+      <!-- NO HAY PRODUCTOS -->
+    </div>
+    <!-- END MOBILE VIEW -->
   </div>
 </template>
 
@@ -141,13 +214,11 @@ export default {
 
       this.$cookies.set("query_buscador", query);
 
-      if(query.length > 0) {
+      if (query.length > 0) {
         this.filterProductos(query);
       } else {
-        this.$store.dispatch('productos/loadProductos');
+        this.$store.dispatch("productos/loadProductos");
       }
-     
-
     },
   },
   computed: {

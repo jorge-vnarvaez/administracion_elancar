@@ -1,7 +1,7 @@
 <template>
   <div class="tw-mb-8 tw-flex tw-flex-col">
     <!-- FILTROS -->
-    <div class="tw-flex tw-space-x-4">
+    <div class="tw-flex tw-flex-col lg:tw-flex-row lg:tw-space-x-4">
       <!--ORDENAR POR -->
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -13,6 +13,7 @@
             dark
             v-bind="attrs"
             v-on="on"
+            class="tw-mb-4"
           >
             <span class="tw-normal-case">Ordenar</span>
             <v-icon v-if="on">mdi-chevron-down</v-icon>
@@ -44,6 +45,7 @@
             dark
             v-bind="attrs"
             v-on="on"
+            class="tw-mb-4"
           >
             <span class="tw-normal-case">Rango de precios</span>
             <v-icon v-if="on">mdi-chevron-down</v-icon>
@@ -75,6 +77,7 @@
             dark
             v-bind="attrs"
             v-on="on"
+            class="tw-mb-4"
           >
             <span class="tw-normal-case">Material</span>
             <v-icon v-if="on">mdi-chevron-down</v-icon>
@@ -106,6 +109,7 @@
             v-for="filter in active_filters"
             :key="filter.title"
             close
+            class="lg:tw-mb-0 tw-mb-2"
             @click:close="removeFilter(filter)"
           >
             {{ filter.title }}

@@ -1,6 +1,6 @@
 <template>
-  <div class="tw-p-24 tw-px-64" v-if="solicitud_cotizaciones != null">
-    <div class="tw-flex tw-justify-between">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48">
+    <div class="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between">
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
         <!--LOGO-->
@@ -33,45 +33,79 @@
       <!--[BUSCADOR]-->
     </div>
     <div v-if="solicitud_cotizaciones.length > 0">
-      <!--TABLE HEADER-->
+      <!-- DESKTOP VIEW -->
+      <div v-if="$vuetify.breakpoint.mobile ? false : true">
+        <!--TABLE HEADER-->
 
-      <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
-        <div class="tw-col-span-6 lg:tw-col-span-2">
-          <span class="tw-font-bold">Codigo</span>
+        <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Codigo</span>
+          </div>
+
+          <div class="tw-col-span-6 lg:tw-col-span-6">
+            <span class="tw-font-bold">Fecha</span>
+          </div>
+
+          <div class="tw-col-span-6 lg:tw-col-span-4">
+            <span class="tw-font-bold">Ver o Descargar</span>
+          </div>
+        </div>
+        <!--TABLE HEADER-->
+
+        <!--[TABLE CONTENT]-->
+
+        <div
+          v-for="(cotizacion, index) in solicitud_cotizaciones.slice(
+            itemsPerPage * page - itemsPerPage,
+            itemsPerPage * page
+          )"
+          :key="cotizacion.id"
+        >
+          <SolicitudDeCotizacionTableItem
+            :solicitud_de_cotizacion="cotizacion"
+            :index="index"
+          />
         </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-6">
-          <span class="tw-font-bold">Fecha</span>
+        <!--[TABLE CONTENT]-->
+
+        <!--[PAGINATION]-->
+        <div class="tw-my-8" v-if="solicitud_cotizaciones.length > 0">
+          <v-pagination
+            v-model="page"
+            color="black"
+            :length="Math.round(pages)"
+          ></v-pagination>
         </div>
+        <!--[PAGINATION]-->
+      </div>
+      <!-- DESKTOP VIEW -->
 
-        <div class="tw-col-span-6 lg:tw-col-span-4">
-          <span class="tw-font-bold">Ver o Descargar</span>
+      <!-- MOBILE VIEW -->
+      <div v-if="$vuetify.breakpoint.mobile ? true : false">
+        <!--[TABLE CONTENT]-->
+        <div
+          v-for="(solicitud_cotizacion, index) in solicitud_cotizaciones.slice(
+            itemsPerPage * page - itemsPerPage,
+            itemsPerPage * page
+          )"
+          :key="solicitud_cotizacion.id"
+        >
+          <SolicitudDeCotizacionTableItem :solicitud_de_cotizacion="solicitud_cotizacion" :index="index" />
         </div>
+        <!--[TABLE CONTENT]-->
+
+        <!--[PAGINATION]-->
+        <div class="tw-my-8" v-if="solicitud_cotizaciones.length > 0">
+          <v-pagination
+            v-model="page"
+            color="black"
+            :length="Math.round(pages)"
+          ></v-pagination>
+        </div>
+        <!--[PAGINATION]-->
       </div>
-      <!--TABLE HEADER-->
-
-      <!--[TABLE CONTENT]-->
-
-      <div
-        v-for="(cotizacion, index) in solicitud_cotizaciones.slice(
-          itemsPerPage * page - itemsPerPage,
-          itemsPerPage * page
-        )"
-        :key="cotizacion.id"
-      >
-        <SolicitudDeCotizacionTableItem
-          :solicitud_de_cotizacion="cotizacion"
-          :index="index"
-        />
-      </div>
-
-      <!--[TABLE CONTENT]-->
-
-      <!--[PAGINATION]-->
-      <div class="tw-my-8" v-if="solicitud_cotizaciones.length > 0">
-        <v-pagination v-model="page" :length="Math.round(pages)"></v-pagination>
-      </div>
-      <!--[PAGINATION]-->
+      <!-- MOBILE VIEW -->
     </div>
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
       <EmptyTable />
@@ -87,6 +121,7 @@ import SolicitudDeCotizacionTableItem from "@/components/utils/table_items/Solic
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
+  middleware: ["auth"],
   components: {
     IconoElancar,
     CardNewSolicitud,
@@ -134,7 +169,8 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      sort: "fecha_emision"
+      sort: "fecha_emision",
+      fields: ["*.*.*"],
     });
 
     const solicitud_cotizaciones = await context.$axios

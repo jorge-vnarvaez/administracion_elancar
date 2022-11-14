@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-p-24 tw-px-64 tw-h-full">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-64">
     <div class="tw-flex tw-flex-col tw-bg-white tw-p-8 tw-h-full">
       <!-- MEMBRETE -->
       <MembreteSuperiorPdf
@@ -13,7 +13,7 @@
       <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
       <!--V-DIVIDER-->
 
-      <div class="tw-grid tw-grid-cols-12">
+      <div class="lg:tw-grid lg:tw-grid-cols-12">
         <!-- DATOS CLIENTE -->
         <DatosProveedor :proveedor="orden_de_compra.proveedor" class="tw-col-span-5" />
         <!-- DATOS CLIENTE -->
@@ -28,6 +28,7 @@
           :productos="detalleDocumento"
           class="tw-col-span-12"
           orden_de_compra
+          
         />
         <!-- TABLA PRODUCTOS -->
       </div>
@@ -52,7 +53,7 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: ["Productos", "Cantidad",  "Precio por unidad", "Total"],
+      labels: ["Productos", "Cant",  "Precio / Uni", "Total"],
     };
   },
   mounted() {

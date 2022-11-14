@@ -22,10 +22,10 @@
         <!-- DATOS CLIENTE -->
 
         <!-- DATOS ENVIO  -->
-        <DatosEnvio
+        <!-- <DatosEnvio
           :cliente="nota_pedido.cliente"
           class="tw-col-span-12 lg:tw-col-span-7"
-        />
+        /> -->
         <!-- DATOS ENVIO  -->
 
         <!-- TABLA PRODUCTOS -->
@@ -34,7 +34,6 @@
           :productos="detalleDocumento"
           nota_de_pedido
           class="tw-col-span-12"
-          visualizando
           con_detalle
         />
         <!-- TABLA PRODUCTOS -->
@@ -50,6 +49,7 @@ import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCl
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 export default {
+  middleware: ["auth"],
   components: {
     MembreteSuperiorPdf,
     DatosCliente,

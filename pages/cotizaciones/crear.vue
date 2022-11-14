@@ -161,6 +161,7 @@ import MembreteInferiorPdf from "@/components/reusable/visualizacion_documentos/
 import DialogAccion from "@/components/reusable/DialogAccion.vue";
 
 export default {
+  middleware: ["auth"],
   components: {
     IconoGuardar,
     IconoBorrar,
@@ -173,7 +174,7 @@ export default {
   },
   data() {
     return {
-      labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
+      labels: ["Productos", "Cantidad", "Precio por unidad", "Total", "Kg"],
       dialog_borrar: false,
       dialog_guardar: false,
       documento_borrado: false,

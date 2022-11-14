@@ -1,8 +1,6 @@
 <template>
   <div>
-    <p v-if="$fetchState.pending">Loading....</p>
-
-    <div class="tw-flex tw-justify-between">
+    <div class="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between">
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
         <!--LOGO-->
@@ -32,54 +30,88 @@
       </div>
       <!--[BUSCADOR]-->
     </div>
+
+    <!-- START DESKTOP VIEW -->
     <div v-if="cotizaciones_clientes.length > 0">
-      <!--TABLE HEADER-->
+      <div v-if="$vuetify.breakpoint.mobile ? false : true">
+        <!--TABLE HEADER-->
 
-      <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
-        <div class="tw-col-span-6 lg:tw-col-span-2">
-          <span class="tw-font-bold">Codigo</span>
-        </div>
+        <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Codigo</span>
+          </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-4">
-          <span class="tw-font-bold">Fecha</span>
-        </div>
+          <div class="tw-col-span-6 lg:tw-col-span-4">
+            <span class="tw-font-bold">Fecha</span>
+          </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-2">
-          <span class="tw-font-bold">Hora</span>
-        </div>
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Hora</span>
+          </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-4">
-          <span class="tw-font-bold">Ver o Descargar</span>
+          <div class="tw-col-span-6 lg:tw-col-span-4">
+            <span class="tw-font-bold">Ver o Descargar</span>
+          </div>
         </div>
+        <!--TABLE HEADER-->
+
+        <!--[TABLE CONTENT]-->
+        <div
+          v-for="(cotizacion, index) in cotizaciones_clientes.slice(
+            itemsPerPage * page - itemsPerPage,
+            itemsPerPage * page
+          )"
+          :key="cotizacion.id"
+        >
+          <CotizacionesClienteTableItem
+            :cotizacion_cliente="cotizacion"
+            :index="index"
+          />
+        </div>
+        <!--[TABLE CONTENT]-->
+
+        <!--[PAGINATION]-->
+        <div class="tw-my-8">
+          <v-pagination
+            color="black"
+            v-model="page"
+            :length="Math.ceil(cotizaciones_clientes.length / itemsPerPage)"
+          ></v-pagination>
+        </div>
+        <!--[PAGINATION]-->
       </div>
-      <!--TABLE HEADER-->
 
-      <!--[TABLE CONTENT]-->
-      <div
-        v-for="(cotizacion, index) in cotizaciones_clientes.slice(
-          itemsPerPage * page - itemsPerPage,
-          itemsPerPage * page
-        )"
-        :key="cotizacion.id"
-      >
-        <CotizacionesClienteTableItem
-          :cotizacion_cliente="cotizacion"
-          :index="index"
-        />
-      </div>
-      <!--[TABLE CONTENT]-->
+      <!-- END DESKTOP VIEW -->
 
-      <!--[PAGINATION]-->
-      <div class="tw-my-8">
-        <v-pagination
-          color="black"
-          v-model="page"
-          :length="Math.ceil(cotizaciones_clientes.length / itemsPerPage)"
-        ></v-pagination>
+      <!-- MOBILE VIEW -->
+      <div v-if="$vuetify.breakpoint.mobile ? true : false">
+        <!--[TABLE CONTENT]-->
+        <div
+          v-for="(cotizacion, index) in cotizaciones_clientes.slice(
+            itemsPerPage * page - itemsPerPage,
+            itemsPerPage * page
+          )"
+          :key="cotizacion.id"
+        >
+          <CotizacionesClienteTableItem
+            :cotizacion_cliente="cotizacion"
+            :index="index"
+          />
+        </div>
+        <!--[TABLE CONTENT]-->
+
+        <!--[PAGINATION]-->
+        <div class="tw-my-8">
+          <v-pagination
+            color="black"
+            v-model="page"
+            :length="Math.ceil(cotizaciones_clientes.length / itemsPerPage)"
+          ></v-pagination>
+        </div>
+        <!--[PAGINATION]-->
       </div>
-      <!--[PAGINATION]-->
+      <!-- MOBILE VIEW -->
     </div>
-
     <!-- NO RESULTADOS -->
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
       <EmptyTable />

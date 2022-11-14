@@ -1,6 +1,6 @@
 <template>
-  <div class="tw-p-24 tw-px-64">
-    <div class="tw-flex tw-justify-between">
+  <div class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48">
+    <div class="tw-flex tw-flex-col lg:tw-flex-row tw-justify-between">
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
         <!--LOGO-->
@@ -38,48 +38,80 @@
       <!--[BUSCADOR]-->
     </div>
     <div v-if="ordenes_de_compra.length > 0">
-      <!--TABLE HEADER-->
+      <div v-if="$vuetify.breakpoint.mobile ? false : true">
+        <!--TABLE HEADER-->
 
-      <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
-        <div class="tw-col-span-6 lg:tw-col-span-2">
-          <span class="tw-font-bold">Codigo</span>
+        <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Codigo</span>
+          </div>
+
+          <div class="tw-col-span-6 lg:tw-col-span-6">
+            <span class="tw-font-bold">Fecha</span>
+          </div>
+
+          <div class="tw-col-span-6 lg:tw-col-span-4">
+            <span class="tw-font-bold">Ver o Descargar</span>
+          </div>
+        </div>
+        <!--TABLE HEADER-->
+
+        <!--[TABLE CONTENT]-->
+
+        <div
+          v-for="(OrdenDeCompra, index) in ordenes_de_compra.slice(
+            itemsPerPage * page - itemsPerPage,
+            itemsPerPage * page
+          )"
+          :key="OrdenDeCompra.id"
+        >
+          <OrdenDeCompraTableItem
+            :orden_de_compra="OrdenDeCompra"
+            :index="index"
+          />
         </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-6">
-          <span class="tw-font-bold">Fecha</span>
+        <!--[TABLE CONTENT]-->
+
+        <!--[PAGINATION]-->
+        <div class="tw-my-8">
+          <v-pagination
+            v-model="page"
+            color="black"
+            :length="Math.round(ordenes_de_compra.length / itemsPerPage)"
+          ></v-pagination>
         </div>
+        <!--[PAGINATION]-->
+      </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-4">
-          <span class="tw-font-bold">Ver o Descargar</span>
+      <!-- MOBILE VIEW -->
+      <div v-if="$vuetify.breakpoint.mobile ? true : false">
+        <!--[TABLE CONTENT]-->
+        <div
+          v-for="(OrdenDeCompra, index) in ordenes_de_compra.slice(
+            itemsPerPage * page - itemsPerPage,
+            itemsPerPage * page
+          )"
+          :key="OrdenDeCompra.id"
+        >
+          <OrdenDeCompraTableItem
+            :orden_de_compra="OrdenDeCompra"
+            :index="index"
+          />
         </div>
+        <!--[TABLE CONTENT]-->
+
+        <!--[PAGINATION]-->
+        <div class="tw-my-8">
+          <v-pagination
+            v-model="page"
+            color="black"
+            :length="Math.round(ordenes_de_compra.length / itemsPerPage)"
+          ></v-pagination>
+        </div>
+        <!--[PAGINATION]-->
       </div>
-      <!--TABLE HEADER-->
-
-      <!--[TABLE CONTENT]-->
-
-      <div
-        v-for="(OrdenDeCompra, index) in ordenes_de_compra.slice(
-          itemsPerPage * page - itemsPerPage,
-          itemsPerPage * page
-        )"
-        :key="OrdenDeCompra.id"
-      >
-        <OrdenDeCompraTableItem
-          :orden_de_compra="OrdenDeCompra"
-          :index="index"
-        />
-      </div>
-
-      <!--[TABLE CONTENT]-->
-
-      <!--[PAGINATION]-->
-      <div class="tw-my-8">
-        <v-pagination
-          v-model="page"
-          :length="Math.round(ordenes_de_compra.length / itemsPerPage)"
-        ></v-pagination>
-      </div>
-      <!--[PAGINATION]-->
+      <!-- MOBILE VIEW -->
     </div>
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
       <EmptyTable />
@@ -88,13 +120,13 @@
 </template>
 
 <script>
-
 import qs from "qs";
 import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
 import OrdenDeCompraTableItem from "@/components/utils/table_items/OrdenDeCompraTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
+  middleware: ["auth"],
   components: {
     CardNewSolicitud,
     OrdenDeCompraTableItem,
@@ -118,9 +150,8 @@ export default {
       });
 
       const query_defecto = qs.stringify({
-        sort: "fecha_emision"
+        sort: "fecha_emision",
       });
-
 
       this.ordenes_de_compra = await this.$axios
         .$get(
@@ -139,7 +170,8 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      sort: "fecha_emision"
+      sort: "fecha_emision",
+      fields: ["*.*.*"],
     });
 
     const ordenes_de_compra = await context.$axios

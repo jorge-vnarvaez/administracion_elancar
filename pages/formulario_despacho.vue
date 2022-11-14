@@ -1,133 +1,138 @@
 <template>
-  <div class="tw-p-24 tw-px-48">
-    <span class="tw-font-bold tw-text-2xl lg:tw-text-4xl tw-px-8"
-      >Emitiendo {{ documento_a_emitir }}</span
+  <div>
+    <!--DESKTOP VIEW-->
+    <div
+      class="tw-p-24 tw-px-48"
+      v-if="$vuetify.breakpoint.mobile ? false : true"
     >
-
-    <!--PASO 1-->
-    <div class="tw-bg-white tw-p-8 tw-mt-8">
-      <div class="tw-mb-8">
-        <span class="tw-block tw-font-bold">Paso 1</span>
-        <span class="tw-block tw-text-sky-900"
-          >Solicite los datos personales al comprador para identificar quién
-          retira en tienda o recibe el pedido.</span
-        >
-      </div>
-
-      <!-- FORM CLIENTE-->
-      <v-form
-        ref="form"
-        v-model="validado"
-        class="tw-grid tw-grid-cols-12 tw-gap-x-20 place-items-center"
+      <span class="tw-font-bold tw-text-4xl tw-px-8"
+        >Emitiendo {{ documento_a_emitir }}</span
       >
-        <div
-          class="tw-col-span-12 tw-grid tw-grid-cols-12 tw-gap-x-20 tw-relative"
-        >
-          <!--RUT-->
-          <v-text-field
-            v-model="info_despacho.datos_cliente.rut"
-            label="Rut"
-            required
-            ref="rut"
-            :rules="[reglas.requerido, reglas.rut_valido, reglas.rut_mask]"
-            class="tw-col-span-3"
-          >
-          </v-text-field>
-          <!--RUT-->
 
-          <!-- COINCIDENCIAS RUT -->
-          <div
-            v-if="clientes_has_rut.length > 0 && !cliente_has_seleccionado"
-            class="tw-absolute tw-inset-y-20 tw-col-span-3 tw-z-50"
+      <!--PASO 1-->
+      <div class="tw-bg-white tw-p-8 tw-mt-8">
+        <div class="tw-mb-8">
+          <span class="tw-block tw-font-bold">Paso 1</span>
+          <span class="tw-block tw-text-sky-900"
+            >Solicite los datos personales al comprador para identificar quién
+            retira en tienda o recibe el pedido.</span
           >
-            <div
-              class="tw-bg-neutral-100 tw-px-4 tw-py-3 tw-shadow-md tw-w-[200px]"
-            >
-              <span class="tw-text-sm tw-font-bold tw-block"
-                >Clientes encontrados:
-              </span>
-              <div
-                v-for="(cliente, index) in clientes_has_rut"
-                :key="index"
-                class="tw-py-1 tw-cursor-pointer"
-                @click="seleccionarCliente(cliente)"
-              >
-                <span class="tw-font-thin">
-                  {{ formatRut(cliente.rut) }}
-                </span>
-              </div>
-            </div>
-          </div>
-          <!-- COINCIDENCIAS RUT -->
-
-          <!-- NOMBRE -->
-          <v-text-field
-            v-model="info_despacho.datos_cliente.nombre_completo"
-            :rules="[reglas.requerido]"
-            label="Nombre, Apellido Paterno y Materno"
-            required
-            class="tw-col-span-3"
-          >
-          </v-text-field>
-          <!-- NOMBRE -->
         </div>
 
-        <!--TELEFONO-->
-        <v-text-field
-          v-model="info_despacho.datos_cliente.fono"
-          :rules="[reglas.requerido, reglas.telefono]"
-          label="Telefono"
-          required
-          class="tw-col-span-3 tw-o"
-        ></v-text-field>
-        <!--TELEFONO-->
-
-        <!-- EMAIL -->
-        <v-text-field
-          v-model="info_despacho.datos_cliente.email"
-          :rules="[reglas.requerido, reglas.email]"
-          label="Email"
-          required
-          class="tw-col-span-3"
+        <!-- FORM CLIENTE-->
+        <v-form
+          ref="form"
+          v-model="validado"
+          class="tw-grid tw-grid-cols-12 tw-gap-x-20 place-items-center"
         >
-        </v-text-field>
-        <!-- EMAIL -->
-      </v-form>
-      <!-- FORM CLIENTE-->
-    </div>
-    <!--PASO 1-->
+          <div
+            class="tw-col-span-12 tw-grid tw-grid-cols-12 tw-gap-x-20 tw-relative"
+          >
+            <!--RUT-->
+            <v-text-field
+              v-model="info_despacho.datos_cliente.rut"
+              label="Rut"
+              required
+              ref="rut"
+              :rules="[reglas.requerido, reglas.rut_valido, reglas.rut_mask]"
+              class="tw-col-span-4"
+            >
+            </v-text-field>
+            <!--RUT-->
 
-    <!--PASO 2-->
-    <div class="tw-bg-white tw-p-8 tw-mt-12">
-      <div class="tw-mb-8">
-        <span class="tw-block tw-font-bold">Paso 2</span>
-        <span class="tw-block tw-text-sky-900"
-          >Seleccione el tipo de despacho (Retiro en tienda o despacho a
-          domicilio).</span
-        >
+            <!-- COINCIDENCIAS RUT -->
+            <div
+              v-if="clientes_has_rut.length > 0 && !cliente_has_seleccionado"
+              class="tw-absolute tw-inset-y-20 tw-col-span-4 tw-z-50"
+            >
+              <div
+                class="tw-bg-neutral-100 tw-px-4 tw-py-3 tw-shadow-md tw-w-[200px]"
+              >
+                <span class="tw-text-sm tw-font-bold tw-block"
+                  >Clientes encontrados:
+                </span>
+                <div
+                  v-for="(cliente, index) in clientes_has_rut"
+                  :key="index"
+                  class="tw-py-1 tw-cursor-pointer"
+                  @click="seleccionarCliente(cliente)"
+                >
+                  <span class="tw-font-thin">
+                    {{ formatRut(cliente.rut) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- COINCIDENCIAS RUT -->
+
+            <!-- NOMBRE -->
+            <v-text-field
+              v-model="info_despacho.datos_cliente.nombre_completo"
+              :rules="[reglas.requerido]"
+              label="Nombre, Apellido Paterno y Materno"
+              required
+              class="tw-col-span-4"
+            >
+            </v-text-field>
+            <!-- NOMBRE -->
+          </div>
+
+          <!--TELEFONO-->
+          <v-text-field
+            v-model="info_despacho.datos_cliente.fono"
+            :rules="[reglas.requerido, reglas.telefono]"
+            label="Telefono"
+            required
+            class="tw-col-span-4 "
+          ></v-text-field>
+          <!--TELEFONO-->
+
+          <!-- EMAIL -->
+          <v-text-field
+            v-model="info_despacho.datos_cliente.email"
+            :rules="[reglas.requerido, reglas.email]"
+            label="Email"
+            required
+            class="tw-col-span-4"
+          >
+          </v-text-field>
+          <!-- EMAIL -->
+        </v-form>
+        <!-- FORM CLIENTE-->
       </div>
+      <!--PASO 1-->
 
-      <v-radio-group v-model="opciones_despacho" mandatory>
-        <div
-          class="tw-flex tw-flex-col md:tw-flex-col lg:tw-flex-row lg:tw-justify-between tw-w-[740px]"
-        >
-          <OpcionDespacho
-            tipo="retiro_en_tienda"
-            titulo="Retiro en Tienda"
-            descripcion="*No aplica coste de transporte"
-          />
-          <OpcionDespacho
+      <!--PASO 2-->
+      <div class="tw-bg-white tw-p-8 tw-mt-12">
+        <div class="tw-mb-8">
+          <span class="tw-block tw-font-bold">Paso 2</span>
+          <span class="tw-block tw-text-sky-900"
+            >Seleccione el tipo de despacho (Retiro en tienda o despacho a
+            domicilio).</span
+          >
+        </div>
+
+        <v-radio-group v-model="opciones_despacho" mandatory>
+          <div
+            class="tw-flex tw-flex-col md:tw-flex-col lg:tw-flex-row lg:tw-justify-between tw-w-[740px]"
+          >
+            <OpcionDespacho
+              tipo="retiro_en_tienda"
+              titulo="Retiro en Tienda"
+              descripcion="*No aplica coste de transporte"
+            />
+            <!-- <OpcionDespacho
             tipo="despacho_domicilio"
             titulo="Despacho a Domicilio"
             descripcion="*Coste de transporte sujeto a evaluación"
-          />
-        </div>
-      </v-radio-group>
-    </div>
-    <!--PASO 2-->
+          /> -->
+          </div>
+        </v-radio-group>
+      </div>
+      <!--PASO 2-->
 
-    <!--PASO 3-->
-    <div
+      <!--PASO 3-->
+      <!-- <div
       v-if="opciones_despacho == 'despacho_domicilio'"
       class="tw-bg-white tw-p-8 tw-mt-12"
     >
@@ -161,20 +166,199 @@
         >
         </v-text-field>
       </div>
-    </div>
-    <!--PASO 3-->
+    </div> -->
+      <!--PASO 3-->
 
-    <!--BUTTON CONTINUE-->
-    <div class="tw-flex tw-justify-end tw-mt-12">
-      <v-btn
-        color="black"
-        class="tw-text-white tw-font-bold tw-w-40"
-        :disabled="!validado"
-        @click="continuar"
-        >Continuar</v-btn
-      >
+      <!--BUTTON CONTINUE-->
+      <div class="tw-flex tw-justify-end tw-mt-12">
+        <v-btn
+          color="black"
+          class="tw-text-white tw-font-bold tw-w-40"
+          :disabled="!validado"
+          @click="continuar"
+          >Continuar</v-btn
+        >
+      </div>
+      <!--BUTTON CONTINUE-->
     </div>
-    <!--BUTTON CONTINUE-->
+    <!--DESKTOP VIEW-->
+
+    <!--MOBILE VIEW-->
+    <div
+      class="tw-p-12 tw-px-8"
+      v-if="$vuetify.breakpoint.mobile ? true : false"
+    >
+      <span class="tw-font-bold tw-text-2xl"
+        >Emitiendo {{ documento_a_emitir }}</span
+      >
+
+      <!--PASO 1-->
+      <div class="tw-bg-white tw-p-8 tw-mt-8">
+        <div class="tw-mb-8">
+          <span class="tw-block tw-font-bold">Paso 1</span>
+          <span class="tw-block tw-text-sky-900"
+            >Solicite los datos personales al comprador para identificar quién
+            retira en tienda o recibe el pedido.</span
+          >
+        </div>
+
+        <!-- FORM CLIENTE-->
+        <v-form
+          ref="form"
+          v-model="validado"
+          class="tw-flex tw-flex-col place-items-center"
+        >
+          <div class="tw-flex tw-flex-col">
+            <!--RUT-->
+            <v-text-field
+              v-model="info_despacho.datos_cliente.rut"
+              label="Rut"
+              required
+              ref="rut"
+              :rules="[reglas.requerido, reglas.rut_valido, reglas.rut_mask]"
+            >
+            </v-text-field>
+            <!--RUT-->
+
+            <!-- COINCIDENCIAS RUT -->
+            <div
+              v-if="clientes_has_rut.length > 0 && !cliente_has_seleccionado"
+              class=""
+            >
+              <div
+                class="tw-bg-neutral-100 tw-px-4 tw-py-3 tw-shadow-md tw-w-[200px]"
+              >
+                <span class="tw-text-sm tw-font-bold tw-block"
+                  >Clientes encontrados:
+                </span>
+                <div
+                  v-for="(cliente, index) in clientes_has_rut"
+                  :key="index"
+                  class="tw-py-1 tw-cursor-pointer"
+                  @click="seleccionarCliente(cliente)"
+                >
+                  <span class="tw-font-thin">
+                    {{ formatRut(cliente.rut) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- COINCIDENCIAS RUT -->
+
+            <!-- NOMBRE -->
+            <v-text-field
+              v-model="info_despacho.datos_cliente.nombre_completo"
+              :rules="[reglas.requerido]"
+              label="Nombre, Apellido Paterno y Materno"
+              required
+            >
+            </v-text-field>
+            <!-- NOMBRE -->
+          </div>
+
+          <!--TELEFONO-->
+          <v-text-field
+            v-model="info_despacho.datos_cliente.fono"
+            :rules="[reglas.requerido, reglas.telefono]"
+            label="Telefono"
+            required
+            class="tw-col-span-3 tw-o"
+          ></v-text-field>
+          <!--TELEFONO-->
+
+          <!-- EMAIL -->
+          <v-text-field
+            v-model="info_despacho.datos_cliente.email"
+            :rules="[reglas.requerido, reglas.email]"
+            label="Email"
+            required
+            class="tw-col-span-3"
+          >
+          </v-text-field>
+          <!-- EMAIL -->
+        </v-form>
+        <!-- FORM CLIENTE-->
+      </div>
+      <!--PASO 1-->
+
+      <!--PASO 2-->
+      <div class="tw-bg-white tw-p-8 tw-mt-12">
+        <div class="tw-mb-8">
+          <span class="tw-block tw-font-bold">Paso 2</span>
+          <span class="tw-block tw-text-sky-900"
+            >Seleccione el tipo de despacho (Retiro en tienda o despacho a
+            domicilio).</span
+          >
+        </div>
+
+        <v-radio-group v-model="opciones_despacho" mandatory>
+          <div class="tw-flex tw-flex-col">
+            <OpcionDespacho
+              tipo="retiro_en_tienda"
+              titulo="Retiro en Tienda"
+              descripcion="*No aplica coste de transporte"
+            />
+            <!-- <OpcionDespacho
+            tipo="despacho_domicilio"
+            titulo="Despacho a Domicilio"
+            descripcion="*Coste de transporte sujeto a evaluación"
+          /> -->
+          </div>
+        </v-radio-group>
+      </div>
+      <!--PASO 2-->
+
+      <!--PASO 3-->
+      <!-- <div
+      v-if="opciones_despacho == 'despacho_domicilio'"
+      class="tw-bg-white tw-p-8 tw-mt-12"
+    >
+      <div class="tw-mb-8">
+        <span class="tw-block tw-font-bold">Paso 3</span>
+        <span class="tw-block tw-text-sky-900"
+          >Solicite los datos de despacho al comprador para identificar la
+          dirección de despacho.</span
+        >
+      </div>
+      <div class="tw-grid tw-grid-cols-12 tw-gap-x-20">
+        <v-text-field
+          v-model="info_despacho.datos_envio.sector"
+          label="Sector"
+          required
+          class="tw-col-span-3"
+        >
+        </v-text-field>
+        <v-text-field
+          v-model="info_despacho.datos_envio.calle"
+          label="Calle"
+          required
+          class="tw-col-span-3"
+        >
+        </v-text-field>
+        <v-text-field
+          v-model="info_despacho.datos_envio.numero"
+          label="Numero"
+          required
+          class="tw-col-span-3"
+        >
+        </v-text-field>
+      </div>
+    </div> -->
+      <!--PASO 3-->
+
+      <!--BUTTON CONTINUE-->
+      <div class="tw-flex tw-justify-end tw-mt-12">
+        <v-btn
+          color="black"
+          class="tw-text-white tw-font-bold tw-w-40"
+          :disabled="!validado"
+          @click="continuar"
+          >Continuar</v-btn
+        >
+      </div>
+      <!--BUTTON CONTINUE-->
+    </div>
+    <!--MOBILE VIEW-->
   </div>
 </template>
 
@@ -184,6 +368,7 @@ import IconoUsuario from "@/components/iconos/IconoUsuario.vue";
 import OpcionDespacho from "@/components/reusable/OpcionDespacho.vue";
 
 export default {
+  middleware: ["auth"],
   components: {
     IconoUsuario,
     OpcionDespacho,
