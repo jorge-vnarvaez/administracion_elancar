@@ -26,7 +26,7 @@
       <!--[BUSCADOR]-->
       <div>
         <v-text-field
-          class="tw-w-[400px]"
+          class="tw-w-[400px] tw-mt-4 lg:mt-0"
           v-model="buscador"
           placeholder="Buscar orden de compra por código"
           append-icon="mdi-magnify"

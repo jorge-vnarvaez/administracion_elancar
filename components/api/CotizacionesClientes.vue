@@ -19,7 +19,7 @@
       <!--[BUSCADOR]-->
       <div>
         <v-text-field
-          class="tw-w-[500px]"
+          class="tw-w-[500px] tw-mt-4 lg:mt-0"
           v-model="buscador"
           placeholder="Buscar cotizacion por código"
           append-icon="mdi-magnify"
