@@ -75,7 +75,7 @@
           <v-pagination
             v-model="page"
             color="black"
-            :length="Math.round(pages)"
+            :length="Math.ceil(pages)"
           ></v-pagination>
         </div>
         <!--[PAGINATION]-->
