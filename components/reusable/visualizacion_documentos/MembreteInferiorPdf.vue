@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tw-mt-12 lg:tw-mt-0">
     <div class="tw-flex align-center tw-space-x-2 inline-flex">
       <IconoArchivoInfo />
       <span class="tw-font-bold">EN CONSIDERACIÓN</span>

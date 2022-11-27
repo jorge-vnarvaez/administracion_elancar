@@ -61,33 +61,36 @@
             item.nombre
           }}</span>
           <!-- NOMBRE -->
-            <!-- CANTIDAD -->
-            <div class="tw-flex tw-ml-2 tw-mb-2 tw-mt-2">
-              <v-icon @click="disminuirCantidad()">mdi-minus</v-icon>
-              <div>
-                <v-text-field
-                  v-model="item.cantidad"
-                  solo
-                  disabled
-                  hide-details
-                  flat
-                  :min="0"
-                  class="tw-w-[50px] tw-mx-4 tw-text-center"
-                ></v-text-field>
-              </div>
-              <v-icon @click="aumentarCantidad()">mdi-plus</v-icon>
+          <!-- CANTIDAD -->
+          <div class="tw-flex tw-ml-2 tw-mb-2 tw-mt-2">
+            <v-icon @click="disminuirCantidad()">mdi-minus</v-icon>
+            <div>
+              <v-text-field
+                v-model="item.cantidad"
+                solo
+                disabled
+                hide-details
+                flat
+                :min="0"
+                class="tw-w-[50px] tw-mx-4 tw-text-center"
+              ></v-text-field>
             </div>
-            <!-- CANTIDAD -->
-            <!-- TOTAL -->
-            <div class="tw-flex tw-items-center ">
-              <span class="tw-font-bold tw-text-xl tw-mr-4 ">Total </span
-              ><span class="tw-text-xl">{{
-                $formatearPrecio(item.precio * item.cantidad)
-              }}</span>
-            </div>
-            <!-- TOTAL -->
+            <v-icon @click="aumentarCantidad()">mdi-plus</v-icon>
+          </div>
+          <!-- CANTIDAD -->
+          <!-- TOTAL -->
+          <div class="tw-flex tw-items-center">
+            <span class="tw-font-bold tw-text-xl tw-mr-4">Total </span
+            ><span class="tw-text-xl">{{
+              $formatearPrecio(item.precio * item.cantidad)
+            }}</span>
+          </div>
+          <!-- TOTAL -->
           <!-- ELIMINAR -->
-          <div @click="eliminarItem(item)" class="tw-cursor-pointer tw-flex tw-justify-end">
+          <div
+            @click="eliminarItem(item)"
+            class="tw-cursor-pointer tw-flex tw-justify-end"
+          >
             <v-icon>mdi-trash-can-outline</v-icon>
             <span>Eliminar</span>
           </div>
@@ -109,10 +112,12 @@ export default {
       });
     },
     aumentarCantidad() {
-      this.$store.dispatch("carro_compras/updateProductQuantity", {
-        id: this.item.id,
-        cantidad: this.item.cantidad + 1,
-      });
+      if (this.item.cantidad < this.item.stock) {
+        this.$store.dispatch("carro_compras/updateProductQuantity", {
+          id: this.item.id,
+          cantidad: this.item.cantidad + 1,
+        });
+      }
     },
     disminuirCantidad() {
       if (this.item.cantidad > 1) {

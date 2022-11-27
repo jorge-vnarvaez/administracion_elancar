@@ -19,13 +19,24 @@
       <div
         :class="
           `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 lg:tw-col-span-6 tw-py-4 tw-px-4'
+          ' tw-col-span-6 lg:tw-col-span-4 tw-py-4 tw-px-4'
         "
       >
         {{ formatearFecha(orden_de_compra.fecha_emision) }}
         <!-- {{ formatearHora(orden_de_compra.hora_emision)}} -->
       </div>
       <!-- FECHA -->
+
+      <!-- HORA -->
+      <div
+        :class="
+          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+          ' tw-col-span-6 lg:tw-col-span-2 tw-py-4'
+        "
+      >
+        {{ orden_de_compra.hora_emision }}
+      </div>
+      <!-- HORA -->
 
       <!-- ARCHIVOS -->
       <div
@@ -69,9 +80,9 @@
             class="tw-bg-neutral-100 tw-col-span-6 lg:tw-col-span-2 tw-py-2 tw-px-4 tw-flex tw-justify-between"
           >
             <span class="tw-font-light">Proveedor: </span
-            ><span class="tw-font-bold"
-              >{{ orden_de_compra.proveedor.nombre }}</span
-            >
+            ><span class="tw-font-bold">{{
+              orden_de_compra.proveedor.nombre
+            }}</span>
           </div>
         </div>
 

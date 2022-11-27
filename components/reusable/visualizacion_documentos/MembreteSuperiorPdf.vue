@@ -1,9 +1,9 @@
 <template>
   <div class="tw-flex lg:tw-justify-between">
     <!--MEMBRETE-->
-    <div class="lg:tw-flex xs:tw-flex-col-reverse tw-space-x-4 align-center lg:tw-justify-between tw-w-full">
+    <div class="lg:tw-flex xs:tw-flex-col-reverse lg:tw-space-x-4 lg:align-center lg:tw-justify-between tw-w-full">
       <!--LOGO ELANCAR -->
-      <div class="tw-flex align-center tw-space-x-4">
+      <div class="tw-flex tw-flex-col lg:tw-flex-row lg:align-center lg:tw-space-x-4">
         <IconoElancar />
         <DatosEmpresa v-if="infoDocumento" :empresa="infoDocumento.empresa"  />
         <DatosEmpresa v-if="is_creando" :empresa="empresa"  />

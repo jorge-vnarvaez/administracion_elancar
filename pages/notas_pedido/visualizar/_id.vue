@@ -54,7 +54,7 @@ export default {
     return {
       infoDocumento: {},
       detalleDocumento: [],
-      labels: ["Productos", "Cant", "Precio Uni", "Total", "Kg"],
+      labels: ["Productos", "Cant", "Precio Uni", "Total"],
     };
   },
   mounted() {

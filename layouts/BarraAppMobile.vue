@@ -35,7 +35,7 @@
 
       <!-- TEST -->
       <div v-if="opcion_visible">
-        <div class="tw-flex tw-justify-between tw-w-full tw-mt-2">
+        <div class="tw-flex tw-space-x-2 tw-w-full tw-mt-2">
           <v-icon @click="opcion_visible = false" color="white">mdi-arrow-left-thick</v-icon>
           <span>{{ opcion_visible.nombre }}</span>
         </div>
@@ -48,7 +48,7 @@
             :key="inner_opcion.id"
           >
             <nuxt-link :to="inner_opcion.ruta" >
-              <span class="tw-text-white tw-block tw-text-right tw-my-4" @click="drawer = false">
+              <span class="tw-text-white tw-block tw-text-lg tw-my-2" @click="drawer = false">
                 {{ inner_opcion.nombre }}
               </span>
             </nuxt-link>

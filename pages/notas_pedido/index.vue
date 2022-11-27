@@ -146,11 +146,11 @@ export default {
             _eq: queryBuscador,
           },
         },
-        sort: "fecha_emision",
+        sort: "-fecha_emision",
       });
 
       const query_defecto = qs.stringify({
-        sort: "fecha_emision",
+        sort: "-fecha_emision",
       });
 
       this.notas_de_pedido = await this.$axios
@@ -178,7 +178,7 @@ export default {
         "detalle.*",
         "empresa.*.*",
       ],
-      sort: "fecha_emision",
+      sort: "-fecha_emision",
     });
 
     const notas_de_pedido = await context.$axios

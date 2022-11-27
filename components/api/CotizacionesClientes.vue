@@ -152,7 +152,7 @@ export default {
         "cliente.*.*",
         "empresa..*.*",
       ],
-      sort: ["fecha_emision", "hora_emision"],
+      sort: ["-fecha_emision", "-hora_emision"],
     });
 
     const { data } = await fetch(
@@ -175,11 +175,11 @@ export default {
             _eq: queryBuscador,
           },
         },
-        sort: ["fecha_emision", "hora_emision"],
+        sort: ["-fecha_emision", "-hora_emision"],
       });
 
       const query_defecto = qs.stringify({
-        sort: ["fecha_emision", "hora_emision"],
+        sort: ["-fecha_emision", "-hora_emision"],
       });
 
       this.cotizaciones_clientes = await this.$axios

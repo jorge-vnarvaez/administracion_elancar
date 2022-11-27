@@ -37,14 +37,17 @@
       <!-- DESKTOP VIEW -->
       <div v-if="$vuetify.breakpoint.mobile ? false : true">
         <!--TABLE HEADER-->
-
         <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
           <div class="tw-col-span-6 lg:tw-col-span-2">
             <span class="tw-font-bold">Codigo</span>
           </div>
 
-          <div class="tw-col-span-6 lg:tw-col-span-6">
+          <div class="tw-col-span-6 lg:tw-col-span-4">
             <span class="tw-font-bold">Fecha</span>
+          </div>
+
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Hora</span>
           </div>
 
           <div class="tw-col-span-6 lg:tw-col-span-4">
@@ -54,7 +57,6 @@
         <!--TABLE HEADER-->
 
         <!--[TABLE CONTENT]-->
-
         <div
           v-for="(cotizacion, index) in solicitud_cotizaciones.slice(
             itemsPerPage * page - itemsPerPage,
@@ -67,7 +69,6 @@
             :index="index"
           />
         </div>
-
         <!--[TABLE CONTENT]-->
 
         <!--[PAGINATION]-->
@@ -92,7 +93,10 @@
           )"
           :key="solicitud_cotizacion.id"
         >
-          <SolicitudDeCotizacionTableItem :solicitud_de_cotizacion="solicitud_cotizacion" :index="index" />
+          <SolicitudDeCotizacionTableItem
+            :solicitud_de_cotizacion="solicitud_cotizacion"
+            :index="index"
+          />
         </div>
         <!--[TABLE CONTENT]-->
 
@@ -143,12 +147,12 @@ export default {
             _eq: queryBuscador,
           },
         },
-        sort: "fecha_emision",
+        sort: ["-fecha_emision", "-hora_emision"],
         fields: ["*.*.*"],
       });
 
       const query_defecto = qs.stringify({
-        sort: "fecha_emision",
+        sort: ["-fecha_emision", "-hora_emision"],
         fields: ["*.*.*"],
       });
 
@@ -169,7 +173,7 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      sort: "fecha_emision",
+      sort: ["-fecha_emision", "-hora_emision"],
       fields: ["*.*.*"],
     });
 

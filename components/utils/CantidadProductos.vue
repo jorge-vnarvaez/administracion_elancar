@@ -10,7 +10,7 @@
         dense
         disabled
         :min="0"
-        class="tw-w-[50px] tw-mx-4 tw-text-center"
+        :class="`${$vuetify.breakpoint.mobile ? 'tw-w-[10px]' : 'tw-w-[50px]'}` + ' tw-mx-4 tw-text-center'"
       ></v-text-field>
     </div>
     <v-icon @click="aumentarCantidad(item.stock)" small>mdi-plus</v-icon>

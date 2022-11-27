@@ -4,14 +4,7 @@
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
         <!--LOGO-->
-        <div class="tw-w-[74px] tw-h-[100px]">
-          <v-img
-            src="/logo_elancar.png"
-            width="74"
-            height="100"
-            contain
-          ></v-img>
-        </div>
+        <IconoElancar />
         <!--LOGO-->
 
         <!--TITULO-->
@@ -46,8 +39,12 @@
             <span class="tw-font-bold">Codigo</span>
           </div>
 
-          <div class="tw-col-span-6 lg:tw-col-span-6">
+          <div class="tw-col-span-6 lg:tw-col-span-4">
             <span class="tw-font-bold">Fecha</span>
+          </div>
+
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Hora</span>
           </div>
 
           <div class="tw-col-span-6 lg:tw-col-span-4">
@@ -121,14 +118,14 @@
 
 <script>
 import qs from "qs";
-import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
+import IconoElancar from "@/components/iconos/IconoElancar";
 import OrdenDeCompraTableItem from "@/components/utils/table_items/OrdenDeCompraTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
   middleware: ["auth"],
   components: {
-    CardNewSolicitud,
+    IconoElancar,
     OrdenDeCompraTableItem,
     EmptyTable,
   },
@@ -150,7 +147,7 @@ export default {
       });
 
       const query_defecto = qs.stringify({
-        sort: "fecha_emision",
+        sort: ["-fecha_emision", "-hora_emision"],
       });
 
       this.ordenes_de_compra = await this.$axios
@@ -170,7 +167,7 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      sort: "fecha_emision",
+      sort: ["-fecha_emision", "-hora_emision"],
       fields: ["*.*.*"],
     });
 

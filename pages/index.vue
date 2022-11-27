@@ -7,11 +7,6 @@
     <div
       class="tw-col-span-12 lg:tw-col-span-6 tw-flex tw-flex-col justify-center tw-items-center"
     >
-      <!-- <div v-if="error.value" class="bg-red-500 px-6 py-2 mb-6">
-        <v-icon color="white" class="mr-1">mdi-information</v-icon>
-        <span class="text-white">{{ error.errorMsg }}</span>
-      </div> -->
-
       <!--LOGO-->
       <div class="tw-mb-10">
         <v-img
@@ -61,12 +56,12 @@
         <div class="mt-4 tw-w-60">
           <v-select
             v-model="sucursal"
-            :items="items"
+            :items="sucursales"
             label="Sucursal"
             outlined
             :rules="reglaNotNull"
             full-width
-            :item-text="(item) => item.text"
+            :item-text="(item) => item.alias"
             :item-value="(item) => item.id"
             required
           ></v-select>
@@ -85,12 +80,6 @@
         <!--BOTON SESION-->
       </v-form>
       <!--FORMULARIO INICIO SESSION-->
-
-      <!-- SNACKBAR ERROR -->
-      <v-alert type="error" v-if="snackbar">
-        {{ error }}
-      </v-alert>
-      <!-- SNACKBAR ERROR -->
     </div>
   </div>
 </template>
@@ -106,22 +95,11 @@ export default {
       email: null,
       password: null,
       reglaNotNull: [(v) => !!v || "Este campo es obligatorio"],
-      items: [
-        {
-          id: 1,
-          text: "Sucursal 1",
-        },
-        {
-          id: 2,
-          text: "Sucursal 2",
-        },
-        {
-          id: 3,
-          text: "Sucursal 3",
-        },
-      ],
       sucursal: null,
     };
+  },
+  mounted() {
+    this.$store.dispatch("sucursal/loadSucursales");
   },
   methods: {
     login(e) {
@@ -155,6 +133,9 @@ export default {
     },
     snackbar() {
       return this.$store.getters["session/getError"].value;
+    },
+    sucursales() {
+      return this.$store.getters["sucursal/getSucursales"];
     },
   },
 };

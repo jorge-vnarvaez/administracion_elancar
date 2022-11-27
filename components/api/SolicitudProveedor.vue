@@ -11,7 +11,7 @@
       </div>
 
       <div>
-        <span class="tw-font-bold"
+        <span class="tw-font-bold tw-block tw-mt-4"
           >Si te han aprobado una solicitud de cotización o deseas generar una
           orden de compra teniendo en cuenta la cantidad que haz solicitado.
         </span>
@@ -331,6 +331,7 @@ export default {
         "proveedor.*.*",
         "receptor.*",
         "empresa.*.*",
+        "convertida"
       ],
     });
 
