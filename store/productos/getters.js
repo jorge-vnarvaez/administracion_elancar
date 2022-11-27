@@ -29,3 +29,4 @@ export const getMateriales = (state) => {
 
         return materiales;
 }
+export const getMaterialSeleccionado = (state) => state.materialSeleccionado;
