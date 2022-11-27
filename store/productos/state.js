@@ -3,4 +3,5 @@ export default () => ({
     productos: [],
     filteredProductos: [],
     parents: null,
+    materialSeleccionado: null,
 });

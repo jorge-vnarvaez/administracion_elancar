@@ -10,7 +10,6 @@
       <div class="tw-flex tw-flex-col">
         <span class="block tw-font-semibold tw-text-2xl">Bienvenido/a</span>
         <span>{{ usuario.first_name }} {{ usuario.last_name }}</span>
-       
       </div>
       <div class="tw-flex tw-flex-col text-right">
         <span class="block">{{ fecha_actual }}</span>
@@ -79,6 +78,19 @@
           text="Revisa las notas de pedido realizadas"
           icon="file"
           route_name="notas_pedido"
+        />
+      </div>
+      <!-- NOTAS DE PEDIDO -->
+
+      <!-- NOTAS DE PEDIDO -->
+      <div
+        class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10"
+      >
+        <card-direct-access
+          label="Precio material"
+          text="Revisa el listado de productos para ser modificados"
+          icon="file"
+          route_name="precio_materiales"
         />
       </div>
       <!-- NOTAS DE PEDIDO -->

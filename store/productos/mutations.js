@@ -3,6 +3,10 @@ export default {
         state.productos = productos;
         state.filteredProductos = productos;
         state.loading = false;
+
+    },
+    setMaterialSeleccionado(state, material) {
+        state.materialSeleccionado = material;
     },
     setFilters(state, filters) {
         if (filters.length > 0) {

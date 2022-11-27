@@ -1,15 +1,16 @@
 <template>
-  <div class="tw-p-24">
-    Precio materiales
-  </div>
+  <div class=" ">
+    <MaterialesProductos />
+    </div>
 </template>
 
 <script>
+import MaterialesProductos from "@/components/materiales_productos/MaterialesProductos.vue";
 export default {
-
-}
+  components: {
+    MaterialesProductos,
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
