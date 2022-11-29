@@ -68,7 +68,7 @@
                   class="tw-rounded-lg tw-bg-black tw-text-white tw-px-4"
                   validate-on-blur
                   >Recalcular
-                  <v-dialog v-model="dialog_guardar" max-width="290">
+                  <!-- <v-dialog v-model="dialog_guardar" max-width="290">
                     <v-card
                       class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center"
                     >
@@ -98,7 +98,7 @@
                         </v-btn>
                       </v-card-actions>
                     </v-card>
-                  </v-dialog>
+                  </v-dialog> -->
                 </v-btn>
                 <!-- BOTON PARA CAMBIAR PRECIO -->
               </div>
@@ -130,7 +130,7 @@
           <!--[TABLE HEADERS]-->
           <div class="tw-grid tw-grid-cols-12 tw-mb-4 tw-px-4">
             <div class="tw-col-span-1">
-              <span class="tw-font-bold">Codigo</span>
+              <span class="tw-font-bold">Código</span>
             </div>
 
             <div class="tw-col-span-7">
@@ -228,7 +228,7 @@ import FiltroMaterial from "@/components/utils/FiltroMaterial.vue";
 import MaterialProductoTableItem from "@/components/utils/table_items/MaterialProductoTableItem.vue";
 import ProductosListSkeleton from "@/components/utils/ProductosListSkeleton.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
-import DialogAccion from "@/components/reusable/DialogAccion.vue";
+
 
 export default {
   middleware: "auth",
@@ -237,7 +237,6 @@ export default {
     MaterialProductoTableItem,
     ProductosListSkeleton,
     EmptyTable,
-    DialogAccion,
   },
   data() {
     return {

@@ -46,12 +46,12 @@
         "
       >
         <IconoVer
-          tipoDocumento="Cotización"
+          tipoDocumento="Cotizacion"
           path="/cotizaciones"
           :idDocumento="cotizacion_cliente.id"
         />
         <PdfMaker
-          tipoDocumento="Cotización"
+          tipoDocumento="Cotizacion"
           :idDocumento="cotizacion_cliente.id"
           item="cotizaciones_clientes"
           :labels="labels"
@@ -66,7 +66,7 @@
       <div class="tw-bg-white tw-my-4 tw-px-4 tw-py-2 tw-text-sm">
         <div class="tw-flex tw-justify-between">
           <div class="tw-flex tw-flex-col">
-            <span class="tw-font-bold">Cotizacion</span>
+            <span class="tw-font-bold">Cotización</span>
             <span>#{{ cotizacion_cliente.id }}</span>
           </div>
           <span class="tw-block tw-w-[120px] tw-text-right">{{
@@ -112,7 +112,7 @@ export default {
   props: ["cotizacion_cliente", "index"],
   data() {
     return {
-      labels: ["Productos", "Cant", "Precio Uni", "Precio total", "Kg"],
+      labels: ["Productos", "Cant", "Precio/Uni", "Total"],
     };
   },
   methods: {

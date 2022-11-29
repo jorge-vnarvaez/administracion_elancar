@@ -12,7 +12,7 @@
 
       <div v-if="!orden_de_compra.validada">
         <span class="tw-font-bold tw-block tw-mt-4"
-          >Si el proveedor te ha informado que el producto/s estan en camino, no
+          >Si el proveedor te ha informado que los productos están en camino, no
           validez la orden hasta que recibas todos los productos y estés seguro
           de que todo está en perfecto estado.
         </span>
@@ -21,12 +21,12 @@
 
         <div class="tw-mt-4">
           <span class="tw-block">
-            1. Si validaz la orden sin tener los productos en tu bodega/local y
+            1. Si validas la orden sin tener los productos en tu bodega/local y
             el proveedor no te los envía o no llegaron, no podrás descontar el
             stock de los productos que no recibiste.
           </span>
           <span class="tw-block">
-            2. Si validaz la orden sin tener los productos en tu bodega/local y
+            2. Si validas la orden sin tener los productos en tu bodega/local y
             el proveedor no te los envía o no llegaron, generarás un desfase en
             tu stock y podrás tener problemas con tus clientes.
           </span>

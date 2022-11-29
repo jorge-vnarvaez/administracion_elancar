@@ -10,7 +10,7 @@
       <!-- MEMBRETE -->
 
       <!--V-DIVIDER-->
-      <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-4"></div>
+      <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-1"></div>
       <!--V-DIVIDER-->
 
       <div class="tw-grid tw-grid-cols-12">
@@ -73,7 +73,7 @@ export default {
     return {
       cotizacion_cliente: {},
       detalleDocumento: [],
-      labels: ["Productos", "Cant", "Precio por unidad", "Total", "Kg"],
+      labels: ["Productos", "Cant", "Precio/Unidad", "Total"],
     };
   },
   async fetch() {

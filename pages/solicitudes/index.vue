@@ -23,7 +23,7 @@
         <v-text-field
           class="tw-w-[400px] tw-mt-4 lg:mt-0"
           v-model="buscador"
-          placeholder="Buscar cotizacion por código"
+          placeholder="Buscar cotización por código"
           append-icon="mdi-magnify"
           solo
           flat
@@ -39,7 +39,7 @@
         <!--TABLE HEADER-->
         <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
           <div class="tw-col-span-6 lg:tw-col-span-2">
-            <span class="tw-font-bold">Codigo</span>
+            <span class="tw-font-bold">Código</span>
           </div>
 
           <div class="tw-col-span-6 lg:tw-col-span-4">

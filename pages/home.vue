@@ -49,7 +49,7 @@
       >
         <card-direct-access
           label="Orden de compra"
-          text="Revisa las ordenes de compra realizadas"
+          text="Revisa las órdenes de compra realizadas"
           icon="file-search"
           route_name="ordenes"
         />
@@ -82,7 +82,7 @@
       </div>
       <!-- NOTAS DE PEDIDO -->
 
-      <!-- NOTAS DE PEDIDO -->
+      <!-- PRECIO MATERIALES -->
       <div
         class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10"
       >
@@ -93,7 +93,7 @@
           route_name="precio_materiales"
         />
       </div>
-      <!-- NOTAS DE PEDIDO -->
+      <!-- PRECIO MATERIALES -->
     </div>
 
     <!-- ACCESOS DIRECTOS -->

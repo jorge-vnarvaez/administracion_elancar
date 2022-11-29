@@ -1,9 +1,8 @@
 <template>
   <div class="tw-mt-1 tw-flex tw-flex-col tw-justify-between tw-text-xs">
+    <span class="tw-block tw-mb-2 tw-font-bold tw-text-xl">Detalle</span>
     <!--  DESKTOP VIEW -->
-    <div>
-      <span class="tw-block tw-mb-2 tw-font-bold tw-text-xl">Detalle</span>
-
+    <div v-if="$vuetify.breakpoint.mobile ? false : true">
       <!-- TABLE HEADERS -->
       <div class="tw-grid tw-grid-cols-12 tw-gap-x-4">
         <div
@@ -24,13 +23,13 @@
       <div
         v-for="(item, index) in productos"
         :key="index"
-        class="tw-my-2 tw-grid tw-grid-cols-12 tw-gap-x-4"
+        class="tw-my-1 tw-grid tw-grid-cols-12 tw-gap-x-4"
       >
         <!-- NOMBRE PRODUCTO -->
         <span
           :class="
             col_span_table(0) +
-            ' tw-flex align-center tw-truncate lg:tw-text-clip'
+            ' tw-flex align-center'
           "
           >{{ con_detalle ? item.productos_id.nombre : item.nombre }}</span
         >
@@ -88,27 +87,134 @@
         <!-- TOTAL KG -->
       </div>
       <!-- TABLE BODY -->
-
-      <!-- MEMBRETE INFERIOR -->
-      <div
-        class="tw-flex tw-flex-col-reverse lg:tw-flex-row lg:tw-justify-between align-center tw-mt-12"
-      >
-        <div v-if="cotizacion_cliente"><MembreteInferiorPdf /></div>
-        <!-- PLANTILLA PRECIO-->
-        <div class="tw-flex tw-justify-end tw-w-full">
-          <PlantillaPrecio
-            :total_kg="total_kg"
-            :sub_total="sub_total"
-            :transporte="0"
-            :total="total"
-            :cotizacion_proveedor="cotizacion_proveedor"
-          />
-        </div>
-        <!-- PLANTILLA PRECIO-->
-      </div>
-      <!-- MEMBRETE INFERIOR -->
     </div>
     <!-- DESKTOP VIEW -->
+
+    <!-- MOBILE VIEW -->
+    <div v-if="$vuetify.breakpoint.mobile ? true : false">
+      <!-- V-DIVIDER -->
+      <div class="tw-w-full tw-h-[1px] tw-bg-gray-400 tw-my-2"></div>
+      <!-- V-DIVIDER -->
+
+      <!-- TABLE HEADERS -->
+      <div
+        v-for="(item, index) in productos"
+        :key="index"
+        class="tw-my-2 tw-gap-x-4 tw-mb-6 tw-grid tw-grid-cols-12"
+      >
+        <!-- NOMBRE PRODUCTO -->
+        <div class="tw-col-span-6 tw-mb-1">
+          <span class="tw-flex align-center tw-truncate tw-font-bold"
+            >Productos
+          </span>
+        </div>
+
+        <div class="tw-col-span-6">
+          <span class="tw-flex align-center tw-truncate lg:tw-text-clip"
+            >{{ con_detalle ? item.productos_id.nombre : item.nombre }}
+          </span>
+        </div>
+
+        <!-- NOMBRE PRODUCTO -->
+
+        <!-- PRECIO UNITARIO -->
+        <div class="tw-col-span-6 tw-mb-1">
+          <span class="tw-flex align-center tw-truncate tw-font-bold"
+            >Precio uni
+          </span>
+        </div>
+
+        <div class="tw-col-span-6">
+          <span :class="col_span_table(2) + ' tw-flex align-center'">{{
+            cotizacion_proveedor
+              ? "$.-"
+              : $formatearPrecio(
+                  orden_de_compra
+                    ? item.precio_compra
+                    : con_detalle
+                    ? item.productos_id.precio
+                    : item.precio
+                )
+          }}</span>
+        </div>
+        <!-- PRECIO UNITARIO -->
+
+        <!-- PRECIO TOTAL -->
+        <div class="tw-col-span-6 tw-mb-1">
+          <span class="tw-flex align-center tw-truncate tw-font-bold"
+            >Precio total
+          </span>
+        </div>
+
+        <div class="tw-col-span-6">
+          <span :class="col_span_table(3) + ' tw-flex align-center '">{{
+            cotizacion_proveedor
+              ? "$.-"
+              : $formatearPrecio(
+                  item.cantidad *
+                    (orden_de_compra
+                      ? item.precio_compra
+                      : con_detalle
+                      ? item.productos_id.precio
+                      : item.precio)
+                )
+          }}</span>
+        </div>
+        <!-- PRECIO TOTAL -->
+
+        <!-- CANTIDAD -->
+        <div class="tw-col-span-6">
+          <span class="tw-flex tw-font-bold">Cant </span>
+        </div>
+
+        <div class="tw-col-span-6">
+          <span
+            v-if="visualizando"
+            class="tw-font-bold tw-flex align-center"
+            >{{ item.cantidad }}</span
+          >
+
+          <div v-if="visualizando == false">
+            <CantidadProductos
+              class="tw-text-black"
+              :item="item"
+              :cart_type="cart_type"
+            />
+          </div>
+        </div>
+        <!-- CANTIDAD -->
+
+        <!-- TOTAL KG -->
+        <span
+          v-if="!cotizacion_proveedor && false"
+          :class="col_span_table(4) + ' tw-font-bold tw-flex align-center'"
+          >{{
+            item.cantidad * (con_detalle ? item.productos_id.kg : item.kg)
+          }}</span
+        >
+        <!-- TOTAL KG -->
+      </div>
+      <!-- TABLE HEADERS -->
+    </div>
+    <!-- MOBILE VIEW -->
+    <!-- MEMBRETE INFERIOR -->
+    <div
+      class="tw-flex tw-flex-col-reverse lg:tw-flex-row lg:tw-justify-between align-center tw-mt-2"
+    >
+      <div v-if="cotizacion_cliente"><MembreteInferiorPdf /></div>
+      <!-- PLANTILLA PRECIO-->
+      <div class="tw-flex tw-justify-end tw-w-full">
+        <PlantillaPrecio
+          :total_kg="total_kg"
+          :sub_total="sub_total"
+          :transporte="0"
+          :total="total"
+          :cotizacion_proveedor="cotizacion_proveedor"
+        />
+      </div>
+      <!-- PLANTILLA PRECIO-->
+    </div>
+    <!-- MEMBRETE INFERIOR -->
   </div>
 </template>
 

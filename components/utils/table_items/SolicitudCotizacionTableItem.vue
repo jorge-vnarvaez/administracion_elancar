@@ -67,7 +67,7 @@
       <div class="tw-bg-white tw-my-4 tw-px-4 tw-py-2 tw-text-sm">
         <div class="tw-flex tw-justify-between">
           <div class="tw-flex tw-flex-col">
-            <span class="tw-font-bold">Solicitud de cotizacion</span>
+            <span class="tw-font-bold">Solicitud de cotización</span>
             <span>#{{ solicitud_de_cotizacion.id }}</span>
           </div>
           <span class="tw-block tw-w-[120px] tw-text-right">{{
@@ -113,7 +113,7 @@ export default {
   props: ["solicitud_de_cotizacion", "index"],
   data() {
     return {
-      labels: ["Productos", "Cant", "Precio / Uni", "Precio total"],
+      labels: ["Productos", "Cant", "Precio/Uni", "Total"],
     };
   },
   methods: {

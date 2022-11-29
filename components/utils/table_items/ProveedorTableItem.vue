@@ -1,11 +1,15 @@
 <template>
-  <div class="tw-grid tw-grid-cols-11">
+  <div class="lg:tw-grid lg:tw-grid-cols-11 tw-flex tw-flex-col" >
     <!-- NOMBRE -->
     <div
-      :class="
-        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-5 tw-py-4 tw-px-4'
+      v-if="$vuetify.breakpoint.mobile ? true : false "
+      class="tw-mb-1 tw-mt-4 tw-px-4 tw-font-bold
       "
+    >Nombre
+    </div>
+
+    <div
+      class="tw-col-span-6 lg:tw-col-span-5 tw-px-4 tw-flex align-center lg:tw-px-4"
     >
       {{ proveedor.nombre }}
     </div>
@@ -13,10 +17,12 @@
 
     <!-- CASA MATRIZ -->
     <div
-      :class="
-        `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-        ' tw-col-span-6 lg:tw-col-span-6 tw-py-4'
-      "
+      v-if="$vuetify.breakpoint.mobile ? true : false "
+      class=" tw-mb-1 tw-mt-4 tw-px-4 tw-font-bold"
+    >Casa Matriz
+    </div>
+    <div
+      class="tw-col-span-6 lg:tw-col-span-6 tw-mb-4 tw-px-4 lg:tw-py-4"
     >
       <span v-if="proveedor.casa_matriz">
         {{ proveedor.casa_matriz.calle }} #{{ proveedor.casa_matriz.numero }},

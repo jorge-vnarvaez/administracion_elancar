@@ -1,14 +1,19 @@
 <template>
   <div>
     <div
-      class="tw-bg-yellow-400 tw-h-10 tw-flex justify-end align-center tw-px-4"
+      class="tw-bg-yellow-400 tw-h-10 tw-flex tw-justify-between align-center tw-px-4"
     >
       <v-icon @click="toggleDrawer">mdi-menu</v-icon>
+      <div>
+        <span v-if="usuario" class="tw-font-bold tw-mr-2">{{
+          usuario.first_name
+        }}</span>
+        <v-icon @click="verCarro">mdi-cart-outline</v-icon>
+      </div>
     </div>
-
     <div
       v-if="drawer"
-      class="tw-bg-neutral-900 tw-text-white tw-px-4 tw-flex tw-flex-col tw-align-end tw-justify-end tw-text-xl"
+      class="tw-bg-neutral-900 tw-text-white tw-px-4 tw-flex tw-flex-col tw-justify-end tw-text-xl"
     >
       <!-- LIST OF OPTIONS -->
       <div v-if="opcion_visible == false">
@@ -36,7 +41,9 @@
       <!-- TEST -->
       <div v-if="opcion_visible">
         <div class="tw-flex tw-space-x-2 tw-w-full tw-mt-2">
-          <v-icon @click="opcion_visible = false" color="white">mdi-arrow-left-thick</v-icon>
+          <v-icon @click="opcion_visible = false" color="white"
+            >mdi-arrow-left-thick</v-icon
+          >
           <span>{{ opcion_visible.nombre }}</span>
         </div>
 
@@ -47,8 +54,11 @@
             v-for="inner_opcion in opcion_visible.list"
             :key="inner_opcion.id"
           >
-            <nuxt-link :to="inner_opcion.ruta" >
-              <span class="tw-text-white tw-block tw-text-lg tw-my-2" @click="drawer = false">
+            <nuxt-link :to="inner_opcion.ruta">
+              <span
+                class="tw-text-white tw-block tw-text-lg tw-my-2"
+                @click="drawer = false"
+              >
                 {{ inner_opcion.nombre }}
               </span>
             </nuxt-link>
@@ -56,6 +66,15 @@
         </div>
       </div>
       <!-- TEST -->
+
+      <!-- DESCONECTAR-->
+      <div class="tw-w-full tw-flex tw-justify-end tw-mb-2">
+        <span class="tw-text-white tw-mr-1" @click="cerrarSesion"
+          >Cerrar sesión</span
+        >
+        <v-icon color="white">mdi-exit-to-app</v-icon>
+      </div>
+      <!-- DESCONECTAR-->
     </div>
   </div>
 </template>
@@ -119,14 +138,25 @@ export default {
     };
   },
   methods: {
+    verCarro() {
+      this.$router.push("/carro_de_compras");
+    },
+    cerrarSesion() {
+      this.$store.dispatch("session/desconectar");
+    },
     toggleDrawer() {
       this.drawer = !this.drawer;
     },
     optionSelected(id) {
       this.opcion_visible = this.opciones.find((opcion) => opcion.id == id);
     },
-     cerrarSesion() {
+    cerrarSesion() {
       this.$store.dispatch("session/desconectar");
+    },
+  },
+  computed: {
+    usuario() {
+      return this.$store.getters["session/getUser"];
     },
   },
 };

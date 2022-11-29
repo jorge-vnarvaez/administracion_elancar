@@ -58,7 +58,7 @@
         <!-- NOMBRE -->
         <div class="tw-flex tw-justify-between tw-items-center tw-mt-2">
           <div class="tw-flex tw-flex-col">
-            <span class="tw-font-bold">Codigo</span>
+            <span class="tw-font-bold">Código</span>
           </div>
           <span class="tw-block tw-w-[220px] tw-text-right">{{
             producto.id

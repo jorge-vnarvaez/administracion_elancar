@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-flex align-center tw-space-x-4">
+  <div class="tw-flex lg:tw-flex-row tw-flex-col align-center tw-space-x-4">
     <!-- RETIRO EN TIENDA-->
     <div v-if="tipo == 'retiro_en_tienda'"><IconoRetiroTienda /></div>
     <!-- RETIRO EN TIENDA-->

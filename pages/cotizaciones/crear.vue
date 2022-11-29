@@ -216,7 +216,6 @@ export default {
             this.$store.getters["carro_compras/getTotalPrice"] * 0.19, // 19% de iva
         }
       );
-
       this.$store.dispatch("info_despacho/borrarInfoDespachoCotizacion");
       this.$store.dispatch("carro_compras/borrarCarro");
 

@@ -10,7 +10,7 @@
         <!--TITULO-->
         <div class="tw-flex tw-flex-col">
           <span class="tw-text-4xl tw-text-left">Historial</span>
-          <span class="tw-text-2xl tw-text-gray-800">Ordenes de compra</span>
+          <span class="tw-text-2xl tw-text-gray-800">Órdenes de compra</span>
         </div>
         <!--TITULO-->
       </div>
@@ -36,7 +36,7 @@
 
         <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
           <div class="tw-col-span-6 lg:tw-col-span-2">
-            <span class="tw-font-bold">Codigo</span>
+            <span class="tw-font-bold">Código</span>
           </div>
 
           <div class="tw-col-span-6 lg:tw-col-span-4">
