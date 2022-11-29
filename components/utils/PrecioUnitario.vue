@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-grid tw-grid-cols-5">
+  <div class="lg:tw-grid lg:tw-grid-cols-5 tw-flex tw-flex-col">
     <v-text-field
       v-model="precio"
       type="number"
@@ -11,19 +11,25 @@
       :rules="rules"
       :min="0"
       color="black"
-      class="tw-w-[150px] tw-text-center tw-px-0 tw-col-span-2"
+      class="tw-block tw-w-[150px] tw-text-center lg:tw-mt-0 tw-mt-1 tw-flex tw-px-0 lg:tw-col-span-2 tw-mb-4"
     ></v-text-field>
 
     <!-- PRECIO TOTAL -->
-    <span class="tw-flex align-center tw-col-span-1">{{
+    <div class="" v-if="$vuetify.breakpoint.mobile ? true : false">
+      <div class="tw-flex tw-font-bold "
+        >Precio total</div
+      >
+    </div>
+    <span class=" lg:tw-col-span-1 lg:tw-mt-0 tw-mt-1">{{
       $formatearPrecio(precio * item.cantidad)
     }}</span>
     <!-- PRECIO TOTAL -->
 
     <v-btn
       icon
-       class="tw-col-span-1 tw-uppercase tw-bg-neutral-900 tw-text-white tw-font-bold tw-px-4 tw-py-2"
-      @click="guardarPrecioUnitario(item.id)">
+      class="lg:tw-col-span-1 lg:tw-mt-0 tw-mt-4 tw-uppercase tw-rounded-lg lg:tw-rounded-full tw-w-full lg:tw-w-0 tw-bg-neutral-900 tw-text-white tw-font-bold tw-px-4 tw-py-2"
+      @click="guardarPrecioUnitario(item.id)"
+    >
       <v-icon color="white">mdi-content-save</v-icon>
     </v-btn>
   </div>
@@ -52,9 +58,12 @@ export default {
   methods: {
     guardarPrecioUnitario(id) {
       const precio = this.precio;
-      this.$store.dispatch('ordenes_de_compra/updateProductPrice', { id: id, precio_compra: precio });
+      this.$store.dispatch("ordenes_de_compra/updateProductPrice", {
+        id: id,
+        precio_compra: precio,
+      });
     },
-  }
+  },
 };
 </script>
 

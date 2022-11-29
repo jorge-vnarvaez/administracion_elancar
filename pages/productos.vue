@@ -1,6 +1,6 @@
 <template>
   <div class="tw-p-8 lg:tw-p-24 lg:tw-px-48 tw-h-full">
-    <!-- START DESKTOP VIEW -->
+    <!-- DESKTOP VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? false : true">
       <div class="tw-flex tw-flex-row tw-justify-between">
         <span class="tw-font-bold tw-text-2xl lg:tw-text-4xl"
@@ -92,9 +92,9 @@
       </div>
       <!-- NO HAY PRODUCTOS -->
     </div>
-    <!-- END DESKTOP VIEW -->
+    <!-- DESKTOP VIEW -->
 
-    <!-- START MOBILE VIEW -->
+    <!-- MOBILE VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? true : false">
       <div class="tw-flex tw-flex-col">
         <span class="tw-font-bold tw-text-2xl">Listado de productos</span>
@@ -163,7 +163,7 @@
       </div>
       <!-- NO HAY PRODUCTOS -->
     </div>
-    <!-- END MOBILE VIEW -->
+    <!-- MOBILE VIEW -->
   </div>
 </template>
 

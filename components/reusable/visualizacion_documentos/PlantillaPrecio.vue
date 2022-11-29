@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!cotizacion_proveedor" class="tw-flex tw-flex-col tw-space-y-4">
+    <div v-if="!cotizacion_proveedor" class="tw-flex tw-flex-col tw-space-y-4 align-start">
       <!--SUBTOTAL-->
       <div>
         <span class="tw-font-bold">Subtotal: </span

@@ -81,7 +81,7 @@
           <v-text-field
             v-model="info_despacho.datos_cliente.fono"
             :rules="[reglas.requerido, reglas.telefono]"
-            label="Telefono"
+            label="Teléfono"
             required
             class="tw-col-span-4 "
           ></v-text-field>
@@ -107,8 +107,7 @@
         <div class="tw-mb-8">
           <span class="tw-block tw-font-bold">Paso 2</span>
           <span class="tw-block tw-text-sky-900"
-            >Seleccione el tipo de despacho (Retiro en tienda o despacho a
-            domicilio).</span
+            >Seleccione el tipo de despacho.</span
           >
         </div>
 
@@ -260,7 +259,7 @@
           <v-text-field
             v-model="info_despacho.datos_cliente.fono"
             :rules="[reglas.requerido, reglas.telefono]"
-            label="Telefono"
+            label="Teléfono"
             required
             class="tw-col-span-3 tw-o"
           ></v-text-field>
@@ -286,8 +285,7 @@
         <div class="tw-mb-8">
           <span class="tw-block tw-font-bold">Paso 2</span>
           <span class="tw-block tw-text-sky-900"
-            >Seleccione el tipo de despacho (Retiro en tienda o despacho a
-            domicilio).</span
+            >Seleccione el tipo de despacho.</span
           >
         </div>
 
@@ -391,7 +389,7 @@ export default {
       },
       reglas: {
         requerido: (value) => !!value || "Requerido",
-        telefono: (v) => /^\d{8}$/.test(v) || "Telefono no es valido",
+        telefono: (v) => /^\d{8}$/.test(v) || "Teléfono no es valido",
         email: (v) => /.+@.+\..+/.test(v) || "Email no es valido",
         rut_valido: (v) => {
           return (!!v && !this.validateRut(v)) || "Rut invalido";

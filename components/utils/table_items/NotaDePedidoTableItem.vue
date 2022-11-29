@@ -114,7 +114,7 @@ export default {
   props: ["nota_de_pedido", "index"],
   data() {
     return {
-      labels: ["Productos", "Cant", "Precio Uni", "Precio total", "Kg"],
+      labels: ["Productos", "Cant", "Precio/Uni", "Total"],
     };
   },
   methods: {

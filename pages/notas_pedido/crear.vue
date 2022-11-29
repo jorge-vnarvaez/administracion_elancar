@@ -173,7 +173,7 @@ export default {
   },
   data() {
     return {
-      labels: ["Productos", "Cantidad", "Kg", "Precio por unidad", "Total"],
+      labels: ["Productos", "Cant", "Precio/Unidad", "Total"],
       dialog_borrar: false,
       dialog_guardar: false,
       documento_borrado: false,

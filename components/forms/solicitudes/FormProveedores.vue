@@ -12,7 +12,10 @@
     <!-- SUBTITLE, DESCRIPTION AND SEARCH -->
 
     <!-- TABLE HEADERS -->
-    <div class="tw-grid tw-grid-cols-12 tw-mt-8 tw-mb-4 tw-px-4">
+    <div
+      v-if="$vuetify.breakpoint.mobile ? false : true"
+      class="tw-grid tw-grid-cols-12 tw-mt-8 tw-mb-4 tw-px-4"
+    >
       <div class="tw-col-span-1"></div>
 
       <div class="tw-col-span-6 lg:tw-col-span-5">
@@ -33,12 +36,13 @@
       )"
       :key="proveedor.id"
       class="tw-grid tw-grid-cols-12"
+      :class="`${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` + ' '"
     >
       <!-- RADIO BUTTON -->
       <div
         :class="
           `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 lg:tw-col-span-1 tw-px-4'
+          ' tw-col-span-12 lg:tw-col-span-1 tw-px-4 '
         "
       >
         <v-radio-group v-model="radioGroup" class="tw-py-0" hide-details>
@@ -54,7 +58,7 @@
 
       <!-- NOMBRE Y CASA MATRIZ -->
       <ProveedorTableItem
-        class="tw-flex align-center tw-col-span-11"
+        class="tw-flex lg:align-center tw-col-span-11"
         :proveedor="proveedor"
         :index="index"
         :key="proveedor.id"
@@ -62,6 +66,17 @@
       <!-- NOMBRE Y CASA MATRIZ -->
     </div>
     <!-- TABLE CONTENT -->
+    
+    <!--[PAGINATION]-->
+    <div class="tw-my-8">
+      <v-pagination
+        v-model="page"
+        color="black"
+        :length="Math.ceil(proveedores.length / itemsPerPage)"
+        total-visible="7"
+      ></v-pagination>
+    </div>
+    <!--[PAGINATION]-->
   </div>
 </template>
 
@@ -89,12 +104,14 @@ export default {
   data() {
     return {
       radioGroup: 1,
+      page: 1,
+      itemsPerPage: 6,
     };
   },
   async fetch() {
     this.$store.dispatch("carro_solicitudes/fetchProveedores");
     this.$store.commit("carro_solicitudes/setCarro", []);
-    this.$cookies.remove("carroSolicitudes");	
+    this.$cookies.remove("carroSolicitudes");
   },
   methods: {
     proveedorSeleccionado(proveedor) {

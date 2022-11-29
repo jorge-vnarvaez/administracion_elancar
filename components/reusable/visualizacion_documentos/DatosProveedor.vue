@@ -1,6 +1,6 @@
 <template>
   <div v-if="proveedor" class="tw-col-span-12 tw-grid tw-grid-cols-12">
-    <div class="lg:tw-col-span-6 tw-col-span-12">
+    <div class="lg:tw-col-span-6 tw-col-span-12 tw-items-center">
       <span class="tw-block tw-font-bold">Proveedor</span>
       <!-- DATOS PROVEEDOR -->
       <div class="tw-flex tw-flex-col">
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="tw-col-span-3">
+    <div class="lg:tw-col-span-3 tw-col-span-12">
       <span class="tw-block tw-font-bold">Método de pago</span>
       <div>
         <span>{{ metodo_de_pago }}</span>

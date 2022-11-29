@@ -43,7 +43,7 @@
               <nuxt-link
                 :to="{
                   name: 'formulario_despacho',
-                  params: { documento_a_emitir: 'cotizacion' },
+                  params: { documento_a_emitir: 'cotización' },
                 }"
               >
                 <div class="tw-bg-yellow-400">
@@ -99,10 +99,10 @@
 
     <div v-if="$vuetify.breakpoint.mobile ? true : false">
       <div
-        class="tw-py-12 lg:tw-p-24 tw-px-8 lg:tw-px-48 tw-flex"
+        class="tw-py-10 tw-px-8 tw-flex"
         v-if="carro.length > 0"
       >
-        <div class="tw-grid tw-grid-cols-12 tw-gap-x-8 tw-gap-y-4">
+        <div class="tw-grid tw-grid-cols-12 tw-gap-y-4">
           <!-- CANTIDAD PRODUCTOS -->
           <div class="tw-col-span-12 tw-p-6 tw-bg-white">
             <div class="tw-flex tw-space-x-2">
@@ -140,7 +140,7 @@
               <nuxt-link
                 :to="{
                   name: 'formulario_despacho',
-                  params: { documento_a_emitir: 'cotizacion' },
+                  params: { documento_a_emitir: 'cotización' },
                 }"
               >
                 <div class="tw-bg-yellow-400">

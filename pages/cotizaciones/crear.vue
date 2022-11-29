@@ -5,9 +5,7 @@
         class="tw-w-full tw-align-center tw-flex tw-justify-end tw-space-x-3"
       >
         <!-- ICONO GUARDAR Y DIALOG -->
-        <div
-          @click="dialog_guardar = true"
-        >
+        <div @click="dialog_guardar = true">
           <v-dialog v-model="dialog_guardar" max-width="290">
             <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
               <v-card-text class="tw-text-center tw-text-2xl">
@@ -42,9 +40,7 @@
         <!-- ICONO GUARDAR Y DIALOG -->
 
         <!-- ICONO BORRAR Y DIALOG -->
-        <div
-          @click="dialog_borrar = true"
-        >
+        <div @click="dialog_borrar = true">
           <v-dialog v-model="dialog_borrar" max-width="290">
             <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
               <v-card-text class="tw-text-center tw-text-2xl">
@@ -120,30 +116,26 @@
     </div>
 
     <!-- ALERTA BORRADO EXITOSO -->
-    <div v-if="documento_borrado" class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col">
-      <v-img src="/deleting_document.png" width="500" height="420" contain></v-img>
-      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
-        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
-          >El documento se ha borrado exitosamente, serás redirigido al listado
-          de productos en {{ contador }} segundos...</span
-        >
-
-        <v-progress-circular indeterminate color="black"></v-progress-circular>
-      </div>
+    <div v-if="documento_borrado">
+      <AlertaExito
+        image="/deleting_document.png"
+        txt="El documento se ha borrado exitosamente, serás redirigido al listado
+          de productos en"
+        :contador="contador"
+      />
     </div>
     <!-- ALERTA BORRADO EXITOSO -->
 
     <!-- ALERTA GUARDADO EXITOSO -->
-    <div v-if="documento_guardado" class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col">
-      <v-img src="/saving_document.png" width="500" height="420" contain></v-img>
-      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
-        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
-          >El documento se ha guardado exitosamente, serás redirigido al listado
-          de productos en {{ contador }} segundos...</span
-        >
-
-        <v-progress-circular indeterminate color="black"></v-progress-circular>
-      </div>
+    <div
+      v-if="documento_guardado"
+    >
+      <AlertaExito
+        image="/saving_document.png"
+        txt="El documento se ha guardado exitosamente, serás redirigido al listado
+          de productos en"
+        :contador="contador"
+      />
     </div>
     <!-- ALERTA GUARDADO EXITOSO -->
   </div>
@@ -158,7 +150,7 @@ import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCl
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 import MembreteInferiorPdf from "@/components/reusable/visualizacion_documentos/MembreteInferiorPdf.vue";
-import DialogAccion from "@/components/reusable/DialogAccion.vue";
+import AlertaExito from "@/components/reusable/AlertaExito.vue";
 
 export default {
   middleware: ["auth"],
@@ -170,11 +162,11 @@ export default {
     DatosEnvio,
     TablaProductos,
     MembreteInferiorPdf,
-    DialogAccion,
+    AlertaExito,
   },
   data() {
     return {
-      labels: ["Productos", "Cantidad", "Precio por unidad", "Total", "Kg"],
+      labels: ["Productos", "Cant", "Precio / Uni", "Total"],
       dialog_borrar: false,
       dialog_guardar: false,
       documento_borrado: false,
@@ -183,23 +175,6 @@ export default {
       timeout_guardado: 9000,
       contador: 7,
     };
-  },
-  computed: {
-    carro_de_compra() {
-      return this.$store.getters["carro_compras/getCarroCompras"];
-    },
-    info_despacho() {
-      return this.$store.getters["info_despacho/getInfoDespachoCotizacion"];
-    },
-    fecha_actual() {
-      return moment();
-    },
-    hora_actual() {
-      return moment().format("HH:mm");
-    },
-    empresa() {
-      return this.$store.getters["sucursal/getSucursal"];
-    },
   },
   methods: {
     borrarDocumento() {
@@ -225,7 +200,7 @@ export default {
       await this.$axios.post(
         `${this.$config.apiUrl}/items/cotizaciones_clientes`,
         {
-          usuario_emisor: this.$cookies.get('user_id'),
+          usuario_emisor: this.$cookies.get("user_id"),
           fecha_emision: this.fecha_actual,
           hora_emision: this.hora_actual,
           cliente: this.info_despacho.datos_cliente.id,
@@ -236,10 +211,11 @@ export default {
               cantidad: producto.cantidad,
             };
           }),
-          monto_total: this.$store.getters["carro_compras/getTotalPrice"] + this.$store.getters['carro_compras/getTotalPrice'] * 0.19, // 19% de iva
+          monto_total:
+            this.$store.getters["carro_compras/getTotalPrice"] +
+            this.$store.getters["carro_compras/getTotalPrice"] * 0.19, // 19% de iva
         }
       );
-
       this.$store.dispatch("info_despacho/borrarInfoDespachoCotizacion");
       this.$store.dispatch("carro_compras/borrarCarro");
 
@@ -254,6 +230,23 @@ export default {
       setTimeout(() => {
         this.$router.push("/productos");
       }, 7000);
+    },
+  },
+  computed: {
+    carro_de_compra() {
+      return this.$store.getters["carro_compras/getCarroCompras"];
+    },
+    info_despacho() {
+      return this.$store.getters["info_despacho/getInfoDespachoCotizacion"];
+    },
+    fecha_actual() {
+      return moment();
+    },
+    hora_actual() {
+      return moment().format("HH:mm");
+    },
+    empresa() {
+      return this.$store.getters["sucursal/getSucursal"];
     },
   },
 };

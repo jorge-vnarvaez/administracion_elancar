@@ -64,12 +64,12 @@ export default {
         // {
         //   id: 3,
         //   route_name: "ordenes-crear",
-        //   label: "Emitir orden de compra",
+        //   label: "Emitir órden de compra",
         // },
         {
           id: 4,
           route_name: "ordenes",
-          label: "Ordenes de compra",
+          label: "Órdenes de compra",
         },
       ],
     };

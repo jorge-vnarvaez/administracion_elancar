@@ -4,20 +4,13 @@
       <!--LOGO, TITULO Y BUSCADOR -->
       <div class="tw-flex align-center tw-space-x-4">
         <!--LOGO-->
-        <div class="tw-w-[74px] tw-h-[100px]">
-          <v-img
-            src="/logo_elancar.png"
-            width="74"
-            height="100"
-            contain
-          ></v-img>
-        </div>
+        <IconoElancar />
         <!--LOGO-->
 
         <!--TITULO-->
         <div class="tw-flex tw-flex-col">
           <span class="tw-text-4xl tw-text-left">Historial</span>
-          <span class="tw-text-2xl tw-text-gray-800">Ordenes de compra</span>
+          <span class="tw-text-2xl tw-text-gray-800">Órdenes de compra</span>
         </div>
         <!--TITULO-->
       </div>
@@ -26,7 +19,7 @@
       <!--[BUSCADOR]-->
       <div>
         <v-text-field
-          class="tw-w-[400px]"
+          class="tw-w-[400px] tw-mt-4 lg:mt-0"
           v-model="buscador"
           placeholder="Buscar orden de compra por código"
           append-icon="mdi-magnify"
@@ -43,11 +36,15 @@
 
         <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
           <div class="tw-col-span-6 lg:tw-col-span-2">
-            <span class="tw-font-bold">Codigo</span>
+            <span class="tw-font-bold">Código</span>
           </div>
 
-          <div class="tw-col-span-6 lg:tw-col-span-6">
+          <div class="tw-col-span-6 lg:tw-col-span-4">
             <span class="tw-font-bold">Fecha</span>
+          </div>
+
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Hora</span>
           </div>
 
           <div class="tw-col-span-6 lg:tw-col-span-4">
@@ -121,14 +118,14 @@
 
 <script>
 import qs from "qs";
-import CardNewSolicitud from "@/components/reusable/CardNewSolicitud.vue";
+import IconoElancar from "@/components/iconos/IconoElancar";
 import OrdenDeCompraTableItem from "@/components/utils/table_items/OrdenDeCompraTableItem.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
 
 export default {
   middleware: ["auth"],
   components: {
-    CardNewSolicitud,
+    IconoElancar,
     OrdenDeCompraTableItem,
     EmptyTable,
   },
@@ -150,7 +147,7 @@ export default {
       });
 
       const query_defecto = qs.stringify({
-        sort: "fecha_emision",
+        sort: ["-fecha_emision", "-hora_emision"],
       });
 
       this.ordenes_de_compra = await this.$axios
@@ -170,7 +167,7 @@ export default {
   },
   async asyncData(context) {
     const query = qs.stringify({
-      sort: "fecha_emision",
+      sort: ["-fecha_emision", "-hora_emision"],
       fields: ["*.*.*"],
     });
 

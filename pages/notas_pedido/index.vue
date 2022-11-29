@@ -26,7 +26,7 @@
       <!--[BUSCADOR]-->
       <div>
         <v-text-field
-          class="tw-w-[500px]"
+          class="tw-w-[500px] tw-mt-4 lg:mt-0"
           v-model="buscador"
           placeholder="Buscar nota de pedido por código"
           append-icon="mdi-magnify"
@@ -44,7 +44,7 @@
         <!--TABLE HEADER-->
         <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
           <div class="tw-col-span-6 lg:tw-col-span-2">
-            <span class="tw-font-bold">Codigo</span>
+            <span class="tw-font-bold">Código</span>
           </div>
 
           <div class="tw-col-span-6 lg:tw-col-span-4">
@@ -146,11 +146,11 @@ export default {
             _eq: queryBuscador,
           },
         },
-        sort: "fecha_emision",
+        sort: "-fecha_emision",
       });
 
       const query_defecto = qs.stringify({
-        sort: "fecha_emision",
+        sort: "-fecha_emision",
       });
 
       this.notas_de_pedido = await this.$axios
@@ -178,7 +178,7 @@ export default {
         "detalle.*",
         "empresa.*.*",
       ],
-      sort: "fecha_emision",
+      sort: "-fecha_emision",
     });
 
     const notas_de_pedido = await context.$axios

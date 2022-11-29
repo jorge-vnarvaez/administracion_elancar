@@ -67,7 +67,7 @@
       <!-- RANGO DE PRECIOS -->
 
       <!-- TIPO MATERIAL -->
-      <v-menu offset-y>
+      <!-- <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             color="black"
@@ -95,7 +95,7 @@
             }}</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>
+      </v-menu> -->
       <!-- TIPO MATERIAL -->
     </div>
     <!-- FILTROS -->
@@ -216,19 +216,19 @@ export default {
       // check if filter was removed from active filters
       const indexFilter = this.active_filters.indexOf(filter);
 
-      // check if query buscador is a cookie
-      const query = this.$cookies.get("query_buscador") || false;
-
-      if (query) {
-        this.$store.dispatch(
-          "productos/applyFilters",
-          this.$cookies.get("query_buscador")
-        );
-      } else {
-        if (!query && indexFilter === -1) {
-          this.$store.dispatch("productos/loadProductos");
+      if (indexFilter === -1) {
+        // this.$cookies.remove(filter.parent);
+        this.$store.dispatch("productos/loadProductos");
+        if (query) {
+          this.$store.dispatch(
+            "productos/applyFilters",
+            this.$cookies.get("query_buscador")
+          );
         }
       }
+
+      // check if query buscador is a cookie
+      const query = this.$cookies.get("query_buscador") || false;
     },
   },
 };

@@ -19,13 +19,24 @@
       <div
         :class="
           `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 lg:tw-col-span-6 tw-py-4 tw-px-4'
+          ' tw-col-span-6 lg:tw-col-span-4 tw-py-4 tw-px-4'
         "
       >
         {{ formatearFecha(solicitud_de_cotizacion.fecha_emision) }}
         <!-- {{ formatearHora(solicitud_de_cotizacion.hora_emision)}} -->
       </div>
       <!-- FECHA -->
+
+      <!-- HORA -->
+      <div
+        :class="
+          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+          ' tw-col-span-6 lg:tw-col-span-2 tw-py-4'
+        "
+      >
+        {{ solicitud_de_cotizacion.hora_emision }}
+      </div>
+      <!-- HORA -->
 
       <!-- ARCHIVOS -->
       <div
@@ -56,7 +67,7 @@
       <div class="tw-bg-white tw-my-4 tw-px-4 tw-py-2 tw-text-sm">
         <div class="tw-flex tw-justify-between">
           <div class="tw-flex tw-flex-col">
-            <span class="tw-font-bold">Solicitud de cotizacion</span>
+            <span class="tw-font-bold">Solicitud de cotización</span>
             <span>#{{ solicitud_de_cotizacion.id }}</span>
           </div>
           <span class="tw-block tw-w-[120px] tw-text-right">{{
@@ -102,16 +113,13 @@ export default {
   props: ["solicitud_de_cotizacion", "index"],
   data() {
     return {
-      labels: ["Productos", "Cant", "Precio / Uni", "Precio total"],
+      labels: ["Productos", "Cant", "Precio/Uni", "Total"],
     };
   },
   methods: {
     formatearFecha(fecha) {
       return moment(fecha).format("LL");
     },
-    // formatearHora(hora){
-    //     return moment(hora).format("A")
-    // }
   },
 };
 </script>

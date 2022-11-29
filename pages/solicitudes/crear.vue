@@ -12,16 +12,28 @@
 
     <!-- SELECCIONAR PROVEEDOR -->
     <div v-if="form == 1">
-      <FormProveedores :proveedores="proveedores" :page="page" :itemsPerPage="itemsPerPage" />
+      <FormProveedores
+        :proveedores="proveedores"
+        :page="page"
+        :itemsPerPage="itemsPerPage"
+      />
     </div>
     <!-- SELECCIONAR PROVEEDOR -->
 
     <div v-if="form == 2">
-      <FormReceptores :receptores="receptores" :page="page" :itemsPerPage="itemsPerPage" />
+      <FormReceptores
+        :receptores="receptores"
+        :page="page"
+        :itemsPerPage="itemsPerPage"
+      />
     </div>
 
     <div v-if="form == 3">
-      <FormProductos :page="page" :itemsPerPage="itemsPerPage" />
+      <FormProductos
+        :class="`${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` + ' '"
+        :page="page"
+        :itemsPerPage="itemsPerPage"
+      />
     </div>
 
     <div class="tw-flex tw-w-full tw-justify-between">
@@ -30,9 +42,9 @@
         <v-btn
           v-if="form != 1"
           color="black"
-          class="tw-text-white tw-font-bold tw-w-40"
+          class="tw-text-white tw-font-bold tw-w-[130px] lg:tw-w-40"
           @click="atras"
-          >Atras</v-btn
+          >Volver</v-btn
         >
       </div>
       <!--BUTTON ATRAS-->
@@ -41,7 +53,7 @@
       <div class="tw-flex tw-justify-end tw-mt-12">
         <v-btn
           color="black"
-          class="tw-text-white tw-font-bold tw-w-40"
+          class="tw-text-white tw-font-bold tw-w-[130px] lg:tw-w-40"
           :disabled="form == 3 && carro_solicitudes"
           @click="continuar"
           >Continuar</v-btn
@@ -109,10 +121,14 @@ export default {
       return this.$store.getters["carro_solicitudes/getProveedores"];
     },
     receptores() {
-      return this.$store.getters["carro_solicitudes/getReceptoresCurrentProveedor"];
+      return this.$store.getters[
+        "carro_solicitudes/getReceptoresCurrentProveedor"
+      ];
     },
     carro_solicitudes() {
-      return this.$store.getters["carro_solicitudes/getCarroSolicitudesIsEmpty"];
+      return this.$store.getters[
+        "carro_solicitudes/getCarroSolicitudesIsEmpty"
+      ];
     },
     length_items() {
       // create an switch based on the form
@@ -124,9 +140,13 @@ export default {
         case 1:
           return this.$store.getters["carro_solicitudes/getProveedores"].length;
         case 2:
-          return this.$store.getters["carro_solicitudes/getReceptoresCurrentProveedor"];
+          return this.$store.getters[
+            "carro_solicitudes/getReceptoresCurrentProveedor"
+          ];
         case 3:
-          return this.$store.getters["carro_solicitudes/getProductosCurrentProveedor"];
+          return this.$store.getters[
+            "carro_solicitudes/getProductosCurrentProveedor"
+          ];
       }
     },
   },

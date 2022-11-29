@@ -10,7 +10,7 @@
         <!--TITULO-->
         <div class="tw-flex tw-flex-col">
           <span class="tw-text-4xl">Historial</span>
-          <span class="tw-text-2xl tw-text-gray-800">Cotizaciónes</span>
+          <span class="tw-text-2xl tw-text-gray-800">Cotizaciones</span>
         </div>
         <!--TITULO-->
       </div>
@@ -19,9 +19,9 @@
       <!--[BUSCADOR]-->
       <div>
         <v-text-field
-          class="tw-w-[500px]"
+          class="tw-w-[500px] tw-mt-4 lg:mt-0"
           v-model="buscador"
-          placeholder="Buscar cotizacion por código"
+          placeholder="Buscar cotización por código"
           append-icon="mdi-magnify"
           solo
           flat
@@ -38,7 +38,7 @@
 
         <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
           <div class="tw-col-span-6 lg:tw-col-span-2">
-            <span class="tw-font-bold">Codigo</span>
+            <span class="tw-font-bold">Código</span>
           </div>
 
           <div class="tw-col-span-6 lg:tw-col-span-4">
@@ -152,7 +152,7 @@ export default {
         "cliente.*.*",
         "empresa..*.*",
       ],
-      sort: ["fecha_emision", "hora_emision"],
+      sort: ["-fecha_emision", "-hora_emision"],
     });
 
     const { data } = await fetch(
@@ -175,11 +175,11 @@ export default {
             _eq: queryBuscador,
           },
         },
-        sort: ["fecha_emision", "hora_emision"],
+        sort: ["-fecha_emision", "-hora_emision"],
       });
 
       const query_defecto = qs.stringify({
-        sort: ["fecha_emision", "hora_emision"],
+        sort: ["-fecha_emision", "-hora_emision"],
       });
 
       this.cotizaciones_clientes = await this.$axios

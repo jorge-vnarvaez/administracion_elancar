@@ -1,6 +1,6 @@
 <template>
   <v-responsive max-width="1800">
-    <!-- START DESKTOP VIEW -->
+    <!-- DESKTOP VIEW -->
     <div
       class="tw-grid tw-grid-cols-12"
       v-if="$vuetify.breakpoint.mobile ? false : true"
@@ -97,6 +97,7 @@
       </div>
       <!-- AGREGAR -->
 
+      <!-- PRODUCTO AGREGADO ALERT -->
       <v-snackbar
         type="success"
         v-model="producto_agregado"
@@ -106,10 +107,11 @@
         <v-icon color="white">mdi-check-circle</v-icon>
         <span>Producto agregado con exito!</span>
       </v-snackbar>
+      <!-- PRODUCTO AGREGADO ALERT -->
     </div>
-    <!-- END DESKTOP VIEW -->
+    <!-- DESKTOP VIEW -->
 
-    <!-- START MOBILE VIEW -->
+    <!-- MOBILE VIEW -->
     <div v-if="$vuetify.breakpoint.mobile ? true : false">
       <!--[TABLE HEADERS]-->
       <div class="tw-bg-white tw-my-4 tw-px-4 tw-py-2 tw-text-sm">
@@ -118,7 +120,7 @@
           <div class="tw-flex tw-flex-col">
             <span class="tw-font-bold">Nombre</span>
           </div>
-          <span class="tw-block tw-w-[220px] tw-text-right">{{
+          <span class="tw-block tw-w-[220px] tw-text-right tw-truncate">{{
             producto.nombre
           }}</span>
         </div>
@@ -198,8 +200,8 @@
         <!-- AGREGAR -->
       </div>
       <!--[TABLE HEADERS]-->
-
       
+      <!-- PRODUCTO AGREGADO ALERT -->
       <div class="tw-grid tw-grid-cols-12">
         <v-snackbar
           type="success"
@@ -211,8 +213,9 @@
           <span>Producto agregado con exito!</span>
         </v-snackbar>
       </div>
+      <!-- PRODUCTO AGREGADO ALERT -->
     </div>
-    <!-- END MOBILE VIEW -->
+    <!-- MOBILE VIEW -->
   </v-responsive>
 </template>
 
