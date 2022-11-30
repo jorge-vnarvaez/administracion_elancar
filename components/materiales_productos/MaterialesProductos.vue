@@ -69,7 +69,7 @@
                   validate-on-blur
                   small
                   >Recalcular
-                  <!-- <v-dialog v-model="dialog_guardar" max-width="290">
+                  <v-dialog v-model="dialog_guardar" max-width="290">
                     <v-card
                       class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center"
                     >
@@ -99,7 +99,7 @@
                         </v-btn>
                       </v-card-actions>
                     </v-card>
-                  </v-dialog> -->
+                  </v-dialog>
                 </v-btn>
                 <!-- BOTON PARA CAMBIAR PRECIO -->
               </div>
