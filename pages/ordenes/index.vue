@@ -47,7 +47,11 @@
             <span class="tw-font-bold">Hora</span>
           </div>
 
-          <div class="tw-col-span-6 lg:tw-col-span-4">
+          <div class="tw-col-span-6 lg:tw-col-span-2">
+            <span class="tw-font-bold">Validada</span>
+          </div>
+
+          <div class="tw-col-span-6 lg:tw-col-span-2">
             <span class="tw-font-bold">Ver o Descargar</span>
           </div>
         </div>

@@ -31,10 +31,12 @@ export default {
   },
   methods: {
     aumentarCantidad() {
-       this.$store.dispatch(`carro_${this.cart_type}/updateProductQuantity`, {
-        id: this.item.id,
-        cantidad: this.item.cantidad + 1
-      })
+      if (this.item.cantidad < this.item.stock) {
+        this.$store.dispatch(`carro_${this.cart_type}/updateProductQuantity`, {
+          id: this.item.id,
+          cantidad: this.item.cantidad + 1
+        })
+      }
     },
     disminuirCantidad() {
       if (this.item.cantidad > 1) {

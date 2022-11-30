@@ -117,36 +117,24 @@
     <!-- ALERTA BORRADO EXITOSO -->
     <div
       v-if="documento_borrado"
-      class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col"
     >
-      <v-img
-        src="/deleting_document.png"
-        width="500"
-        height="420"
-        contain
-      ></v-img>
-      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
-        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
-          >El documento se ha borrado exitosamente, serás redirigido al listado
-          de productos en {{ contador }} segundos...</span
-        >
-
-        <v-progress-circular indeterminate color="black"></v-progress-circular>
-      </div>
+      <AlertaExito
+        image="/deleting_document.png"
+        txt="El documento se ha borrado exitosamente, serás redirigido al listado
+          de productos en"
+        :contador="contador"
+      />
     </div>
     <!-- ALERTA BORRADO EXITOSO -->
 
     <!-- ALERTA GUARDADO EXITOSO -->
-     <div v-if="documento_guardado" class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col">
-      <v-img src="/saving_document.png" width="500" height="420" contain></v-img>
-      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
-        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
-          >El documento se ha guardado exitosamente, serás redirigido al listado
-          de productos en {{ contador }} segundos...</span
-        >
-
-        <v-progress-circular indeterminate color="black"></v-progress-circular>
-      </div>
+     <div v-if="documento_guardado">
+      <AlertaExito
+        image="/saving_document.png"
+        txt="El documento se ha guardado exitosamente, serás redirigido al listado
+          de productos en"
+        :contador="contador"
+      />
     </div>
     <!-- ALERTA GUARDADO EXITOSO -->
   </div>
@@ -160,6 +148,7 @@ import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/
 import DatosCliente from "@/components/reusable/visualizacion_documentos/DatosCliente.vue";
 import DatosEnvio from "@/components/reusable/visualizacion_documentos/DatosEnvio.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
+import AlertaExito from "@/components/reusable/AlertaExito.vue";
 
 export default {
   middleware: ["auth"],
@@ -170,6 +159,7 @@ export default {
     DatosCliente,
     DatosEnvio,
     TablaProductos,
+    AlertaExito,
   },
   data() {
     return {

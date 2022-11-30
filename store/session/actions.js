@@ -32,6 +32,20 @@ export default {
 
         }
     },
+    async refreshToken({ commit }, token) {
+        console.log('refreshingToken');
+        const refresh_token = this.$cookies.get('refresh_token');
+
+         await this.$axios.post(`${this.$config.apiUrl}/auth/refresh`, {
+            "refresh_token": refresh_token,
+    }).then((res) => { 
+        this.$cookies.remove('access_token');
+        this.$cookies.remove('refresh_token');
+        this.$cookies.set('refresh_token', res.data.data.refresh_token)
+        this.$cookies.set('access_token', res.data.data.access_token)
+    });
+
+    },
     desconectar({ commit }) {
         commit('removeSession');
     }

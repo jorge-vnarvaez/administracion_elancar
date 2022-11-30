@@ -88,8 +88,8 @@
       >
         <card-direct-access
           label="Precio material"
-          text="Revisa el listado de productos para ser modificados"
-          icon="file"
+          text="Actualiza el precio de los productos en base a un material especifico"
+          icon="materials"
           route_name="precio_materiales"
         />
       </div>

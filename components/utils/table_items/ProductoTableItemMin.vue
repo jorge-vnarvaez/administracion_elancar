@@ -7,7 +7,7 @@
     >
       <!-- NOMBRE -->
       <div
-        class="tw-col-span-6 lg:tw-col-span-5 tw-py-4 tw-px-4"
+        class="tw-col-span-6 lg:tw-col-span-6 tw-py-4 tw-px-4"
       >
         {{ producto.nombre }}
       </div>
@@ -33,7 +33,7 @@
 
       <!-- CANTIDAD -->
       <div
-        class="tw-col-span-6 lg:tw-col-span-3 tw-py-1 tw-px-4"
+        class="tw-col-span-6 lg:tw-col-span-2 tw-py-1 tw-px-4"
       >
         <div class="tw-flex">
           <v-icon @click="disminuirCantidad()">mdi-minus</v-icon>
@@ -54,7 +54,7 @@
 
       <!-- AGREGAR -->
       <div
-        class=" tw-col-span-2 tw-py-3 tw-px-4"
+        class="tw-col-span-2 tw-py-3 tw-px-4"
       >
         <v-btn
           :disabled="cantidad == 0"

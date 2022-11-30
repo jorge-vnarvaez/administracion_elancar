@@ -38,11 +38,21 @@
       </div>
       <!-- HORA -->
 
+      <!-- VALIDADA -->
+      <div  :class="
+          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
+          ' tw-col-span-6 lg:tw-col-span-2 tw-py-4'
+        ">
+        <v-icon v-if="solicitud_de_cotizacion.convertida" color="green darken-1">mdi-check-bold</v-icon>
+        <v-icon v-if="!solicitud_de_cotizacion.convertida" color="red darken-1">mdi-close-thick</v-icon>
+      </div>
+      <!-- VALIDADA -->
+
       <!-- ARCHIVOS -->
       <div
         :class="
           `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 tw-flex lg:tw-col-span-4 tw-py-4 tw-space-x-2'
+          ' tw-col-span-6 tw-flex lg:tw-col-span-2 tw-py-4 tw-space-x-2'
         "
       >
         <IconoVer

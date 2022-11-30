@@ -130,51 +130,13 @@
       </div>
       <!--PASO 2-->
 
-      <!--PASO 3-->
-      <!-- <div
-      v-if="opciones_despacho == 'despacho_domicilio'"
-      class="tw-bg-white tw-p-8 tw-mt-12"
-    >
-      <div class="tw-mb-8">
-        <span class="tw-block tw-font-bold">Paso 3</span>
-        <span class="tw-block tw-text-sky-900"
-          >Solicite los datos de despacho al comprador para identificar la
-          dirección de despacho.</span
-        >
-      </div>
-      <div class="tw-grid tw-grid-cols-12 tw-gap-x-20">
-        <v-text-field
-          v-model="info_despacho.datos_envio.sector"
-          label="Sector"
-          required
-          class="tw-col-span-3"
-        >
-        </v-text-field>
-        <v-text-field
-          v-model="info_despacho.datos_envio.calle"
-          label="Calle"
-          required
-          class="tw-col-span-3"
-        >
-        </v-text-field>
-        <v-text-field
-          v-model="info_despacho.datos_envio.numero"
-          label="Numero"
-          required
-          class="tw-col-span-3"
-        >
-        </v-text-field>
-      </div>
-    </div> -->
-      <!--PASO 3-->
-
       <!--BUTTON CONTINUE-->
       <div class="tw-flex tw-justify-end tw-mt-12">
         <v-btn
           color="black"
           class="tw-text-white tw-font-bold tw-w-40"
           :disabled="!validado"
-          @click="continuar"
+          @click="continuar()"
           >Continuar</v-btn
         >
       </div>
@@ -305,44 +267,6 @@
         </v-radio-group>
       </div>
       <!--PASO 2-->
-
-      <!--PASO 3-->
-      <!-- <div
-      v-if="opciones_despacho == 'despacho_domicilio'"
-      class="tw-bg-white tw-p-8 tw-mt-12"
-    >
-      <div class="tw-mb-8">
-        <span class="tw-block tw-font-bold">Paso 3</span>
-        <span class="tw-block tw-text-sky-900"
-          >Solicite los datos de despacho al comprador para identificar la
-          dirección de despacho.</span
-        >
-      </div>
-      <div class="tw-grid tw-grid-cols-12 tw-gap-x-20">
-        <v-text-field
-          v-model="info_despacho.datos_envio.sector"
-          label="Sector"
-          required
-          class="tw-col-span-3"
-        >
-        </v-text-field>
-        <v-text-field
-          v-model="info_despacho.datos_envio.calle"
-          label="Calle"
-          required
-          class="tw-col-span-3"
-        >
-        </v-text-field>
-        <v-text-field
-          v-model="info_despacho.datos_envio.numero"
-          label="Numero"
-          required
-          class="tw-col-span-3"
-        >
-        </v-text-field>
-      </div>
-    </div> -->
-      <!--PASO 3-->
 
       <!--BUTTON CONTINUE-->
       <div class="tw-flex tw-justify-end tw-mt-12">
@@ -506,15 +430,16 @@ export default {
                 ]
               : [],
         });
-      }
+      } 
 
-      if (this.documento_a_emitir == "cotizacion") {
+      if (this.documento_a_emitir == "cotización") {
         this.$store.dispatch(
           "info_despacho/setInfoDespachoCotizacion",
           this.info_despacho
         );
         this.$router.push("/cotizaciones/crear");
       }
+
       if (this.documento_a_emitir == "nota de pedido") {
         this.$store.dispatch(
           "info_despacho/setInfoDespachoNotaPedido",

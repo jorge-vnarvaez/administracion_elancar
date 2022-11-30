@@ -6,8 +6,12 @@
       <div class="tw-flex tw-space-x-4 align-center">
         <div class="shadow-md p-4" v-html="icon_svg"></div>
         <div class="tw-flex-col">
-          <span class="block font-semibold tw-text-sm lg:text-base">{{ label }}</span>
-          <span class="block tw-flex tw-flex-col tw-text-xs lg:tw-text-sm">{{ text }}</span>
+          <span class="block font-semibold tw-text-sm lg:text-base">{{
+            label
+          }}</span>
+          <span class="block tw-flex tw-flex-col tw-text-xs lg:tw-text-sm">{{
+            text
+          }}</span>
         </div>
       </div>
       <div class="tw-flex">
@@ -86,6 +90,19 @@ export default {
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                   <path d="M14 3v4a1 1 0 0 0 1 1h4" />
                   <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                  </svg>`);
+        case "materials":
+          return marked(`<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-alt" width="48" height="48" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <rect x="4" y="8" width="4" height="4" />
+                    <line x1="6" y1="4" x2="6" y2="8" />
+                    <line x1="6" y1="12" x2="6" y2="20" />
+                    <rect x="10" y="14" width="4" height="4" />
+                    <line x1="12" y1="4" x2="12" y2="14" />
+                    <line x1="12" y1="18" x2="12" y2="20" />
+                    <rect x="16" y="5" width="4" height="4" />
+                    <line x1="18" y1="4" x2="18" y2="5" />
+                    <line x1="18" y1="9" x2="18" y2="20" />
                   </svg>`);
       }
     },

@@ -67,6 +67,7 @@
                   :disabled="!material_seleccionado || precio == '0'"
                   class="tw-rounded-lg tw-bg-black tw-text-white tw-px-4"
                   validate-on-blur
+                  small
                   >Recalcular
                   <!-- <v-dialog v-model="dialog_guardar" max-width="290">
                     <v-card
@@ -85,7 +86,7 @@
                           class="tw-text-white"
                           @click="recalcularPrecio(), dialog_guardar = false"
                         >
-                          Si, guardar
+                          Si, cambiar
                         </v-btn>
 
                         <v-btn
@@ -228,7 +229,6 @@ import FiltroMaterial from "@/components/utils/FiltroMaterial.vue";
 import MaterialProductoTableItem from "@/components/utils/table_items/MaterialProductoTableItem.vue";
 import ProductosListSkeleton from "@/components/utils/ProductosListSkeleton.vue";
 import EmptyTable from "@/components/utils/EmptyTable.vue";
-
 
 export default {
   middleware: "auth",

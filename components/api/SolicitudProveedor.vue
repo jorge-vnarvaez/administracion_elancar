@@ -6,12 +6,12 @@
       class="tw-bg-neutral-900 tw-text-white rounded-lg tw-px-8 tw-py-4 tw-w-full tw-mb-8"
     >
       <div class="tw-flex align-center tw-space-x-2">
-        <v-icon color="white" large>mdi-information-outline</v-icon>
-        <span class="tw-text-xl tw-uppercase tw-font-black">Atención</span>
+        <v-icon color="white">mdi-information-outline</v-icon>
+        <span class="tw-text-xl tw-font-bold">Atención</span>
       </div>
 
-      <div>
-        <span class="tw-font-bold tw-block tw-mt-4"
+      <div v-if="!cotizacion_proveedor.convertida">
+        <span class="tw-font-bold tw-block tw-mt-2"
           >Si te han aprobado una solicitud de cotización o deseas generar una
           orden de compra teniendo en cuenta la cantidad que has solicitado.
         </span>
@@ -32,7 +32,7 @@
             v-if="convirtiendo == false"
             class="tw-mt-8 tw-w-full tw-text-xs lg:tw-text-sm lg:tw-w-72"
             color="white"
-            outlined
+            small
             @click="convirtiendo = !convirtiendo"
           >
             Convertir a orden de compra
@@ -42,13 +42,17 @@
             v-if="convirtiendo"
             class="tw-mt-8 tw-w-full tw-text-xs lg:tw-text-sm lg:tw-w-72"
             color="white"
-            outlined
+            small
             :disabled="!prices_setted"
             @click="dialogo_generar = true"
           >
             Generar orden de compra
           </v-btn>
         </div>
+      </div>
+
+      <div class="tw-mt-2" v-if="cotizacion_proveedor.convertida">
+        <span>La solicitud de cotización ya ha sido convertida</span>
       </div>
     </div>
     <!-- INSTRUCTIVO -->
@@ -301,8 +305,8 @@
             <!-- PLANTILLA PRECIO-->
           </div>
           <!-- MEMBRETE INFERIOR -->
-          <!-- TABLA PRODUCTOS -->
         </div>
+          <!-- TABLA PRODUCTOS -->
       </div>
       <!-- INFORMACION PRE ORDEN DE COMPRA -->
     </div>
@@ -312,20 +316,12 @@
       v-if="documento_generado"
       class="tw-flex tw-justify-center tw-w-full tw-h-full align-center tw-flex-col"
     >
-      <v-img
-        src="/solicitud_emitida.png"
-        width="500"
-        height="420"
-        contain
-      ></v-img>
-      <div class="tw-flex tw-flex-col tw-space-x-4 align-center">
-        <span class="tw-text-neutral-900 tw-font-bold tw-block tw-my-4"
-          >El documento se ha emitido exitosamente, serás redirigido a la orden
-          de compra generada en {{ contador }} segundos...</span
-        >
-
-        <v-progress-circular indeterminate color="black"></v-progress-circular>
-      </div>
+      <AlertaExito
+        image="/solicitud_emitida.png"
+        txt="El documento se ha emitido exitosamente, serás redirigido a la orden
+          de compra generada en"
+        :contador="contador"
+      />
     </div>
     <!-- ALERTA GUARDADO EXITOSO -->
   </div>
@@ -333,12 +329,14 @@
 
 <script>
 import qs from "qs";
+import moment from "moment";
 import IconoEmitir from "@/components/iconos/blancos/IconoEmitir";
 import MembreteSuperiorPdf from "@/components/reusable/visualizacion_documentos/MembreteSuperiorPdf.vue";
 import DatosProveedor from "@/components/reusable/visualizacion_documentos/DatosProveedor.vue";
 import TablaProductos from "@/components/reusable/visualizacion_documentos/TablaProductos.vue";
 import PrecioUnitario from "@/components/utils/PrecioUnitario.vue";
 import PlantillaPrecio from "@/components/reusable/visualizacion_documentos/PlantillaPrecio.vue";
+import AlertaExito from "@/components/reusable/AlertaExito.vue";
 
 export default {
   props: {
@@ -354,6 +352,7 @@ export default {
     TablaProductos,
     PrecioUnitario,
     PlantillaPrecio,
+    AlertaExito,
   },
   data() {
     return {
@@ -409,8 +408,8 @@ export default {
 
       const data = await this.$axios
         .post(`${this.$config.apiUrl}/items/ordenes_de_compra`, {
-          fecha_emision: this.cotizacion_proveedor.fecha_emision,
-          hora_emision: this.cotizacion_proveedor.hora_emision,
+          fecha_emision: this.fecha_actual,
+          hora_emision: this.hora_actual,
           empresa: this.empresa.id,
           proveedor: this.cotizacion_proveedor.proveedor.id,
           forma_de_pago: this.cotizacion_proveedor.forma_de_pago,
@@ -418,6 +417,10 @@ export default {
           monto_total: this.total,
         })
         .then((res) => res.data.data);
+
+        await this.$axios.patch(`${this.$config.apiUrl}/items/cotizaciones_proveedor/${this.id}`, {
+          convertida: true
+        })
 
       setInterval(() => {
         this.contador--;

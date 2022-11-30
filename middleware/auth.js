@@ -1,7 +1,12 @@
-export default function (context) {
-    const jwt = context.$cookies.get('access_token');
+export default function ({ $axios, redirect, store, $cookies, route }) {
+    const jwt = $cookies.get('access_token');
+
+    setInterval(() => {
+        store.dispatch('session/refreshToken', jwt);
+    }, 500000);
+    
 
     if (!jwt) {
-        context.redirect(`/?redirect=${context.route.path}`);
+       redirect(`/?redirect=${route.path}`);
     }
 }

@@ -18,7 +18,7 @@
         v-if="$vuetify.breakpoint.mobile ? false : true"
         class="tw-grid tw-grid-cols-12 tw-mt-8 tw-mb-4 tw-px-4"
       >
-        <div class="tw-col-span-6 lg:tw-col-span-5">
+        <div class="tw-col-span-6 lg:tw-col-span-6">
           <span class="tw-font-bold">Nombre</span>
         </div>
 
@@ -26,7 +26,7 @@
           <span class="tw-font-bold">Stock Actual</span>
         </div>
 
-        <div class="tw-col-span-6 lg:tw-col-span-3">
+        <div class="tw-col-span-6 lg:tw-col-span-2">
           <span class="tw-font-bold">Cantidad</span>
         </div>
 

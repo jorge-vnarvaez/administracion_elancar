@@ -39,7 +39,7 @@
         <span
           v-if="visualizando"
           :class="col_span_table(1) + ' tw-font-bold tw-flex align-center'"
-          >{{ item.cantidad }}</span
+          >{{  item.cantidad }}</span
         >
 
         <div v-if="visualizando == false" :class="col_span_table(1)">
@@ -284,6 +284,11 @@ export default {
       type: Boolean,
       default: false,
       desc: "Define si el documento se va a convertir a orden de compra",
+    },
+    verificar_stock: {
+      type: Boolean,
+      default: false,
+      desc: "Define si el documento se va a verificar el stock",
     },
   },
   methods: {

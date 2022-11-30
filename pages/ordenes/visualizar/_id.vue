@@ -6,8 +6,8 @@
       class="tw-bg-neutral-900 tw-text-white rounded-lg tw-px-8 tw-py-4 tw-w-full tw-mb-8"
     >
       <div class="tw-flex align-center tw-space-x-2">
-        <v-icon color="white" large>mdi-information-outline</v-icon>
-        <span class="tw-text-xl tw-uppercase tw-font-bold">Atención</span>
+        <v-icon color="white">mdi-information-outline</v-icon>
+        <span class="tw-text-xl tw-font-bold">Atención</span>
       </div>
 
       <div v-if="!orden_de_compra.validada">
@@ -37,7 +37,7 @@
           </span>
           <span>
           </span>
-          <v-btn class="tw-mt-8" color="white" outlined @click="validarOrden()">
+          <v-btn class="tw-mt-8" color="white"  @click="dialogo_validar = true" small>
             Validar orden de compra
           </v-btn>
         </div>
@@ -48,6 +48,38 @@
       </div>
     </div>
     <!-- INSTRUCTIVO -->
+
+     <!-- ICONO CONVERTIR Y DIALOG -->
+    <v-dialog v-model="dialogo_validar" max-width="310">
+      <v-card class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center">
+        <v-card-text class="tw-text-center tw-text-2xl">
+          ¿Está seguro/a que desea validar la orden de compra?
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            depressed
+            color="black"
+            class="tw-text-white"
+            @click="validarOrden()"
+          >
+            Si, Validar
+          </v-btn>
+
+          <v-btn
+            depressed
+            color="yellow darken-1"
+            class="tw-text-neutral-900"
+            @click="dialogo_validar = false"
+          >
+            No, Cancelar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- ICONO CONVERTIR Y DIALOG -->
 
     <div
       v-if="documento_validado == false"
@@ -130,6 +162,7 @@ export default {
       labels: ["Productos", "Cant", "Precio / Uni", "Total"],
       validando: false,
       documento_validado: false,
+      dialogo_validar: false,
       contador: 7,
     };
   },
@@ -168,6 +201,7 @@ export default {
     async validarOrden() {
       this.validando = true;
       this.documento_validado = true;
+      this.dialogo_validar = false;
 
       this.detalleDocumento.map(async (item) => {
         await this.$axios.patch(
