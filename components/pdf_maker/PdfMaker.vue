@@ -26,7 +26,7 @@
 
             <!-- DATOS DEL PROVEEDOR -->
             <div v-if="infoDocumento.proveedor">
-              <DatosProveedor :proveedor="infoDocumento.proveedor" :receptor="infoDocumento.receptor || {}" />
+              <DatosProveedor :proveedor="infoDocumento.proveedor" :metodo_de_pago="infoDocumento.forma_de_pago" :receptor="infoDocumento.receptor || {}" />
             </div>
             <!-- DATOS DEL PROVEEDOR -->
 
@@ -123,7 +123,7 @@ export default {
   },
   async fetch() {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "detalle.*.*", "proveedor.*.*", "receptor.*", "cliente.*.*", "empresa.*.*"],
+      fields: ["id", "fecha_emision", "detalle.*.*", "proveedor.*.*", "receptor.*", "cliente.*.*", "empresa.*.*", "forma_de_pago"],
     });
 
     const { data } = await this.$axios
