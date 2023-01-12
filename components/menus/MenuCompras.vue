@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="usuario.role.name == 'Gerente'"
     @mouseover="opciones = true"
     @mouseleave="opciones = false"
     class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
@@ -74,6 +75,11 @@ export default {
       ],
     };
   },
+  computed: {
+    usuario() {
+      return this.$store.getters["session/getUser"];
+    },
+  }
 };
 </script>
 

@@ -43,7 +43,7 @@
         <!-- MENU VENTAS -->
 
         <!-- MENU COMPRAS -->
-        <menu-compras />
+        <menu-compras v-if="usuario" />
         <!-- MENU COMPRAS -->
 
         <!-- CARRO COMPRAS -->
@@ -260,6 +260,9 @@ export default {
     },
   },
   computed: {
+    usuario() {
+      return this.$store.getters["session/getUser"];
+    },
     estado_cotizacion() {
       return this.$store.getters["info_despacho/getEstadoCotizacion"];
     },
