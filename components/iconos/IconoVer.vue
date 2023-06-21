@@ -10,7 +10,7 @@
 export default {
   props: {
     idDocumento: {
-      type:[String, Number],
+      type:[Number, String],
       required: true,
     },
     tipoDocumento: {

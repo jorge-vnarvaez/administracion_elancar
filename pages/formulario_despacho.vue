@@ -83,7 +83,7 @@
             :rules="[reglas.requerido, reglas.telefono]"
             label="Teléfono"
             required
-            class="tw-col-span-4 "
+            class="tw-col-span-4"
           ></v-text-field>
           <!--TELEFONO-->
 
@@ -305,11 +305,6 @@ export default {
           fono: "",
           email: "",
         },
-        datos_envio: {
-          calle: "",
-          numero: "",
-          sector: "",
-        },
       },
       reglas: {
         requerido: (value) => !!value || "Requerido",
@@ -364,7 +359,6 @@ export default {
         cliente.apellido_materno;
       this.info_despacho.datos_cliente.fono = cliente.fono;
       this.info_despacho.datos_cliente.email = cliente.email;
-
       this.clientes_has_rut = [];
     },
     async getClientesHasRut(rut) {
@@ -407,30 +401,23 @@ export default {
       return rut;
     },
     async continuar() {
-      if (this.cliente_has_seleccionado == false) {
-        await this.$axios.post(`${this.$config.apiUrl}/items/clientes`, {
-          rut: this.cleanRut(this.info_despacho.datos_cliente.rut),
-          primer_nombre:
-            this.info_despacho.datos_cliente.nombre_completo.split(" ")[0],
-          apellido_paterno:
-            this.info_despacho.datos_cliente.nombre_completo.split(" ")[1],
-          apellido_materno:
-            this.info_despacho.datos_cliente.nombre_completo.split(" ")[2],
-          fono: this.info_despacho.datos_cliente.fono,
-          email: this.info_despacho.datos_cliente.email,
-          direcciones:
-            this.opciones_despacho == "despacho_domicilio"
-              ? [
-                  {
-                    calle: this.info_despacho.datos_envio.calle,
-                    numero: this.info_despacho.datos_envio.numero,
-                    comuna: "Calama",
-                    sector: this.info_despacho.datos_envio.sector,
-                  },
-                ]
-              : [],
-        });
-      } 
+      if (this.clientes_has_rut == false) {
+        await this.$axios
+          .post(`${this.$config.apiUrl}/items/clientes`, {
+            rut: this.cleanRut(this.info_despacho.datos_cliente.rut),
+            primer_nombre:
+              this.info_despacho.datos_cliente.nombre_completo.split(" ")[0],
+            apellido_paterno:
+              this.info_despacho.datos_cliente.nombre_completo.split(" ")[1],
+            apellido_materno:
+              this.info_despacho.datos_cliente.nombre_completo.split(" ")[2],
+            fono: this.info_despacho.datos_cliente.fono,
+            email: this.info_despacho.datos_cliente.email,
+          })
+          .then((res) => {
+            this.info_despacho.datos_cliente.id = res.data.data.id;
+          });
+      }
 
       if (this.documento_a_emitir == "cotización") {
         this.$store.dispatch(

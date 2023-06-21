@@ -131,7 +131,8 @@ export default {
     };
   },
   methods: {
-    receptorSeleccionado(receptor) {
+    receptorSeleccionado(receptor_seleccionado) {
+      const receptor = receptor_seleccionado ?? null;
       this.$store.dispatch(
         "carro_solicitudes/setReceptorCurrentProveedor",
         receptor

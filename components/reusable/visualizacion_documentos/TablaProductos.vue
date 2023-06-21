@@ -55,8 +55,8 @@
                 orden_de_compra
                   ? item.precio_compra
                   : con_detalle
-                  ? item.productos_id.precio
-                  : item.precio
+                  ? item.productos_id.precio_neto
+                  : item.precio_neto
               )
         }}</span>
         <!-- PRECIO UNITARIO -->
@@ -70,8 +70,8 @@
                   (orden_de_compra
                     ? item.precio_compra
                     : con_detalle
-                    ? item.productos_id.precio
-                    : item.precio)
+                    ? item.productos_id.precio_neto
+                    : item.precio_neto)
               )
         }}</span>
         <!-- PRECIO TOTAL -->
@@ -132,8 +132,8 @@
                   orden_de_compra
                     ? item.precio_compra
                     : con_detalle
-                    ? item.productos_id.precio
-                    : item.precio
+                    ? item.productos_id.precio_neto
+                    : item.precio_neto
                 )
           }}</span>
         </div>
@@ -155,8 +155,8 @@
                     (orden_de_compra
                       ? item.precio_compra
                       : con_detalle
-                      ? item.productos_id.precio
-                      : item.precio)
+                      ? item.productos_id.precio_neto
+                      : item.precio_neto)
                 )
           }}</span>
         </div>
@@ -164,7 +164,7 @@
 
         <!-- CANTIDAD -->
         <div class="tw-col-span-6">
-          <span class="tw-flex tw-font-bold">Cant </span>
+          <span class="tw-flex tw-font-bold">Cant</span>
         </div>
 
         <div class="tw-col-span-6">
@@ -335,12 +335,12 @@ export default {
           });
         } else {
           this.productos.forEach((item) => {
-            total += item.cantidad * item.productos_id.precio;
+            total += item.cantidad * item.productos_id.precio_neto;
           });
         }
       } else if (!this.con_detalle) {
         this.productos.forEach((item) => {
-          total += item.cantidad * item.precio;
+          total += item.cantidad * item.precio_neto;
         });
       }
 

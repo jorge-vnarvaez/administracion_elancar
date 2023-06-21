@@ -33,32 +33,31 @@
 
     <!-- START DESKTOP VIEW -->
     <div v-if="cotizaciones_clientes.length > 0">
-      <div v-if="$vuetify.breakpoint.mobile ? false : true">
+      <div>
         <!--TABLE HEADER-->
-
-        <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
-          <div class="tw-col-span-6 lg:tw-col-span-2">
+        <v-row v-if="!$vuetify.breakpoint.mobile" class="tw-mt-16 tw-px-4 tw-py-2">
+          <v-col cols="6" lg="1">
             <span class="tw-font-bold">Código</span>
-          </div>
+          </v-col>
 
-          <div class="tw-col-span-6 lg:tw-col-span-4">
+          <v-col cols="6" lg="4">
             <span class="tw-font-bold">Fecha</span>
-          </div>
+          </v-col>
 
-          <div class="tw-col-span-6 lg:tw-col-span-2">
+          <v-col cols="6" lg="2">
             <span class="tw-font-bold">Hora</span>
-          </div>
+          </v-col>
 
-          <div class="tw-col-span-6 lg:tw-col-span-2">
+          <v-col cols="6" lg="2">
             <span class="tw-font-bold">Convertida</span>
-          </div>
+          </v-col>
 
-          <div class="tw-col-span-6 lg:tw-col-span-2">
+          <v-col cols="6" lg="3">
             <span class="tw-font-bold">Ver o Descargar</span>
-          </div>
-        </div>
+          </v-col>
+        </v-row>
         <!--TABLE HEADER-->
-
+        
         <!--[TABLE CONTENT]-->
         <div
           v-for="(cotizacion, index) in cotizaciones_clientes.slice(
@@ -86,35 +85,6 @@
       </div>
 
       <!-- END DESKTOP VIEW -->
-
-      <!-- MOBILE VIEW -->
-      <div v-if="$vuetify.breakpoint.mobile ? true : false">
-        <!--[TABLE CONTENT]-->
-        <div
-          v-for="(cotizacion, index) in cotizaciones_clientes.slice(
-            itemsPerPage * page - itemsPerPage,
-            itemsPerPage * page
-          )"
-          :key="cotizacion.id"
-        >
-          <CotizacionesClienteTableItem
-            :cotizacion_cliente="cotizacion"
-            :index="index"
-          />
-        </div>
-        <!--[TABLE CONTENT]-->
-
-        <!--[PAGINATION]-->
-        <div class="tw-my-8">
-          <v-pagination
-            color="black"
-            v-model="page"
-            :length="Math.ceil(cotizaciones_clientes.length / itemsPerPage)"
-          ></v-pagination>
-        </div>
-        <!--[PAGINATION]-->
-      </div>
-      <!-- MOBILE VIEW -->
     </div>
     <!-- NO RESULTADOS -->
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
@@ -154,7 +124,7 @@ export default {
         "hora_emision",
         "detalle.*.*",
         "cliente.*.*",
-        "empresa..*.*",
+        "sucursal.*.*",
         "convertida"
       ],
       sort: ["-fecha_emision", "-hora_emision"],
@@ -174,13 +144,13 @@ export default {
   },
   methods: {
     async filterCotizaciones(queryBuscador) {
+
       const query = qs.stringify({
         filter: {
           id: {
-            _eq: queryBuscador,
+            _starts_with: queryBuscador,
           },
         },
-        sort: ["-fecha_emision", "-hora_emision"],
       });
 
       const query_defecto = qs.stringify({

@@ -80,7 +80,7 @@
           tipoDocumento="Cotización"
           :fecha_emision="fecha_actual"
           is_creando
-          :empresa="empresa"
+          :empresa="sucursal"
         />
         <!-- MEMBRETE -->
 
@@ -129,6 +129,7 @@
     <!-- ALERTA GUARDADO EXITOSO -->
     <div
       v-if="documento_guardado"
+      class="h-screen"
     >
       <AlertaExito
         image="/saving_document.png"
@@ -197,6 +198,7 @@ export default {
     async guardarDocumento() {
       this.documento_guardado = true;
       this.dialog_guardar = false;
+
       await this.$axios.post(
         `${this.$config.apiUrl}/items/cotizaciones_clientes`,
         {
@@ -204,7 +206,7 @@ export default {
           fecha_emision: this.fecha_actual,
           hora_emision: this.hora_actual,
           cliente: this.info_despacho.datos_cliente.id,
-          empresa: this.empresa.id,
+          sucursal: this.sucursal.id,
           detalle: this.carro_de_compra.map((producto) => {
             return {
               productos_id: producto.id,
@@ -245,7 +247,7 @@ export default {
     hora_actual() {
       return moment().format("HH:mm");
     },
-    empresa() {
+    sucursal() {
       return this.$store.getters["sucursal/getSucursal"];
     },
   },

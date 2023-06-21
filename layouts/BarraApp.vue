@@ -46,6 +46,10 @@
         <menu-compras v-if="usuario" />
         <!-- MENU COMPRAS -->
 
+        <!-- MENU GESTION -->
+        <!-- <menu-gestion v-if="usuario" /> -->
+        <!-- MENU GESTION -->
+
         <!-- CARRO COMPRAS -->
         <nuxt-link to="/carro_de_compras">
           <div

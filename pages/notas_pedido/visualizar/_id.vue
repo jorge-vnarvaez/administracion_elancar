@@ -67,7 +67,7 @@ export default {
         "fecha_emision",
         "cliente.*.*",
         "detalle.*.*",
-        "empresa.*.*",
+        "sucursal.*.*",
       ],
     });
     const id = context.params.id;

@@ -30,7 +30,6 @@
 
     <div v-if="form == 3">
       <FormProductos
-        :class="`${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` + ' '"
         :page="page"
         :itemsPerPage="itemsPerPage"
       />

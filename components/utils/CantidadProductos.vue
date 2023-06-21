@@ -31,11 +31,18 @@ export default {
   },
   methods: {
     aumentarCantidad() {
-      if (this.item.cantidad < this.item.stock) {
+      if(this.cart_type == 'solicitudes') {
         this.$store.dispatch(`carro_${this.cart_type}/updateProductQuantity`, {
           id: this.item.id,
           cantidad: this.item.cantidad + 1
         })
+      } else {
+        if (this.item.cantidad < this.item.stock) {
+          this.$store.dispatch(`carro_${this.cart_type}/updateProductQuantity`, {
+            id: this.item.id,
+            cantidad: this.item.cantidad + 1
+          })
+        }
       }
     },
     disminuirCantidad() {

@@ -57,6 +57,12 @@ export default {
         state.currentReceptor = receptor
         this.$cookies.set('currentReceptor', state.currentReceptor)
     },
+    borrarInfoProveedor(state) {
+        state.currentProveedor = null
+        state.currentReceptor = null
+        this.$cookies.remove('currentProveedor')
+        this.$cookies.remove('currentReceptor')
+    },
     setMetodoDePago(state, metodoDePago) {
         state.metodoDePago = metodoDePago
         this.$cookies.set('metodoDePago', state.metodoDePago)

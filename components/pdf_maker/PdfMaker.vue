@@ -87,7 +87,7 @@ export default {
   },
   props: {
     idDocumento: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
     tipoDocumento: {
@@ -123,7 +123,7 @@ export default {
   },
   async fetch() {
     const query = qs.stringify({
-      fields: ["id", "fecha_emision", "detalle.*.*", "proveedor.*.*", "receptor.*", "cliente.*.*", "empresa.*.*", "forma_de_pago"],
+      fields: ["id", "fecha_emision", "detalle.*.*", "proveedor.*.*", "receptor.*", "cliente.*.*", "sucursal.*.*", "forma_de_pago"],
     });
 
     const { data } = await this.$axios

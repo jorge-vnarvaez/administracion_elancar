@@ -5,22 +5,19 @@
     >
       <v-icon @click="toggleDrawer">mdi-menu</v-icon>
       <div>
-        <span v-if="usuario" class="tw-font-bold tw-mr-2">{{
-          usuario.first_name
-        }}</span>
         <v-icon @click="verCarro">mdi-cart-outline</v-icon>
       </div>
     </div>
     <div
       v-if="drawer"
-      class="tw-bg-neutral-900 tw-text-white tw-px-4 tw-flex tw-flex-col tw-justify-end tw-text-xl"
+      class="tw-bg-neutral-900 tw-text-white tw-px-4 tw-flex tw-flex-col tw-justify-end tw-text-sm"
     >
       <!-- LIST OF OPTIONS -->
       <div v-if="opcion_visible == false">
         <div
           v-for="opcion in opciones"
           :key="opcion.id"
-          class="tw-my-2 tw-text-right"
+          class="tw-my-2"
         >
           <nuxt-link v-if="opcion.list.length <= 0" :to="opcion.ruta">
             <span class="tw-text-white">{{ opcion.nombre }}</span></nuxt-link
@@ -31,20 +28,17 @@
             >{{ opcion.nombre }}</span
           >
         </div>
-
-        <!-- <div class="tw-w-full tw-bg-yellow-400">
-            <span class="tw-text-neutral-900 tw-text-right" @click="desconectar">Cerrar sesión</span>
-        </div> -->
       </div>
       <!-- LIST OF OPTIONS -->
 
       <!-- TEST -->
       <div v-if="opcion_visible">
-        <div class="tw-flex tw-space-x-2 tw-w-full tw-mt-2">
-          <v-icon @click="opcion_visible = false" color="white"
-            >mdi-arrow-left-thick</v-icon
-          >
+        <div class="tw-flex tw-justify-between tw-space-x-2 tw-w-full tw-mt-2">
+          
           <span>{{ opcion_visible.nombre }}</span>
+          <span @click="opcion_visible = false" class="tw-font-thin"
+            >Volver</span
+          >
         </div>
 
         <div class="tw-w-full tw-h-[1px] tw-my-2 tw-bg-white"></div>
@@ -56,7 +50,7 @@
           >
             <nuxt-link :to="inner_opcion.ruta">
               <span
-                class="tw-text-white tw-block tw-text-lg tw-my-2"
+                class="tw-text-white tw-block tw-text-sm tw-my-2"
                 @click="drawer = false"
               >
                 {{ inner_opcion.nombre }}
@@ -68,11 +62,10 @@
       <!-- TEST -->
 
       <!-- DESCONECTAR-->
-      <div class="tw-w-full tw-flex tw-justify-end tw-mb-2">
+      <div class="tw-w-full tw-flex tw-mt-10 tw-mb-2">
         <span class="tw-text-white tw-mr-1" @click="cerrarSesion"
           >Cerrar sesión</span
         >
-        <v-icon color="white">mdi-exit-to-app</v-icon>
       </div>
       <!-- DESCONECTAR-->
     </div>

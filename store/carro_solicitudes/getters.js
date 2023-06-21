@@ -45,7 +45,7 @@ export default {
         return state.loadingProveedores;
     },
     getMetodoDePago(state) {
-        return state.metodoDePago
+        return state.metodoDePago ? state.metodoDePago.nombre : 'Debe seleccionar un método de pago'
     },
     getCondicionDeVenta(state) {
         return state.condicionesDeVenta

@@ -1,7 +1,7 @@
 <template>
   <div class="tw-grid tw-grid-cols-12 tw-w-full tw-h-screen">
     <div class="tw-col-span-6" v-if="$vuetify.breakpoint.mobile ? false : true">
-      <v-img src="/ferreteria-hero.jpeg" height="100%"></v-img>
+      <v-img src="/home.jpeg" height="100vh"></v-img>
     </div>
 
     <div
@@ -80,6 +80,16 @@
         <!--BOTON SESION-->
       </v-form>
       <!--FORMULARIO INICIO SESSION-->
+
+      <!-- ALERT ERROR -->
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+        color="error"
+      >
+        {{ error }}
+      </v-snackbar>
+      <!-- ALERT ERROR -->
     </div>
   </div>
 </template>
@@ -117,7 +127,6 @@ export default {
 
 
         this.$store.dispatch("sucursal/loadSucursal", this.sucursal);
-
         this.$store.dispatch("sucursal/setSucursal", this.sucursal);
 
         this.$store.dispatch("session/login", {
@@ -137,6 +146,9 @@ export default {
     sucursales() {
       return this.$store.getters["sucursal/getSucursales"];
     },
+    session_expired() {
+      return this.$route.params
+    }
   },
 };
 </script>

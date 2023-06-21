@@ -38,7 +38,7 @@
         <div>
           <span class="tw-font-bold tw-text-xl tw-mr-4">Total</span
           ><span class="tw-text-xl">{{
-            $formatearPrecio(item.precio * item.cantidad)
+            $formatearPrecio(item.precio_neto * item.cantidad)
           }}</span>
         </div>
         <div @click="eliminarItem(item)" class="tw-cursor-pointer">
@@ -82,7 +82,7 @@
           <div class="tw-flex tw-items-center">
             <span class="tw-font-bold tw-text-xl tw-mr-4">Total </span
             ><span class="tw-text-xl">{{
-              $formatearPrecio(item.precio * item.cantidad)
+              $formatearPrecio(item.precio_neto * item.cantidad)
             }}</span>
           </div>
           <!-- TOTAL -->

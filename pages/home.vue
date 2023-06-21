@@ -10,15 +10,12 @@
       <div class="tw-flex tw-flex-col">
         <span class="block tw-font-semibold tw-text-2xl">Bienvenido/a</span>
         <span>{{ usuario.first_name }} {{ usuario.last_name }}</span>
+        <span>{{ currentRole }}</span>
       </div>
-      <div class="tw-flex tw-flex-col text-right">
+      <div class="tw-flex tw-flex-col lg:tw-text-right">
         <span class="block">{{ fecha_actual }}</span>
-        <span class="flex">{{ hora_actual }}</span>
+        <span class="flex">Conectado desde las {{ hora_actual }}</span>
       </div>
-
-      <!-- <div>
-        {{ sucursal }}
-      </div> -->
     </div>
     <!-- BIENVENIDO -->
 
@@ -45,6 +42,7 @@
 
       <!-- ORDENES DE COMPRA -->
       <div
+        v-if="currentRole == 'Administrator'"
         class="tw-col-span-12 lg:tw-col-span-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 lg:tw-p-10"
       >
         <card-direct-access
@@ -107,13 +105,7 @@ import CardDirectAccess from "@/components/reusable/CardDirectAccess.vue";
 export default {
   middleware: ["auth"],
   components: { MacroCategorias, CardDirectAccess },
-  mounted() {
-    this.getCurrentUsuario();
-  },
   methods: {
-    getCurrentUsuario() {
-      this.$store.dispatch("session/current");
-    },
     desconectar() {
       this.$store.dispatch("session/desconectar");
     },
@@ -130,6 +122,9 @@ export default {
     },
     sucursal() {
       return this.$store.getters["sucursal/getSucursal"];
+    },
+    currentRole() {
+      return this.$store.getters["session/getCurrentRole"];
     },
   },
 };

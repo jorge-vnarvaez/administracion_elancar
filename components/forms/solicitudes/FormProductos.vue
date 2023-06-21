@@ -5,14 +5,14 @@
       <div>
         <span class="tw-font-bold tw-uppercase lg:tw-text-2xl">Productos</span>
         <span class="tw-block lg:tw-text-xl">
-          Seleccione el o los productos que desea solicitar cotización, a
-          continuación indique la cantidad de cada uno.
+          Indique la cantidad de cada producto que desea cotizar y a continuación, agreguelos 
+          al carro de solicitud.
         </span>
       </div>
     </div>
     <!-- SUBTITLE, DESCRIPTION AND SEARCH -->
 
-    <div v-if="productos.length > 0">
+    <div v-if="productos && productos.length > 0">
       <!-- TABLE HEADERS -->
       <div
         v-if="$vuetify.breakpoint.mobile ? false : true"

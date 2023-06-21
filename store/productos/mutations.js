@@ -18,9 +18,9 @@ export default {
                 const order_by_precio_active = filters.find((filter) => filter.parent === 'order_by_precio');
                 state.filteredProductos.sort((a, b) => {
                     if (order_by_precio_active.query === 'asc') {
-                        return a.precio - b.precio;
+                        return a.precio_neto - b.precio_neto;
                     } else if (order_by_precio_active.query === 'desc') {
-                        return b.precio - a.precio;
+                        return b.precio_neto - a.precio_neto;
                     } else {
                         return 1;
                     }
@@ -32,7 +32,7 @@ export default {
                 const range_precio_active = filters.find((filter) => filter.parent === 'range_precio');
 
                 state.filteredProductos = state.productos.filter((producto) => {
-                    return producto.precio >= range_precio_active.query[0] && producto.precio <= range_precio_active.query[1];
+                    return producto.precio_neto >= range_precio_active.query[0] && producto.precio_neto <= range_precio_active.query[1];
                 });
             }
 

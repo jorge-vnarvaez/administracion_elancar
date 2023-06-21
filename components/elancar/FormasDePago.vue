@@ -27,23 +27,23 @@ export default {
           id: 2,
           nombre: "Transferencia",
         },
-        {
-          id: 3,
-          nombre: "Tarjeta de crédito",
-        },
-        {
-          id: 4,
-          nombre: "Tarjeta de débito",
-        },
+        // {
+        //   id: 3,
+        //   nombre: "Tarjeta de crédito",
+        // },
+        // {
+        //   id: 4,
+        //   nombre: "Tarjeta de débito",
+        // },
         {
           id: 5,
           nombre: "Depósito",
         },
-        {
-          id: 6,
-          nombre: "Crédito",
-        },
-        { id: 7, nombre: "Cheque" },
+        // {
+        //   id: 6,
+        //   nombre: "Crédito",
+        // },
+        // { id: 7, nombre: "Cheque" },
       ],
       formaPago: null,
     };

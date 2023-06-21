@@ -24,7 +24,7 @@
             de productos que has solicitado estén correctos.
           </span>
           <span class="tw-block">
-            2. Si deseas generar una orden de compra, debes tener en cuenta los
+            2. Si deseas generar una orden de compra, debes asignar a cada uno de los productos los
             precios de la solicitud de cotización enviados por el proveedor.
           </span>
 
@@ -47,6 +47,14 @@
             @click="dialogo_generar = true"
           >
             Generar orden de compra
+          </v-btn>
+
+          <v-btn class="tw-mt-8 tw-w-full tw-text-xs lg:tw-text-sm lg:tw-w-40"
+          v-if="convirtiendo"
+            color="white"
+            small
+            @click="convirtiendo = false">
+            Cancelar
           </v-btn>
         </div>
       </div>
@@ -171,27 +179,28 @@
               precio unitario.</span
             >
             <!-- DESKTOP VIEW -->
-            <div v-if="$vuetify.breakpoint.mobile ? false : true">
+            <div>
               <!-- TABLE HEADERS -->
-              <div class="tw-grid tw-grid-cols-12 tw-mt-8">
-                <div class="tw-col-span-6">
+              <v-row v-if="!$vuetify.breakpoint.mobile" class="tw-mt-8 tw-mb-6">
+                <v-col cols="5">
                   <span class="tw-font-bold">Nombre</span>
-                </div>
+                </v-col>
 
-                <div class="tw-col-span-1">
+                <v-col cols="1">
                   <span class="tw-font-bold">Cantidad</span>
-                </div>
+                </v-col>
 
-                <div class="tw-col-span-2">
-                  <span class="tw-font-bold">Precio/Unidad</span>
-                </div>
-
-                <div class="tw-col-span-3">
-                  <span class="tw-font-bold">Precio total</span>
-                </div>
-
-                <div class="tw-col-span-2"></div>
-              </div>
+                <v-col cols="6">
+                  <v-row>
+                    <v-col cols="3">
+                      <span class="tw-font-bold">Precio/Unidad</span>
+                    </v-col>
+                    <v-col class="2">
+                      <span class="tw-font-bold">Total</span>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
               <!-- TABLE HEADERS -->
 
               <!--V-DIVIDER-->
@@ -199,93 +208,35 @@
               <!--V-DIVIDER-->
 
               <!-- TABLE BODY -->
-              <div
+              <v-row
                 v-for="(producto, index) in detalleDocumento"
                 :key="index"
-                class="tw-grid tw-grid-cols-12"
+                :class="[index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100', 'tw-flex tw-align-center']"
               >
                 <!-- NOMBRE -->
-                <div
-                  :class="
-                    `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-                    ' lg:tw-col-span-6 tw-py-4 tw-flex align-center'
-                  "
-                >
+                <v-col cols="5" class="tw-flex tw-align-center">
                   {{ producto.productos_id.nombre }}
-                </div>
+                </v-col>
                 <!-- NOMBRE -->
 
                 <!-- CANTIDAD -->
-                <div
-                  :class="
-                    `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-                    ' lg:tw-col-span-1  tw-flex align-center'
-                  "
-                >
+                <v-col cols="1" class="tw-flex tw-align-center">
                   {{ producto.cantidad }}
-                </div>
+                </v-col>
                 <!-- CANTIDAD -->
 
                 <!-- PRECIO UNITARIO -->
-                <div
-                  :key="index"
-                  :class="
-                    `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-                    ' lg:tw-col-span-5 tw-py-1'
-                  "
-                >
+                <v-col cols="6">
                   <PrecioUnitario
                     :item="producto"
                     :detalle_documento="detalleDocumento"
                   />
-                </div>
+                </v-col>
 
                 <!-- PRECIO UNITARIO -->
-              </div>
+              </v-row>
             </div>
             <!-- DESKTOP VIEW -->
-
-            <!-- MOBILE VIEW -->
-            <div v-if="$vuetify.breakpoint.mobile ? true : false">
-              <!-- TABLE BODY -->
-              <div v-for="(producto, index) in detalleDocumento" :key="index">
-                <!-- TABLE HEADERS -->
-                <div class="tw-mt-8 tw-mb-6">
-                  <div class="tw-mb-1">
-                    <div class="tw-font-bold">Nombre</div>
-                    <!-- NOMBRE -->
-                    <div class="tw-mt-1">
-                      {{ producto.productos_id.nombre }}
-                    </div>
-                    <!-- NOMBRE -->
-                  </div>
-
-                  <div class="tw-mb-1">
-                    <div class="tw-font-bold">Cantidad</div>
-                    <!-- CANTIDAD -->
-                    <div class="tw-mt-1">
-                      {{ producto.cantidad }}
-                    </div>
-                    <!-- CANTIDAD -->
-                  </div>
-
-                  <div class="tw-mb-1">
-                    <div class="tw-font-bold">Precio/Unidad</div>
-                    <!-- PRECIO UNITARIO -->
-                    <div :key="index">
-                      <PrecioUnitario
-                        :item="producto"
-                        :detalle_documento="detalleDocumento"
-                      />
-                    </div>
-
-                    <!-- PRECIO UNITARIO -->
-                  </div>
-                </div>
-                <!-- TABLE HEADERS -->
-              </div>
-            </div>
-            <!-- MOBILE VIEW -->
           </div>
 
           <!-- MEMBRETE INFERIOR -->
@@ -375,7 +326,7 @@ export default {
         "detalle.*.*",
         "proveedor.*.*",
         "receptor.*",
-        "empresa.*.*",
+        "sucursal.*.*",
         "convertida",
       ],
     });
@@ -410,7 +361,7 @@ export default {
         .post(`${this.$config.apiUrl}/items/ordenes_de_compra`, {
           fecha_emision: this.fecha_actual,
           hora_emision: this.hora_actual,
-          empresa: this.empresa.id,
+          sucursal: this.sucursal.id,
           proveedor: this.cotizacion_proveedor.proveedor.id,
           forma_de_pago: this.cotizacion_proveedor.forma_de_pago,
           detalle: this.$store.getters["ordenes_de_compra/getDetalle"],
@@ -445,7 +396,7 @@ export default {
     hora_actual() {
       return moment().format("HH:mm");
     },
-    empresa() {
+    sucursal() {
       return this.$store.getters["sucursal/getSucursal"];
     },
     prices_setted() {

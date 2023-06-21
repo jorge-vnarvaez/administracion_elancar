@@ -22,6 +22,9 @@ export default {
     setCurrentProveedor({ commit }, proveedor) {
         commit('setCurrentProveedor', proveedor)
     },
+    borrarInfoProveedor({ commit }) {
+        commit('borrarInfoProveedor')
+    },
     setMetodoDePago({ commit }, metodoDePago) {
         commit('setMetodoDePago', metodoDePago)
     },
@@ -32,7 +35,7 @@ export default {
         const qs = require('qs');
 
         const query = qs.stringify({
-            fields: ["id", "rut", "nombre", "casa_matriz.*", "receptores.*", "productos.productos_id.*",],
+            fields: ["id", "rut", "nombre_comercial", "casa_matriz.*", "receptores.*", "productos.productos_id.*",],
         });
 
         const data = await this.$axios

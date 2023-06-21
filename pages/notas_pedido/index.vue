@@ -40,25 +40,25 @@
 
     <div v-if="notas_de_pedido.length > 0">
       <!-- DESKTOP VIEW -->
-      <div v-if="$vuetify.breakpoint.mobile ? false : true">
+      <div>
         <!--TABLE HEADER-->
-        <div class="tw-grid tw-grid-cols-12 tw-mt-16 tw-px-4 tw-py-2">
-          <div class="tw-col-span-6 lg:tw-col-span-2">
+        <v-row v-if="!$vuetify.breakpoint.mobile" class="tw-mt-16 tw-px-4 tw-py-2">
+          <v-col cols="6" lg="1">
             <span class="tw-font-bold">Código</span>
-          </div>
+          </v-col>
 
-          <div class="tw-col-span-6 lg:tw-col-span-4">
+          <v-col cols="6" lg="4">
             <span class="tw-font-bold">Fecha</span>
-          </div>
+          </v-col>
 
-          <div class="tw-col-span-6 lg:tw-col-span-2">
+          <v-col cols="6" lg="2">
             <span class="tw-font-bold">Hora</span>
-          </div>
+          </v-col>
 
-          <div class="tw-col-span-6 lg:tw-col-span-4">
+          <v-col cols="6" lg="4">
             <span class="tw-font-bold">Ver o Descargar</span>
-          </div>
-        </div>
+          </v-col>
+        </v-row>
         <!--TABLE HEADER-->
 
         <!--[TABLE CONTENT]-->
@@ -84,32 +84,6 @@
         <!--[PAGINATION]-->
       </div>
       <!-- DESKTOP VIEW -->
-
-      <!-- MOBILE VIEW -->
-      <div v-if="$vuetify.breakpoint.mobile ? true : false">
-        <!--[TABLE CONTENT]-->
-        <div
-          v-for="(nota_pedido, index) in notas_de_pedido.slice(
-            itemsPerPage * page - itemsPerPage,
-            itemsPerPage * page
-          )"
-          :key="nota_pedido.id"
-        >
-          <NotaDePedidoTableItem :nota_de_pedido="nota_pedido" :index="index" />
-        </div>
-        <!--[TABLE CONTENT]-->
-        
-        <!--[PAGINATION]-->
-        <div class="tw-my-8">
-          <v-pagination
-            v-model="page"
-            color="black"
-            :length="Math.ceil(notas_de_pedido.length / itemsPerPage)"
-          ></v-pagination>
-        </div>
-        <!--[PAGINATION]-->
-      </div>
-      <!-- MOBILE VIEW -->
     </div>
 
     <div v-else class="tw-py-12 tw-text-2xl tw-font-bold">
@@ -176,9 +150,9 @@ export default {
         "hora_emision",
         "cliente.*",
         "detalle.*",
-        "empresa.*.*",
+        "sucursal.*.*",
       ],
-      sort: "-fecha_emision",
+      sort: ["-fecha_emision", "-hora_emision"],
     });
 
     const notas_de_pedido = await context.$axios

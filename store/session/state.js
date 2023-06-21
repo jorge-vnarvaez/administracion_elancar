@@ -3,4 +3,5 @@ export default () => ({
     user: null,
     error: false,
     errorMsg: 'Usuario y/o contraseña inválidos',
+    currentRole: null,
 });

@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-moment.locale('es');
+moment.locale('es-CL')
 
 export default () => ({
     mostrarOpciones: false,

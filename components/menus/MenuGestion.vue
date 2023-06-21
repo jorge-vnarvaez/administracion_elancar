@@ -1,39 +1,27 @@
 <template>
   <div
-    v-if="$vuetify.breakpoint.mobile ? false : true"
+    v-if="currentRole == 'Administrator'"
     @mouseover="opciones = true"
     @mouseleave="opciones = false"
-    class="text-gray-500 cursor-pointer"
+    class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="icon icon-tabler icon-tabler-device-analytics"
-      width="40"
-      height="40"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="#000000"
-      fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <rect x="3" y="4" width="18" height="12" rx="1" />
-      <line x1="7" y1="20" x2="17" y2="20" />
-      <line x1="9" y1="16" x2="9" y2="20" />
-      <line x1="15" y1="16" x2="15" y2="20" />
-      <path d="M8 12l3 -3l2 2l3 -3" />
-    </svg>
+    <IconoCompras @mouseleave="opciones = false" @mouseover="opciones = true" />
+    
 
     <div
       @mouseleave="opciones = false"
       @mouseover="opciones = true"
-      class="absolute z-50 left-10 top-40 transition ease-in-out px-2"
-      v-bind:class="{ hidden: !opciones, flex: opciones }"
+       class="tw-absolute tw-left-12 tw-top-32 transition ease-in-out tw-px-2"
+      v-bind:class="{
+        'tw-hidden': !opciones,
+        'tw-flex': opciones,
+        'tw-opacity-100': opciones,
+        'tw-opacity-0': !opciones,
+      }"
     >
-      <div class="bg-yellow-300 rounded-lg mt-4 shadow-lg">
+      <div class="tw-bg-yellow-300 tw-rounded-lg tw-mt-4 tw-ml-4 tw-shadow-lg">
         <span
-          class="block font-bold text-xl px-6 text-neutral-900 py-2 bg-yellow-400"
+          class="tw-block tw-font-bold tw-text-xl tw-px-6 tw-text-neutral-900 tw-py-2 tw-bg-yellow-400"
           >Gestión</span
         >
         <v-list-item-title
@@ -44,8 +32,7 @@
             class="text-decoration-none"
             :to="{ name: `${pagina.route_name}` }"
             ><p
-              @click="opciones = false"
-              class="text-neutral-900 px-6 py-2 my-0 hover:bg-neutral-800 hover:text-white"
+               class="tw-text-neutral-900 tw-px-6 tw-py-2 tw-my-0 hover:tw-bg-neutral-800 hover:tw-text-white"
             >
               {{ pagina.label }}
             </p></nuxt-link
@@ -57,7 +44,13 @@
 </template>
 
 <script>
+
+import IconoGestion from "@/components/iconos/menu/IconoGestion.vue";
+
 export default {
+  components: {
+    IconoGestion,
+  },
   data() {
     return {
       opciones: true,

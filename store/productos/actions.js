@@ -15,6 +15,8 @@ export default {
         commit('setProductos', data);
     },
     async filterByMaterial({ commit }, material) {
+
+
         const qs = require('qs');
 
         const query = qs.stringify({
@@ -38,11 +40,12 @@ export default {
                     }
                 ]
             }
-
         });
         const { data } = await this.$axios.$get(`${this.$config.apiUrl}/items/productos?${query}`).then((res) => {
             return res
         });
+
+
         commit('setProductos', data);
         commit('setMaterialSeleccionado', material);
     },
@@ -53,7 +56,7 @@ export default {
     async recalcularPrecio({ commit }, { productos, material, precio } ) {
         await this.$axios.patch(`${this.$config.apiUrl}/items/materiales/${material.id}`, { ultimo_precio: precio })
         productos.forEach( async (producto) => {
-            await this.$axios.patch(`${this.$config.apiUrl}/items/productos/${producto.id}`, {precio: producto.kg * precio});
+            await this.$axios.patch(`${this.$config.apiUrl}/items/productos/${producto.id}`, {precio_neto: producto.kg * precio});
         });
     }
 }

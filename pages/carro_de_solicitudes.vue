@@ -81,7 +81,7 @@
           tipoDocumento="Solicitud de cotizacion"
           :fecha_emision="fecha_actual"
           is_creando
-          :empresa="empresa"
+          :empresa="sucursal"
         />
         <!-- MEMBRETE -->
 
@@ -97,6 +97,7 @@
           <DatosProveedor
             :proveedor="proveedorActual"
             :receptor="receptorActual"
+            :metodo_de_pago="metodo_de_pago"
           />
           <!-- DATOS PROVEEDOR -->
 
@@ -107,25 +108,25 @@
           <!--V-DIVIDER-->
 
           <!-- DIRECCION FACTURACION Y ENVIO -->
-          <div v-if="empresa" class="tw-col-span-12 tw-grid tw-grid-cols-12">
+          <div v-if="sucursal" class="tw-col-span-12 tw-grid tw-grid-cols-12">
             <!-- FACTURACION -->
             <div class="tw-col-span-6">
               <span class="tw-block tw-font-bold"
                 >Dirección de facturación</span
               >
               <span class="tw-block"
-                >Representante: {{ empresa.representante }}</span
+                >Representante: {{ sucursal.representante.nombre  }}</span
               >
-              <span class="tw-block">Teléfono: {{ empresa.telefono }}</span>
-              <span class="tw-block">Email: {{ empresa.correo }}</span>
+              <span class="tw-block">Teléfono: {{ sucursal.telefono }}</span>
+              <span class="tw-block">Email: {{ sucursal.correo }}</span>
             </div>
             <!-- FACTURACION -->
 
             <!-- ENVIO -->
             <div class="tw-col-span-6">
               <span class="tw-block tw-font-bold">Dirección de envío</span>
-              <span class="tw-block">{{ empresa.nombre }}</span>
-              <span class="tw-block">{{ empresa.direccion }}</span>
+              <span class="tw-block">{{ sucursal.nombre }}</span>
+              <span class="tw-block">{{ sucursal.direccion }}</span>
             </div>
             <!-- ENVIO -->
           </div>
@@ -142,14 +143,6 @@
             <div class="tw-col-span-3">
               <span class="tw-block tw-font-bold">Método de pago</span>
               <FormasDePago />
-            </div>
-
-            <div
-              v-if="metodo_de_pago && metodo_de_pago.nombre == 'Cheque'"
-              class="tw-col-span-3"
-            >
-              <span class="tw-block tw-font-bold">Condiciones de venta</span>
-              <CondicionesDeVenta />
             </div>
           </div>
           <!-- METODO DE PAGO Y CONDICIONES DE VENTA -->
@@ -250,6 +243,7 @@ export default {
       this.documento_borrado = true;
       this.dialog_borrar = false;
 
+      this.$store.dispatch("carro_solicitudes/borrarInfoProveedor");
       this.$store.dispatch("carro_solicitudes/borrarCarro");
       setInterval(() => {
         this.contador--;
@@ -276,8 +270,8 @@ export default {
           forma_de_pago:
             this.$store.getters["carro_solicitudes/getMetodoDePago"].nombre,
           proveedor: this.proveedorActual.id,
-          receptor: this.receptorActual.id,
-          empresa: this.empresa.id,
+          receptor: this.receptorActual.id ?? null,
+          sucursal: this.sucursal.id,
           detalle: this.carro.map((producto) => {
             return {
               productos_id: producto.id,
@@ -286,7 +280,8 @@ export default {
           }),
         }
       );
-
+      
+      this.$store.dispatch("carro_solicitudes/borrarInfoProveedor");
       this.$store.dispatch("carro_solicitudes/borrarCarro");
 
       setInterval(() => {
@@ -313,7 +308,7 @@ export default {
       return this.$store.getters["carro_solicitudes/getCurrentProveedor"];
     },
     receptorActual() {
-      return this.$store.getters["carro_solicitudes/getCurrentReceptor"] || {};
+      return this.$store.getters["carro_solicitudes/getCurrentReceptor"];
     },
     fecha_actual() {
       return moment();
@@ -327,7 +322,7 @@ export default {
     condicion_de_venta() {
       return this.$store.getters["carro_solicitudes/getCondicionDeVenta"];
     },
-    empresa() {
+    sucursal() {
       return this.$store.getters["sucursal/getSucursal"];
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="usuario.role.name == 'Gerente'"
+    v-if="currentRole == 'Administrator'"
     @mouseover="opciones = true"
     @mouseleave="opciones = false"
     class="tw-bg-yellow-500 tw-rounded-lg tw-shadow-md tw-[40px] tw-h-[40px] tw-flex align-center tw-p-2 tw-cursor-pointer"
@@ -75,10 +75,17 @@ export default {
       ],
     };
   },
+  mounted() {
+    const rol = this.$cookies.get('user_role') || "";
+    this.$store.dispatch("session/setCurrentRole", rol);
+  },
   computed: {
     usuario() {
       return this.$store.getters["session/getUser"];
     },
+    currentRole() {
+      return this.$store.getters["session/getCurrentRole"];
+    }
   }
 };
 </script>

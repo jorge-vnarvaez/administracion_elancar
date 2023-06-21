@@ -7,121 +7,115 @@
     </div>
 
     <div v-if="!loading_productos">
-      <div class="tw-flex lg:tw-flex-row tw-mb-12 tw-flex-col">
-        <!-- CAJA 1 -->
-        <div
-          class="tw-bg-white lg:tw-mr-10 lg:tw-mb-0 tw-mb-4 tw-rounded-lg tw-px-6 lg:tw-w-[440px]"
-        >
-          <span class="tw-block tw-py-4 tw-text-lg tw-font-bold"
-            >Encuentra el material y modifica su precio</span
+      <div class="tw-flex tw-flex-col tw-mb-12">
+        <!-- FILTRO MATERIAL -->
+        <FiltroMaterial />
+        <!-- FILTRO MATERIAL -->
+
+        <!-- NOMBRE MATERIAL -->
+        <div>
+          <span
+            v-if="!material_seleccionado"
+            class="tw-block tw-mt-4 tw-text-xl tw-font-bold"
+            >Material no seleccionado</span
           >
-          <!-- FILTRO MATERIAL -->
-          <FiltroMaterial />
-          <!-- FILTRO MATERIAL -->
+          <span
+            v-if="material_seleccionado"
+            class="tw-block tw-mt-4 tw-text-2xl tw-font-bold"
+            >{{ material_seleccionado.nombre }}</span
+          >
         </div>
-        <!-- CAJA 1 -->
+        <!-- NOMBRE MATERIAL -->
 
         <!-- CAJA 2 -->
-        <div
-          class="tw-bg-white tw-flex tw-flex-col tw-px-6 lg:tw-w-[520px] tw-rounded-lg"
-        >
-          <!-- NOMBRE MATERIAL -->
-          <div>
-            <span
-              v-if="!material_seleccionado"
-              class="tw-block tw-mt-4 tw-text-2xl tw-font-bold"
-              >Material no seleccionado</span
-            >
-            <span
-              v-if="material_seleccionado"
-              class="tw-block tw-mt-4 tw-text-2xl tw-font-bold"
-              >{{ material_seleccionado.nombre }}</span
-            >
-          </div>
-          <!-- NOMBRE MATERIAL -->
 
-          <div class="tw-flex lg:tw-flex-row tw-flex-col">
-            <!-- CONTENIDO 1 TITULO, TEXT FIELD, BUTTON -->
-            <div class="tw-flex tw-flex-col tw-mt-1">
-              <!-- TITULO -->
-              <span class="tw-block">Ingrese nuevo valor por kilo</span>
-              <!-- TITULO -->
+        <div class="tw-flex tw-flex-col">
+          <!-- CONTENIDO 1 TITULO, TEXT FIELD, BUTTON -->
+          <div class="tw-flex tw-flex-col tw-mt-1">
+            <!-- TITULO -->
+            <span class="tw-block">Ingrese nuevo valor por kilo</span>
+            <!-- TITULO -->
 
-              <div class="tw-flex tw-mt-2">
-                <!-- TEXT FIELD PARA CAMBIAR PRECIO -->
-                <v-text-field
-                  class="tw-mr-2"
-                  placeholder="Precio por kilo"
-                  dense
-                  :disabled="!material_seleccionado"
-                  hide-details
-                  v-model="precio"
-                  type="number"
-                  @keypress="soloNumeros"
-                ></v-text-field>
-                <!-- TEXT FIELD PARA CAMBIAR PRECIO -->
+            <!-- TEXT FIELD PARA CAMBIAR PRECIO -->
+            <div class="tw-flex tw-mt-2">
+              <v-text-field
+                class="tw-mr-2"
+                placeholder="Precio por kilo"
+                dense
+                :disabled="!material_seleccionado"
+                hide-details
+                v-model="precio"
+                type="number"
+                @keypress="soloNumeros"
+              ></v-text-field>
+            </div>
+            <!-- TEXT FIELD PARA CAMBIAR PRECIO -->
 
-                <!-- BOTON PARA CAMBIAR PRECIO -->
-                <v-btn
-                  @click="dialog_guardar = true"
-                  :disabled="!material_seleccionado || precio == '0'"
-                  class="tw-rounded-lg tw-bg-black tw-text-white tw-px-4"
-                  validate-on-blur
-                  small
-                  >Recalcular
-                  <v-dialog v-model="dialog_guardar" max-width="290">
-                    <v-card
-                      class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center"
+            <!-- BOTON PARA CAMBIAR PRECIO -->
+            <v-btn
+              @click="dialog_guardar = true"
+              :disabled="!material_seleccionado || precio == '0'"
+              class="tw-rounded-lg tw-w-[200px] tw-h-[30px] tw-mt-8 tw-bg-black tw-text-white tw-px-4"
+              validate-on-blur
+              small
+              >Recalcular
+              <v-dialog v-model="dialog_guardar" max-width="290">
+                <v-card
+                  class="tw-py-4 tw-px-2 tw-flex tw-flex-col tw-align-center"
+                >
+                  <v-card-text
+                    class="tw-text-center tw-text-2xl"
+                    v-if="material_seleccionado"
+                  >
+                    ¿Está seguro/a que desea cambiar el precio del
+                    {{ material_seleccionado.nombre }}?
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                      depressed
+                      color="black"
+                      class="tw-text-white"
+                      @click="recalcularPrecio(), (dialog_guardar = false)"
                     >
-                      <v-card-text class="tw-text-center tw-text-2xl">
-                        ¿Está seguro/a que desea cambiar el precio del material?
-                      </v-card-text>
+                      Si, cambiar
+                    </v-btn>
 
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-
-                        <v-btn
-                          depressed
-                          color="black"
-                          class="tw-text-white"
-                          @click="recalcularPrecio(), dialog_guardar = false"
-                        >
-                          Si, cambiar
-                        </v-btn>
-
-                        <v-btn
-                          depressed
-                          color="yellow darken-1"
-                          class="tw-text-neutral-900"
-                          @click="dialog_guardar = false"
-                        >
-                          No, volver
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </v-btn>
-                <!-- BOTON PARA CAMBIAR PRECIO -->
-              </div>
-            </div>
-            <!-- CONTENIDO 1 TITULO, TEXT FIELD, BUTTON -->
-
-            <!-- CONTENIDO 2 TITULO Y MATERIAL SELECCIONADO-->
-            <div class="lg:tw-ml-4 tw-mt-4 lg:tw-mt-0 tw-py-8 lg:tw-py-0">
-              <span class="tw-block tw-font-bold">ÚLTIMO PRECIO</span>
-
-              <span v-if="material_seleccionado"
-                >{{ material_seleccionado.ultimo_precio }} pesos x kg</span
-              >
-            </div>
-            <!-- CONTENIDO 2 TEXTFIELD, BOTON, ULTIMO PRECIO-->
+                    <v-btn
+                      depressed
+                      color="yellow darken-1"
+                      class="tw-text-neutral-900"
+                      @click="dialog_guardar = false"
+                    >
+                      No, volver
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-btn>
+            <!-- BOTON PARA CAMBIAR PRECIO -->
           </div>
+          <!-- CONTENIDO 1 TITULO, TEXT FIELD, BUTTON -->
+
+          <!-- CONTENIDO 2 TITULO Y MATERIAL SELECCIONADO-->
+          <div class="tw-mt-4 tw-py-8 lg:tw-py-0" v-if="material_seleccionado">
+            <span class="tw-block tw-font-bold">ÚLTIMO PRECIO</span>
+
+            <span v-if="material_seleccionado"
+              >{{ material_seleccionado.ultimo_precio }} pesos x kg</span
+            >
+          </div>
+          <!-- CONTENIDO 2 TEXTFIELD, BOTON, ULTIMO PRECIO-->
         </div>
         <!-- CAJA 2 -->
       </div>
-      <span class="tw-block tw-text-3xl tw-mb-8 tw-font-bold"
+      <span
+        v-if="material_seleccionado"
+        class="tw-block tw-text-3xl tw-mb-8 tw-font-bold"
         >Listado de productos que contienen
-        <span class="tw-font-thin" v-if="material_seleccionado"
+        <span class="tw-font-thin"
           >"{{ material_seleccionado.nombre }}"</span
         ></span
       >
@@ -130,10 +124,6 @@
         <div v-if="productos.length > 0">
           <!--[TABLE HEADERS]-->
           <div class="tw-grid tw-grid-cols-12 tw-mb-4 tw-px-4">
-            <div class="tw-col-span-1">
-              <span class="tw-font-bold">Código</span>
-            </div>
-
             <div class="tw-col-span-7">
               <span class="tw-font-bold">Producto</span>
             </div>

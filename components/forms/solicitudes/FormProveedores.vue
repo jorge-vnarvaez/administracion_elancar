@@ -5,7 +5,7 @@
       <div>
         <span class="tw-font-bold tw-uppercase lg:tw-text-2xl">Proveedor</span>
         <span class="tw-block lg:tw-text-xl">
-          Indique el proveedor al cuál desea extender la solicitud de cotización
+          Seleccione el proveedor al cuál desea extender la solicitud de cotización
         </span>
       </div>
     </div>
@@ -50,6 +50,7 @@
             :key="proveedor.id"
             :value="proveedor.id"
             @click="proveedorSeleccionado(proveedor)"
+            hide-details
           >
           </v-radio>
         </v-radio-group>
@@ -85,14 +86,7 @@ import ProveedorTableItem from "@/components/utils/table_items/ProveedorTableIte
 
 export default {
   props: {
-    page: {
-      type: Number,
-      default: 1,
-    },
-    itemsPerPage: {
-      type: Number,
-      default: 10,
-    },
+
     proveedores: {
       type: Array,
       default: () => [],

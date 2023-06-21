@@ -205,7 +205,7 @@ export default {
         "fecha_emision",
         "cliente.*.*",
         "detalle.*.*",
-        "empresa.*.*",
+        "sucursal.*.*",
         "convertida"
       ],
     });
@@ -219,7 +219,7 @@ export default {
     this.detalleDocumento = this.cotizacion_cliente.detalle.map((item) => {
       return {
         ...item,
-        total: item.cantidad * item.productos_id.precio,
+        total: item.cantidad * item.productos_id.precio_neto,
       };
     });
 
@@ -230,15 +230,23 @@ export default {
       this.documento_convertido = true;
       this.dialog_convertir = false;
 
+      let total = this.detalleDocumento.reduce((acc, item) => {
+        return acc + item.total;
+      }, 0);
+
+      total += total * 0.19;
+
+
       const data = await this.$axios
         .post(`${this.$config.apiUrl}/items/notas_de_pedido`, {
+          usuario_emisor: this.$cookies.get("user_id"),
           fecha_emision: this.fecha_actual,
           hora_emision: this.hora_actual,
-          empresa: this.cotizacion_cliente.empresa.id,
+          sucursal: this.cotizacion_cliente.sucursal.id,
           cliente: this.cotizacion_cliente.cliente.id,
           forma_de_pago: this.cotizacion_cliente.forma_de_pago,
           detalle: this.$store.getters["cotizaciones/getDetalle"],
-          monto_total: this.total,
+          monto_total: total,
         })
         .then((res) => res.data.data);
 

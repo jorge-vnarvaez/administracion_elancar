@@ -1,116 +1,54 @@
 <template>
   <div>
     <!-- DESKTOP VIEW -->
-    <div
-      v-if="$vuetify.breakpoint.mobile ? false : true"
-      class="tw-grid tw-grid-cols-12"
-    >
+    <v-row :class="[index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100', 'tw-py-4 tw-px-4']">
       <!-- CODIGO -->
-      <div
-        :class="
-          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 lg:tw-col-span-2 tw-py-4 tw-px-4 '
-        "
-      >
+      <v-col cols="12" lg="1">
+        <span v-if="$vuetify.breakpoint.mobile" class="tw-font-bold">Código</span>
         {{ cotizacion_cliente.id }}
-      </div>
+      </v-col>
       <!-- CODIGO -->
 
       <!-- FECHA -->
-      <div
-        :class="
-          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 lg:tw-col-span-4 tw-py-4'
-        "
-      >
+      <v-col cols="6" lg="4">
+        <span v-if="$vuetify.breakpoint.mobile" class="tw-font-bold">Fecha</span>
         {{ formatearFecha(cotizacion_cliente.fecha_emision) }}
-      </div>
+      </v-col>
       <!-- FECHA -->
 
       <!-- HORA -->
-      <div
-        :class="
-          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 lg:tw-col-span-2 tw-py-4'
-        "
-      >
+      <v-col cols="6" lg="2">
+        <span v-if="$vuetify.breakpoint.mobile" class="tw-font-bold">Hora</span>
         {{ cotizacion_cliente.hora_emision }}
-      </div>
+      </v-col>
       <!-- HORA -->
 
       <!-- CONVERTIDA -->
-      <div
-        :class="
-          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 lg:tw-col-span-2 tw-py-4'
-        "
-      >
+      <v-col cols="6" lg="2">
+        <span v-if="$vuetify.breakpoint.mobile" class="tw-font-bold">Convertida</span>
         <v-icon v-if="cotizacion_cliente.convertida" color="green darken-1">mdi-check-bold</v-icon>
         <v-icon v-if="!cotizacion_cliente.convertida" color="red darken-1">mdi-close-thick</v-icon>
-      </div>
+      </v-col>
       <!-- CONVERTIDA -->
 
       <!-- ARCHIVOS -->
-      <div
-        :class="
-          `${index % 2 == 0 ? 'tw-bg-white' : 'tw-bg-neutral-100'}` +
-          ' tw-col-span-6 tw-flex lg:tw-col-span-2 tw-py-4 tw-space-x-2'
-        "
-      >
+      <v-col cols="6" lg="3" class="tw-flex tw-space-x-4">
         <IconoVer
           tipoDocumento="Cotizacion"
           path="/cotizaciones"
           :idDocumento="cotizacion_cliente.id"
         />
         <PdfMaker
+          v-if="!$vuetify.breakpoint.mobile"
           tipoDocumento="Cotizacion"
           :idDocumento="cotizacion_cliente.id"
           item="cotizaciones_clientes"
           :labels="labels"
         />
-      </div>
+      </v-col>
       <!-- ARCHIVOS -->
-    </div>
+    </v-row>
     <!--DESKTOP VIEW -->
-
-    <!--MOBILE VIEW -->
-    <div v-if="$vuetify.breakpoint.mobile ? true : false">
-      <div class="tw-bg-white tw-my-4 tw-px-4 tw-py-2 tw-text-sm">
-        <div class="tw-flex tw-justify-between">
-          <div class="tw-flex tw-flex-col">
-            <span class="tw-font-bold">Cotización</span>
-            <span>#{{ cotizacion_cliente.id }}</span>
-          </div>
-          <span class="tw-block tw-w-[120px] tw-text-right">{{
-            formatearFecha(cotizacion_cliente.fecha_emision)
-          }}</span>
-        </div>
-
-        <v-divider class="tw-mt-2"></v-divider>
-
-        <div class="tw-mt-4" v-if="cotizacion_cliente.cliente">
-          <div
-            class="tw-bg-neutral-100 tw-col-span-6 lg:tw-col-span-2 tw-py-2 tw-px-4 tw-flex tw-justify-between"
-          >
-            <span class="tw-font-light">Cliente: </span
-            ><span class="tw-font-bold"
-              >{{ cotizacion_cliente.cliente.primer_nombre }}
-              {{ cotizacion_cliente.cliente.apellido_paterno }}</span
-            >
-          </div>
-        </div>
-
-        <div class="tw-mt-4 tw-flex tw-justify-between">
-          <span class="tw-block tw-font-bold tw-w-[40px]"> Visualizar </span>
-          <IconoVer
-            tipoDocumento="Cotización"
-            path="/cotizaciones"
-            :idDocumento="cotizacion_cliente.id"
-          />
-        </div>
-      </div>
-    </div>
-    <!--END MOBILE VIEW -->
   </div>
 </template>
 

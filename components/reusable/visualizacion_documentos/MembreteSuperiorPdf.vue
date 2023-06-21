@@ -5,17 +5,17 @@
       <!--LOGO ELANCAR -->
       <div class="tw-flex tw-flex-col lg:tw-flex-row lg:align-center lg:tw-space-x-4">
         <IconoElancar />
-        <DatosEmpresa v-if="infoDocumento" :empresa="infoDocumento.empresa"  />
+        <DatosEmpresa v-if="infoDocumento" :empresa="infoDocumento.sucursal"  />
         <DatosEmpresa v-if="is_creando" :empresa="empresa"  />
       </div>
 
 
       <!--LOGO ELANCAR -->
 
-      <div class="tw-flex tw-flex-col align-start">
+      <div class="tw-flex tw-flex-col align-start"  v-if="infoDocumento">
         <!--TIPO DE DOCUMENTO -->
-        <div class="tw-text-sm lg:tw-text-xl tw-font-bold">
-          <span>{{ tipoDocumento }}</span> <span v-if="infoDocumento">#{{ infoDocumento.id }}</span>
+        <div class="tw-text-sm lg:tw-text-xl tw-font-bold" v-if="infoDocumento.id">
+          <span>{{ tipoDocumento }}</span> <span>#{{ infoDocumento.id }}</span>
         </div>
         <!--TIPO DE DOCUMENTO -->
 

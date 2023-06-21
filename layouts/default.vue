@@ -8,11 +8,19 @@
 
 <script>
 import BarraAppMobile from "@/layouts/BarraAppMobile.vue";
-import BarraApp from "../layouts/BarraApp.vue";
+import BarraApp from "@/layouts/BarraApp.vue";
 
 export default {
   components: { BarraAppMobile, BarraApp },
+  middleware: ["refresh"],
   mounted() {
+
+    this.$store.dispatch('session/current')
+
+    // Obtiene el rol del usuario actual de las cookies y lo guarda en el store
+    const rol = this.$cookies.get("user_role") || "";
+    this.$store.dispatch("session/setCurrentRole", rol);
+
     // Obtiene el carro de compras actual de las cookies y lo guarda en el store
     const carro = this.$cookies.get("carroCompras") || [];
     this.$store.dispatch("carro_compras/setCarro", carro);
@@ -45,6 +53,11 @@ export default {
     const receptor = this.$cookies.get("currentReceptor") || {};
     this.$store.dispatch("carro_solicitudes/setReceptorCurrentProveedor", receptor);
   },
+  computed: {
+    usuario() {
+      return this.$store.getters["session/getUser"];
+    },
+  }
 };
 </script>
 

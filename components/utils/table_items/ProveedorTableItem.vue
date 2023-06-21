@@ -11,7 +11,7 @@
     <div
       class="tw-col-span-6 lg:tw-col-span-5 tw-px-4 tw-flex align-center lg:tw-px-4"
     >
-      {{ proveedor.nombre }}
+      {{ proveedor.nombre_comercial }}
     </div>
     <!-- NOMBRE -->
 
@@ -31,7 +31,7 @@
         {{ proveedor.casa_matriz.comuna }}
       </span>
 
-      <span v-if="!proveedor.casa_matriz"> No tiene casa matriz </span>
+      <span v-if="!proveedor.casa_matriz">No tiene casa matriz.</span>
     </div>
     <!-- CASA MATRIZ -->
   </div>

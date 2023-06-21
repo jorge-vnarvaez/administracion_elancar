@@ -201,7 +201,7 @@ export default {
         fecha_emision: this.fecha_actual,
         hora_emision: this.hora_actual,
         cliente: this.info_despacho.datos_cliente.id,
-        empresa: this.empresa.id,
+        sucursal: this.sucursal.id,
         detalle: this.carro_de_compra.map((producto) => {
           return {
             productos_id: producto.id,
@@ -250,7 +250,7 @@ export default {
     hora_actual() {
       return moment().format("HH:mm");
     },
-    empresa() {
+    sucursal() {
       return this.$store.getters["sucursal/getSucursal"];
     },
   },
